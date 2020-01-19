@@ -1,3 +1,4 @@
+use ::rustfmt;
 use proc_macro2::TokenStream;
 use quote::format_ident;
 use quote::quote;
@@ -11,7 +12,6 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::iter;
 use string_morph::*;
-use ::rustfmt;
 
 #[derive(Debug, Clone, PartialEq, PartialOrd, Eq, Ord)]
 enum FieldDef {
@@ -31,12 +31,8 @@ impl FieldDef {
 
         let label = string_morph::to_upper_first(&label.trim()).to_string();
         if label == "countryCode" {
-            FieldDef::Object(
-                label,
-                Some("County".to_string())
-            )
-        }
-        else if type_def == "enum" {
+            FieldDef::Object(label, Some("Country".to_string()))
+        } else if type_def == "enum" {
             FieldDef::Enum(
                 label,
                 description
@@ -106,7 +102,11 @@ impl FieldDef {
                         &description,
                     )
                 } else {
-                    Ok(Self::handle_primitive(&label.trim(), type_def, description))
+                    Ok(Self::handle_primitive(
+                        &label.trim(),
+                        type_def,
+                        description,
+                    ))
                 }
             }
             Node::Element(_) => {
@@ -114,7 +114,8 @@ impl FieldDef {
                     .children()
                     .filter_map(|x| x.value().as_text())
                     .next()
-                    .unwrap().trim();
+                    .unwrap()
+                    .trim();
                 Self::handle_complex(
                     label,
                     &type_def,
@@ -154,7 +155,9 @@ impl FieldDef {
         field_type: &String,
     ) -> TokenStream {
         let var_type = if field_type.starts_with("#") {
-            let struct_def = parser.modules.iter()
+            let struct_def = parser
+                .modules
+                .iter()
                 .flat_map(|x| x.structs_by_id.get(field_type))
                 .next()
                 .expect(&format!("Can't find field {}", field_type));
@@ -179,16 +182,19 @@ impl FieldDef {
     ) -> TokenStream {
         //let var_type = format_ident!("{}", field_type);
         let var_type = if field_type.starts_with("#") {
-            let struct_def = parser.modules.iter()
+            let struct_def = parser
+                .modules
+                .iter()
                 .flat_map(|x| x.structs_by_id.get(field_type))
                 .next()
                 .expect(&format!("Can't find field {}", field_type));
-            
+
             format_ident!("{}", struct_def.source_name())
         } else {
             format_ident!("{}", field_type)
         };
-        let var_name = format_ident!("field_{}", string_morph::to_snake_case(name));
+        let var_name =
+            format_ident!("field_{}", string_morph::to_snake_case(name));
         quote! {
             #var_name: #var_type
         }
@@ -200,9 +206,11 @@ impl FieldDef {
         name: &String,
         values: &Vec<String>,
     ) -> TokenStream {
-        let var_type = format_ident!("{}Enum", string_morph::to_upper_first(name));
-        let var_name = format_ident!("field_{}", string_morph::to_snake_case(name));
-        quote!{
+        let var_type =
+            format_ident!("{}Enum", string_morph::to_upper_first(name));
+        let var_name =
+            format_ident!("field_{}", string_morph::to_snake_case(name));
+        quote! {
             #var_name: #var_type
         }
     }
@@ -222,7 +230,8 @@ impl FieldDef {
             "dateTime" => "DateTime<Utc>",
             _ => panic!("Unknown type: {}", field_type),
         };
-        let var_name = format_ident!("field_{}", string_morph::to_snake_case(name));
+        let var_name =
+            format_ident!("field_{}", string_morph::to_snake_case(name));
         let type_stream: proc_macro2::TokenStream = var_type.parse().unwrap();
         quote! {
             #var_name: #type_stream
@@ -233,20 +242,24 @@ impl FieldDef {
         match self {
             Self::Enum(name, values) => {
                 if name.as_str() == "countryCode" {
-                    return quote!{};
+                    return quote! {};
                 }
                 let name = format_ident!("{}Enum", name);
-                let values = values.iter()
-                    .map(|x| format_ident!("{}", string_morph::to_upper_first(x))).collect::<Vec<_>>();
+                let values = values
+                    .iter()
+                    .map(|x| {
+                        format_ident!("{}", string_morph::to_upper_first(x))
+                    })
+                    .collect::<Vec<_>>();
 
-                quote!{
+                quote! {
                     #[derive(Debug, Clone, PartialEq)]
                     enum #name {
                         #(#values,)*
                     }
                 }
             }
-            _ => panic!()
+            _ => panic!(),
         }
     }
 
@@ -268,11 +281,13 @@ impl FieldDef {
                 myType.push_str("Details");
                 self.generate_object(parser, name, &myType)
             }
-            Self::Enum(name, values) => self.generate_enum(parser, name, values),
+            Self::Enum(name, values) => {
+                self.generate_enum(parser, name, values)
+            }
             Self::Primitive(name, field_type) => {
                 self.generate_primitive(parser, name, field_type)
             }
-            _ => panic!("unhandled: {:?}", self)
+            _ => panic!("unhandled: {:?}", self),
         };
 
         quote! {
@@ -362,7 +377,8 @@ impl ModuleDef {
         for elem in iter {
             match elem.value().name() {
                 "h1" | "h2" => {
-                    let text = elem.text().collect::<String>().trim().to_string();
+                    let text =
+                        elem.text().collect::<String>().trim().to_string();
                     println!("{:?}", text);
                     name = Some(if text.starts_with("Object") {
                         text[6..].to_string()
@@ -385,7 +401,11 @@ impl ModuleDef {
                             if elem.value().name() != "strong" {
                                 continue;
                             }
-                            let text = elem.text().collect::<String>().trim().to_string();
+                            let text = elem
+                                .text()
+                                .collect::<String>()
+                                .trim()
+                                .to_string();
                             println!("{:?}", text);
                             name = Some(if text.starts_with("Object") {
                                 text[6..].to_string()
@@ -406,8 +426,7 @@ impl ModuleDef {
                             id.map(str::to_string),
                         );
                         struct_def.parse(elem);
-                        self.structs
-                            .push(struct_def.clone());
+                        self.structs.push(struct_def.clone());
                         if let Some(id) = id {
                             let id = format!("#{}", id);
                             self.structs_by_id.insert(id, struct_def);
@@ -428,15 +447,20 @@ impl ModuleDef {
             .iter()
             .map(|x| x.generate(parser))
             .collect::<Vec<_>>();
-        let mut enums = self.structs.iter().flat_map(|x| x.fields.iter())
+        let mut enums = self
+            .structs
+            .iter()
+            .flat_map(|x| x.fields.iter())
             .collect::<Vec<_>>();
         enums.sort();
         enums.dedup();
-        let enums = enums.iter()
+        let enums = enums
+            .iter()
             .filter_map(|x| match x {
                 FieldDef::Enum(_, _) => Some(x.get_enum_def()),
                 _ => None,
-            }).collect::<Vec<_>>();
+            })
+            .collect::<Vec<_>>();
         quote! {
             mod #identifier {
                 use uuid::Uuid;
@@ -531,15 +555,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     parser.parse(&document)?;
     let source = rustfmt::Input::Text(parser.generate());
     let mut out: Vec<u8> = Vec::new();
-    let result = rustfmt::format_input(source, &Default::default(), Some(&mut out));
+    let result =
+        rustfmt::format_input(source, &Default::default(), Some(&mut out));
     let src = &result.unwrap().1[0].1;
 
-    let mut file = File::create("src/lib.rs")?;
-    let content = src.chars().map(|(c, _)| c).collect::<String>();
-    file.write_all(content.as_bytes())?;
-
-
-
+    //let mut file = File::create("src/lib.rs")?;
+    //let content = src.chars().map(|(c, _)| c).collect::<String>();
+    //file.write_all(content.as_bytes())?;
 
     Ok(())
 }
