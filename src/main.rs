@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use lexoffice::client::Client;
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
@@ -6,6 +6,7 @@ use std::io::prelude::*;
 fn get_api_key_from_env() -> Result<String, std::env::VarError> {
     env::var("LEXOFFICE_KEY")
 }
+
 fn get_api_key_from_file(
     home: &str,
 ) -> Result<String, Box<dyn std::error::Error>> {
@@ -31,17 +32,14 @@ fn get_api_key() -> Result<String, Box<dyn std::error::Error>> {
     return Err("failed to load API Key".into());
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let key = get_api_key()?;
     println!("{:?}", get_api_key());
 
-    let client = reqwest::blocking::Client::new();
+    let client = Client::create(&key)?;
 
-    let resp = client
-        .get("https://api.lexoffice.io/v1/profile")
-        .bearer_auth(&key)
-        .send()?
-        .text()?;
-    println!("{}", resp);
+    let resp = client.get::<lexoffice::data::profile::Profile>().await?;
+    println!("{:?}", resp);
     Ok(())
 }
