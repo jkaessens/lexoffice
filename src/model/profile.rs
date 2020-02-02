@@ -1,4 +1,3 @@
-use crate::resource::{Resource, SimpleResource};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -27,9 +26,3 @@ pub struct CreatedDetails {
     user_email: String,
     date: String,
 }
-
-impl Resource for Profile {
-    const BASE_PATH: &'static str = "profile";
-}
-
-impl SimpleResource for Profile {}

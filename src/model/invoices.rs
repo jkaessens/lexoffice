@@ -1,4 +1,3 @@
-use crate::resource::{Resource, ItemsResource};
 use celes::Country;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
@@ -72,12 +71,6 @@ pub struct Invoice {
     remark: String,
     files: FilesDetails,
 }
-
-impl Resource for Invoice {
-    const BASE_PATH: &'static str = "invoices";
-}
-
-impl ItemsResource for Invoice {}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

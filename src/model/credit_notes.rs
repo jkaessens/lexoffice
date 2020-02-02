@@ -1,4 +1,3 @@
-use crate::resource::{ItemsResource, Resource};
 use celes::Country;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
@@ -60,13 +59,6 @@ pub struct CreditNote {
     remark: String,
     files: FilesDetails,
 }
-
-impl Resource for CreditNote {
-    const BASE_PATH: &'static str = "credit-notes";
-}
-impl ItemsResource for CreditNote {
-}
-
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

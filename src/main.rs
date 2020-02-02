@@ -5,7 +5,7 @@ use std::io::prelude::*;
 
 fn get_api_key_from_env() -> Result<String, std::env::VarError> {
     env::var("LEXOFFICE_KEY")
-}
+}                                                                      
 
 fn get_api_key_from_file(
     home: &str,
@@ -19,7 +19,7 @@ fn get_api_key_from_file(
     let key = contents.trim().to_string();
     return Ok(key);
 }
-
+                   
 fn get_api_key() -> Result<String, Box<dyn std::error::Error>> {
     match get_api_key_from_env() {
         Ok(val) => return Ok(val),
@@ -37,9 +37,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let key = get_api_key()?;
     println!("{:?}", get_api_key());
 
-    let client = Client::create(&key)?;
+    let client = Client::new(&key);
 
-    let resp = client.get::<lexoffice::data::profile::Profile>().await?;
-    println!("{:?}", resp);
+    let resp = Resource:Profile>::new();
+    //let resp = client.get::<lexoffice::data::profile::Profile>().await?;
+    //println!("{:?}", resp);
     Ok(())
 }

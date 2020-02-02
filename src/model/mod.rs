@@ -1,4 +1,6 @@
-pub mod common;
+pub mod page;
+pub mod server_resource;
+
 pub mod contacts;
 pub mod credit_notes;
 pub mod event_subscriptions;

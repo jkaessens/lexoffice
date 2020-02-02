@@ -1,4 +1,3 @@
-use crate::resource::{PaginatedResource, Resource, ItemsResource};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -23,14 +22,6 @@ pub struct Contact {
     phone_numbers: PhoneNumbersDetails,
     note: Option<String>,
     archived: Option<bool>,
-}
-
-impl Resource for Contact {
-    const BASE_PATH: &'static str = "contacts";
-}
-impl ItemsResource for Contact {
-}
-impl PaginatedResource for Contact {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
