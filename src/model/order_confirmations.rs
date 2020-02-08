@@ -44,7 +44,7 @@ enum VoucherStatusEnum {
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct OrderConfirmations {
+pub struct OrderConfirmation {
     id: Option<Uuid>,
     organization_id: Uuid,
     created_date: DateTime<Utc>,

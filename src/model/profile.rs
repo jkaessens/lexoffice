@@ -11,7 +11,6 @@ enum TaxTypeEnum {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Profile {
-    organization_id: Uuid,
     company_name: String,
     created: CreatedDetails,
     connection_id: Uuid,

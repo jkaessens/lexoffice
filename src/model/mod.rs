@@ -8,4 +8,4 @@ pub mod invoices;
 pub mod order_confirmations;
 pub mod profile;
 pub mod quotations;
-pub mod voucherlist;
+pub mod voucher_list;

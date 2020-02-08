@@ -29,7 +29,7 @@ enum VoucherTypeEnum {
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Voucherlist {
+pub struct VoucherList {
     id: Option<Uuid>,
     voucher_type: VoucherTypeEnum,
     voucher_status: VoucherStatusEnum,

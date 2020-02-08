@@ -1,14 +1,14 @@
 use chrono::{DateTime, Utc};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use std::ops::Deref;
 use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ServerResource<T> {
-    id: Uuid,
+    id: Option<Uuid>,
     organization_id: Uuid,
-    version: u64,
+    version: Option<u64>,
     archived: Option<bool>,
 
     #[serde(flatten)]
@@ -29,5 +29,5 @@ impl<T> Deref for ServerResource<T> {
 #[serde(rename_all = "camelCase")]
 pub struct ModificationInfo {
     created_date: DateTime<Utc>,
-    updated_date: DateTime<Utc>,
+    updated_date: Option<DateTime<Utc>>,
 }
