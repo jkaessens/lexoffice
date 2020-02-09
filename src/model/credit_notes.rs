@@ -4,12 +4,12 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 enum CurrencyEnum {
     EUR,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 enum TaxTypeEnum {
     Net,
     Gross,
@@ -21,7 +21,7 @@ enum TaxTypeEnum {
     ThirdPartyCountryDelivery,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 enum TypeEnum {
     Service,
     Material,
@@ -29,7 +29,7 @@ enum TypeEnum {
     Text,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 enum VoucherStatusEnum {
     Draft,
     Open,
@@ -37,7 +37,7 @@ enum VoucherStatusEnum {
     Voided,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreditNote {
     id: Option<Uuid>,
     organization_id: Uuid,
@@ -61,7 +61,7 @@ pub struct CreditNote {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddressDetails {
     contact_id: Uuid,
     name: String,
@@ -72,7 +72,7 @@ pub struct AddressDetails {
     country_code: Country,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LineItemsDetails {
     id: Option<Uuid>,
     r#type: TypeEnum,
@@ -84,7 +84,7 @@ pub struct LineItemsDetails {
     line_item_amount: f64,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct UnitPriceDetails {
     currency: CurrencyEnum,
     net_amount: f64,
@@ -92,7 +92,7 @@ pub struct UnitPriceDetails {
     tax_rate_percentage: f64,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TotalPriceDetails {
     currency: String,
     total_net_amount: f64,
@@ -102,20 +102,20 @@ pub struct TotalPriceDetails {
     total_discount_percentage: f64,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxAmountsDetails {
     tax_rate_percentage: f64,
     tax_amount: f64,
     net_amount: f64,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxConditionsDetails {
     tax_type: TaxTypeEnum,
     tax_type_note: String,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct FilesDetails {
     document_file_id: Uuid,
 }

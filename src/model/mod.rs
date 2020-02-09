@@ -9,3 +9,14 @@ pub mod order_confirmations;
 pub mod profile;
 pub mod quotations;
 pub mod voucher_list;
+
+pub use page::Page;
+pub use server_resource::ServerResource;
+pub use contacts::Contact;
+pub use credit_notes::CreditNote;
+pub use event_subscriptions::EventSubscription;
+pub use invoices::Invoice;
+pub use order_confirmations::OrderConfirmation;
+pub use profile::Profile;
+pub use quotations::Quotation;
+pub use voucher_list::VoucherList;

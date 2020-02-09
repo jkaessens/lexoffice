@@ -2,7 +2,7 @@ use crate::model::server_resource::ServerResource;
 use serde::Deserialize;
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Page<T> {
     pub content: Vec<ServerResource<T>>,
     #[serde(default = "default_true")]

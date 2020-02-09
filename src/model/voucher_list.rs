@@ -3,13 +3,13 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+//#[serde(deny_unknown_fields, rename_all = "camelCase")]
 enum CurrencyEnum {
     EUR,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-enum VoucherStatusEnum {
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub enum VoucherStatusEnum {
     Draft,
     Open,
     Paid,
@@ -20,17 +20,16 @@ enum VoucherStatusEnum {
     Rejected,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-enum VoucherTypeEnum {
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub enum VoucherTypeEnum {
     Invoice,
     Creditnote,
     Orderconfirmation,
     Quotation,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct VoucherList {
-    id: Option<Uuid>,
     voucher_type: VoucherTypeEnum,
     voucher_status: VoucherStatusEnum,
     voucher_number: String,
