@@ -39,11 +39,9 @@ enum VoucherStatusEnum {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreditNote {
-    id: Option<Uuid>,
     organization_id: Uuid,
     created_date: DateTime<Utc>,
     updated_date: DateTime<Utc>,
-    version: i64,
     language: String,
     archived: bool,
     voucher_status: VoucherStatusEnum,

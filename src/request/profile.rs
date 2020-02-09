@@ -1,4 +1,4 @@
-use crate::model::profile::Profile;
+use crate::model::Profile;
 use crate::request::Simple;
 use crate::request::Request;
 use crate::request::Endpoint;
@@ -7,7 +7,7 @@ use crate::request::Endpoint;
 ///
 /// ``` no_run
 /// use lexoffice::client::{ Client, ApiKey };
-/// use lexoffice::model::profile::Profile;
+/// use lexoffice::model::Profile;
 /// use lexoffice::request::Simple;
 /// 
 /// # use std::error::Error;

@@ -1,4 +1,3 @@
-use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::ops::Deref;
 use uuid::Uuid;
@@ -10,13 +9,13 @@ pub struct ServerResource<T> {
     version: Option<u64>,
 
     #[serde(flatten)]
-    value: T,
+    inner: T,
 }
 
 impl<T> Deref for ServerResource<T> {
     type Target = T;
 
     fn deref(&self) -> &Self::Target {
-        &self.value
+        &self.inner
     }
 }

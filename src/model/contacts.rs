@@ -10,7 +10,6 @@ enum SalutationEnum {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Contact {
-    version: Option<i64>,
     roles: RolesDetails,
     company: CompanyDetails,
     person: Option<PersonDetails>,

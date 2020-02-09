@@ -1,17 +1,23 @@
 mod contacts;
+mod credit_notes;
+mod event_subscriptions;
+mod invoices;
+mod order_confirmations;
 mod profile;
+pub mod voucher_list;
+mod quotations;
 
-use std::sync::Arc;
 use crate::client::RequestBuilder;
-use crate::model::page::Page;
 use crate::model::server_resource::ServerResource;
+use crate::model::Page;
 use async_trait::async_trait;
 use serde::de::DeserializeOwned;
 use std::error::Error;
 use std::marker::PhantomData;
-use url::Url;
-use uuid::Uuid;
 use std::str::FromStr;
+use std::sync::Arc;
+use reqwest::Url;
+use uuid::Uuid;
 
 #[derive(Clone, Debug)]
 pub struct Request<T> {
@@ -31,7 +37,7 @@ impl<T> Request<T> {
     }
 }
 
-impl<T> Requestable<T> for Request<T>
+impl<T> Requestable for Request<T>
 where
     Self: Endpoint,
 {
@@ -49,7 +55,7 @@ pub trait Endpoint {
     const ENDPOINT: &'static str;
 }
 
-pub trait Requestable<T>
+pub trait Requestable
 where
     Self: Sized,
 {
@@ -58,17 +64,17 @@ where
 }
 
 #[async_trait]
-pub trait Storable<T>: Requestable<T>
+pub trait Storable<T>
 where
-    Self: Sized,
+    Self: Requestable,
 {
-    async fn save(self) -> Result<T, Box<dyn Error>>;
+    async fn save(self) -> Result<ServerResource<T>, Box<dyn Error>>;
 }
 
 #[async_trait]
-pub trait Simple<T>: Requestable<T>
+pub trait Simple<T>
 where
-    Self: Endpoint,
+    Self: Requestable,
     T: DeserializeOwned,
 {
     async fn get(self) -> Result<ServerResource<T>, Box<dyn Error>>
@@ -82,9 +88,9 @@ where
 }
 
 #[async_trait]
-pub trait Paginated<T>: Requestable<T>
+pub trait Paginated<T>
 where
-    Self: Sized,
+    Self: Requestable + Sized,
     T: DeserializeOwned,
 {
     async fn page_size(
@@ -104,16 +110,12 @@ where
         Ok(builder.json(&url).await?)
     }
 
-    async fn page(
-        self,
-        page: usize,
-    ) -> Result<Page<T>, Box<dyn Error>>
+    async fn page(self, page: usize) -> Result<Page<T>, Box<dyn Error>>
     where
         T: 'async_trait,
     {
         let mut url = self.url();
-        url.query_pairs_mut()
-            .append_pair("page", &page.to_string());
+        url.query_pairs_mut().append_pair("page", &page.to_string());
 
         let builder = self.builder();
         Ok(builder.json(&url).await?)
@@ -121,9 +123,10 @@ where
 }
 
 #[async_trait]
-pub trait ById<T>: Requestable<T>
+pub trait ById<T>
 where
     T: DeserializeOwned,
+    Self: Sized + Requestable,
 {
     fn by_id_url<I>(&self, uuid: I) -> Result<Url, Box<dyn Error>>
     where
@@ -151,7 +154,7 @@ where
     async fn by_id<I>(
         self,
         uuid: I,
-    ) -> Result<ServerResource<T>, Box<dyn Error>>
+    ) -> Result<T, Box<dyn Error>>
     where
         T: 'async_trait,
         I: Into<Uuid> + Send + Sync,

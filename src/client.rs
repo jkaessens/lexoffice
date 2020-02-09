@@ -1,12 +1,12 @@
-use std::sync::Arc;
 use crate::request::Request;
 use reqwest::Method;
 use reqwest::Url;
 use serde::de::DeserializeOwned;
 use std::env;
 use std::error::Error;
-use std::path::PathBuf;
 use std::path::Path;
+use std::path::PathBuf;
+use std::sync::Arc;
 use tokio::fs::read_to_string;
 
 static USER_AGENT: &str = concat!(
@@ -45,7 +45,7 @@ impl ApiKey {
 
                 Self::from_file(&file_name).await
             }
-            None => Err("HOME is not set".into())
+            None => Err("HOME is not set".into()),
         }
     }
 
@@ -97,7 +97,13 @@ impl RequestBuilder {
         T: DeserializeOwned,
         U: Into<Url> + Clone,
     {
-        Ok(self.request(Method::GET, url).send().await?.json().await?)
+        Ok(self
+            .request(Method::GET, url)
+            .send()
+            .await?
+            .error_for_status()?
+            .json()
+            .await?)
     }
 }
 
@@ -119,7 +125,7 @@ impl Client {
                 base_url,
                 http_client,
                 api_key,
-            })
+            }),
         }
     }
 
