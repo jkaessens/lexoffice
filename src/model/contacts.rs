@@ -1,3 +1,4 @@
+use uuid::Uuid;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -10,6 +11,7 @@ enum SalutationEnum {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Contact {
+    organization_id: Uuid,
     roles: RolesDetails,
     company: CompanyDetails,
     person: Option<PersonDetails>,
