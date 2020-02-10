@@ -98,6 +98,7 @@ impl RequestBuilder {
         Ok(self.request(Method::GET, url).send().await?.json().await?)
     }
 }
+
 #[derive(Debug, Clone)]
 pub struct Client {
     request_builder: Arc<RequestBuilder>,

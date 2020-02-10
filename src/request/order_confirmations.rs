@@ -1,7 +1,7 @@
 use crate::model::OrderConfirmation;
 use crate::request::ById;
-use crate::request::Request;
 use crate::request::Endpoint;
+use crate::request::Request;
 
 /// # Examples
 ///
@@ -9,7 +9,7 @@ use crate::request::Endpoint;
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::OrderConfirmation;
 /// use lexoffice::request::ById;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -21,8 +21,7 @@ use crate::request::Endpoint;
 /// # }
 /// ```
 ///
-impl ById<OrderConfirmation> for Request<OrderConfirmation> {
-}
+impl ById<OrderConfirmation> for Request<OrderConfirmation> {}
 
 impl Endpoint for Request<OrderConfirmation> {
     const ENDPOINT: &'static str = "order-confirmations";

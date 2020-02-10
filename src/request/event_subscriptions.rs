@@ -1,8 +1,8 @@
 use crate::model::EventSubscription;
 use crate::request::ById;
+use crate::request::Endpoint;
 use crate::request::Paginated;
 use crate::request::Request;
-use crate::request::Endpoint;
 
 /// # Examples
 ///
@@ -10,7 +10,7 @@ use crate::request::Endpoint;
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::EventSubscription;
 /// use lexoffice::request::ById;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -22,8 +22,7 @@ use crate::request::Endpoint;
 /// # }
 /// ```
 ///
-impl ById<EventSubscription> for Request<EventSubscription> {
-}
+impl ById<EventSubscription> for Request<EventSubscription> {}
 
 /// # Examples
 ///
@@ -31,7 +30,7 @@ impl ById<EventSubscription> for Request<EventSubscription> {
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::EventSubscription;
 /// use lexoffice::request::Paginated;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -42,8 +41,7 @@ impl ById<EventSubscription> for Request<EventSubscription> {
 /// # }
 /// ```
 ///
-impl Paginated<EventSubscription> for Request<EventSubscription> {
-}
+impl Paginated<EventSubscription> for Request<EventSubscription> {}
 
 impl Endpoint for Request<EventSubscription> {
     const ENDPOINT: &'static str = "event-subscriptions";

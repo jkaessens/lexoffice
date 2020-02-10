@@ -1,8 +1,8 @@
 use crate::model::CreditNote;
 use crate::request::ById;
+use crate::request::Endpoint;
 use crate::request::Paginated;
 use crate::request::Request;
-use crate::request::Endpoint;
 
 /// # Examples
 ///
@@ -10,7 +10,7 @@ use crate::request::Endpoint;
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::CreditNote;
 /// use lexoffice::request::ById;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -22,8 +22,7 @@ use crate::request::Endpoint;
 /// # }
 /// ```
 ///
-impl ById<CreditNote> for Request<CreditNote> {
-}
+impl ById<CreditNote> for Request<CreditNote> {}
 
 /// # Examples
 ///
@@ -31,7 +30,7 @@ impl ById<CreditNote> for Request<CreditNote> {
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::CreditNote;
 /// use lexoffice::request::Paginated;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -42,8 +41,7 @@ impl ById<CreditNote> for Request<CreditNote> {
 /// # }
 /// ```
 ///
-impl Paginated<CreditNote> for Request<CreditNote> {
-}
+impl Paginated<CreditNote> for Request<CreditNote> {}
 
 impl Endpoint for Request<CreditNote> {
     const ENDPOINT: &'static str = "credit-notes";

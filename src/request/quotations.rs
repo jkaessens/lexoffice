@@ -1,8 +1,8 @@
 use crate::model::Quotation;
 use crate::request::ById;
+use crate::request::Endpoint;
 use crate::request::Paginated;
 use crate::request::Request;
-use crate::request::Endpoint;
 
 /// # Examples
 ///
@@ -10,7 +10,7 @@ use crate::request::Endpoint;
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::Quotation;
 /// use lexoffice::request::ById;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -22,8 +22,7 @@ use crate::request::Endpoint;
 /// # }
 /// ```
 ///
-impl ById<Quotation> for Request<Quotation> {
-}
+impl ById<Quotation> for Request<Quotation> {}
 
 /// # Examples
 ///
@@ -31,7 +30,7 @@ impl ById<Quotation> for Request<Quotation> {
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::Quotation;
 /// use lexoffice::request::Paginated;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -42,8 +41,7 @@ impl ById<Quotation> for Request<Quotation> {
 /// # }
 /// ```
 ///
-impl Paginated<Quotation> for Request<Quotation> {
-}
+impl Paginated<Quotation> for Request<Quotation> {}
 
 impl Endpoint for Request<Quotation> {
     const ENDPOINT: &'static str = "quotations";

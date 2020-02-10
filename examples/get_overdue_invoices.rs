@@ -1,17 +1,19 @@
 use lexoffice::client::{ApiKey, Client};
-use lexoffice::model::VoucherList;
 use lexoffice::model::voucher_list::*;
+use lexoffice::model::VoucherList;
+use lexoffice::request::voucher_list::*;
 use lexoffice::request::Paginated;
 use tokio::stream::StreamExt;
-use lexoffice::request::voucher_list::*;
 
 use std::error::Error;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let client = Client::new(ApiKey::try_default().await?);
-    let mut voucher_list = client.request::<VoucherList>()
+    let mut voucher_list = client
+        .request::<VoucherList>()
         .voucher_type(VoucherTypeEnum::Invoice)
-        .voucher_status(VoucherStatusEnum::Open).stream();
+        .voucher_status(VoucherStatusEnum::Open)
+        .stream();
 
     while let Some(voucher) = voucher_list.next().await {
         let voucher = voucher?;

@@ -1,6 +1,6 @@
+use derive_more::Display;
 use reqwest::StatusCode;
 use serde::Deserialize;
-use derive_more::Display;
 
 #[derive(Debug, Deserialize, Display)]
 pub struct JsonMessage {

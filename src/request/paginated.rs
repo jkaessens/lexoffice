@@ -1,6 +1,7 @@
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
 use crate::request::Requestable;
+use crate::Result;
 use async_trait::async_trait;
 use futures::stream::Stream;
 use serde::de::DeserializeOwned;
@@ -11,7 +12,6 @@ use std::pin::Pin;
 use std::task::Context;
 use std::task::Poll;
 use std::vec::IntoIter;
-use crate::Result;
 
 #[async_trait]
 pub trait Paginated<T>
@@ -19,11 +19,7 @@ where
     Self: Requestable + Sized,
     T: DeserializeOwned,
 {
-    async fn page_size(
-        self,
-        page: usize,
-        size: usize,
-    ) -> Result<Page<T>>
+    async fn page_size(self, page: usize, size: usize) -> Result<Page<T>>
     where
         T: 'async_trait,
     {
@@ -55,8 +51,7 @@ where
     }
 }
 
-type FutureType<T> =
-    dyn Future<Output = Result<Page<T>>> + Send;
+type FutureType<T> = dyn Future<Output = Result<Page<T>>> + Send;
 pub struct PageStream<R, T>
 where
     R: Paginated<T> + 'static,

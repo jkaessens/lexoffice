@@ -1,8 +1,8 @@
 use crate::model::Contact;
 use crate::request::ById;
+use crate::request::Endpoint;
 use crate::request::Paginated;
 use crate::request::Request;
-use crate::request::Endpoint;
 
 /// # Examples
 ///
@@ -10,7 +10,7 @@ use crate::request::Endpoint;
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::Contact;
 /// use lexoffice::request::ById;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -22,8 +22,7 @@ use crate::request::Endpoint;
 /// # }
 /// ```
 ///
-impl ById<Contact> for Request<Contact> {
-}
+impl ById<Contact> for Request<Contact> {}
 
 /// # Examples
 ///
@@ -31,7 +30,7 @@ impl ById<Contact> for Request<Contact> {
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::Contact;
 /// use lexoffice::request::Paginated;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -42,8 +41,7 @@ impl ById<Contact> for Request<Contact> {
 /// # }
 /// ```
 ///
-impl Paginated<Contact> for Request<Contact> {
-}
+impl Paginated<Contact> for Request<Contact> {}
 
 impl Endpoint for Request<Contact> {
     const ENDPOINT: &'static str = "contacts";

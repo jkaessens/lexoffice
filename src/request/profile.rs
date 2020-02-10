@@ -1,7 +1,7 @@
 use crate::model::Profile;
-use crate::request::Simple;
-use crate::request::Request;
 use crate::request::Endpoint;
+use crate::request::Request;
+use crate::request::Simple;
 
 /// # Examples
 ///
@@ -9,7 +9,7 @@ use crate::request::Endpoint;
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::Profile;
 /// use lexoffice::request::Simple;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -20,8 +20,7 @@ use crate::request::Endpoint;
 /// # }
 /// ```
 ///
-impl Simple<Profile> for Request<Profile> {
-}
+impl Simple<Profile> for Request<Profile> {}
 
 impl Endpoint for Request<Profile> {
     const ENDPOINT: &'static str = "profile";

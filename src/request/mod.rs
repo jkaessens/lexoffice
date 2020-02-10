@@ -1,25 +1,27 @@
 mod contacts;
 mod credit_notes;
 mod event_subscriptions;
+//pub mod files;
 mod invoices;
 mod order_confirmations;
 mod profile;
-pub mod voucher_list;
 mod quotations;
+pub mod voucher_list;
+
 mod paginated;
 
+pub use self::paginated::PageStream;
+pub use self::paginated::Paginated;
 use crate::client::RequestBuilder;
 use crate::model::server_resource::ServerResource;
+use crate::Result;
 use async_trait::async_trait;
+use reqwest::Url;
 use serde::de::DeserializeOwned;
 use std::marker::PhantomData;
 use std::str::FromStr;
 use std::sync::Arc;
-use reqwest::Url;
 use uuid::Uuid;
-use crate::Result;
-pub use self::paginated::Paginated;
-pub use self::paginated::PageStream;
 
 #[derive(Clone, Debug)]
 pub struct Request<T> {
@@ -107,21 +109,13 @@ where
         Ok(url)
     }
 
-    async fn by_id_str(
-        self,
-        uuid: &str,
-    ) -> Result<ServerResource<T>>
+    async fn by_id_str(self, uuid: &str) -> Result<ServerResource<T>>
     where
         T: 'async_trait,
     {
-        let builder = self.builder();
-        let url = self.by_id_url(Uuid::from_str(uuid)?)?;
-        Ok(builder.json(&url).await?)
+        self.by_id(Uuid::from_str(uuid)?).await
     }
-    async fn by_id<I>(
-        self,
-        uuid: I,
-    ) -> Result<T>
+    async fn by_id<I>(self, uuid: I) -> Result<ServerResource<T>>
     where
         T: 'async_trait,
         I: Into<Uuid> + Send + Sync,

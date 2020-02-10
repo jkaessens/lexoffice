@@ -1,7 +1,7 @@
 use crate::model::Invoice;
 use crate::request::ById;
-use crate::request::Request;
 use crate::request::Endpoint;
+use crate::request::Request;
 
 /// # Examples
 ///
@@ -9,7 +9,7 @@ use crate::request::Endpoint;
 /// use lexoffice::client::{ Client, ApiKey };
 /// use lexoffice::model::Invoice;
 /// use lexoffice::request::ById;
-/// 
+///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
 /// # async fn main() -> Result<()> {
@@ -21,8 +21,7 @@ use crate::request::Endpoint;
 /// # }
 /// ```
 ///
-impl ById<Invoice> for Request<Invoice> {
-}
+impl ById<Invoice> for Request<Invoice> {}
 
 impl Endpoint for Request<Invoice> {
     const ENDPOINT: &'static str = "invoices";

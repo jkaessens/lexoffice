@@ -1,13 +1,13 @@
-use std::marker::PhantomData;
 use crate::client::RequestBuilder;
-use crate::model::VoucherList;
 use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
+use crate::model::VoucherList;
 use crate::request::ById;
 use crate::request::Endpoint;
 use crate::request::Paginated;
 use crate::request::Request;
 use crate::request::Requestable;
 use reqwest::Url;
+use std::marker::PhantomData;
 
 pub trait Void {}
 impl Void for () {}

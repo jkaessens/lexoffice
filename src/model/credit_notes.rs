@@ -73,7 +73,7 @@ pub struct AddressDetails {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LineItemsDetails {
     pub id: Option<Uuid>,
-    pub r#type: TypeEnum,
+    pub type_: TypeEnum,
     pub name: String,
     pub description: String,
     pub quantity: f64,
