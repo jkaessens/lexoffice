@@ -3,7 +3,7 @@ use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-enum TaxTypeEnum {
+pub enum TaxTypeEnum {
     Net,
     Gross,
     Vatfree,
@@ -11,18 +11,18 @@ enum TaxTypeEnum {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Profile {
-    organization_id: Uuid,
-    company_name: String,
-    created: CreatedDetails,
-    connection_id: Uuid,
-    tax_type: TaxTypeEnum,
-    small_business: bool,
+    pub organization_id: Uuid,
+    pub company_name: String,
+    pub created: CreatedDetails,
+    pub connection_id: Uuid,
+    pub tax_type: TaxTypeEnum,
+    pub small_business: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreatedDetails {
-    user_name: String,
-    user_email: String,
-    date: String,
+    pub user_name: String,
+    pub user_email: String,
+    pub date: String,
 }

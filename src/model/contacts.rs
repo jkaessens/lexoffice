@@ -2,7 +2,7 @@ use uuid::Uuid;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-enum SalutationEnum {
+pub enum SalutationEnum {
     #[serde(rename = "Herr")]
     Male,
     #[serde(rename = "Frau")]
@@ -11,93 +11,93 @@ enum SalutationEnum {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Contact {
-    organization_id: Uuid,
-    roles: RolesDetails,
-    company: CompanyDetails,
-    person: Option<PersonDetails>,
+    pub organization_id: Uuid,
+    pub roles: RolesDetails,
+    pub company: CompanyDetails,
+    pub person: Option<PersonDetails>,
     #[serde(default)]
-    addresses: AddressesDetails,
+    pub addresses: AddressesDetails,
     #[serde(default)]
-    email_addresses: EMailAddressesDetails,
+    pub email_addresses: EMailAddressesDetails,
     #[serde(default)]
-    phone_numbers: PhoneNumbersDetails,
-    note: Option<String>,
-    archived: Option<bool>,
+    pub phone_numbers: PhoneNumbersDetails,
+    pub note: Option<String>,
+    pub archived: Option<bool>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct RolesDetails {
-    customer: Option<CustomerDetails>,
-    vendor: Option<VendorDetails>,
+    pub customer: Option<CustomerDetails>,
+    pub vendor: Option<VendorDetails>,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CustomerDetails {
-    number: i64,
+    pub number: i64,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct VendorDetails {
-    number: i64,
+    pub number: i64,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CompanyDetails {
     #[serde(default)]
-    allow_tax_free_invoices: bool,
-    name: String,
-    tax_number: Option<String>,
-    vat_registration_id: Option<String>,
+    pub allow_tax_free_invoices: bool,
+    pub name: String,
+    pub tax_number: Option<String>,
+    pub vat_registration_id: Option<String>,
     #[serde(default)]
-    contact_persons: Vec<CompanyContactPersonDetails>,
+    pub contact_persons: Vec<CompanyContactPersonDetails>,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CompanyContactPersonDetails {
-    salutation: SalutationEnum,
-    first_name: String,
-    last_name: String,
-    email_address: String,
-    phone_number: Option<String>,
+    pub salutation: SalutationEnum,
+    pub first_name: String,
+    pub last_name: String,
+    pub email_address: String,
+    pub phone_number: Option<String>,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct PersonDetails {
-    salutation: SalutationEnum,
-    first_name: String,
-    last_name: String,
+    pub salutation: SalutationEnum,
+    pub first_name: String,
+    pub last_name: String,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 #[serde(deny_unknown_fields, rename_all = "camelCase", default)]
 pub struct AddressesDetails {
-    billing: Vec<AddressDetails>,
-    shipping: Vec<AddressDetails>,
+    pub billing: Vec<AddressDetails>,
+    pub shipping: Vec<AddressDetails>,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddressDetails {
-    supplement: Option<String>,
-    street: Option<String>,
-    zip: Option<String>,
-    city: Option<String>,
-    country_code: String,
+    pub supplement: Option<String>,
+    pub street: Option<String>,
+    pub zip: Option<String>,
+    pub city: Option<String>,
+    pub country_code: String,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 #[serde(deny_unknown_fields, rename_all = "camelCase", default)]
 pub struct EMailAddressesDetails {
-    business: Vec<String>,
-    office: Vec<String>,
-    private: Vec<String>,
-    other: Vec<String>,
+    pub business: Vec<String>,
+    pub office: Vec<String>,
+    pub private: Vec<String>,
+    pub other: Vec<String>,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 #[serde(deny_unknown_fields, rename_all = "camelCase", default)]
 pub struct PhoneNumbersDetails {
-    business: Vec<String>,
-    office: Vec<String>,
-    mobile: Vec<String>,
-    private: Vec<String>,
-    fax: Vec<String>,
-    other: Vec<String>,
+    pub business: Vec<String>,
+    pub office: Vec<String>,
+    pub mobile: Vec<String>,
+    pub private: Vec<String>,
+    pub fax: Vec<String>,
+    pub other: Vec<String>,
 }

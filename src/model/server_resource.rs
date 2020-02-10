@@ -5,8 +5,8 @@ use uuid::Uuid;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ServerResource<T> {
-    id: Option<Uuid>,
-    version: Option<u64>,
+    pub id: Option<Uuid>,
+    pub version: Option<u64>,
 
     #[serde(flatten)]
     inner: T,

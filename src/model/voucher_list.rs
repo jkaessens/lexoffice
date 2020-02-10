@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 //#[serde(deny_unknown_fields, rename_all = "camelCase")]
-enum CurrencyEnum {
+pub enum CurrencyEnum {
     EUR,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -29,14 +29,14 @@ pub enum VoucherTypeEnum {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct VoucherList {
-    voucher_type: VoucherTypeEnum,
-    voucher_status: VoucherStatusEnum,
-    voucher_number: String,
-    voucher_date: DateTime<Utc>,
-    updated_date: DateTime<Utc>,
-    due_date: DateTime<Utc>,
-    contact_name: String,
-    total_amount: f64,
-    currency: CurrencyEnum,
-    archived: bool,
+    pub voucher_type: VoucherTypeEnum,
+    pub voucher_status: VoucherStatusEnum,
+    pub voucher_number: String,
+    pub voucher_date: DateTime<Utc>,
+    pub updated_date: DateTime<Utc>,
+    pub due_date: DateTime<Utc>,
+    pub contact_name: String,
+    pub total_amount: f64,
+    pub currency: CurrencyEnum,
+    pub archived: bool,
 }
