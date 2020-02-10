@@ -8,11 +8,13 @@ pub mod invoices;
 pub mod order_confirmations;
 pub mod profile;
 pub mod quotations;
+pub mod files;
 pub mod voucher_list;
 
 pub use contacts::Contact;
 pub use credit_notes::CreditNote;
 pub use event_subscriptions::EventSubscription;
+pub use files::File;
 pub use invoices::Invoice;
 pub use order_confirmations::OrderConfirmation;
 pub use page::Page;

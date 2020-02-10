@@ -1,7 +1,7 @@
 mod contacts;
 mod credit_notes;
 mod event_subscriptions;
-//pub mod files;
+pub mod files;
 mod invoices;
 mod order_confirmations;
 mod profile;
