@@ -10,9 +10,9 @@ use crate::request::Endpoint;
 /// use lexoffice::model::OrderConfirmation;
 /// use lexoffice::request::ById;
 /// 
-/// # use std::error::Error;
+/// # use lexoffice::Result;
 /// # #[tokio::main]
-/// # async fn main() -> Result<(), Box<dyn Error>> {
+/// # async fn main() -> Result<()> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let uuid = uuid::Uuid::parse_str("f4add52b-44e3-474a-b718-890885094d9a")?;
 /// let order_confirmations = client.request::<OrderConfirmation>().by_id(uuid).await?;

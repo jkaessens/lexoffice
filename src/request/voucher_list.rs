@@ -27,6 +27,7 @@ pub trait VoucherListRequestTrait<T, S> {
         S: Void;
 }
 
+#[derive(Clone, Debug)]
 pub struct VoucherListRequest<T, S> {
     inner: Request<VoucherList>,
     phantom: PhantomData<(T, S)>,

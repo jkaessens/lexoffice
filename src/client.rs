@@ -29,15 +29,13 @@ impl ApiKey {
         Ok(Self { key })
     }
 
-    pub async fn from_file(
-        file_name: &Path,
-    ) -> Result<Self, Box<dyn std::error::Error>> {
+    pub async fn from_file(file_name: &Path) -> Result<Self, Box<dyn Error>> {
         let contents = read_to_string(file_name).await?;
         let key = contents.trim().to_string();
         Ok(Self { key })
     }
 
-    pub async fn from_home() -> Result<Self, Box<dyn std::error::Error>> {
+    pub async fn from_home() -> Result<Self, Box<dyn Error>> {
         match env::var_os("HOME") {
             Some(home) => {
                 let mut file_name = PathBuf::from(home);
@@ -49,7 +47,7 @@ impl ApiKey {
         }
     }
 
-    pub async fn try_default() -> Result<Self, Box<dyn std::error::Error>> {
+    pub async fn try_default() -> Result<Self, Box<dyn Error>> {
         if let Ok(key) = Self::from_env() {
             Ok(key)
         } else if let Ok(key) = Self::from_home().await {
@@ -97,16 +95,9 @@ impl RequestBuilder {
         T: DeserializeOwned,
         U: Into<Url> + Clone,
     {
-        Ok(self
-            .request(Method::GET, url)
-            .send()
-            .await?
-            .error_for_status()?
-            .json()
-            .await?)
+        Ok(self.request(Method::GET, url).send().await?.json().await?)
     }
 }
-
 #[derive(Debug, Clone)]
 pub struct Client {
     request_builder: Arc<RequestBuilder>,

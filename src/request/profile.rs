@@ -10,9 +10,9 @@ use crate::request::Endpoint;
 /// use lexoffice::model::Profile;
 /// use lexoffice::request::Simple;
 /// 
-/// # use std::error::Error;
+/// # use lexoffice::Result;
 /// # #[tokio::main]
-/// # async fn main() -> Result<(), Box<dyn Error>> {
+/// # async fn main() -> Result<()> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let profile = client.request::<Profile>().get().await?;
 /// println!("{:#?}", profile);

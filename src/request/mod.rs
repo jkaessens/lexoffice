@@ -6,18 +6,20 @@ mod order_confirmations;
 mod profile;
 pub mod voucher_list;
 mod quotations;
+mod paginated;
 
 use crate::client::RequestBuilder;
 use crate::model::server_resource::ServerResource;
-use crate::model::Page;
 use async_trait::async_trait;
 use serde::de::DeserializeOwned;
-use std::error::Error;
 use std::marker::PhantomData;
 use std::str::FromStr;
 use std::sync::Arc;
 use reqwest::Url;
 use uuid::Uuid;
+use crate::Result;
+pub use self::paginated::Paginated;
+pub use self::paginated::PageStream;
 
 #[derive(Clone, Debug)]
 pub struct Request<T> {
@@ -68,7 +70,7 @@ pub trait Storable<T>
 where
     Self: Requestable,
 {
-    async fn save(self) -> Result<ServerResource<T>, Box<dyn Error>>;
+    async fn save(self) -> Result<ServerResource<T>>;
 }
 
 #[async_trait]
@@ -77,46 +79,11 @@ where
     Self: Requestable,
     T: DeserializeOwned,
 {
-    async fn get(self) -> Result<ServerResource<T>, Box<dyn Error>>
+    async fn get(self) -> Result<ServerResource<T>>
     where
         T: 'async_trait,
     {
         let url = self.url();
-        let builder = self.builder();
-        Ok(builder.json(&url).await?)
-    }
-}
-
-#[async_trait]
-pub trait Paginated<T>
-where
-    Self: Requestable + Sized,
-    T: DeserializeOwned,
-{
-    async fn page_size(
-        self,
-        page: usize,
-        size: usize,
-    ) -> Result<Page<T>, Box<dyn Error>>
-    where
-        T: 'async_trait,
-    {
-        let mut url = self.url();
-        url.query_pairs_mut()
-            .append_pair("page", &page.to_string())
-            .append_pair("size", &size.to_string());
-
-        let builder = self.builder();
-        Ok(builder.json(&url).await?)
-    }
-
-    async fn page(self, page: usize) -> Result<Page<T>, Box<dyn Error>>
-    where
-        T: 'async_trait,
-    {
-        let mut url = self.url();
-        url.query_pairs_mut().append_pair("page", &page.to_string());
-
         let builder = self.builder();
         Ok(builder.json(&url).await?)
     }
@@ -128,7 +95,7 @@ where
     T: DeserializeOwned,
     Self: Sized + Requestable,
 {
-    fn by_id_url<I>(&self, uuid: I) -> Result<Url, Box<dyn Error>>
+    fn by_id_url<I>(&self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync,
     {
@@ -143,7 +110,7 @@ where
     async fn by_id_str(
         self,
         uuid: &str,
-    ) -> Result<ServerResource<T>, Box<dyn Error>>
+    ) -> Result<ServerResource<T>>
     where
         T: 'async_trait,
     {
@@ -154,7 +121,7 @@ where
     async fn by_id<I>(
         self,
         uuid: I,
-    ) -> Result<T, Box<dyn Error>>
+    ) -> Result<T>
     where
         T: 'async_trait,
         I: Into<Uuid> + Send + Sync,

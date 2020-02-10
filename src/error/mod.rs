@@ -8,16 +8,16 @@ pub struct JsonMessage {
 }
 
 #[derive(Debug, Display)]
-#[display(fmt = "HTTP Error {}: {}", status, message)]
-pub struct HttpJsonError {
+#[display(fmt = "LexOfficeError {}: {}", status, message)]
+pub struct LexOfficeError {
     status: StatusCode,
     message: JsonMessage,
 }
 
-impl HttpJsonError {
+impl LexOfficeError {
     pub fn new(status: StatusCode, message: JsonMessage) -> Self {
         Self { status, message }
     }
 }
 
-impl std::error::Error for HttpJsonError {}
+impl std::error::Error for LexOfficeError {}
