@@ -1,6 +1,10 @@
 pub mod client;
-pub mod error;
 pub mod model;
 pub mod request;
 
-pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+mod error;
+mod result;
+mod util;
+
+pub use error::Error;
+pub use result::Result;

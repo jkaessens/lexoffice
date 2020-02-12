@@ -13,8 +13,9 @@ mod paginated;
 pub use self::paginated::PageStream;
 pub use self::paginated::Paginated;
 use crate::client::RequestBuilder;
+use crate::error::Error;
 use crate::model::server_resource::ServerResource;
-use crate::Result;
+use crate::result::Result;
 use async_trait::async_trait;
 use reqwest::Url;
 use serde::de::DeserializeOwned;
@@ -104,7 +105,7 @@ where
         let uuid: Uuid = uuid.into();
         let mut url = self.url();
         url.path_segments_mut()
-            .map_err(|_| "cannot be base")?
+            .map_err(|_| Error::UrlCannotBeBase)?
             .push(&uuid.to_string());
         Ok(url)
     }

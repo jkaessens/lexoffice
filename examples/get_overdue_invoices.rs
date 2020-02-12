@@ -11,8 +11,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let client = Client::new(ApiKey::try_default().await?);
     let mut voucher_list = client
         .request::<VoucherList>()
-        .voucher_type(VoucherTypeEnum::Invoice)
-        .voucher_status(VoucherStatusEnum::Open)
+        .type_(VoucherTypeEnum::Invoice)
+        .status(VoucherStatusEnum::Open)
         .stream();
 
     while let Some(voucher) = voucher_list.next().await {

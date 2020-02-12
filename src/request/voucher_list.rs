@@ -13,13 +13,13 @@ pub trait Void {}
 impl Void for () {}
 
 pub trait VoucherListRequestTrait<T, S> {
-    fn voucher_type(
+    fn type_(
         self,
         voucher_type: VoucherTypeEnum,
     ) -> VoucherListRequest<VoucherTypeEnum, S>
     where
         T: Void;
-    fn voucher_status(
+    fn status(
         self,
         voucher_status: VoucherStatusEnum,
     ) -> VoucherListRequest<T, VoucherStatusEnum>
@@ -43,22 +43,22 @@ impl<T, S> From<Request<VoucherList>> for VoucherListRequest<T, S> {
 }
 
 impl VoucherListRequestTrait<(), ()> for Request<VoucherList> {
-    fn voucher_type(
+    fn type_(
         self,
         voucher_type: VoucherTypeEnum,
     ) -> VoucherListRequest<VoucherTypeEnum, ()> {
-        VoucherListRequest::<(), ()>::from(self).voucher_type(voucher_type)
+        VoucherListRequest::<(), ()>::from(self).type_(voucher_type)
     }
-    fn voucher_status(
+    fn status(
         self,
         voucher_status: VoucherStatusEnum,
     ) -> VoucherListRequest<(), VoucherStatusEnum> {
-        VoucherListRequest::<(), ()>::from(self).voucher_status(voucher_status)
+        VoucherListRequest::<(), ()>::from(self).status(voucher_status)
     }
 }
 
 impl<T, S> VoucherListRequestTrait<T, S> for VoucherListRequest<T, S> {
-    fn voucher_type(
+    fn type_(
         mut self,
         voucher_type: VoucherTypeEnum,
     ) -> VoucherListRequest<VoucherTypeEnum, S>
@@ -71,7 +71,7 @@ impl<T, S> VoucherListRequestTrait<T, S> for VoucherListRequest<T, S> {
         );
         self.inner.into()
     }
-    fn voucher_status(
+    fn status(
         mut self,
         voucher_status: VoucherStatusEnum,
     ) -> VoucherListRequest<T, VoucherStatusEnum>

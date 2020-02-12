@@ -1,3 +1,5 @@
+use crate::client::LoResponse;
+use crate::error::Error;
 use crate::model::files::FileContent;
 use crate::model::files::TypeEnum;
 use crate::model::server_resource::ServerResource;
@@ -5,14 +7,36 @@ use crate::model::File;
 use crate::request::Endpoint;
 use crate::request::Request;
 use crate::request::Requestable;
-use crate::Result;
+use crate::result::Result;
+use crate::util::BytesStream;
 use async_trait::async_trait;
+use futures::future::TryFutureExt;
+use futures::stream::TryStreamExt;
+use mime::APPLICATION_JSON;
+use mime::APPLICATION_OCTET_STREAM;
+use mime_guess::Mime;
+use reqwest::header::ACCEPT;
+use reqwest::header::CONTENT_TYPE;
+use reqwest::multipart::Form;
+use reqwest::multipart::Part;
+use reqwest::Body;
 use reqwest::Method;
 use reqwest::Url;
+use serde::Deserialize;
+use std::convert::TryInto;
+use std::path::Path;
+use std::str::FromStr;
+use tokio::fs;
 use uuid::Uuid;
 
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+struct FileUploadResponse {
+    id: Uuid,
+}
+
 #[async_trait]
-pub trait ById {
+pub trait FilesRequest {
     fn by_id_url<I>(&self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync;
@@ -22,10 +46,13 @@ pub trait ById {
     async fn by_id<I>(self, uuid: I) -> Result<ServerResource<File>>
     where
         I: Into<Uuid> + Send + Sync;
+    async fn upload<F>(self, file: F) -> Result<ServerResource<()>>
+    where
+        F: Into<File> + Send + Sync;
 }
 
 #[async_trait]
-impl ById for Request<File> {
+impl FilesRequest for Request<File> {
     fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync,
@@ -33,7 +60,7 @@ impl ById for Request<File> {
         let uuid: Uuid = uuid.into();
         let mut url = self.url();
         url.path_segments_mut()
-            .map_err(|_| "cannot be base")?
+            .map_err(|_| Error::UrlCannotBeBase)?
             .push(&uuid.to_string());
         Ok(url)
     }
@@ -46,21 +73,97 @@ impl ById for Request<File> {
     where
         I: Into<Uuid> + Send + Sync,
     {
-        let builder = self.builder();
+        let request = self.builder();
         let uuid: Uuid = uuid.into();
         let url = self.by_id_url(uuid)?;
-        let response = builder.request(Method::GET, &url).send().await?;
-        let stream = response.bytes_stream();
+        let response = request
+            .request(Method::GET, &url)
+            .send()
+            .await?
+            .error_for_legacy_lexoffice()
+            .await?;
+        let mime = response
+            .headers()
+            .get(CONTENT_TYPE)
+            .and_then(|x| x.to_str().ok())
+            .and_then(|x| Mime::from_str(x).ok())
+            .unwrap_or(APPLICATION_OCTET_STREAM);
+        let stream = response.bytes_stream().err_into();
         let file = File::builder()
-            .type_(TypeEnum::Voucher)
-            .file(FileContent::Stream(Box::new(stream)))
+            .file(FileContent::Stream(Box::pin(stream)))
+            .type_(TypeEnum::default())
+            .mime(mime)
             .build();
-
         Ok(ServerResource {
             version: None,
             id: Some(uuid),
             inner: file,
         })
+    }
+
+    async fn upload<F>(self, file: F) -> Result<ServerResource<()>>
+    where
+        F: Into<File> + Send + Sync,
+    {
+        let file = file.into();
+        let url = self.url();
+        let form = Form::new()
+            .part("file", file.try_into()?)
+            .text("type", "voucher");
+        let request = self
+            .builder()
+            .request(Method::POST, &url)
+            .multipart(form)
+            .header(ACCEPT, APPLICATION_JSON.as_ref());
+
+        let response: FileUploadResponse = request
+            .send()
+            .await?
+            .error_for_legacy_lexoffice()
+            .await?
+            .json()
+            .await?;
+
+        Ok(ServerResource {
+            id: Some(response.id),
+            version: None,
+            inner: (),
+        })
+    }
+}
+
+impl TryInto<Part> for File {
+    type Error = crate::error::Error;
+
+    fn try_into(self) -> Result<Part> {
+        let part = match self.file {
+            FileContent::Bytes(bytes) => Part::stream(bytes),
+            FileContent::Path(path) => {
+                let stream = fs::File::open(path)
+                    .map_ok(BytesStream::new)
+                    .try_flatten_stream();
+                Part::stream(Body::wrap_stream(stream))
+            }
+            FileContent::Stream(stream) => {
+                //Part::stream(Bytes::new())
+                Part::stream(Body::wrap_stream(stream))
+            }
+        };
+        let extension = mime_guess::get_mime_extensions(&self.mime)
+            .and_then(|x| x.first())
+            .unwrap_or(&"xxx");
+        let mime = self.mime.as_ref();
+        let file_name = format!("document.{}", extension);
+        Ok(part.mime_str(&mime)?.file_name(file_name))
+    }
+}
+
+impl From<&Path> for File {
+    fn from(path: &Path) -> Self {
+        Self::builder()
+            .mime(mime_guess::from_path(path).first_or_octet_stream())
+            .file(FileContent::Path(path.into()))
+            .build()
     }
 }
 

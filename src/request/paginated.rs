@@ -1,11 +1,11 @@
+use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
 use crate::request::Requestable;
-use crate::Result;
+use crate::result::Result;
 use async_trait::async_trait;
 use futures::stream::Stream;
 use serde::de::DeserializeOwned;
-use std::error::Error;
 use std::future::Future;
 use std::ops::Range;
 use std::pin::Pin;
@@ -121,7 +121,7 @@ where
 
     fn on_error(
         mut self: Pin<&mut Self>,
-        err: Box<dyn Error>,
+        err: Error,
     ) -> Poll<Option<Result<ServerResource<T>>>> {
         self.future = None;
         self.pages = None;

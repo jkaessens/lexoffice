@@ -1,9 +1,16 @@
+use crate::error;
+use crate::error::Error;
+use crate::error::LexOfficeError;
 use crate::request::Request;
+use crate::result::Result;
+use async_trait::async_trait;
+use mime::APPLICATION_JSON;
+use reqwest::header::ACCEPT;
 use reqwest::Method;
+use reqwest::Response;
 use reqwest::Url;
 use serde::de::DeserializeOwned;
 use std::env;
-use std::error::Error;
 use std::path::Path;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -24,36 +31,35 @@ pub struct ApiKey {
 }
 
 impl ApiKey {
-    pub fn from_env() -> Result<Self, std::env::VarError> {
+    pub fn from_env() -> Result<Self> {
         let key = env::var("LEXOFFICE_KEY")?;
         Ok(Self { key })
     }
 
-    pub async fn from_file(file_name: &Path) -> Result<Self, Box<dyn Error>> {
+    pub async fn from_file(file_name: &Path) -> Result<Self> {
         let contents = read_to_string(file_name).await?;
         let key = contents.trim().to_string();
         Ok(Self { key })
     }
 
-    pub async fn from_home() -> Result<Self, Box<dyn Error>> {
-        match env::var_os("HOME") {
-            Some(home) => {
-                let mut file_name = PathBuf::from(home);
-                file_name.push(".lexoffice");
+    pub async fn from_home() -> Result<Self> {
+        if let Some(home) = env::var_os("HOME") {
+            let mut file_name = PathBuf::from(home);
+            file_name.push(".lexoffice");
 
-                Self::from_file(&file_name).await
-            }
-            None => Err("HOME is not set".into()),
+            Self::from_file(&file_name).await
+        } else {
+            Err(Error::HomeIsNotSet)
         }
     }
 
-    pub async fn try_default() -> Result<Self, Box<dyn Error>> {
+    pub async fn try_default() -> Result<Self> {
         if let Ok(key) = Self::from_env() {
             Ok(key)
         } else if let Ok(key) = Self::from_home().await {
             Ok(key)
         } else {
-            Err("failed to load API Key".into())
+            Err(Error::FailedToLoadApiKey)
         }
     }
 }
@@ -90,12 +96,57 @@ impl RequestBuilder {
             .bearer_auth(&self.api_key)
     }
 
-    pub async fn json<U, T>(&self, url: &U) -> Result<T, Box<dyn Error>>
+    pub async fn json<U, T>(&self, url: &U) -> Result<T>
     where
         T: DeserializeOwned,
         U: Into<Url> + Clone,
     {
-        Ok(self.request(Method::GET, url).send().await?.json().await?)
+        Ok(self
+            .request(Method::GET, url)
+            .header(ACCEPT, APPLICATION_JSON.as_ref())
+            .send()
+            .await?
+            .error_for_lexoffice()
+            .await?
+            .json()
+            .await?)
+    }
+}
+
+#[async_trait]
+pub trait LoResponse
+where
+    Self: Sized,
+{
+    async fn error_for_legacy_lexoffice(self) -> Result<Self>;
+    async fn error_for_lexoffice(self) -> Result<Self>;
+}
+
+#[async_trait]
+impl LoResponse for Response {
+    async fn error_for_legacy_lexoffice(self) -> Result<Self> {
+        let status = self.status();
+        if status.is_success() {
+            Ok(self)
+        } else {
+            Err(LexOfficeError::<error::LegacyMessage>::new(
+                status,
+                self.json().await?,
+            )
+            .into())
+        }
+    }
+    async fn error_for_lexoffice(self) -> Result<Self> {
+        let status = self.status();
+        if status.is_success() {
+            Ok(self)
+        } else {
+            Err(LexOfficeError::<error::LegacyMessage>::new(
+                status,
+                self.json().await?,
+            )
+            .into())
+        }
     }
 }
 
