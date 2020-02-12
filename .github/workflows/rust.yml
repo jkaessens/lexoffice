@@ -1,0 +1,40 @@
+name: Rust
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install latest stable
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    - name: Build
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: --verbose
+    - name: Format Check
+      uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: -- --check
+    - name: Clippy
+      uses: actions-rs/cargo@v1
+      with:
+        command: clippy
+    - name: Run tests
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --verbose
+    - name: IRC Message Action
+      uses: Gottox/irc-message-action@master
+      if: failure()
+      with:
+        channel: "Gottox"
+        nickname: gh-gottox
+        message: "https://github.com/${{ github.repository }} failed on push ${{ github.event.compare }}"
