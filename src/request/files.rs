@@ -1,3 +1,4 @@
+use crate::util::guess_mime;
 use crate::client::LoResponse;
 use crate::error::Error;
 use crate::model::files::FileContent;
@@ -8,13 +9,14 @@ use crate::request::Endpoint;
 use crate::request::Request;
 use crate::request::Requestable;
 use crate::result::Result;
+use crate::util::guess_filename;
 use crate::util::BytesStream;
 use async_trait::async_trait;
 use futures::future::TryFutureExt;
 use futures::stream::TryStreamExt;
 use mime::APPLICATION_JSON;
 use mime::APPLICATION_OCTET_STREAM;
-use mime_guess::Mime;
+use mime::Mime;
 use reqwest::header::ACCEPT;
 use reqwest::header::CONTENT_TYPE;
 use reqwest::multipart::Form;
@@ -49,6 +51,9 @@ pub trait FilesRequest {
     async fn upload<F>(self, file: F) -> Result<ServerResource<()>>
     where
         F: Into<File> + Send + Sync;
+    async fn upload_path<P>(self, path: P) -> Result<ServerResource<()>>
+    where
+        P: AsRef<Path> + Send + Sync;
 }
 
 #[async_trait]
@@ -130,6 +135,13 @@ impl FilesRequest for Request<File> {
             inner: (),
         })
     }
+
+    async fn upload_path<P>(self, path: P) -> Result<ServerResource<()>>
+    where
+        P: AsRef<Path> + Send + Sync,
+    {
+        self.upload(path.as_ref()).await
+    }
 }
 
 impl TryInto<Part> for File {
@@ -145,23 +157,18 @@ impl TryInto<Part> for File {
                 Part::stream(Body::wrap_stream(stream))
             }
             FileContent::Stream(stream) => {
-                //Part::stream(Bytes::new())
                 Part::stream(Body::wrap_stream(stream))
             }
         };
-        let extension = mime_guess::get_mime_extensions(&self.mime)
-            .and_then(|x| x.first())
-            .unwrap_or(&"xxx");
-        let mime = self.mime.as_ref();
-        let file_name = format!("document.{}", extension);
-        Ok(part.mime_str(&mime)?.file_name(file_name))
+        let file_name = guess_filename(&self.mime);
+        Ok(part.mime_str(&self.mime.as_ref())?.file_name(file_name))
     }
 }
 
 impl From<&Path> for File {
     fn from(path: &Path) -> Self {
         Self::builder()
-            .mime(mime_guess::from_path(path).first_or_octet_stream())
+            .mime(guess_mime(path))
             .file(FileContent::Path(path.into()))
             .build()
     }
