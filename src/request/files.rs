@@ -9,7 +9,10 @@ use crate::request::Request;
 use crate::request::Requestable;
 use crate::result::Result;
 use crate::util::guess_filename;
+use crate::util::guess_mime;
+use crate::util::BytesStream;
 use async_trait::async_trait;
+use futures::future::TryFutureExt;
 use futures::stream::TryStreamExt;
 use mime::Mime;
 use mime::APPLICATION_JSON;
@@ -23,7 +26,9 @@ use reqwest::Method;
 use reqwest::Url;
 use std::convert::TryInto;
 use std::marker::PhantomData;
+use std::path::Path;
 use std::str::FromStr;
+use tokio::fs;
 use uuid::Uuid;
 
 #[async_trait]
@@ -43,6 +48,12 @@ pub trait FilesRequest {
     ) -> Result<ServerResource<PhantomData<File>>>
     where
         F: Into<File> + Send + Sync;
+    async fn upload_path<P>(
+        self,
+        path: P,
+    ) -> Result<ServerResource<PhantomData<File>>>
+    where
+        P: AsRef<Path> + Send + Sync;
 }
 
 #[async_trait]
@@ -119,6 +130,16 @@ impl FilesRequest for Request<File> {
             .json::<ServerResource<PhantomData<File>>>()
             .await?)
     }
+
+    async fn upload_path<P>(
+        self,
+        path: P,
+    ) -> Result<ServerResource<PhantomData<File>>>
+    where
+        P: AsRef<Path> + Send + Sync,
+    {
+        self.upload(path.as_ref()).await
+    }
 }
 
 impl TryInto<Part> for File {
@@ -127,12 +148,27 @@ impl TryInto<Part> for File {
     fn try_into(self) -> Result<Part> {
         let part = match self.file {
             FileContent::Bytes(bytes) => Part::stream(bytes),
+            FileContent::Path(path) => {
+                let stream = fs::File::open(path)
+                    .map_ok(BytesStream::new)
+                    .try_flatten_stream();
+                Part::stream(Body::wrap_stream(stream))
+            }
             FileContent::Stream(stream) => {
                 Part::stream(Body::wrap_stream(stream))
             }
         };
         let file_name = guess_filename(&self.mime);
         Ok(part.mime_str(&self.mime.as_ref())?.file_name(file_name))
+    }
+}
+
+impl From<&Path> for File {
+    fn from(path: &Path) -> Self {
+        Self::builder()
+            .mime(guess_mime(path))
+            .file(FileContent::Path(path.into()))
+            .build()
     }
 }
 

@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 futures = "0.3.1"
-tokio = { version = "0.2", features = ["stream"] }
+tokio = { version = "0.2", features = ["full"] }
 reqwest = { version = "0.10.0", features = ["json", "stream"] }
 uuid = { version = "0.8", features = ["serde", "v4"] }
 chrono = { version = "0.4", features = ["serde"] }
@@ -23,6 +23,3 @@ mime = "0.3.16"
 bytes = "0.5.4"
 typed-builder = "0.5.1"
 derive-error = "0.0.4"
-
-[dev-dependencies]
-#tokio = { version = "0.2", features = ["fs","stream"] }
