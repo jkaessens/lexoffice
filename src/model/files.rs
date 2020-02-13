@@ -3,14 +3,12 @@ use bytes::Bytes;
 use futures::Stream;
 use mime::Mime;
 use serde::{Deserialize, Serialize};
-use std::path::PathBuf;
 use std::pin::Pin;
 use typed_builder::TypedBuilder;
 
 pub enum FileContent {
     Bytes(Bytes),
     Stream(Pin<Box<dyn Stream<Item = Result<Bytes>> + Send + Sync>>),
-    Path(PathBuf),
 }
 
 impl std::fmt::Debug for FileContent {
@@ -20,7 +18,6 @@ impl std::fmt::Debug for FileContent {
     ) -> std::result::Result<(), std::fmt::Error> {
         match self {
             Self::Bytes(b) => b.fmt(f),
-            Self::Path(b) => b.fmt(f),
             Self::Stream(_) => write!(f, "Stream"),
         }
     }
