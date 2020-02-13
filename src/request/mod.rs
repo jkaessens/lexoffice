@@ -12,13 +12,17 @@ mod paginated;
 
 pub use self::paginated::PageStream;
 pub use self::paginated::Paginated;
+use crate::client::LoResponse;
 use crate::client::RequestBuilder;
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::result::Result;
 use async_trait::async_trait;
+use mime::APPLICATION_JSON;
+use reqwest::header::CONTENT_TYPE;
+use reqwest::Method;
 use reqwest::Url;
-use serde::de::DeserializeOwned;
+use serde::{de::DeserializeOwned, Serialize};
 use std::marker::PhantomData;
 use std::str::FromStr;
 use std::sync::Arc;
@@ -69,11 +73,59 @@ where
 }
 
 #[async_trait]
-pub trait Storable<T>
+pub trait Saveable<T>
 where
-    Self: Requestable,
+    Self: Requestable + Send + Sync,
+    T: Send + Sync + Serialize,
 {
-    async fn save(self) -> Result<ServerResource<T>>;
+    async fn upload<I>(self, object: I) -> Result<ServerResource<T>>
+    where
+        I: Into<T> + Send + Sync + 'async_trait,
+        T: 'async_trait,
+    {
+        let object = object.into();
+        let url = self.url();
+        Ok(self
+            .builder()
+            .request(Method::POST, &url)
+            .header(CONTENT_TYPE, APPLICATION_JSON.as_ref())
+            .json(&object)
+            .send()
+            .await?
+            .error_for_lexoffice()
+            .await?
+            .json::<ServerResource<PhantomData<T>>>()
+            .await?
+            .wrap(object))
+    }
+}
+
+#[async_trait]
+pub trait Updateable<T>
+where
+    Self: Requestable + Send + Sync,
+    T: Send + Sync + Serialize,
+{
+    async fn upload<I>(self, object: I) -> Result<ServerResource<T>>
+    where
+        I: Into<ServerResource<T>> + Send + Sync + 'async_trait,
+        T: 'async_trait,
+    {
+        let object = object.into();
+        let url = self.url();
+        Ok(self
+            .builder()
+            .request(Method::PUT, &url)
+            .header(CONTENT_TYPE, APPLICATION_JSON.as_ref())
+            .json(&object)
+            .send()
+            .await?
+            .error_for_lexoffice()
+            .await?
+            .json::<ServerResource<PhantomData<T>>>()
+            .await?
+            .wrap(object.inner))
+    }
 }
 
 #[async_trait]
@@ -116,6 +168,7 @@ where
     {
         self.by_id(Uuid::from_str(uuid)?).await
     }
+
     async fn by_id<I>(self, uuid: I) -> Result<ServerResource<T>>
     where
         T: 'async_trait,
