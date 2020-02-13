@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use std::marker::PhantomData;
 use std::ops::Deref;
 use uuid::Uuid;
 
@@ -17,5 +18,15 @@ impl<T> Deref for ServerResource<T> {
 
     fn deref(&self) -> &Self::Target {
         &self.inner
+    }
+}
+
+impl<T> ServerResource<PhantomData<T>> {
+    pub fn wrap(self, inner: T) -> ServerResource<T> {
+        ServerResource {
+            id: self.id,
+            version: self.version,
+            inner,
+        }
     }
 }

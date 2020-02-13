@@ -24,18 +24,12 @@ use reqwest::multipart::Part;
 use reqwest::Body;
 use reqwest::Method;
 use reqwest::Url;
-use serde::Deserialize;
 use std::convert::TryInto;
+use std::marker::PhantomData;
 use std::path::Path;
 use std::str::FromStr;
 use tokio::fs;
 use uuid::Uuid;
-
-#[derive(Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-struct FileUploadResponse {
-    id: Uuid,
-}
 
 #[async_trait]
 pub trait FilesRequest {
@@ -48,10 +42,16 @@ pub trait FilesRequest {
     async fn by_id<I>(self, uuid: I) -> Result<ServerResource<File>>
     where
         I: Into<Uuid> + Send + Sync;
-    async fn upload<F>(self, file: F) -> Result<ServerResource<()>>
+    async fn upload<F>(
+        self,
+        file: F,
+    ) -> Result<ServerResource<PhantomData<File>>>
     where
         F: Into<File> + Send + Sync;
-    async fn upload_path<P>(self, path: P) -> Result<ServerResource<()>>
+    async fn upload_path<P>(
+        self,
+        path: P,
+    ) -> Result<ServerResource<PhantomData<File>>>
     where
         P: AsRef<Path> + Send + Sync;
 }
@@ -106,7 +106,10 @@ impl FilesRequest for Request<File> {
         })
     }
 
-    async fn upload<F>(self, file: F) -> Result<ServerResource<()>>
+    async fn upload<F>(
+        self,
+        file: F,
+    ) -> Result<ServerResource<PhantomData<File>>>
     where
         F: Into<File> + Send + Sync,
     {
@@ -115,28 +118,23 @@ impl FilesRequest for Request<File> {
         let form = Form::new()
             .part("file", file.try_into()?)
             .text("type", "voucher");
-        let request = self
+        Ok(self
             .builder()
             .request(Method::POST, &url)
             .multipart(form)
-            .header(ACCEPT, APPLICATION_JSON.as_ref());
-
-        let response: FileUploadResponse = request
+            .header(ACCEPT, APPLICATION_JSON.as_ref())
             .send()
             .await?
             .error_for_legacy_lexoffice()
             .await?
-            .json()
-            .await?;
-
-        Ok(ServerResource {
-            id: Some(response.id),
-            version: None,
-            inner: (),
-        })
+            .json::<ServerResource<PhantomData<File>>>()
+            .await?)
     }
 
-    async fn upload_path<P>(self, path: P) -> Result<ServerResource<()>>
+    async fn upload_path<P>(
+        self,
+        path: P,
+    ) -> Result<ServerResource<PhantomData<File>>>
     where
         P: AsRef<Path> + Send + Sync,
     {
