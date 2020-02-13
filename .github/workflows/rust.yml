@@ -12,11 +12,6 @@ jobs:
       with:
         toolchain: stable
         override: true
-    - name: Build
-      uses: actions-rs/cargo@v1
-      with:
-        command: build
-        args: --verbose
     - name: Format Check
       uses: actions-rs/cargo@v1
       with:
@@ -26,6 +21,11 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: clippy
+    - name: Build
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: --verbose
     - name: Run tests
       uses: actions-rs/cargo@v1
       with:
