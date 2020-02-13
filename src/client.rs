@@ -87,19 +87,19 @@ pub struct RequestBuilder {
 }
 
 impl RequestBuilder {
-    pub fn request<U>(&self, method: Method, url: &U) -> reqwest::RequestBuilder
-    where
-        U: Into<Url> + Clone,
-    {
+    pub fn request(
+        &self,
+        method: Method,
+        url: &Url,
+    ) -> reqwest::RequestBuilder {
         self.http_client
-            .request(method, url.clone().into())
+            .request(method, url.clone())
             .bearer_auth(&self.api_key)
     }
 
-    pub async fn json<U, T>(&self, url: &U) -> Result<T>
+    pub async fn json<T>(&self, url: &Url) -> Result<T>
     where
         T: DeserializeOwned,
-        U: Into<Url> + Clone,
     {
         Ok(self
             .request(Method::GET, url)
