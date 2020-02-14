@@ -12,7 +12,7 @@ mod paginated;
 
 pub use self::paginated::PageStream;
 pub use self::paginated::Paginated;
-use crate::client::LoResponse;
+use crate::response::ResponseExt;
 use crate::client::RequestBuilder;
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;

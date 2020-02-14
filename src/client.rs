@@ -1,13 +1,9 @@
-use crate::error;
 use crate::error::Error;
-use crate::error::LexOfficeError;
 use crate::request::Request;
 use crate::result::Result;
-use async_trait::async_trait;
 use mime::APPLICATION_JSON;
 use reqwest::header::ACCEPT;
 use reqwest::Method;
-use reqwest::Response;
 use reqwest::Url;
 use serde::de::DeserializeOwned;
 use std::env;
@@ -15,6 +11,7 @@ use std::path::Path;
 use std::path::PathBuf;
 use std::sync::Arc;
 use tokio::fs::read_to_string;
+use crate::response::ResponseExt;
 
 static USER_AGENT: &str = concat!(
     "rust-",
@@ -110,43 +107,6 @@ impl RequestBuilder {
             .await?
             .json()
             .await?)
-    }
-}
-
-#[async_trait]
-pub trait LoResponse
-where
-    Self: Sized,
-{
-    async fn error_for_legacy_lexoffice(self) -> Result<Self>;
-    async fn error_for_lexoffice(self) -> Result<Self>;
-}
-
-#[async_trait]
-impl LoResponse for Response {
-    async fn error_for_legacy_lexoffice(self) -> Result<Self> {
-        let status = self.status();
-        if status.is_success() {
-            Ok(self)
-        } else {
-            Err(LexOfficeError::<error::LegacyMessage>::new(
-                status,
-                self.json().await?,
-            )
-            .into())
-        }
-    }
-    async fn error_for_lexoffice(self) -> Result<Self> {
-        let status = self.status();
-        if status.is_success() {
-            Ok(self)
-        } else {
-            Err(LexOfficeError::<error::LegacyMessage>::new(
-                status,
-                self.json().await?,
-            )
-            .into())
-        }
     }
 }
 

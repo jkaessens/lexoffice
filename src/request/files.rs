@@ -1,4 +1,4 @@
-use crate::client::LoResponse;
+use crate::response::ResponseExt;
 use crate::error::Error;
 use crate::model::files::FileContent;
 use crate::model::files::TypeEnum;
