@@ -1,4 +1,4 @@
-use crate::client::RequestBuilder;
+use crate::client::Client;
 use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
 use crate::model::VoucherList;
 use crate::request::ById;
@@ -87,8 +87,8 @@ impl<T, S> VoucherListRequestTrait<T, S> for VoucherListRequest<T, S> {
 }
 
 impl Requestable for VoucherListRequest<VoucherTypeEnum, VoucherStatusEnum> {
-    fn builder(&self) -> &RequestBuilder {
-        self.inner.builder()
+    fn client(&self) -> &Client {
+        self.inner.client()
     }
     fn url(&self) -> Url {
         self.inner.url()

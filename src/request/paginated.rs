@@ -2,9 +2,11 @@ use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
 use crate::request::Requestable;
+use crate::reqwest_ext::RequestBuilderExt;
 use crate::result::Result;
 use async_trait::async_trait;
 use futures::stream::Stream;
+use reqwest::Method;
 use serde::de::DeserializeOwned;
 use std::future::Future;
 use std::ops::Range;
@@ -16,7 +18,7 @@ use std::vec::IntoIter;
 #[async_trait]
 pub trait Paginated<T>
 where
-    Self: Requestable + Sized,
+    Self: Requestable + Sized + Send + Sync,
     T: DeserializeOwned,
 {
     async fn page_size(self, page: usize, size: usize) -> Result<Page<T>>
@@ -28,8 +30,10 @@ where
             .append_pair("page", &page.to_string())
             .append_pair("size", &size.to_string());
 
-        let builder = self.builder();
-        Ok(builder.json(&url).await?)
+        self.client()
+            .http_builder(Method::GET, url)
+            .to_json_response()
+            .await
     }
 
     async fn page(self, page: usize) -> Result<Page<T>>
@@ -39,8 +43,10 @@ where
         let mut url = self.url();
         url.query_pairs_mut().append_pair("page", &page.to_string());
 
-        let builder = self.builder();
-        Ok(builder.json(&url).await?)
+        self.client()
+            .http_builder(Method::GET, url)
+            .to_json_response()
+            .await
     }
 
     fn stream(self) -> PageStream<Self, T>

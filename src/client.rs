@@ -1,17 +1,12 @@
 use crate::error::Error;
 use crate::request::Request;
 use crate::result::Result;
-use mime::APPLICATION_JSON;
-use reqwest::header::ACCEPT;
 use reqwest::Method;
 use reqwest::Url;
-use serde::de::DeserializeOwned;
 use std::env;
 use std::path::Path;
 use std::path::PathBuf;
-use std::sync::Arc;
 use tokio::fs::read_to_string;
-use crate::response::ResponseExt;
 
 static USER_AGENT: &str = concat!(
     "rust-",
@@ -23,20 +18,18 @@ static USER_AGENT: &str = concat!(
 static BASE_URL: &str = "https://api.lexoffice.io/v1";
 
 #[derive(Clone, Debug)]
-pub struct ApiKey {
-    key: String,
-}
+pub struct ApiKey(String);
 
 impl ApiKey {
     pub fn from_env() -> Result<Self> {
         let key = env::var("LEXOFFICE_KEY")?;
-        Ok(Self { key })
+        Ok(Self(key))
     }
 
     pub async fn from_file(file_name: &Path) -> Result<Self> {
         let contents = read_to_string(file_name).await?;
         let key = contents.trim().to_string();
-        Ok(Self { key })
+        Ok(Self(key))
     }
 
     pub async fn from_home() -> Result<Self> {
@@ -63,7 +56,7 @@ impl ApiKey {
 
 impl From<String> for ApiKey {
     fn from(key: String) -> ApiKey {
-        Self { key }
+        Self(key)
     }
 }
 
@@ -72,47 +65,15 @@ impl std::fmt::Display for ApiKey {
         &self,
         fmt: &mut std::fmt::Formatter<'_>,
     ) -> std::result::Result<(), std::fmt::Error> {
-        self.key.fmt(fmt)
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct RequestBuilder {
-    api_key: ApiKey,
-    http_client: reqwest::Client,
-    pub base_url: Url,
-}
-
-impl RequestBuilder {
-    pub fn request(
-        &self,
-        method: Method,
-        url: &Url,
-    ) -> reqwest::RequestBuilder {
-        self.http_client
-            .request(method, url.clone())
-            .bearer_auth(&self.api_key)
-    }
-
-    pub async fn json<T>(&self, url: &Url) -> Result<T>
-    where
-        T: DeserializeOwned,
-    {
-        Ok(self
-            .request(Method::GET, url)
-            .header(ACCEPT, APPLICATION_JSON.as_ref())
-            .send()
-            .await?
-            .error_for_lexoffice()
-            .await?
-            .json()
-            .await?)
+        self.0.fmt(fmt)
     }
 }
 
 #[derive(Debug, Clone)]
 pub struct Client {
-    request_builder: Arc<RequestBuilder>,
+    api_key: ApiKey,
+    http_client: reqwest::Client,
+    pub base_url: Url,
 }
 
 impl Client {
@@ -124,15 +85,23 @@ impl Client {
         let base_url = Url::parse(BASE_URL).unwrap();
 
         Self {
-            request_builder: Arc::new(RequestBuilder {
-                base_url,
-                http_client,
-                api_key,
-            }),
+            base_url,
+            http_client,
+            api_key,
         }
     }
 
     pub fn request<T>(&self) -> Request<T> {
-        Request::new(self.request_builder.clone())
+        Request::new(self.clone())
+    }
+
+    pub fn http_builder(
+        &self,
+        method: Method,
+        url: Url,
+    ) -> reqwest::RequestBuilder {
+        self.http_client
+            .request(method, url)
+            .bearer_auth(&self.api_key)
     }
 }

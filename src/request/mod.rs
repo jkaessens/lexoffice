@@ -12,34 +12,35 @@ mod paginated;
 
 pub use self::paginated::PageStream;
 pub use self::paginated::Paginated;
-use crate::response::ResponseExt;
-use crate::client::RequestBuilder;
+use crate::client::Client;
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
+use crate::reqwest_ext::RequestBuilderExt;
+use crate::reqwest_ext::ResponseExt;
 use crate::result::Result;
 use async_trait::async_trait;
 use mime::APPLICATION_JSON;
+use reqwest::header::ACCEPT;
 use reqwest::header::CONTENT_TYPE;
 use reqwest::Method;
 use reqwest::Url;
 use serde::{de::DeserializeOwned, Serialize};
 use std::marker::PhantomData;
 use std::str::FromStr;
-use std::sync::Arc;
 use uuid::Uuid;
 
 #[derive(Clone, Debug)]
 pub struct Request<T> {
-    builder: Arc<RequestBuilder>,
+    client: Client,
     url: Url,
     phantom: PhantomData<T>,
 }
 
 impl<T> Request<T> {
-    pub fn new(builder: Arc<RequestBuilder>) -> Self {
-        let url = builder.base_url.clone();
+    pub fn new(client: Client) -> Self {
+        let url = client.base_url.clone();
         Request {
-            builder,
+            client,
             url,
             phantom: PhantomData,
         }
@@ -55,8 +56,8 @@ where
         url.path_segments_mut().unwrap().push(Self::ENDPOINT);
         url
     }
-    fn builder(&self) -> &RequestBuilder {
-        &self.builder
+    fn client(&self) -> &Client {
+        &self.client
     }
 }
 
@@ -69,7 +70,7 @@ where
     Self: Sized,
 {
     fn url(&self) -> Url;
-    fn builder(&self) -> &RequestBuilder;
+    fn client(&self) -> &Client;
 }
 
 #[async_trait]
@@ -86,15 +87,9 @@ where
         let object = object.into();
         let url = self.url();
         Ok(self
-            .builder()
-            .request(Method::POST, &url)
-            .header(CONTENT_TYPE, APPLICATION_JSON.as_ref())
-            .json(&object)
-            .send()
-            .await?
-            .error_for_lexoffice()
-            .await?
-            .json::<ServerResource<PhantomData<T>>>()
+            .client()
+            .http_builder(Method::POST, url)
+            .to_json_response::<ServerResource<PhantomData<T>>>()
             .await?
             .wrap(object))
     }
@@ -114,8 +109,8 @@ where
         let object = object.into();
         let url = self.url();
         Ok(self
-            .builder()
-            .request(Method::PUT, &url)
+            .client()
+            .http_builder(Method::PUT, url)
             .header(CONTENT_TYPE, APPLICATION_JSON.as_ref())
             .json(&object)
             .send()
@@ -131,7 +126,7 @@ where
 #[async_trait]
 pub trait Simple<T>
 where
-    Self: Requestable,
+    Self: Sized + Requestable + Send + Sync,
     T: DeserializeOwned,
 {
     async fn get(self) -> Result<ServerResource<T>>
@@ -139,8 +134,16 @@ where
         T: 'async_trait,
     {
         let url = self.url();
-        let builder = self.builder();
-        Ok(builder.json(&url).await?)
+        Ok(self
+            .client()
+            .http_builder(Method::GET, url)
+            .header(ACCEPT, APPLICATION_JSON.as_ref())
+            .send()
+            .await?
+            .error_for_lexoffice()
+            .await?
+            .json()
+            .await?)
     }
 }
 
@@ -148,7 +151,7 @@ where
 pub trait ById<T>
 where
     T: DeserializeOwned,
-    Self: Sized + Requestable,
+    Self: Sized + Requestable + Send + Sync,
 {
     fn by_id_url<I>(&self, uuid: I) -> Result<Url>
     where
@@ -174,8 +177,10 @@ where
         T: 'async_trait,
         I: Into<Uuid> + Send + Sync,
     {
-        let builder = self.builder();
         let url = self.by_id_url(uuid)?;
-        Ok(builder.json(&url).await?)
+        self.client()
+            .http_builder(Method::GET, url)
+            .to_json_response()
+            .await
     }
 }
