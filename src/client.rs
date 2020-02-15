@@ -1,12 +1,7 @@
-use crate::error::Error;
 use crate::request::Request;
-use crate::result::Result;
 use reqwest::Method;
 use reqwest::Url;
 use std::env;
-use std::path::Path;
-use std::path::PathBuf;
-use tokio::fs::read_to_string;
 use typed_builder::TypedBuilder;
 
 pub use crate::fs::ApiKeyFromFile;

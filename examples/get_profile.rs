@@ -1,4 +1,4 @@
-use lexoffice::client::{ApiKey, Client};
+use lexoffice::client::{ApiKey, ApiKeyFromFile, Client};
 use lexoffice::model::Profile;
 use lexoffice::request::Simple;
 

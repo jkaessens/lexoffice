@@ -1,4 +1,4 @@
-use lexoffice::client::{ApiKey, Client};
+use lexoffice::client::{ApiKey, ApiKeyFromFile, Client};
 use lexoffice::model::voucher_list::*;
 use lexoffice::model::VoucherList;
 use lexoffice::request::voucher_list::*;

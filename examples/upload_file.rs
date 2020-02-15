@@ -1,4 +1,4 @@
-use lexoffice::client::{ApiKey, Client};
+use lexoffice::client::{ApiKey, ApiKeyFromFile, Client};
 use lexoffice::fs::FilesUpload;
 use lexoffice::model::File;
 use lexoffice::Result;

@@ -1,4 +1,4 @@
-use lexoffice::client::{ApiKey, Client};
+use lexoffice::client::{ApiKey, ApiKeyFromFile, Client};
 use lexoffice::model::Contact;
 use lexoffice::request::Paginated;
 use tokio::stream::StreamExt;
