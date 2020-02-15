@@ -62,8 +62,8 @@ where
 #[async_trait]
 impl ApiKeyFromFile for crate::client::ApiKey {
     fn from_env() -> Result<Self> {
-        let key = env::var("LEXOFFICE_KEY")?;
-        Ok(Self::from(key))
+        let env = env::var("LEXOFFICE_KEY")?;
+        Ok(Self::from(env))
     }
 
     async fn from_file(file_name: &Path) -> Result<Self> {
