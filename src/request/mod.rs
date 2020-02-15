@@ -38,7 +38,7 @@ pub struct Request<T> {
 
 impl<T> Request<T> {
     pub fn new(client: Client) -> Self {
-        let url = client.base_url.clone();
+        let url = client.base_url().clone();
         Request {
             client,
             url,

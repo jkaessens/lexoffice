@@ -7,7 +7,7 @@ use crate::request::Request;
 /// # Examples
 ///
 /// ``` no_run
-/// use lexoffice::client::{ Client, ApiKey };
+/// use lexoffice::client::{ApiKey, ApiKeyFromFile, Client};
 /// use lexoffice::model::EventSubscription;
 /// use lexoffice::request::ById;
 ///
@@ -27,7 +27,7 @@ impl ById<EventSubscription> for Request<EventSubscription> {}
 /// # Examples
 ///
 /// ``` no_run
-/// use lexoffice::client::{ Client, ApiKey };
+/// use lexoffice::client::{ApiKey, ApiKeyFromFile, Client};
 /// use lexoffice::model::EventSubscription;
 /// use lexoffice::request::Paginated;
 ///

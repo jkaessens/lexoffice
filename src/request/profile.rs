@@ -6,7 +6,7 @@ use crate::request::Simple;
 /// # Examples
 ///
 /// ``` no_run
-/// use lexoffice::client::{ Client, ApiKey };
+/// use lexoffice::client::{ApiKey, ApiKeyFromFile, Client};
 /// use lexoffice::model::Profile;
 /// use lexoffice::request::Simple;
 ///
