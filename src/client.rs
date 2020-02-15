@@ -3,6 +3,7 @@ use reqwest::Method;
 use reqwest::Url;
 use std::env;
 use typed_builder::TypedBuilder;
+use derive_more::Display;
 
 pub use crate::fs::ApiKeyFromFile;
 
@@ -15,21 +16,12 @@ static USER_AGENT: &str = concat!(
 
 static BASE_URL: &str = "https://api.lexoffice.io/v1";
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Display)]
 pub struct ApiKey(String);
 
 impl From<String> for ApiKey {
     fn from(key: String) -> ApiKey {
         Self(key)
-    }
-}
-
-impl std::fmt::Display for ApiKey {
-    fn fmt(
-        &self,
-        fmt: &mut std::fmt::Formatter<'_>,
-    ) -> std::result::Result<(), std::fmt::Error> {
-        self.0.fmt(fmt)
     }
 }
 
