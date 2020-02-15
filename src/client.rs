@@ -1,9 +1,9 @@
 use crate::request::Request;
+use derive_more::{Display, From, FromStr};
 use reqwest::Method;
 use reqwest::Url;
 use std::env;
 use typed_builder::TypedBuilder;
-use derive_more::{Display, FromStr, From};
 
 pub use crate::fs::ApiKeyFromFile;
 
