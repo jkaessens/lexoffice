@@ -68,8 +68,8 @@ impl ApiKeyFromFile for crate::client::ApiKey {
 
     async fn from_file(file_name: &Path) -> Result<Self> {
         let contents = fs::read_to_string(file_name).await?;
-        let key = contents.trim().to_string();
-        Ok(Self::from(key))
+        let contents = contents.trim();
+        Ok(contents.parse().unwrap())
     }
 
     async fn from_home() -> Result<Self> {
