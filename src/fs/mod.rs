@@ -1,7 +1,7 @@
 mod api_key;
-mod files;
 mod bytes_stream;
+mod files;
 
 pub use api_key::ApiKeyFromFile;
-pub use files::FilesUpload;
 pub use bytes_stream::BytesStream;
+pub use files::FilesUpload;
