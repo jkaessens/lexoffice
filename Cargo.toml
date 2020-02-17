@@ -4,12 +4,17 @@ version = "0.1.0"
 authors = ["Enno Boland <g@s01.de>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+fs = ["tokio"]
+
+[dependencies.reqwest]
+git = "https://github.com/Gottox/reqwest"
+rev = "20d883fc2834e65b74bb4207bfc778ed7a294d29"
+#path = "../reqwest"
+features = ["json", "stream"]
 
 [dependencies]
 futures = "0.3.1"
-tokio = { version = "0.2", features = ["stream", "fs"] }
-reqwest = { version = "0.10.0", features = ["json", "stream"] }
 uuid = { version = "0.8", features = ["serde"] }
 chrono = { version = "0.4", features = ["serde"] }
 serde = "1.0.104"
@@ -23,6 +28,7 @@ mime = "0.3.16"
 bytes = "0.5.4"
 typed-builder = "0.5.1"
 derive-error = "0.0.4"
+tokio = { version = "0.2", features = ["stream"], optional = true }
 
 [dev-dependencies]
-tokio = { version = "0.2", features = ["macros"] }
+tokio = { version = "0.2", features = ["macros", "fs"] }

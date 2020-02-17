@@ -1,4 +1,5 @@
 pub mod client;
+#[cfg(feature = "fs")]
 pub mod fs;
 pub mod model;
 pub mod request;

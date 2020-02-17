@@ -5,8 +5,6 @@ use reqwest::Url;
 use std::env;
 use typed_builder::TypedBuilder;
 
-pub use crate::fs::ApiKeyFromFile;
-
 static USER_AGENT: &str = concat!(
     "rust-",
     env!("CARGO_PKG_NAME"),
@@ -19,14 +17,26 @@ static BASE_URL: &str = "https://api.lexoffice.io/v1";
 #[derive(Clone, Debug, Display, FromStr, From)]
 pub struct ApiKey(String);
 
+#[cfg(not(target_arch = "wasm32"))]
+fn default_client() -> reqwest::Client {
+    reqwest::Client::builder()
+        .user_agent(USER_AGENT)
+        .build()
+        .unwrap()
+}
+
+#[cfg(target_arch = "wasm32")]
+fn default_client() -> reqwest::Client {
+    reqwest::Client::builder()
+        .build()
+        .unwrap()
+}
+
 #[derive(Debug, Clone, TypedBuilder)]
 pub struct Client {
     api_key: ApiKey,
 
-    #[builder(default=reqwest::Client::builder()
-        .user_agent(USER_AGENT)
-        .build()
-        .unwrap())]
+    #[builder(default=default_client())]
     http_client: reqwest::Client,
 
     #[builder(default=Url::parse(BASE_URL).unwrap())]
