@@ -1,6 +1,7 @@
 mod contacts;
 mod credit_notes;
 mod event_subscriptions;
+#[cfg(not(target_arch = "wasm32"))]
 pub mod files;
 mod invoices;
 mod order_confirmations;
@@ -76,12 +77,12 @@ where
 #[async_trait]
 pub trait Saveable<T>
 where
-    Self: Requestable + Send + Sync,
-    T: Send + Sync + Serialize,
+    Self: Requestable + Sync,
+    T: Send + Serialize,
 {
     async fn upload<I>(self, object: I) -> Result<ServerResource<T>>
     where
-        I: Into<T> + Send + Sync + 'async_trait,
+        I: Into<T> + Send + 'async_trait,
         T: 'async_trait,
     {
         let object = object.into();
@@ -98,12 +99,12 @@ where
 #[async_trait]
 pub trait Updateable<T>
 where
-    Self: Requestable + Send + Sync,
+    Self: Requestable + Sync,
     T: Send + Sync + Serialize,
 {
     async fn upload<I>(self, object: I) -> Result<ServerResource<T>>
     where
-        I: Into<ServerResource<T>> + Send + Sync + 'async_trait,
+        I: Into<ServerResource<T>> + Send + 'async_trait,
         T: 'async_trait,
     {
         let object = object.into();
@@ -126,7 +127,7 @@ where
 #[async_trait]
 pub trait Simple<T>
 where
-    Self: Sized + Requestable + Send + Sync,
+    Self: Sized + Requestable + Sync,
     T: DeserializeOwned,
 {
     async fn get(self) -> Result<ServerResource<T>>
@@ -151,11 +152,11 @@ where
 pub trait ById<T>
 where
     T: DeserializeOwned,
-    Self: Sized + Requestable + Send + Sync,
+    Self: Sized + Requestable + Sync,
 {
     fn by_id_url<I>(&self, uuid: I) -> Result<Url>
     where
-        I: Into<Uuid> + Send + Sync,
+        I: Into<Uuid>,
     {
         let uuid: Uuid = uuid.into();
         let mut url = self.url();
@@ -175,7 +176,7 @@ where
     async fn by_id<I>(self, uuid: I) -> Result<ServerResource<T>>
     where
         T: 'async_trait,
-        I: Into<Uuid> + Send + Sync,
+        I: Into<Uuid> + Send,
     {
         let url = self.by_id_url(uuid)?;
         self.client()
