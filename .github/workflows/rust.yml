@@ -2,9 +2,15 @@ name: Rust
 
 on: [push]
 
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        feature_fs: ["fs", ""]
+        feature_env: ["env", ""]
     steps:
     - uses: actions/checkout@v2
     - name: Install latest stable
@@ -25,12 +31,18 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: build
-        args: --verbose
+        args: >
+          --verbose
+          --no-default-features
+          --features "${{ matrix.feature_fs }} ${{ matrix.feature_env }}"
     - name: Run tests
       uses: actions-rs/cargo@v1
       with:
         command: test
-        args: --verbose
+        args: >
+          --verbose
+          --no-default-features
+          --features "${{ matrix.feature_fs }} ${{ matrix.feature_env }}"
     - name: IRC Message Action
       uses: Gottox/irc-message-action@master
       if: failure()
