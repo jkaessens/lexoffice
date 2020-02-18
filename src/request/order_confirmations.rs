@@ -12,7 +12,6 @@ impl Endpoint for Request<OrderConfirmation> {
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::OrderConfirmation;
-/// use lexoffice::request::ById;
 ///
 /// # use lexoffice::Result;
 /// # #[tokio::main]

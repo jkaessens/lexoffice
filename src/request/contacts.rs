@@ -13,7 +13,6 @@ impl Endpoint for Request<Contact> {
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Contact;
-/// use lexoffice::request::ById;
 ///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
@@ -33,7 +32,6 @@ impl ById for Request<Contact> {}
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Contact;
-/// use lexoffice::request::Paginated;
 ///
 /// # use lexoffice::Result;
 /// # #[tokio::main]

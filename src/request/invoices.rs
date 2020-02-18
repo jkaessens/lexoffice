@@ -12,7 +12,6 @@ impl Endpoint for Request<Invoice> {
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Invoice;
-/// use lexoffice::request::ById;
 ///
 /// # use lexoffice::Result;
 /// # #[tokio::main]

@@ -13,7 +13,6 @@ impl Endpoint for Request<Quotation> {
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Quotation;
-/// use lexoffice::request::ById;
 ///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
@@ -33,7 +32,6 @@ impl ById for Request<Quotation> {}
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Quotation;
-/// use lexoffice::request::Paginated;
 ///
 /// # use lexoffice::Result;
 /// # #[tokio::main]
