@@ -1,5 +1,4 @@
 use lexoffice::client::{ApiKey, Client};
-use lexoffice::fs::FilesUpload;
 use lexoffice::model::File;
 use lexoffice::Result;
 use std::path::Path;

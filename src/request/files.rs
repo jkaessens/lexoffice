@@ -2,11 +2,10 @@ use crate::error::Error;
 use crate::model::File;
 use crate::request::Endpoint;
 use crate::request::Request;
-use crate::request::Requestable;
+use crate::request::RequestTrait;
 use crate::reqwest_ext::RequestBuilderExt;
 use crate::reqwest_ext::ResponseExt;
 use crate::result::Result;
-use async_trait::async_trait;
 use reqwest::multipart::Form;
 use reqwest::multipart::Part;
 use reqwest::Method;
@@ -20,25 +19,8 @@ pub struct FileResponse {
     pub id: Uuid,
 }
 
-#[async_trait]
-pub trait FilesRequest {
-    fn by_id_url<I>(&self, uuid: I) -> Result<Url>
-    where
-        I: Into<Uuid> + Send + Sync;
-
-    async fn by_id_str(self, uuid: &str) -> Result<Response>;
-
-    async fn by_id<I>(self, uuid: I) -> Result<Response>
-    where
-        I: Into<Uuid> + Send + Sync;
-    async fn upload<P>(self, file_part: P) -> Result<FileResponse>
-    where
-        P: Into<Part> + Send + Sync;
-}
-
-#[async_trait]
-impl FilesRequest for Request<File> {
-    fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>
+impl Request<File> {
+    pub fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync,
     {
@@ -50,11 +32,11 @@ impl FilesRequest for Request<File> {
         Ok(url)
     }
 
-    async fn by_id_str(self, uuid: &str) -> Result<Response> {
+    pub async fn by_id_str(self, uuid: &str) -> Result<Response> {
         self.by_id(Uuid::parse_str(uuid)?).await
     }
 
-    async fn by_id<I>(self, uuid: I) -> Result<Response>
+    pub async fn by_id<I>(self, uuid: I) -> Result<Response>
     where
         I: Into<Uuid> + Send + Sync,
     {
@@ -68,7 +50,7 @@ impl FilesRequest for Request<File> {
             .await
     }
 
-    async fn upload<P>(self, file_part: P) -> Result<FileResponse>
+    pub async fn upload<P>(self, file_part: P) -> Result<FileResponse>
     where
         P: Into<Part> + Send + Sync,
     {
@@ -81,6 +63,24 @@ impl FilesRequest for Request<File> {
             .multipart(form)
             .to_json_response()
             .await?)
+    }
+
+    #[cfg(feature = "fs")]
+    pub async fn upload_path<P>(self, path: P) -> Result<FileResponse>
+    where
+        P: AsRef<std::path::Path> + Send + Sync,
+    {
+        use crate::mime::*;
+        use reqwest::Body;
+
+        let path = path.as_ref();
+        let file = tokio::fs::File::open(path).await?;
+        let stream = crate::fs::BytesStream::new(file);
+        let mime = path.mime();
+        let part = Part::stream(Body::wrap_stream(stream))
+            .mime_str(mime.as_ref())?
+            .file_name(format!("document.{}", mime.extension()));
+        self.upload(part).await
     }
 }
 

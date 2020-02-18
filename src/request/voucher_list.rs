@@ -5,7 +5,7 @@ use crate::request::ById;
 use crate::request::Endpoint;
 use crate::request::Paginated;
 use crate::request::Request;
-use crate::request::Requestable;
+use crate::request::RequestTrait;
 use reqwest::Url;
 use std::marker::PhantomData;
 
@@ -86,7 +86,7 @@ impl<T, S> VoucherListRequestTrait<T, S> for VoucherListRequest<T, S> {
     }
 }
 
-impl Requestable for VoucherListRequest<VoucherTypeEnum, VoucherStatusEnum> {
+impl RequestTrait for VoucherListRequest<VoucherTypeEnum, VoucherStatusEnum> {
     fn client(&self) -> &Client {
         self.inner.client()
     }

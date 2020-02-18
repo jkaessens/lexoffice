@@ -1,7 +1,7 @@
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
-use crate::request::Requestable;
+use crate::request::RequestTrait;
 use crate::reqwest_ext::RequestBuilderExt;
 use crate::result::Result;
 use async_trait::async_trait;
@@ -18,7 +18,7 @@ use std::vec::IntoIter;
 #[async_trait]
 pub trait Paginated<T>
 where
-    Self: Requestable + Sized + Send + Sync,
+    Self: RequestTrait + Sized + Send + Sync,
     T: DeserializeOwned,
 {
     async fn page_size(self, page: usize, size: usize) -> Result<Page<T>>

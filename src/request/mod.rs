@@ -1,7 +1,7 @@
 mod contacts;
 mod credit_notes;
 mod event_subscriptions;
-pub mod files;
+mod files;
 mod invoices;
 mod order_confirmations;
 mod profile;
@@ -16,11 +16,9 @@ use crate::client::Client;
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::reqwest_ext::RequestBuilderExt;
-use crate::reqwest_ext::ResponseExt;
 use crate::result::Result;
 use async_trait::async_trait;
 use mime::APPLICATION_JSON;
-use reqwest::header::ACCEPT;
 use reqwest::header::CONTENT_TYPE;
 use reqwest::Method;
 use reqwest::Url;
@@ -33,7 +31,7 @@ use uuid::Uuid;
 pub struct Request<T> {
     client: Client,
     url: Url,
-    phantom: PhantomData<T>,
+    target: PhantomData<T>,
 }
 
 impl<T> Request<T> {
@@ -42,12 +40,12 @@ impl<T> Request<T> {
         Request {
             client,
             url,
-            phantom: PhantomData,
+            target: PhantomData,
         }
     }
 }
 
-impl<T> Requestable for Request<T>
+impl<T> RequestTrait for Request<T>
 where
     Self: Endpoint,
 {
@@ -65,7 +63,7 @@ pub trait Endpoint {
     const ENDPOINT: &'static str;
 }
 
-pub trait Requestable
+pub trait RequestTrait
 where
     Self: Sized,
 {
@@ -74,9 +72,9 @@ where
 }
 
 #[async_trait]
-pub trait Saveable<T>
+pub trait Storable<T>
 where
-    Self: Requestable + Sync,
+    Self: RequestTrait + Sync,
     T: Send + Serialize,
 {
     async fn upload<I>(self, object: I) -> Result<ServerResource<T>>
@@ -96,9 +94,9 @@ where
 }
 
 #[async_trait]
-pub trait Updateable<T>
+pub trait Updatable<T>
 where
-    Self: Requestable + Sync,
+    Self: RequestTrait + Sync,
     T: Send + Sync + Serialize,
 {
     async fn upload<I>(self, object: I) -> Result<ServerResource<T>>
@@ -113,37 +111,9 @@ where
             .http_builder(Method::PUT, url)
             .header(CONTENT_TYPE, APPLICATION_JSON.as_ref())
             .json(&object)
-            .send()
-            .await?
-            .error_for_lexoffice()
-            .await?
-            .json::<ServerResource<PhantomData<T>>>()
+            .to_json_response::<ServerResource<PhantomData<T>>>()
             .await?
             .wrap(object.inner))
-    }
-}
-
-#[async_trait]
-pub trait Simple<T>
-where
-    Self: Sized + Requestable + Sync,
-    T: DeserializeOwned,
-{
-    async fn get(self) -> Result<ServerResource<T>>
-    where
-        T: 'async_trait,
-    {
-        let url = self.url();
-        Ok(self
-            .client()
-            .http_builder(Method::GET, url)
-            .header(ACCEPT, APPLICATION_JSON.as_ref())
-            .send()
-            .await?
-            .error_for_lexoffice()
-            .await?
-            .json()
-            .await?)
     }
 }
 
@@ -151,7 +121,7 @@ where
 pub trait ById<T>
 where
     T: DeserializeOwned,
-    Self: Sized + Requestable + Sync,
+    Self: Sized + RequestTrait + Sync,
 {
     fn by_id_url<I>(&self, uuid: I) -> Result<Url>
     where
