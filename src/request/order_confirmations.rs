@@ -1,7 +1,11 @@
 use crate::model::OrderConfirmation;
-use crate::request::ById;
+use crate::request::impls::by_id::ById;
 use crate::request::Endpoint;
 use crate::request::Request;
+
+impl Endpoint for Request<OrderConfirmation> {
+    const ENDPOINT: &'static str = "order-confirmations";
+}
 
 /// # Examples
 ///
@@ -21,8 +25,4 @@ use crate::request::Request;
 /// # }
 /// ```
 ///
-impl ById<OrderConfirmation> for Request<OrderConfirmation> {}
-
-impl Endpoint for Request<OrderConfirmation> {
-    const ENDPOINT: &'static str = "order-confirmations";
-}
+impl ById for Request<OrderConfirmation> {}

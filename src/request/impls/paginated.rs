@@ -1,10 +1,10 @@
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
-use crate::request::RequestTrait;
+use crate::request::Endpoint;
+use crate::request::StateRequest;
 use crate::reqwest_ext::RequestBuilderExt;
 use crate::result::Result;
-use async_trait::async_trait;
 use futures::stream::Stream;
 use reqwest::Method;
 use serde::de::DeserializeOwned;
@@ -15,16 +15,15 @@ use std::task::Context;
 use std::task::Poll;
 use std::vec::IntoIter;
 
-#[async_trait]
-pub trait Paginated<T>
+pub trait Paginated {}
+
+impl<T, S> StateRequest<T, S>
 where
-    Self: RequestTrait + Sized + Send + Sync,
-    T: DeserializeOwned,
+    Self: Endpoint + Paginated + Sync + Send + Clone,
+    T: DeserializeOwned + Sync + Send + 'static,
+    S: Sync + Send,
 {
-    async fn page_size(self, page: usize, size: usize) -> Result<Page<T>>
-    where
-        T: 'async_trait,
-    {
+    pub async fn page_size(self, page: usize, size: usize) -> Result<Page<T>> {
         let mut url = self.url();
         url.query_pairs_mut()
             .append_pair("page", &page.to_string())
@@ -36,10 +35,7 @@ where
             .await
     }
 
-    async fn page(self, page: usize) -> Result<Page<T>>
-    where
-        T: 'async_trait,
-    {
+    pub async fn page(self, page: usize) -> Result<Page<T>> {
         let mut url = self.url();
         url.query_pairs_mut().append_pair("page", &page.to_string());
 
@@ -49,47 +45,48 @@ where
             .await
     }
 
-    fn stream(self) -> PageStream<Self, T>
-    where
-        Self: Clone + Sync + Send,
-    {
+    pub fn stream(self) -> PageStream<T, S> {
         self.into()
     }
 }
 
 type FutureType<T> = dyn Future<Output = Result<Page<T>>> + Send;
-pub struct PageStream<R, T>
+
+pub struct PageStream<T, S>
 where
-    R: Paginated<T> + 'static,
-    T: DeserializeOwned + Sized + 'static,
+    StateRequest<T, S>: Paginated + Clone + Endpoint,
+    T: DeserializeOwned,
+    S: Sync + Send + 'static,
 {
-    request: R,
+    request: StateRequest<T, S>,
     future: Option<Pin<Box<FutureType<T>>>>,
     pages: Option<Range<usize>>,
     iter: Option<IntoIter<ServerResource<T>>>,
 }
 
-impl<R, T> From<R> for PageStream<R, T>
+impl<T, S> From<StateRequest<T, S>> for PageStream<T, S>
 where
-    R: Paginated<T> + Sync + Send + Clone,
-    T: DeserializeOwned,
+    StateRequest<T, S>: Paginated + Clone + Endpoint,
+    T: DeserializeOwned + Sync + Send + 'static,
+    S: Sync + Send + 'static,
 {
-    fn from(request: R) -> Self {
+    fn from(request: StateRequest<T, S>) -> Self {
         let request_clone = request.clone();
 
         Self {
             request,
-            future: Some(request_clone.page(0)),
+            future: Some(Box::pin(request_clone.page(0))),
             pages: None,
             iter: None,
         }
     }
 }
 
-impl<R, T> PageStream<R, T>
+impl<T, S> PageStream<T, S>
 where
-    R: Paginated<T> + Unpin + Sync + Send + Clone,
-    T: DeserializeOwned + Unpin,
+    StateRequest<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
+    T: DeserializeOwned + Unpin + Sync + Send + 'static,
+    S: Sync + Send + 'static,
 {
     fn poll_item(&mut self) -> Option<ServerResource<T>> {
         self.iter.as_mut().and_then(|x| x.next())
@@ -116,7 +113,10 @@ where
     ) -> Poll<Option<Result<ServerResource<T>>>> {
         let request = self.request.clone();
         let pages = self.pages.get_or_insert(1..page.total_pages);
-        self.future = pages.next().map(|page| request.page(page));
+        self.future = match pages.next() {
+            Some(x) => Some(Box::pin(request.page(x))),
+            None => None,
+        };
 
         let mut iter = page.content.into_iter();
         let first_item = iter.next().map(Ok);
@@ -135,10 +135,11 @@ where
     }
 }
 
-impl<R, T> Stream for PageStream<R, T>
+impl<T, S> Stream for PageStream<T, S>
 where
-    R: Paginated<T> + Unpin + Sync + Send + Clone,
-    T: DeserializeOwned + Unpin,
+    StateRequest<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
+    T: DeserializeOwned + Unpin + Send + Sync + 'static,
+    S: Sync + Send + 'static,
 {
     type Item = Result<ServerResource<T>>;
 

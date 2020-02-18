@@ -1,110 +1,76 @@
-use crate::client::Client;
 use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
 use crate::model::VoucherList;
-use crate::request::ById;
+use crate::request::impls::by_id::ById;
+use crate::request::impls::paginated::Paginated;
 use crate::request::Endpoint;
-use crate::request::Paginated;
-use crate::request::Request;
-use crate::request::RequestTrait;
-use reqwest::Url;
+use crate::request::StateRequest;
 use std::marker::PhantomData;
 
 pub trait Void {}
 impl Void for () {}
 
-pub trait VoucherListRequestTrait<T, S> {
-    fn type_(
+// Not implementing the into trait here as this must not be public.
+fn into<O, T, S>(
+    request: StateRequest<VoucherList, O>,
+) -> StateRequest<VoucherList, (T, S)> {
+    StateRequest {
+        client: request.client,
+        url: request.url,
+        target: request.target,
+        state: PhantomData,
+    }
+}
+
+type Finished = (VoucherTypeEnum, VoucherStatusEnum);
+
+impl Endpoint for StateRequest<VoucherList, Finished> {
+    const ENDPOINT: &'static str = "voucherlist";
+}
+
+impl StateRequest<VoucherList, ()> {
+    pub fn type_(
         self,
         voucher_type: VoucherTypeEnum,
-    ) -> VoucherListRequest<VoucherTypeEnum, S>
-    where
-        T: Void;
-    fn status(
+    ) -> StateRequest<VoucherList, (VoucherTypeEnum, ())> {
+        into::<_, (), ()>(self).type_(voucher_type)
+    }
+    pub fn status(
         self,
         voucher_status: VoucherStatusEnum,
-    ) -> VoucherListRequest<T, VoucherStatusEnum>
-    where
-        S: Void;
-}
-
-#[derive(Clone, Debug)]
-pub struct VoucherListRequest<T, S> {
-    inner: Request<VoucherList>,
-    phantom: PhantomData<(T, S)>,
-}
-
-impl<T, S> From<Request<VoucherList>> for VoucherListRequest<T, S> {
-    fn from(request: Request<VoucherList>) -> Self {
-        Self {
-            phantom: PhantomData,
-            inner: request,
-        }
+    ) -> StateRequest<VoucherList, ((), VoucherStatusEnum)> {
+        into::<_, (), ()>(self).status(voucher_status)
     }
 }
 
-impl VoucherListRequestTrait<(), ()> for Request<VoucherList> {
-    fn type_(
-        self,
-        voucher_type: VoucherTypeEnum,
-    ) -> VoucherListRequest<VoucherTypeEnum, ()> {
-        VoucherListRequest::<(), ()>::from(self).type_(voucher_type)
-    }
-    fn status(
-        self,
-        voucher_status: VoucherStatusEnum,
-    ) -> VoucherListRequest<(), VoucherStatusEnum> {
-        VoucherListRequest::<(), ()>::from(self).status(voucher_status)
-    }
-}
-
-impl<T, S> VoucherListRequestTrait<T, S> for VoucherListRequest<T, S> {
-    fn type_(
+impl<T, S> StateRequest<VoucherList, (T, S)> {
+    pub fn type_(
         mut self,
         voucher_type: VoucherTypeEnum,
-    ) -> VoucherListRequest<VoucherTypeEnum, S>
+    ) -> StateRequest<VoucherList, (VoucherTypeEnum, S)>
     where
         T: Void,
     {
-        self.inner.url.query_pairs_mut().append_pair(
+        self.url.query_pairs_mut().append_pair(
             "voucherType",
             &serde_plain::to_string(&voucher_type).unwrap(),
         );
-        self.inner.into()
+        into(self)
     }
-    fn status(
+    pub fn status(
         mut self,
         voucher_status: VoucherStatusEnum,
-    ) -> VoucherListRequest<T, VoucherStatusEnum>
+    ) -> StateRequest<VoucherList, (T, VoucherStatusEnum)>
     where
         S: Void,
     {
-        self.inner.url.query_pairs_mut().append_pair(
+        self.url.query_pairs_mut().append_pair(
             "voucherStatus",
             &serde_plain::to_string(&voucher_status).unwrap(),
         );
-        self.inner.into()
+        into(self)
     }
 }
 
-impl RequestTrait for VoucherListRequest<VoucherTypeEnum, VoucherStatusEnum> {
-    fn client(&self) -> &Client {
-        self.inner.client()
-    }
-    fn url(&self) -> Url {
-        self.inner.url()
-    }
-}
+impl ById for StateRequest<VoucherList, Finished> {}
 
-impl Endpoint for VoucherListRequest<VoucherTypeEnum, VoucherStatusEnum> {
-    const ENDPOINT: &'static str = "voucherlist";
-}
-impl Endpoint for Request<VoucherList> {
-    const ENDPOINT: &'static str = "voucherlist";
-}
-
-impl ById<VoucherList> for Request<VoucherList> {}
-
-impl Paginated<VoucherList>
-    for VoucherListRequest<VoucherTypeEnum, VoucherStatusEnum>
-{
-}
+impl Paginated for StateRequest<VoucherList, Finished> {}

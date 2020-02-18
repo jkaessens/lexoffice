@@ -1,8 +1,6 @@
 use lexoffice::client::{ApiKey, Client};
 use lexoffice::model::voucher_list::*;
 use lexoffice::model::VoucherList;
-use lexoffice::request::voucher_list::VoucherListRequestTrait;
-use lexoffice::request::Paginated;
 use tokio::stream::StreamExt;
 
 use std::error::Error;

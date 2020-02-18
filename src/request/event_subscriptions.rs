@@ -1,8 +1,12 @@
 use crate::model::EventSubscription;
-use crate::request::ById;
+use crate::request::impls::by_id::ById;
+use crate::request::impls::paginated::Paginated;
 use crate::request::Endpoint;
-use crate::request::Paginated;
 use crate::request::Request;
+
+impl Endpoint for Request<EventSubscription> {
+    const ENDPOINT: &'static str = "event-subscriptions";
+}
 
 /// # Examples
 ///
@@ -22,7 +26,7 @@ use crate::request::Request;
 /// # }
 /// ```
 ///
-impl ById<EventSubscription> for Request<EventSubscription> {}
+impl ById for Request<EventSubscription> {}
 
 /// # Examples
 ///
@@ -41,8 +45,4 @@ impl ById<EventSubscription> for Request<EventSubscription> {}
 /// # }
 /// ```
 ///
-impl Paginated<EventSubscription> for Request<EventSubscription> {}
-
-impl Endpoint for Request<EventSubscription> {
-    const ENDPOINT: &'static str = "event-subscriptions";
-}
+impl Paginated for Request<EventSubscription> {}

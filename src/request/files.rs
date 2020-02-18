@@ -2,7 +2,6 @@ use crate::error::Error;
 use crate::model::File;
 use crate::request::Endpoint;
 use crate::request::Request;
-use crate::request::RequestTrait;
 use crate::reqwest_ext::RequestBuilderExt;
 use crate::reqwest_ext::ResponseExt;
 use crate::result::Result;
@@ -14,7 +13,11 @@ use reqwest::Url;
 use serde::Deserialize;
 use uuid::Uuid;
 
-#[derive(Deserialize, Clone, Debug)]
+impl Endpoint for Request<File> {
+    const ENDPOINT: &'static str = "files";
+}
+
+#[derive(Deserialize, Debug)]
 pub struct FileResponse {
     pub id: Uuid,
 }
@@ -82,8 +85,4 @@ impl Request<File> {
             .file_name(format!("document.{}", mime.extension()));
         self.upload(part).await
     }
-}
-
-impl Endpoint for Request<File> {
-    const ENDPOINT: &'static str = "files";
 }

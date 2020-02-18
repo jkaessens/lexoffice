@@ -1,8 +1,12 @@
 use crate::model::CreditNote;
-use crate::request::ById;
+use crate::request::impls::by_id::ById;
+use crate::request::impls::paginated::Paginated;
 use crate::request::Endpoint;
-use crate::request::Paginated;
 use crate::request::Request;
+
+impl Endpoint for Request<CreditNote> {
+    const ENDPOINT: &'static str = "credit-notes";
+}
 
 /// # Examples
 ///
@@ -22,7 +26,7 @@ use crate::request::Request;
 /// # }
 /// ```
 ///
-impl ById<CreditNote> for Request<CreditNote> {}
+impl ById for Request<CreditNote> {}
 
 /// # Examples
 ///
@@ -41,8 +45,4 @@ impl ById<CreditNote> for Request<CreditNote> {}
 /// # }
 /// ```
 ///
-impl Paginated<CreditNote> for Request<CreditNote> {}
-
-impl Endpoint for Request<CreditNote> {
-    const ENDPOINT: &'static str = "credit-notes";
-}
+impl Paginated for Request<CreditNote> {}

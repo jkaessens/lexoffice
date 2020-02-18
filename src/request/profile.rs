@@ -1,12 +1,15 @@
-use reqwest::header::ACCEPT;
-use mime::APPLICATION_JSON;
 use crate::model::Profile;
-use crate::reqwest_ext::ResponseExt;
 use crate::request::Endpoint;
 use crate::request::Request;
-use crate::request::RequestTrait;
+use crate::reqwest_ext::ResponseExt;
 use crate::Result;
+use mime::APPLICATION_JSON;
+use reqwest::header::ACCEPT;
 use reqwest::Method;
+
+impl Endpoint for Request<Profile> {
+    const ENDPOINT: &'static str = "profile";
+}
 
 /// # Examples
 ///
@@ -25,8 +28,7 @@ use reqwest::Method;
 /// ```
 ///
 impl Request<Profile> {
-    pub async fn get(self) -> Result<Profile>
-    {
+    pub async fn get(self) -> Result<Profile> {
         let url = self.url();
         Ok(self
             .client()
@@ -39,9 +41,4 @@ impl Request<Profile> {
             .json()
             .await?)
     }
-
-}
-
-impl Endpoint for Request<Profile> {
-    const ENDPOINT: &'static str = "profile";
 }

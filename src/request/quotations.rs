@@ -1,8 +1,12 @@
 use crate::model::Quotation;
-use crate::request::ById;
+use crate::request::impls::by_id::ById;
+use crate::request::impls::paginated::Paginated;
 use crate::request::Endpoint;
-use crate::request::Paginated;
 use crate::request::Request;
+
+impl Endpoint for Request<Quotation> {
+    const ENDPOINT: &'static str = "quotations";
+}
 
 /// # Examples
 ///
@@ -22,7 +26,7 @@ use crate::request::Request;
 /// # }
 /// ```
 ///
-impl ById<Quotation> for Request<Quotation> {}
+impl ById for Request<Quotation> {}
 
 /// # Examples
 ///
@@ -41,8 +45,4 @@ impl ById<Quotation> for Request<Quotation> {}
 /// # }
 /// ```
 ///
-impl Paginated<Quotation> for Request<Quotation> {}
-
-impl Endpoint for Request<Quotation> {
-    const ENDPOINT: &'static str = "quotations";
-}
+impl Paginated for Request<Quotation> {}

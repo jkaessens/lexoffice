@@ -1,7 +1,11 @@
 use crate::model::Invoice;
-use crate::request::ById;
+use crate::request::impls::by_id::ById;
 use crate::request::Endpoint;
 use crate::request::Request;
+
+impl Endpoint for Request<Invoice> {
+    const ENDPOINT: &'static str = "invoices";
+}
 
 /// # Examples
 ///
@@ -21,8 +25,4 @@ use crate::request::Request;
 /// # }
 /// ```
 ///
-impl ById<Invoice> for Request<Invoice> {}
-
-impl Endpoint for Request<Invoice> {
-    const ENDPOINT: &'static str = "invoices";
-}
+impl ById for Request<Invoice> {}
