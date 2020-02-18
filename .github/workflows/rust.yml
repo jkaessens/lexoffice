@@ -2,15 +2,9 @@ name: Rust
 
 on: [push]
 
-
-
 jobs:
-  build:
+  src-check:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        feature_fs: ["fs", ""]
-        feature_env: ["env", ""]
     steps:
     - uses: actions/checkout@v2
     - name: Install latest stable
@@ -27,6 +21,19 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: clippy
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        feature_fs: ["fs", ""]
+        feature_env: ["env", ""]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install latest stable
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
     - name: Build
       uses: actions-rs/cargo@v1
       with:
