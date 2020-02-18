@@ -9,7 +9,6 @@ mod mime;
 mod reqwest_ext;
 mod response;
 mod result;
-mod util;
 
 pub use error::Error;
 pub use result::Result;
