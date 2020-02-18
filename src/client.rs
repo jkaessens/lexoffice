@@ -69,7 +69,7 @@ impl ApiKey {
 
 fn default_client() -> reqwest::Client {
     reqwest::Client::builder()
-        .user_agent(USER_AGENT)
+        //.user_agent(USER_AGENT)
         .build()
         .unwrap()
 }

@@ -1,10 +1,8 @@
 use crate::model::Profile;
 use crate::request::Endpoint;
 use crate::request::Request;
-use crate::reqwest_ext::ResponseExt;
+use crate::util::to_json_response;
 use crate::Result;
-use mime::APPLICATION_JSON;
-use reqwest::header::ACCEPT;
 use reqwest::Method;
 
 impl Endpoint for Request<Profile> {
@@ -30,15 +28,6 @@ impl Endpoint for Request<Profile> {
 impl Request<Profile> {
     pub async fn get(self) -> Result<Profile> {
         let url = self.url();
-        Ok(self
-            .client()
-            .http_builder(Method::GET, url)
-            .header(ACCEPT, APPLICATION_JSON.as_ref())
-            .send()
-            .await?
-            .error_for_lexoffice()
-            .await?
-            .json()
-            .await?)
+        to_json_response(self.client().http_builder(Method::GET, url)).await
     }
 }

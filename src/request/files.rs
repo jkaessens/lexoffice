@@ -2,9 +2,9 @@ use crate::error::Error;
 use crate::model::File;
 use crate::request::Endpoint;
 use crate::request::Request;
-use crate::reqwest_ext::RequestBuilderExt;
-use crate::reqwest_ext::ResponseExt;
 use crate::result::Result;
+use crate::util::error_for_legacy_lexoffice;
+use crate::util::to_json_response;
 use reqwest::multipart::Form;
 use reqwest::multipart::Part;
 use reqwest::Method;
@@ -45,12 +45,10 @@ impl Request<File> {
     {
         let uuid: Uuid = uuid.into();
         let url = self.by_id_url(uuid)?;
-        self.client
-            .http_builder(Method::GET, url)
-            .send()
-            .await?
-            .error_for_legacy_lexoffice()
-            .await
+        error_for_legacy_lexoffice(
+            self.client.http_builder(Method::GET, url).send().await?,
+        )
+        .await
     }
 
     pub async fn upload<P>(self, file_part: P) -> Result<FileResponse>
@@ -60,12 +58,12 @@ impl Request<File> {
         let file_part = file_part.into();
         let url = self.url();
         let form = Form::new().part("file", file_part).text("type", "voucher");
-        Ok(self
-            .client()
-            .http_builder(Method::POST, url)
-            .multipart(form)
-            .to_json_response()
-            .await?)
+        to_json_response(
+            self.client()
+                .http_builder(Method::POST, url)
+                .multipart(form),
+        )
+        .await
     }
 
     #[cfg(feature = "fs")]

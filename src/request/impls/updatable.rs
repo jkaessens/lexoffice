@@ -1,8 +1,8 @@
 use crate::model::server_resource::ServerResource;
 use crate::request::Endpoint;
 use crate::request::StateRequest;
-use crate::reqwest_ext::RequestBuilderExt;
 use crate::result::Result;
+use crate::util::to_json_response;
 use mime::APPLICATION_JSON;
 use reqwest::header::CONTENT_TYPE;
 use reqwest::Method;
@@ -22,13 +22,13 @@ where
     {
         let object = object.into();
         let url = self.url();
-        Ok(self
-            .client()
-            .http_builder(Method::PUT, url)
-            .header(CONTENT_TYPE, APPLICATION_JSON.as_ref())
-            .json(&object)
-            .to_json_response::<ServerResource<PhantomData<T>>>()
-            .await?
-            .wrap(object.inner))
+        Ok(to_json_response::<ServerResource<PhantomData<T>>>(
+            self.client()
+                .http_builder(Method::PUT, url)
+                .header(CONTENT_TYPE, APPLICATION_JSON.as_ref())
+                .json(&object),
+        )
+        .await?
+        .wrap(object.inner))
     }
 }

@@ -1,8 +1,8 @@
 use crate::model::server_resource::ServerResource;
 use crate::request::Endpoint;
 use crate::request::StateRequest;
-use crate::reqwest_ext::RequestBuilderExt;
 use crate::result::Result;
+use crate::util::to_json_response;
 use crate::Error;
 use reqwest::Method;
 use reqwest::Url;
@@ -38,9 +38,6 @@ where
         I: Into<Uuid> + Send,
     {
         let url = self.by_id_url(uuid)?;
-        self.client()
-            .http_builder(Method::GET, url)
-            .to_json_response()
-            .await
+        to_json_response(self.client().http_builder(Method::GET, url)).await
     }
 }

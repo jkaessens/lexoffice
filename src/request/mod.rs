@@ -1,12 +1,14 @@
 mod contacts;
 mod credit_notes;
 mod event_subscriptions;
+#[cfg(not(target_arch = "wasm32"))]
 mod files;
 mod impls;
 mod invoices;
 mod order_confirmations;
 mod profile;
 mod quotations;
+mod stream;
 mod voucher_list;
 use crate::client::Client;
 use reqwest::Url;
