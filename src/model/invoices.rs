@@ -4,12 +4,12 @@ use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 use uuid::Uuid;
 
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum CurrencyEnum {
     EUR,
 }
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum ShippingTypeEnum {
     Service,
@@ -18,7 +18,7 @@ pub enum ShippingTypeEnum {
     Deliveryperiod,
     None,
 }
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum TaxTypeEnum {
     Net,
@@ -30,7 +30,7 @@ pub enum TaxTypeEnum {
     ThirdPartyCountryService,
     ThirdPartyCountryDelivery,
 }
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum TypeEnum {
     Service,
@@ -38,7 +38,7 @@ pub enum TypeEnum {
     Custom,
     Text,
 }
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum VoucherStatusEnum {
     Draft,

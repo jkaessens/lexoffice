@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 use uuid::Uuid;
 
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum SalutationEnum {
     #[serde(rename = "Herr")]
     Male,
