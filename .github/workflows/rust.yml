@@ -27,6 +27,12 @@ jobs:
       matrix:
         feature_fs: ["fs", ""]
         feature_env: ["env", ""]
+        target: ["--target=wasm32-unknown-unknown", ""]
+        exclude:
+        - target: "--target=wasm32-unknown-unknown"
+          feature_fs: "fs"
+        - target: "--target=wasm32-unknown-unknown"
+          feature_env: "env"
     steps:
     - uses: actions/checkout@v2
     - name: Install latest stable
