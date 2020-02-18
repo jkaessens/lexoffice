@@ -2,6 +2,14 @@ use mime::Mime;
 use std::ffi::OsStr;
 use std::path::Path;
 
+pub trait MimeExt {
+    fn mime(&self) -> &'static Mime;
+}
+
+pub trait ExtensionExt {
+    fn extension(&self) -> &'static str;
+}
+
 macro_rules! mime_table {
     ( $( $x:tt [ $y:tt $(, $z:tt)* ] ),* ) => {
             fn mime(path: &Path) -> &'static Mime {
@@ -37,18 +45,10 @@ mime_table!(
     IMAGE_JPEG ["jpg", "jpeg"]
     );
 
-pub trait MimeExt {
-    fn mime(&self) -> &'static Mime;
-}
-
 impl MimeExt for Path {
     fn mime(&self) -> &'static mime::Mime {
         mime(self)
     }
-}
-
-pub trait ExtensionExt {
-    fn extension(&self) -> &'static str;
 }
 
 impl ExtensionExt for Mime {
