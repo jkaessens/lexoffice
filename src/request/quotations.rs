@@ -8,7 +8,6 @@ use crate::request::Request;
 ///
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
-/// use lexoffice::fs::ApiKeyFromFile;
 /// use lexoffice::model::Quotation;
 /// use lexoffice::request::ById;
 ///
@@ -29,7 +28,6 @@ impl ById<Quotation> for Request<Quotation> {}
 ///
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
-/// use lexoffice::fs::ApiKeyFromFile;
 /// use lexoffice::model::Quotation;
 /// use lexoffice::request::Paginated;
 ///

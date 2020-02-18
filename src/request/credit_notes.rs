@@ -8,7 +8,6 @@ use crate::request::Request;
 ///
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
-/// use lexoffice::fs::ApiKeyFromFile;
 /// use lexoffice::model::CreditNote;
 /// use lexoffice::request::ById;
 ///
@@ -29,7 +28,6 @@ impl ById<CreditNote> for Request<CreditNote> {}
 ///
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
-/// use lexoffice::fs::ApiKeyFromFile;
 /// use lexoffice::model::CreditNote;
 /// use lexoffice::request::Paginated;
 ///

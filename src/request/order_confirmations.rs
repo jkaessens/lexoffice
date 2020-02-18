@@ -7,7 +7,6 @@ use crate::request::Request;
 ///
 /// ``` no_run
 /// use lexoffice::client::{ApiKey, Client};
-/// use lexoffice::fs::ApiKeyFromFile;
 /// use lexoffice::model::OrderConfirmation;
 /// use lexoffice::request::ById;
 ///
