@@ -35,3 +35,19 @@ cfg-if = "0.1"
 
 [dev-dependencies]
 tokio = { version = "0.2", features = ["macros"] }
+
+[[example]]
+name = "get_overdue_invoices"
+required-features = ["fs", "env"]
+
+[[example]]
+name = "get_profile"
+required-features = ["fs", "env"]
+
+[[example]]
+name = "list_contact_names"
+required-features = ["fs", "env"]
+
+[[example]]
+name = "upload_file"
+required-features = ["fs", "env"]
