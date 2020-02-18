@@ -8,6 +8,7 @@ use reqwest::RequestBuilder;
 use reqwest::Response;
 use serde::de::DeserializeOwned;
 
+#[allow(dead_code)]
 pub async fn error_for_legacy_lexoffice(
     response: Response,
 ) -> Result<Response> {

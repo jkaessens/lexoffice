@@ -6,13 +6,6 @@ use reqwest::Method;
 use reqwest::Url;
 use typed_builder::TypedBuilder;
 
-static USER_AGENT: &str = concat!(
-    "rust-",
-    env!("CARGO_PKG_NAME"),
-    "/",
-    env!("CARGO_PKG_VERSION"),
-);
-
 static BASE_URL: &str = "https://api.lexoffice.io/v1";
 
 #[derive(Clone, Debug, Display, FromStr, From)]
@@ -67,9 +60,24 @@ impl ApiKey {
     }
 }
 
+#[cfg(not(target_arch = "wasm32"))]
+fn default_client() -> reqwest::Client {
+    let user_agent = concat!(
+        "rust-",
+        env!("CARGO_PKG_NAME"),
+        "/",
+        env!("CARGO_PKG_VERSION"),
+    );
+
+    reqwest::Client::builder()
+        .user_agent(user_agent)
+        .build()
+        .unwrap()
+}
+    
+#[cfg(target_arch = "wasm32")]
 fn default_client() -> reqwest::Client {
     reqwest::Client::builder()
-        //.user_agent(USER_AGENT)
         .build()
         .unwrap()
 }
