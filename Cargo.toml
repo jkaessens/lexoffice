@@ -5,7 +5,9 @@ authors = ["Enno Boland <g@s01.de>"]
 edition = "2018"
 
 [features]
+default = ["fs", "env"]
 fs = ["tokio"]
+env = []
 
 [dependencies.reqwest]
 git = "https://github.com/Gottox/reqwest"
@@ -28,7 +30,8 @@ mime = "0.3.16"
 bytes = "0.5.4"
 typed-builder = "0.5.1"
 derive-error = "0.0.4"
-tokio = { version = "0.2", features = ["stream"], optional = true }
+tokio = { version = "0.2", features = ["stream", "fs"], optional = true }
+cfg-if = "0.1"
 
 [dev-dependencies]
-tokio = { version = "0.2", features = ["macros", "fs"] }
+tokio = { version = "0.2", features = ["macros"] }

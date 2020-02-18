@@ -1,7 +1,6 @@
 mod contacts;
 mod credit_notes;
 mod event_subscriptions;
-#[cfg(not(target_arch = "wasm32"))]
 pub mod files;
 mod invoices;
 mod order_confirmations;
