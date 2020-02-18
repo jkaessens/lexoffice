@@ -74,12 +74,10 @@ fn default_client() -> reqwest::Client {
         .build()
         .unwrap()
 }
-    
+
 #[cfg(target_arch = "wasm32")]
 fn default_client() -> reqwest::Client {
-    reqwest::Client::builder()
-        .build()
-        .unwrap()
+    reqwest::Client::builder().build().unwrap()
 }
 
 #[derive(Debug, Clone, TypedBuilder)]
