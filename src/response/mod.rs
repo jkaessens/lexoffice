@@ -34,8 +34,7 @@ impl ResponseExt for Response {
             Ok(self)
         } else {
             let message = self.json().await?;
-            Err(LexOfficeError::<Message>::new(status, message)
-                .into())
+            Err(LexOfficeError::<Message>::new(status, message).into())
         }
     }
 }
