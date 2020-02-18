@@ -1,9 +1,10 @@
 use serde::{Deserialize, Serialize};
 use std::marker::PhantomData;
 use std::ops::Deref;
+use typed_builder::TypedBuilder;
 use uuid::Uuid;
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ServerResource<T> {
     pub id: Option<Uuid>,

@@ -1,14 +1,15 @@
 use celes::Country;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use typed_builder::TypedBuilder;
 use uuid::Uuid;
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum CurrencyEnum {
     EUR,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum ShippingTypeEnum {
     Service,
@@ -17,7 +18,7 @@ pub enum ShippingTypeEnum {
     Deliveryperiod,
     None,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum TaxTypeEnum {
     Net,
@@ -29,7 +30,7 @@ pub enum TaxTypeEnum {
     ThirdPartyCountryService,
     ThirdPartyCountryDelivery,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum TypeEnum {
     Service,
@@ -37,12 +38,12 @@ pub enum TypeEnum {
     Custom,
     Text,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum VoucherStatusEnum {
     Draft,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct OrderConfirmation {
     pub organization_id: Uuid,
@@ -66,7 +67,7 @@ pub struct OrderConfirmation {
     pub delivery_terms: String,
     pub files: FilesDetails,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddressDetails {
     pub contact_id: Uuid,
@@ -77,7 +78,7 @@ pub struct AddressDetails {
     pub zip: String,
     pub country_code: Country,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LineItemsDetails {
     pub id: Option<Uuid>,
@@ -90,7 +91,7 @@ pub struct LineItemsDetails {
     pub discount_percentage: f64,
     pub line_item_amount: f64,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct UnitPriceDetails {
     pub currency: CurrencyEnum,
@@ -98,7 +99,7 @@ pub struct UnitPriceDetails {
     pub gross_amount: f64,
     pub tax_rate_percentage: f64,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TotalPriceDetails {
     pub currency: String,
@@ -108,40 +109,40 @@ pub struct TotalPriceDetails {
     pub total_discount_absolute: f64,
     pub total_discount_percentage: f64,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxAmountsDetails {
     pub tax_rate_percentage: f64,
     pub tax_amount: f64,
     pub net_amount: f64,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxConditionsDetails {
     pub tax_type: TaxTypeEnum,
     pub tax_type_note: String,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct PaymentConditionsDetails {
     pub payment_term_label: String,
     pub payment_term_duration: i64,
     pub payment_discount_conditions: Vec<PaymentDiscountConditionsDetails>,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct PaymentDiscountConditionsDetails {
     pub discount_percentage: f64,
     pub discount_range: i64,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ShippingConditionsDetails {
     pub shipping_date: DateTime<Utc>,
     pub shipping_end_date: DateTime<Utc>,
     pub shipping_type: ShippingTypeEnum,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct FilesDetails {
     pub document_file_id: Uuid,

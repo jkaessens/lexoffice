@@ -1,12 +1,13 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
+use typed_builder::TypedBuilder;
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 //#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum CurrencyEnum {
     EUR,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum VoucherStatusEnum {
     Draft,
@@ -18,7 +19,7 @@ pub enum VoucherStatusEnum {
     Accepted,
     Rejected,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum VoucherTypeEnum {
     Invoice,
@@ -26,7 +27,7 @@ pub enum VoucherTypeEnum {
     Orderconfirmation,
     Quotation,
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct VoucherList {
     pub voucher_type: VoucherTypeEnum,
