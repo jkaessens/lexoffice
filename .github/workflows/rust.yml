@@ -27,11 +27,11 @@ jobs:
       matrix:
         feature_fs: ["fs", ""]
         feature_env: ["env", ""]
-        target: ["--target=wasm32-unknown-unknown", ""]
+        target: ["wasm32-unknown-unknown", "x86_64-unknown-linux-gnu"]
         exclude:
-        - target: "--target=wasm32-unknown-unknown"
+        - target: "wasm32-unknown-unknown"
           feature_fs: "fs"
-        - target: "--target=wasm32-unknown-unknown"
+        - target: "wasm32-unknown-unknown"
           feature_env: "env"
     steps:
     - uses: actions/checkout@v2
@@ -39,6 +39,7 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
+        target: ${{ matrix.target }}
         override: true
     - name: Build
       uses: actions-rs/cargo@v1
@@ -46,11 +47,13 @@ jobs:
         command: build
         args: >
           --verbose
+          --target ${{ matrix.target }}
           --no-default-features
           --features "${{ matrix.feature_fs }} ${{ matrix.feature_env }}"
     - name: Run tests
       uses: actions-rs/cargo@v1
       with:
+        if: matrix.target == 'x86_64-unknown-linux-gnu'
         command: test
         args: >
           --verbose
