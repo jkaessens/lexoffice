@@ -56,8 +56,7 @@ impl<S> Request<VoucherList, VoucherListState<(), S>> {
     pub fn type_(
         mut self,
         voucher_type: VoucherTypeEnum,
-    ) -> Request<VoucherList, VoucherListState<VoucherTypeEnum, S>>
-    {
+    ) -> Request<VoucherList, VoucherListState<VoucherTypeEnum, S>> {
         self.url.query_pairs_mut().append_pair(
             "voucherType",
             &serde_plain::to_string(&voucher_type).unwrap(),
@@ -71,8 +70,7 @@ impl<T> Request<VoucherList, VoucherListState<T, ()>> {
     pub fn status(
         mut self,
         voucher_status: VoucherStatusEnum,
-    ) -> Request<VoucherList, VoucherListState<T, VoucherStatusEnum>>
-    {
+    ) -> Request<VoucherList, VoucherListState<T, VoucherStatusEnum>> {
         self.url.query_pairs_mut().append_pair(
             "voucherStatus",
             &serde_plain::to_string(&voucher_status).unwrap(),
