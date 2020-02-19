@@ -29,14 +29,11 @@ impl ApiKey {
     pub async fn from_home() -> Result<Self> {
         use std::env;
 
-        if let Some(home) = env::var_os("HOME") {
-            let mut file_name = std::path::PathBuf::from(home);
-            file_name.push(".lexoffice");
+        let home = env::var("HOME")?;
+        let mut file_name = std::path::PathBuf::from(home);
+        file_name.push(".lexoffice");
 
-            Self::from_file(&file_name).await
-        } else {
-            Err(Error::HomeIsNotSet)
-        }
+        Self::from_file(&file_name).await
     }
 
     pub async fn try_default() -> Result<Self> {
