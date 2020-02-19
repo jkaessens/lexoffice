@@ -6,6 +6,7 @@ use std::task::Poll;
 use tokio::io::AsyncRead;
 use tokio::stream::Stream;
 
+#[derive(Debug)]
 pub struct BytesStream<R: AsyncRead + Unpin + Send + Sync> {
     reader: R,
 }
