@@ -24,6 +24,7 @@ impl Endpoint for Request<Profile, ()> {
 /// ```
 ///
 impl Request<Profile, ()> {
+    /// executes the request
     pub async fn get(self) -> Result<Profile> {
         let url = self.url();
         to_json_response(self.client().http_builder(Method::GET, url)).await

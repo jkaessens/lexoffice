@@ -6,6 +6,7 @@
 //! 1. The `LEXOFFICE_KEY` environment variable
 //! 2. The `~/.lexoffice` file containing the key
 
+use reqwest::RequestBuilder;
 use crate::request::Request;
 use crate::Error;
 use crate::Result;
@@ -91,7 +92,9 @@ fn default_client() -> reqwest::Client {
     reqwest::Client::builder().build().unwrap()
 }
 
+/// The Client struct for LexOffice
 #[derive(Debug, Clone, TypedBuilder)]
+#[builder(doc)]
 pub struct Client {
     api_key: ApiKey,
 
@@ -103,24 +106,27 @@ pub struct Client {
 }
 
 impl Client {
+    /// Creates a new Client with an API key.
     pub fn new(api_key: ApiKey) -> Self {
         Self::builder().api_key(api_key).build()
     }
 
+    /// Creates a new request.
     pub fn request<T>(&self) -> Request<T, ()> {
         Request::new(self.clone())
     }
 
-    pub fn http_builder(
+    pub(crate) fn http_builder(
         &self,
         method: Method,
         url: Url,
-    ) -> reqwest::RequestBuilder {
+    ) -> RequestBuilder {
         self.http_client
             .request(method, url)
             .bearer_auth(&self.api_key)
     }
 
+    /// Returns the base Url used by this client
     pub fn base_url(&self) -> &Url {
         &self.base_url
     }

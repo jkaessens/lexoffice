@@ -23,6 +23,8 @@ struct FileResponse {
 }
 
 impl Request<File, ()> {
+    /// This method creates an `Url` that is used to address the object
+    /// identified by `uuid`.
     pub fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync,
@@ -35,10 +37,12 @@ impl Request<File, ()> {
         Ok(url)
     }
 
+    /// This method requests an object identified by `uuid`.
     pub async fn by_id_str(self, uuid: &str) -> Result<Response> {
         self.by_id(Uuid::parse_str(uuid)?).await
     }
 
+    /// This method requests an object identified by `uuid`.
     pub async fn by_id<I>(self, uuid: I) -> Result<Response>
     where
         I: Into<Uuid> + Send + Sync,
@@ -51,6 +55,7 @@ impl Request<File, ()> {
         .await
     }
 
+    /// Uploads a file to lexoffice
     pub async fn upload<P>(self, file_part: P) -> Result<Uuid>
     where
         P: Into<Part> + Send + Sync,
@@ -67,6 +72,7 @@ impl Request<File, ()> {
         .map(|x| x.id)
     }
 
+    /// Uploads a file from a path to lexoffice
     #[cfg(feature = "fs")]
     pub async fn upload_path<P>(self, path: P) -> Result<Uuid>
     where
