@@ -14,13 +14,11 @@ impl Endpoint for Request<Profile, ()> {
 
 /// # Examples
 ///
-/// ``` no_run
+/// ```
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Profile;
 ///
-/// # use lexoffice::Result;
-/// # #[tokio::main]
-/// # async fn main() -> Result<()> {
+/// # async fn run() -> Result<(), Box<std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let profile = client.request::<Profile>().get().await?;
 /// println!("{:#?}", profile);

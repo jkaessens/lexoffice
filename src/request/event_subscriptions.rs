@@ -13,13 +13,11 @@ impl Endpoint for Request<EventSubscription, ()> {
 
 /// # Examples
 ///
-/// ``` no_run
+/// ```
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::EventSubscription;
 ///
-/// # use lexoffice::Result;
-/// # #[tokio::main]
-/// # async fn main() -> Result<()> {
+/// # async fn run() -> Result<(), Box<std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let uuid = uuid::Uuid::parse_str("f4add52b-44e3-474a-b718-890885094d9a")?;
 /// let event_subscriptions = client.request::<EventSubscription>().by_id(uuid).await?;
@@ -32,13 +30,11 @@ impl ById for Request<EventSubscription, ()> {}
 
 /// # Examples
 ///
-/// ``` no_run
+/// ```
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::EventSubscription;
 ///
-/// # use lexoffice::Result;
-/// # #[tokio::main]
-/// # async fn main() -> Result<()> {
+/// # async fn run() -> Result<(), Box<std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let event_subscriptions = client.request::<EventSubscription>().page(0).await?;
 /// println!("{:#?}", event_subscriptions);

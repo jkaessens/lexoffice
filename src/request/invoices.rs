@@ -12,13 +12,11 @@ impl Endpoint for Request<Invoice, ()> {
 
 /// # Examples
 ///
-/// ``` no_run
+/// ```
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Invoice;
 ///
-/// # use lexoffice::Result;
-/// # #[tokio::main]
-/// # async fn main() -> Result<()> {
+/// # async fn run() -> Result<(), Box<std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let uuid = uuid::Uuid::parse_str("f4add52b-44e3-474a-b718-890885094d9a")?;
 /// let invoices = client.request::<Invoice>().by_id(uuid).await?;
