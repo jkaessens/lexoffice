@@ -9,7 +9,7 @@ use reqwest::Method;
 use serde::Serialize;
 use std::marker::PhantomData;
 
-/// This trait marks a `Request` as `Updatable` and unlooks the
+/// This trait marks a `Request` as `Updatable` and unlocks the
 /// `Request::update` method.
 pub trait Updatable {}
 

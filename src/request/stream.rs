@@ -1,3 +1,5 @@
+//! This module provides functionality to stream page items.
+
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
@@ -19,7 +21,7 @@ type FutureType<T> = dyn Future<Output = Result<Page<T>>>;
 #[cfg(not(target_arch = "wasm32"))]
 type FutureType<T> = dyn Future<Output = Result<Page<T>>> + Send;
 
-/// Stream that allows to view multiple pages as contiguous stream of Page items.
+/// Stream that allows to view multiple pages as contiguous stream of Page items `T`.
 pub struct PageStream<T, S>
 where
     Request<T, S>: Paginated + Clone + Endpoint,

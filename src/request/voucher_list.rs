@@ -18,9 +18,14 @@ fn into<O, T, S>(
     }
 }
 
+/// This type represents a Request that is ready to be sent
 pub type VoucherListRequest =
     Request<VoucherList, (VoucherTypeEnum, VoucherStatusEnum)>;
+
+/// This type represents a Request hasn't been started to be configured
 pub type UnstartedVoucherListRequest = Request<VoucherList, ()>;
+
+/// This type represents a Request that configuration hasn't been finished
 pub type IncompleteVoucherListRequest<T, S> = Request<VoucherList, (T, S)>;
 
 impl Endpoint for VoucherListRequest {
@@ -28,12 +33,14 @@ impl Endpoint for VoucherListRequest {
 }
 
 impl UnstartedVoucherListRequest {
+    /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         self,
         voucher_type: VoucherTypeEnum,
     ) -> IncompleteVoucherListRequest<VoucherTypeEnum, ()> {
         into::<_, (), ()>(self).type_(voucher_type)
     }
+    /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         self,
         voucher_status: VoucherStatusEnum,
@@ -43,6 +50,7 @@ impl UnstartedVoucherListRequest {
 }
 
 impl<S> IncompleteVoucherListRequest<(), S> {
+    /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         mut self,
         voucher_type: VoucherTypeEnum,
@@ -57,6 +65,7 @@ impl<S> IncompleteVoucherListRequest<(), S> {
 }
 
 impl<T> IncompleteVoucherListRequest<T, ()> {
+    /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         mut self,
         voucher_status: VoucherStatusEnum,
