@@ -1,18 +1,19 @@
-pub mod contacts;
-pub mod credit_notes;
-pub mod event_subscriptions;
+mod contacts;
+mod credit_notes;
+mod event_subscriptions;
 #[cfg(not(target_arch = "wasm32"))]
-pub mod files;
-pub mod invoices;
-pub mod order_confirmations;
-pub mod profile;
-pub mod quotations;
-pub mod voucher_list;
+mod files;
+mod invoices;
+mod order_confirmations;
+mod profile;
+mod quotations;
+mod voucher_list;
 
 pub mod stream;
 
 mod impls;
 pub use impls::*;
+pub use voucher_list::*;
 
 use crate::client::Client;
 use reqwest::Url;

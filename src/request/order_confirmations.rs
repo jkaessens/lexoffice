@@ -1,11 +1,12 @@
+//! This module allows making requests to the `order-confirmations` endpoint of the
+//! Lexoffice API.
+
 use crate::model::OrderConfirmation;
 use crate::request::impls::ById;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-pub type OrderConfirmationRequest = Request<OrderConfirmation, ()>;
-
-impl Endpoint for OrderConfirmationRequest {
+impl Endpoint for Request<OrderConfirmation, ()> {
     const ENDPOINT: &'static str = "order-confirmations";
 }
 
@@ -26,4 +27,4 @@ impl Endpoint for OrderConfirmationRequest {
 /// # }
 /// ```
 ///
-impl ById for OrderConfirmationRequest {}
+impl ById for Request<OrderConfirmation, ()> {}

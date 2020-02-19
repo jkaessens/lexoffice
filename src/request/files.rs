@@ -1,3 +1,6 @@
+//! This module allows making requests to the `files` endpoint of the
+//! Lexoffice API.
+
 use crate::error::Error;
 use crate::model::File;
 use crate::request::Endpoint;
@@ -13,9 +16,7 @@ use reqwest::Url;
 use serde::Deserialize;
 use uuid::Uuid;
 
-pub type FileRequest = Request<File, ()>;
-
-impl Endpoint for FileRequest {
+impl Endpoint for Request<File, ()> {
     const ENDPOINT: &'static str = "files";
 }
 
@@ -24,7 +25,7 @@ struct FileResponse {
     pub id: Uuid,
 }
 
-impl FileRequest {
+impl Request<File, ()> {
     pub fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync,

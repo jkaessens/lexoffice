@@ -1,5 +1,6 @@
 //! This module allows making requests to the `voucherlist` endpoint of the
 //! Lexoffice API.
+
 use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
 use crate::model::VoucherList;
 use crate::request::impls::ById;
@@ -8,7 +9,7 @@ use crate::request::Endpoint;
 use crate::request::Request;
 use std::marker::PhantomData;
 
-// Not implementing the into trait here as this must not be public.
+// Not implementing the into trait here as this mustn't be public.
 fn into<O, T, S>(
     request: Request<VoucherList, O>,
 ) -> Request<VoucherList, (T, S)> {
@@ -20,43 +21,42 @@ fn into<O, T, S>(
     }
 }
 
-/// This type represents a Request that is ready to be sent
-pub type VoucherListRequest =
-    Request<VoucherList, (VoucherTypeEnum, VoucherStatusEnum)>;
+/// This type represents the state of a Request that is ready to be sent
+pub type VoucherListStateFinished = (VoucherTypeEnum, VoucherStatusEnum);
 
-/// This type represents a Request hasn't been started to be configured
-pub type UnstartedVoucherListRequest = Request<VoucherList, ()>;
+/// This type represents the state of a Request hasn't been started to be configured
+pub type VoucherListStateUnstarted = ();
 
-/// This type represents a Request that configuration hasn't been finished
-pub type IncompleteVoucherListRequest<T, S> = Request<VoucherList, (T, S)>;
+/// This type represents the state of a Request that configuration hasn't been finished
+pub type VoucherListState<T, S> = (T, S);
 
-impl Endpoint for VoucherListRequest {
+impl Endpoint for Request<VoucherList, VoucherListStateFinished> {
     const ENDPOINT: &'static str = "voucherlist";
 }
 
-impl UnstartedVoucherListRequest {
+impl Request<VoucherList, VoucherListStateUnstarted> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         self,
         voucher_type: VoucherTypeEnum,
-    ) -> IncompleteVoucherListRequest<VoucherTypeEnum, ()> {
+    ) -> Request<VoucherList, VoucherListState<VoucherTypeEnum, ()>> {
         into::<_, (), ()>(self).type_(voucher_type)
     }
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         self,
         voucher_status: VoucherStatusEnum,
-    ) -> IncompleteVoucherListRequest<(), VoucherStatusEnum> {
+    ) -> Request<VoucherList, VoucherListState<(), VoucherStatusEnum>> {
         into::<_, (), ()>(self).status(voucher_status)
     }
 }
 
-impl<S> IncompleteVoucherListRequest<(), S> {
+impl<S> Request<VoucherList, VoucherListState<(), S>> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         mut self,
         voucher_type: VoucherTypeEnum,
-    ) -> IncompleteVoucherListRequest<VoucherTypeEnum, S>
+    ) -> Request<VoucherList, VoucherListState<VoucherTypeEnum, S>>
     {
         self.url.query_pairs_mut().append_pair(
             "voucherType",
@@ -66,12 +66,12 @@ impl<S> IncompleteVoucherListRequest<(), S> {
     }
 }
 
-impl<T> IncompleteVoucherListRequest<T, ()> {
+impl<T> Request<VoucherList, VoucherListState<T, ()>> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         mut self,
         voucher_status: VoucherStatusEnum,
-    ) -> IncompleteVoucherListRequest<T, VoucherStatusEnum>
+    ) -> Request<VoucherList, VoucherListState<T, VoucherStatusEnum>>
     {
         self.url.query_pairs_mut().append_pair(
             "voucherStatus",
@@ -81,6 +81,6 @@ impl<T> IncompleteVoucherListRequest<T, ()> {
     }
 }
 
-impl ById for VoucherListRequest {}
+impl ById for Request<VoucherList, VoucherListStateFinished> {}
 
-impl Paginated for VoucherListRequest {}
+impl Paginated for Request<VoucherList, VoucherListStateFinished> {}

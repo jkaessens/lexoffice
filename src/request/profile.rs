@@ -1,3 +1,6 @@
+//! This module allows making requests to the `profile` endpoint of the
+//! Lexoffice API.
+
 use crate::model::Profile;
 use crate::request::Endpoint;
 use crate::request::Request;
@@ -5,9 +8,7 @@ use crate::util::to_json_response;
 use crate::Result;
 use reqwest::Method;
 
-pub type ProfileRequest = Request<Profile, ()>;
-
-impl Endpoint for ProfileRequest {
+impl Endpoint for Request<Profile, ()> {
     const ENDPOINT: &'static str = "profile";
 }
 
@@ -27,7 +28,7 @@ impl Endpoint for ProfileRequest {
 /// # }
 /// ```
 ///
-impl ProfileRequest {
+impl Request<Profile, ()> {
     pub async fn get(self) -> Result<Profile> {
         let url = self.url();
         to_json_response(self.client().http_builder(Method::GET, url)).await

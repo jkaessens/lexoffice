@@ -1,12 +1,13 @@
+//! This module allows making requests to the `credit-notes` endpoint of the
+//! Lexoffice API.
+
 use crate::model::CreditNote;
 use crate::request::impls::ById;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-pub type CreditNoteRequest = Request<CreditNote, ()>;
-
-impl Endpoint for CreditNoteRequest {
+impl Endpoint for Request<CreditNote, ()> {
     const ENDPOINT: &'static str = "credit-notes";
 }
 
@@ -27,7 +28,7 @@ impl Endpoint for CreditNoteRequest {
 /// # }
 /// ```
 ///
-impl ById for CreditNoteRequest {}
+impl ById for Request<CreditNote, ()> {}
 
 /// # Examples
 ///
@@ -45,4 +46,4 @@ impl ById for CreditNoteRequest {}
 /// # }
 /// ```
 ///
-impl Paginated for CreditNoteRequest {}
+impl Paginated for Request<CreditNote, ()> {}

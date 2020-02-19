@@ -1,12 +1,13 @@
+//! This module allows making requests to the `event-subscriptions` endpoint of the
+//! Lexoffice API.
+
 use crate::model::EventSubscription;
 use crate::request::impls::ById;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-pub type EventSubscriptionRequest = Request<EventSubscription, ()>;
-
-impl Endpoint for EventSubscriptionRequest {
+impl Endpoint for Request<EventSubscription, ()> {
     const ENDPOINT: &'static str = "event-subscriptions";
 }
 
@@ -27,7 +28,7 @@ impl Endpoint for EventSubscriptionRequest {
 /// # }
 /// ```
 ///
-impl ById for EventSubscriptionRequest {}
+impl ById for Request<EventSubscription, ()> {}
 
 /// # Examples
 ///
@@ -45,4 +46,4 @@ impl ById for EventSubscriptionRequest {}
 /// # }
 /// ```
 ///
-impl Paginated for EventSubscriptionRequest {}
+impl Paginated for Request<EventSubscription, ()> {}

@@ -1,12 +1,13 @@
+//! This module allows making requests to the `contacts` endpoint of the
+//! Lexoffice API.
+
 use crate::model::Contact;
 use crate::request::impls::ById;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-type ContactRequest = Request<Contact, ()>;
-
-impl Endpoint for ContactRequest {
+impl Endpoint for Request<Contact, ()> {
     const ENDPOINT: &'static str = "contacts";
 }
 
@@ -27,7 +28,7 @@ impl Endpoint for ContactRequest {
 /// # }
 /// ```
 ///
-impl ById for ContactRequest {}
+impl ById for Request<Contact, ()> {}
 
 /// # Examples
 ///
@@ -45,4 +46,4 @@ impl ById for ContactRequest {}
 /// # }
 /// ```
 ///
-impl Paginated for ContactRequest {}
+impl Paginated for Request<Contact, ()> {}

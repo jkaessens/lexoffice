@@ -1,11 +1,12 @@
+//! This module allows making requests to the `invoices` endpoint of the
+//! Lexoffice API.
+
 use crate::model::Invoice;
 use crate::request::impls::ById;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-pub type InvoiceRequest = Request<Invoice, ()>;
-
-impl Endpoint for InvoiceRequest {
+impl Endpoint for Request<Invoice, ()> {
     const ENDPOINT: &'static str = "invoices";
 }
 
@@ -26,4 +27,4 @@ impl Endpoint for InvoiceRequest {
 /// # }
 /// ```
 ///
-impl ById for InvoiceRequest {}
+impl ById for Request<Invoice, ()> {}

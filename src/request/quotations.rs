@@ -1,12 +1,13 @@
+//! This module allows making requests to the `quotations` endpoint of the
+//! Lexoffice API.
+
 use crate::model::Quotation;
 use crate::request::impls::ById;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-pub type QuotationRequest = Request<Quotation, ()>;
-
-impl Endpoint for QuotationRequest {
+impl Endpoint for Request<Quotation, ()> {
     const ENDPOINT: &'static str = "quotations";
 }
 
@@ -27,7 +28,7 @@ impl Endpoint for QuotationRequest {
 /// # }
 /// ```
 ///
-impl ById for QuotationRequest {}
+impl ById for Request<Quotation, ()> {}
 
 /// # Examples
 ///
@@ -45,4 +46,4 @@ impl ById for QuotationRequest {}
 /// # }
 /// ```
 ///
-impl Paginated for QuotationRequest {}
+impl Paginated for Request<Quotation, ()> {}
