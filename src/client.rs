@@ -6,12 +6,12 @@
 //! 1. The `LEXOFFICE_KEY` environment variable
 //! 2. The `~/.lexoffice` file containing the key
 
-use reqwest::RequestBuilder;
 use crate::request::Request;
 use crate::Error;
 use crate::Result;
 use derive_more::{Display, From, FromStr};
 use reqwest::Method;
+use reqwest::RequestBuilder;
 use reqwest::Url;
 use typed_builder::TypedBuilder;
 

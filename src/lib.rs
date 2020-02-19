@@ -8,9 +8,9 @@ pub mod client;
 pub mod model;
 pub mod request;
 
+mod error;
 #[cfg(feature = "fs")]
 mod fs;
-mod error;
 mod mime;
 mod result;
 mod util;
