@@ -6,8 +6,8 @@ use crate::util::to_json_response;
 use reqwest::Method;
 use std::marker::PhantomData;
 
-/// This trait marks a `Request` as `Updatable` and unlocks the
-/// `Request::update` method.
+/// This trait marks a `Request` as `Storable` and unlocks the
+/// `Request::save()` method.
 pub trait Storable {}
 
 impl<T, S> Request<T, S>

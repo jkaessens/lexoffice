@@ -1,6 +1,3 @@
-//! This module allows making requests to the `invoices` endpoint of the
-//! Lexoffice API.
-
 use crate::model::Invoice;
 use crate::request::impls::ById;
 use crate::request::Endpoint;
@@ -16,7 +13,7 @@ impl Endpoint for Request<Invoice, ()> {
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Invoice;
 ///
-/// # async fn run() -> Result<(), Box<std::error::Error>> {
+/// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let uuid = uuid::Uuid::parse_str("f4add52b-44e3-474a-b718-890885094d9a")?;
 /// let invoices = client.request::<Invoice>().by_id(uuid).await?;

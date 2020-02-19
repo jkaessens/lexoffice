@@ -1,3 +1,4 @@
+//! module that handles requests to the Lexoffice API
 mod contacts;
 mod credit_notes;
 mod event_subscriptions;

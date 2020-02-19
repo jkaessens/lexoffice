@@ -1,6 +1,3 @@
-//! This module allows making requests to the `profile` endpoint of the
-//! Lexoffice API.
-
 use crate::model::Profile;
 use crate::request::Endpoint;
 use crate::request::Request;
@@ -18,7 +15,7 @@ impl Endpoint for Request<Profile, ()> {
 /// use lexoffice::client::{ApiKey, Client};
 /// use lexoffice::model::Profile;
 ///
-/// # async fn run() -> Result<(), Box<std::error::Error>> {
+/// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let profile = client.request::<Profile>().get().await?;
 /// println!("{:#?}", profile);

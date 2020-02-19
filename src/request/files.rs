@@ -1,6 +1,3 @@
-//! This module allows making requests to the `files` endpoint of the
-//! Lexoffice API.
-
 use crate::error::Error;
 use crate::model::File;
 use crate::request::Endpoint;

@@ -10,7 +10,7 @@ use serde::Serialize;
 use std::marker::PhantomData;
 
 /// This trait marks a `Request` as `Updatable` and unlocks the
-/// `Request::update` method.
+/// `Request::update()` method.
 pub trait Updatable {}
 
 impl<T, S> Request<T, S>

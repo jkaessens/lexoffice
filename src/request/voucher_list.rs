@@ -1,6 +1,3 @@
-//! This module allows making requests to the `voucherlist` endpoint of the
-//! Lexoffice API.
-
 use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
 use crate::model::VoucherList;
 use crate::request::impls::ById;
@@ -21,16 +18,19 @@ fn into<O, T, S>(
     }
 }
 
-/// This type represents the state of a Request that is ready to be sent
+/// This type represents the state of a Request to the VoucherList endpoint
+/// that is ready to be sent
 pub type VoucherListStateFinished = (VoucherTypeEnum, VoucherStatusEnum);
 
-/// This type represents the state of a Request hasn't been started to be configured
+/// This type represents the state of a Request to the VoucherList endpoint
+/// hasn't been started to be configured
 pub type VoucherListStateUnstarted = ();
 
-/// This type represents the state of a Request that configuration hasn't been finished
+/// This type represents the state of a Request to the VoucherList endpoint
+/// that configuration hasn't been finished
 pub type VoucherListState<T, S> = (T, S);
 
-impl Endpoint for Request<VoucherList, VoucherListStateFinished> {
+impl<S> Endpoint for Request<VoucherList, S> {
     const ENDPOINT: &'static str = "voucherlist";
 }
 
@@ -79,6 +79,40 @@ impl<T> Request<VoucherList, VoucherListState<T, ()>> {
     }
 }
 
-impl ById for Request<VoucherList, VoucherListStateFinished> {}
+/// # Examples
+///
+/// ```
+/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::model::VoucherList;
+///
+/// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
+/// let client = Client::new(ApiKey::try_default().await?);
+/// let uuid = uuid::Uuid::parse_str("f4add52b-44e3-474a-b718-890885094d9a")?;
+/// let invoices = client.request::<VoucherList>().by_id(uuid).await?;
+/// println!("{:#?}", invoices);
+/// # Ok(())
+/// # }
+/// ```
+///
+impl ById for Request<VoucherList, ()> {}
 
+/// # Examples
+///
+/// ```
+/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::model::VoucherList;
+/// use lexoffice::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
+///
+/// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
+/// let client = Client::new(ApiKey::try_default().await?);
+/// let voucherlist = client
+///        .request::<VoucherList>()
+///        .type_(VoucherTypeEnum::Invoice)
+///        .status(VoucherStatusEnum::Open)
+///        .page(0).await?;
+/// println!("{:#?}", voucherlist);
+/// # Ok(())
+/// # }
+/// ```
+///
 impl Paginated for Request<VoucherList, VoucherListStateFinished> {}
