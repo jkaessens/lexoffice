@@ -6,12 +6,17 @@ use crate::util::to_json_response;
 use reqwest::Method;
 use std::marker::PhantomData;
 
+/// This trait marks a `Request` as `Updatable` and unlocks the
+/// `Request::update` method.
 pub trait Storable {}
 
 impl<T, S> Request<T, S>
 where
     Self: Endpoint + Storable,
 {
+    /// This method allows to save a new model object. Please note, that
+    /// `Request<T>` must implement the `Storable` trait in order to make
+    /// this function available.
     pub async fn save<I>(self, object: I) -> Result<ServerResource<T>>
     where
         I: Into<T> + Send,

@@ -9,6 +9,8 @@ use reqwest::Method;
 use serde::Serialize;
 use std::marker::PhantomData;
 
+/// This trait marks a `Request` as `Updatable` and unlooks the
+/// `Request::update` method.
 pub trait Updatable {}
 
 impl<T, S> Request<T, S>
@@ -16,6 +18,9 @@ where
     Self: Endpoint + Updatable,
     T: Serialize,
 {
+    /// This method allows to update an existing model object. Please note, that
+    /// `Request<T>` must implement the `Updatable` trait in order to make
+    /// this function available.
     pub async fn update<I>(self, object: I) -> Result<ServerResource<T>>
     where
         I: Into<ServerResource<T>> + Send,

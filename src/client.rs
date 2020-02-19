@@ -1,6 +1,6 @@
 //! An asynchronous `Client` to make Requests with.
 //!
-//! The client can be invoked by the `try_default()` function
+//! The client can be invoked by the `try_default()` function,
 //! which tries to load a key from the following sources in
 //! this order:
 //! 1. The `LEXOFFICE_KEY` environment variable

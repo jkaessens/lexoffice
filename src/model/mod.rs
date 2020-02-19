@@ -1,6 +1,9 @@
 #![allow(missing_docs)]
 
-//! See https://developers.lexoffice.io/docs/
+//! This model was semi-automaticly generated from The official lexoffice
+//! documentation
+//!
+//! See https://developers.lexoffice.io/docs/ for more information
 
 pub mod page;
 pub mod server_resource;
