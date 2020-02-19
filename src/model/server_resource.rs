@@ -11,7 +11,7 @@ pub struct ServerResource<T> {
     pub version: u64,
 
     #[serde(flatten)]
-    inner: T,
+    pub(crate) inner: T,
 }
 
 impl<T> Deref for ServerResource<T> {
