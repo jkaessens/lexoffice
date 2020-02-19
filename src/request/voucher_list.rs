@@ -1,3 +1,5 @@
+//! This module allows making requests to the `voucherlist` endpoint of the
+//! Lexoffice API.
 use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
 use crate::model::VoucherList;
 use crate::request::impls::ById;

@@ -4,7 +4,7 @@ use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-pub type ContactRequest = Request<Contact, ()>;
+type ContactRequest = Request<Contact, ()>;
 
 impl Endpoint for ContactRequest {
     const ENDPOINT: &'static str = "contacts";

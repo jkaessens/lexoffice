@@ -43,7 +43,7 @@ pub trait Endpoint {
 
 /// Represents a request to the lexoffice API. Please note that in order to
 /// create a working `Request` the Type variable `T` must allow requests to be
-/// made.
+/// made. The type variable `S` is an optional argument that allows to share state
 #[derive(Clone, Debug)]
 pub struct Request<T, S> {
     client: Client,
