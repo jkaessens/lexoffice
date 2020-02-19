@@ -28,6 +28,7 @@ pub enum VoucherTypeEnum {
     Quotation,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct VoucherList {
     pub voucher_type: VoucherTypeEnum,

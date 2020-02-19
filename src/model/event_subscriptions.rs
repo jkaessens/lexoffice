@@ -4,6 +4,7 @@ use typed_builder::TypedBuilder;
 use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct EventSubscription {
     pub subscription_id: Uuid,
@@ -14,6 +15,7 @@ pub struct EventSubscription {
 }
 
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct WebhookCallback {
     pub organization_id: Uuid,

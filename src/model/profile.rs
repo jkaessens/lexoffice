@@ -10,6 +10,7 @@ pub enum TaxTypeEnum {
     Vatfree,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Profile {
     pub organization_id: Uuid,
@@ -21,6 +22,7 @@ pub struct Profile {
 }
 
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreatedDetails {
     pub user_name: String,

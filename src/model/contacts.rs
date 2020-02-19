@@ -10,6 +10,7 @@ pub enum SalutationEnum {
     Female,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Contact {
     pub organization_id: Uuid,
@@ -27,22 +28,26 @@ pub struct Contact {
 }
 
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct RolesDetails {
     pub customer: Option<CustomerDetails>,
     pub vendor: Option<VendorDetails>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CustomerDetails {
     pub number: i64,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct VendorDetails {
     pub number: i64,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CompanyDetails {
     #[serde(default)]
@@ -54,6 +59,7 @@ pub struct CompanyDetails {
     pub contact_persons: Vec<CompanyContactPersonDetails>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CompanyContactPersonDetails {
     pub salutation: SalutationEnum,
@@ -63,6 +69,7 @@ pub struct CompanyContactPersonDetails {
     pub phone_number: Option<String>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct PersonDetails {
     pub salutation: SalutationEnum,
@@ -78,6 +85,7 @@ pub struct AddressesDetails {
     pub shipping: Vec<AddressDetails>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddressDetails {
     pub supplement: Option<String>,
