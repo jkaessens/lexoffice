@@ -1,9 +1,11 @@
 use crate::model::Invoice;
-use crate::request::impls::by_id::ById;
+use crate::request::impls::ById;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-impl Endpoint for Request<Invoice> {
+pub type InvoiceRequest = Request<Invoice, ()>;
+
+impl Endpoint for InvoiceRequest {
     const ENDPOINT: &'static str = "invoices";
 }
 
@@ -24,4 +26,4 @@ impl Endpoint for Request<Invoice> {
 /// # }
 /// ```
 ///
-impl ById for Request<Invoice> {}
+impl ById for InvoiceRequest {}

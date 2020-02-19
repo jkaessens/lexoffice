@@ -13,16 +13,18 @@ use reqwest::Url;
 use serde::Deserialize;
 use uuid::Uuid;
 
-impl Endpoint for Request<File> {
+pub type FileRequest = Request<File, ()>;
+
+impl Endpoint for FileRequest {
     const ENDPOINT: &'static str = "files";
 }
 
 #[derive(Deserialize, Debug)]
-pub struct FileResponse {
+struct FileResponse {
     pub id: Uuid,
 }
 
-impl Request<File> {
+impl FileRequest {
     pub fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync,
@@ -51,23 +53,23 @@ impl Request<File> {
         .await
     }
 
-    pub async fn upload<P>(self, file_part: P) -> Result<FileResponse>
+    pub async fn upload<P>(self, file_part: P) -> Result<Uuid>
     where
         P: Into<Part> + Send + Sync,
     {
         let file_part = file_part.into();
         let url = self.url();
         let form = Form::new().part("file", file_part).text("type", "voucher");
-        to_json_response(
+        to_json_response::<FileResponse>(
             self.client()
                 .http_builder(Method::POST, url)
                 .multipart(form),
         )
-        .await
+        .await.map(|x| x.id)
     }
 
     #[cfg(feature = "fs")]
-    pub async fn upload_path<P>(self, path: P) -> Result<FileResponse>
+    pub async fn upload_path<P>(self, path: P) -> Result<Uuid>
     where
         P: AsRef<std::path::Path> + Send + Sync,
     {

@@ -1,9 +1,9 @@
+use crate::request::Request;
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
-use crate::request::impls::paginated::Paginated;
+use crate::request::impls::Paginated;
 use crate::request::Endpoint;
-use crate::request::StateRequest;
 use crate::result::Result;
 use futures::stream::Stream;
 use serde::de::DeserializeOwned;
@@ -19,25 +19,26 @@ type FutureType<T> = dyn Future<Output = Result<Page<T>>>;
 #[cfg(not(target_arch = "wasm32"))]
 type FutureType<T> = dyn Future<Output = Result<Page<T>>> + Send;
 
+/// Stream that allows to view multiple pages as contiguous stream of Page items.
 pub struct PageStream<T, S>
 where
-    StateRequest<T, S>: Paginated + Clone + Endpoint,
+    Request<T, S>: Paginated + Clone + Endpoint,
     T: DeserializeOwned,
     S: Sync + Send + 'static,
 {
-    request: StateRequest<T, S>,
+    request: Request<T, S>,
     future: Option<Pin<Box<FutureType<T>>>>,
     pages: Option<Range<usize>>,
     iter: Option<IntoIter<ServerResource<T>>>,
 }
 
-impl<T, S> From<StateRequest<T, S>> for PageStream<T, S>
+impl<T, S> From<Request<T, S>> for PageStream<T, S>
 where
-    StateRequest<T, S>: Paginated + Clone + Endpoint,
+    Request<T, S>: Paginated + Clone + Endpoint,
     T: DeserializeOwned + Sync + Send + 'static,
     S: Sync + Send + 'static,
 {
-    fn from(request: StateRequest<T, S>) -> Self {
+    fn from(request: Request<T, S>) -> Self {
         let request_clone = request.clone();
 
         Self {
@@ -51,7 +52,7 @@ where
 
 impl<T, S> PageStream<T, S>
 where
-    StateRequest<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
+    Request<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
     T: DeserializeOwned + Unpin + Sync + Send + 'static,
     S: Sync + Send + 'static,
 {
@@ -104,7 +105,7 @@ where
 
 impl<T, S> Stream for PageStream<T, S>
 where
-    StateRequest<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
+    Request<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
     T: DeserializeOwned + Unpin + Send + Sync + 'static,
     S: Sync + Send + 'static,
 {

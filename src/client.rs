@@ -93,7 +93,7 @@ impl Client {
         Self::builder().api_key(api_key).build()
     }
 
-    pub fn request<T>(&self) -> Request<T> {
+    pub fn request<T>(&self) -> Request<T, ()> {
         Request::new(self.clone())
     }
 

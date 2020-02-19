@@ -1,6 +1,6 @@
 use crate::model::server_resource::ServerResource;
 use crate::request::Endpoint;
-use crate::request::StateRequest;
+use crate::request::Request;
 use crate::result::Result;
 use crate::util::to_json_response;
 use reqwest::Method;
@@ -8,7 +8,7 @@ use std::marker::PhantomData;
 
 pub trait Storable {}
 
-impl<T, S> StateRequest<T, S>
+impl<T, S> Request<T, S>
 where
     Self: Endpoint + Storable,
 {

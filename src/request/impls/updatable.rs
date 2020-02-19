@@ -1,6 +1,6 @@
 use crate::model::server_resource::ServerResource;
 use crate::request::Endpoint;
-use crate::request::StateRequest;
+use crate::request::Request;
 use crate::result::Result;
 use crate::util::to_json_response;
 use mime::APPLICATION_JSON;
@@ -11,7 +11,7 @@ use std::marker::PhantomData;
 
 pub trait Updatable {}
 
-impl<T, S> StateRequest<T, S>
+impl<T, S> Request<T, S>
 where
     Self: Endpoint + Updatable,
     T: Serialize,

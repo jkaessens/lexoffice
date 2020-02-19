@@ -1,10 +1,12 @@
 use crate::model::Contact;
-use crate::request::impls::by_id::ById;
-use crate::request::impls::paginated::Paginated;
+use crate::request::impls::ById;
+use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-impl Endpoint for Request<Contact> {
+pub type ContactRequest = Request<Contact, ()>;
+
+impl Endpoint for ContactRequest {
     const ENDPOINT: &'static str = "contacts";
 }
 
@@ -25,7 +27,7 @@ impl Endpoint for Request<Contact> {
 /// # }
 /// ```
 ///
-impl ById for Request<Contact> {}
+impl ById for ContactRequest {}
 
 /// # Examples
 ///
@@ -43,4 +45,4 @@ impl ById for Request<Contact> {}
 /// # }
 /// ```
 ///
-impl Paginated for Request<Contact> {}
+impl Paginated for ContactRequest {}

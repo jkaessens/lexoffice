@@ -1,6 +1,6 @@
 use crate::model::server_resource::ServerResource;
 use crate::request::Endpoint;
-use crate::request::StateRequest;
+use crate::request::Request;
 use crate::result::Result;
 use crate::util::to_json_response;
 use crate::Error;
@@ -12,7 +12,7 @@ use uuid::Uuid;
 
 pub trait ById {}
 
-impl<T, S> StateRequest<T, S>
+impl<T, S> Request<T, S>
 where
     Self: Endpoint + ById,
     T: DeserializeOwned,

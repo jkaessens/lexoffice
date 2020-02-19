@@ -1,9 +1,9 @@
 use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
 use crate::model::VoucherList;
-use crate::request::impls::by_id::ById;
-use crate::request::impls::paginated::Paginated;
+use crate::request::impls::ById;
+use crate::request::impls::Paginated;
 use crate::request::Endpoint;
-use crate::request::StateRequest;
+use crate::request::Request;
 use std::marker::PhantomData;
 
 pub trait Void {}
@@ -11,9 +11,9 @@ impl Void for () {}
 
 // Not implementing the into trait here as this must not be public.
 fn into<O, T, S>(
-    request: StateRequest<VoucherList, O>,
-) -> StateRequest<VoucherList, (T, S)> {
-    StateRequest {
+    request: Request<VoucherList, O>,
+) -> Request<VoucherList, (T, S)> {
+    Request {
         client: request.client,
         url: request.url,
         target: request.target,
@@ -21,32 +21,37 @@ fn into<O, T, S>(
     }
 }
 
-type Finished = (VoucherTypeEnum, VoucherStatusEnum);
+pub type VoucherListRequest =
+    Request<VoucherList, (VoucherTypeEnum, VoucherStatusEnum)>;
+pub type UnstartedVoucherListRequest =
+    Request<VoucherList, ()>;
+pub type IncompleteVoucherListRequest<T, S> =
+    Request<VoucherList, (T, S)>;
 
-impl Endpoint for StateRequest<VoucherList, Finished> {
+impl Endpoint for VoucherListRequest {
     const ENDPOINT: &'static str = "voucherlist";
 }
 
-impl StateRequest<VoucherList, ()> {
+impl UnstartedVoucherListRequest {
     pub fn type_(
         self,
         voucher_type: VoucherTypeEnum,
-    ) -> StateRequest<VoucherList, (VoucherTypeEnum, ())> {
+    ) -> IncompleteVoucherListRequest<VoucherTypeEnum, ()> {
         into::<_, (), ()>(self).type_(voucher_type)
     }
     pub fn status(
         self,
         voucher_status: VoucherStatusEnum,
-    ) -> StateRequest<VoucherList, ((), VoucherStatusEnum)> {
+    ) -> IncompleteVoucherListRequest<(), VoucherStatusEnum> {
         into::<_, (), ()>(self).status(voucher_status)
     }
 }
 
-impl<T, S> StateRequest<VoucherList, (T, S)> {
+impl<T, S> IncompleteVoucherListRequest<T, S> {
     pub fn type_(
         mut self,
         voucher_type: VoucherTypeEnum,
-    ) -> StateRequest<VoucherList, (VoucherTypeEnum, S)>
+    ) -> IncompleteVoucherListRequest<VoucherTypeEnum, S>
     where
         T: Void,
     {
@@ -59,7 +64,7 @@ impl<T, S> StateRequest<VoucherList, (T, S)> {
     pub fn status(
         mut self,
         voucher_status: VoucherStatusEnum,
-    ) -> StateRequest<VoucherList, (T, VoucherStatusEnum)>
+    ) -> IncompleteVoucherListRequest<T, VoucherStatusEnum>
     where
         S: Void,
     {
@@ -71,6 +76,6 @@ impl<T, S> StateRequest<VoucherList, (T, S)> {
     }
 }
 
-impl ById for StateRequest<VoucherList, Finished> {}
+impl ById for VoucherListRequest {}
 
-impl Paginated for StateRequest<VoucherList, Finished> {}
+impl Paginated for VoucherListRequest {}

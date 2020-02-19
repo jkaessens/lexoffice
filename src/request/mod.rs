@@ -1,15 +1,19 @@
-mod contacts;
-mod credit_notes;
-mod event_subscriptions;
+pub mod contacts;
+pub mod credit_notes;
+pub mod event_subscriptions;
 #[cfg(not(target_arch = "wasm32"))]
-mod files;
+pub mod files;
+pub mod invoices;
+pub mod order_confirmations;
+pub mod profile;
+pub mod quotations;
+pub mod voucher_list;
+
+pub mod stream;
+
 mod impls;
-mod invoices;
-mod order_confirmations;
-mod profile;
-mod quotations;
-mod stream;
-mod voucher_list;
+pub use impls::*;
+
 use crate::client::Client;
 use reqwest::Url;
 use std::marker::PhantomData;
@@ -18,16 +22,15 @@ pub trait Endpoint {
     const ENDPOINT: &'static str;
 }
 
-pub type Request<T> = StateRequest<T, ()>;
 #[derive(Clone, Debug)]
-pub struct StateRequest<T, S> {
+pub struct Request<T, S> {
     client: Client,
     url: Url,
     target: PhantomData<T>,
     state: PhantomData<S>,
 }
 
-impl<T, S> StateRequest<T, S> {
+impl<T, S> Request<T, S> {
     pub fn new(client: Client) -> Self {
         let url = client.base_url().clone();
         Self {
@@ -39,7 +42,7 @@ impl<T, S> StateRequest<T, S> {
     }
 }
 
-impl<T, S> StateRequest<T, S>
+impl<T, S> Request<T, S>
 where
     Self: Endpoint,
 {

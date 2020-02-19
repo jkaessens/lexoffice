@@ -5,7 +5,9 @@ use crate::util::to_json_response;
 use crate::Result;
 use reqwest::Method;
 
-impl Endpoint for Request<Profile> {
+pub type ProfileRequest = Request<Profile, ()>;
+
+impl Endpoint for ProfileRequest {
     const ENDPOINT: &'static str = "profile";
 }
 
@@ -25,7 +27,7 @@ impl Endpoint for Request<Profile> {
 /// # }
 /// ```
 ///
-impl Request<Profile> {
+impl ProfileRequest {
     pub async fn get(self) -> Result<Profile> {
         let url = self.url();
         to_json_response(self.client().http_builder(Method::GET, url)).await
