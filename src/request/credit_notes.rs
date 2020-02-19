@@ -6,7 +6,7 @@ use crate::request::Request;
 
 pub type CreditNoteRequest = Request<CreditNote, ()>;
 
-impl Endpoint for CreditNoteRequest{
+impl Endpoint for CreditNoteRequest {
     const ENDPOINT: &'static str = "credit-notes";
 }
 
@@ -27,7 +27,7 @@ impl Endpoint for CreditNoteRequest{
 /// # }
 /// ```
 ///
-impl ById for CreditNoteRequest{}
+impl ById for CreditNoteRequest {}
 
 /// # Examples
 ///
@@ -45,4 +45,4 @@ impl ById for CreditNoteRequest{}
 /// # }
 /// ```
 ///
-impl Paginated for CreditNoteRequest{}
+impl Paginated for CreditNoteRequest {}

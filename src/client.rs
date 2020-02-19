@@ -1,3 +1,11 @@
+//! An asynchronous `Client` to make Requests with.
+//!
+//! The client can be invoked by the `try_default()` function
+//! which tries to load a key from the following sources in
+//! this order:
+//! 1. The `LEXOFFICE_KEY` environment variable
+//! 2. The `~/.lexoffice` file containing the key
+
 use crate::request::Request;
 use crate::Error;
 use crate::Result;
@@ -8,16 +16,19 @@ use typed_builder::TypedBuilder;
 
 static BASE_URL: &str = "https://api.lexoffice.io/v1";
 
+/// Represents an API Key
 #[derive(Clone, Debug, Display, FromStr, From)]
 pub struct ApiKey(String);
 
 impl ApiKey {
+    /// Loads the API key from the `LEXOFFICE_KEY` environment variable
     #[cfg(feature = "env")]
     pub fn from_env() -> Result<Self> {
         let env = std::env::var("LEXOFFICE_KEY")?;
         Ok(Self::from(env))
     }
 
+    /// Loads the API key from a specified file.
     #[cfg(feature = "fs")]
     pub async fn from_file(file_name: &std::path::Path) -> Result<Self> {
         let contents = tokio::fs::read_to_string(file_name).await?;
@@ -25,6 +36,7 @@ impl ApiKey {
         Ok(contents.parse().unwrap())
     }
 
+    /// Loads the API key from the home folder containing a `~/.lexoffice` file
     #[cfg(all(feature = "fs", feature = "env"))]
     pub async fn from_home() -> Result<Self> {
         use std::env;
@@ -36,6 +48,8 @@ impl ApiKey {
         Self::from_file(&file_name).await
     }
 
+    /// Tries to load the API key first from the env. In case of a failure it'll
+    /// load the key from `~/.lexoffice`
     pub async fn try_default() -> Result<Self> {
         cfg_if::cfg_if! {
             if #[cfg(feature = "env")] {

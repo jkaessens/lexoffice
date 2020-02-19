@@ -23,10 +23,8 @@ fn into<O, T, S>(
 
 pub type VoucherListRequest =
     Request<VoucherList, (VoucherTypeEnum, VoucherStatusEnum)>;
-pub type UnstartedVoucherListRequest =
-    Request<VoucherList, ()>;
-pub type IncompleteVoucherListRequest<T, S> =
-    Request<VoucherList, (T, S)>;
+pub type UnstartedVoucherListRequest = Request<VoucherList, ()>;
+pub type IncompleteVoucherListRequest<T, S> = Request<VoucherList, (T, S)>;
 
 impl Endpoint for VoucherListRequest {
     const ENDPOINT: &'static str = "voucherlist";

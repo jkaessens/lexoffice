@@ -1,3 +1,7 @@
+#![allow(missing_docs)]
+
+//! See https://developers.lexoffice.io/docs/
+
 pub mod page;
 pub mod server_resource;
 

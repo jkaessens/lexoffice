@@ -18,17 +18,47 @@ pub struct LegacyMessage {
     issue_list: Value,
 }
 
+/// The Errors that may occur working with this crate.
 #[derive(Debug, Error)]
 pub enum Error {
+    /// Legacy Errors from the LexOffice API
+    ///
+    /// See
+    /// [The official API](https://developers.lexoffice.io/docs/#error-codes-legacy-error-response)
+    /// for more information.
     LexOfficeLegacy(LexOfficeError<LegacyMessage>),
+
+    /// Errors from the LexOffice API
+    ///
+    /// See
+    /// [The official API](https://developers.lexoffice.io/docs/#error-codes)
+    /// for more information.
     LexOffice(LexOfficeError<Message>),
+
+    /// I/O Errors
     Io(std::io::Error),
+
+    /// Errors from the `reqwest` crate.
     Reqwest(reqwest::Error),
+
+    /// Errors from the `uuid` crate.
     Uuid(uuid::Error),
+
+    /// Error regarding environment variables
     Env(std::env::VarError),
+
+    /// Error when `Url::path_segments_mut()` returns `Err()`
+    ///
+    /// See
+    /// [the docs of Url](https://docs.rs/reqwest/0.10.1/reqwest/struct.Url.html#method.path_segments_mut)
+    /// for more information
     UrlCannotBeBase,
+
+    /// General Error when the API key was unable to be created.
+    ///
+    /// To get more specific errors use the `ApiKey::from_env()`
+    /// and `ApiKey::from_home()` functions.
     FailedToLoadApiKey,
-    HomeIsNotSet,
 }
 
 impl Unpin for Error {}

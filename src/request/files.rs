@@ -65,7 +65,8 @@ impl FileRequest {
                 .http_builder(Method::POST, url)
                 .multipart(form),
         )
-        .await.map(|x| x.id)
+        .await
+        .map(|x| x.id)
     }
 
     #[cfg(feature = "fs")]

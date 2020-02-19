@@ -1,9 +1,9 @@
-use crate::request::Request;
 use crate::error::Error;
 use crate::model::server_resource::ServerResource;
 use crate::model::Page;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
+use crate::request::Request;
 use crate::result::Result;
 use futures::stream::Stream;
 use serde::de::DeserializeOwned;
