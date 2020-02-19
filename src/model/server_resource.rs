@@ -1,17 +1,17 @@
 use serde::{Deserialize, Serialize};
 use std::marker::PhantomData;
 use std::ops::Deref;
-use typed_builder::TypedBuilder;
 use uuid::Uuid;
 
+/// This is a struct that wraps classes returned by the server.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ServerResource<T> {
-    pub id: Option<Uuid>,
-    pub version: Option<u64>,
+    pub id: Uuid,
+    pub version: u64,
 
     #[serde(flatten)]
-    pub inner: T,
+    inner: T,
 }
 
 impl<T> Deref for ServerResource<T> {
@@ -23,7 +23,7 @@ impl<T> Deref for ServerResource<T> {
 }
 
 impl<T> ServerResource<PhantomData<T>> {
-    pub fn wrap(self, inner: T) -> ServerResource<T> {
+    pub(crate) fn wrap(self, inner: T) -> ServerResource<T> {
         ServerResource {
             id: self.id,
             version: self.version,
