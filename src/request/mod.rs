@@ -24,12 +24,15 @@ use std::marker::PhantomData;
 /// If you want to reach an endpoint
 /// `https://api.lexoffice.io/foobar` you must implement this trait as follows:
 ///
-/// ```
+/// ```compile_fail
+/// use lexoffice::request::Request;
+/// use lexoffice::request::Endpoint;
+///
 /// // Model
 /// struct Foobar {
 ///     // ...
 /// }
-/// impl Endpoint for Request<Foobar> {
+/// impl Endpoint for Request<Foobar, ()> {
 ///     const ENDPOINT: &'static str = "foobar";
 /// }
 /// ```
