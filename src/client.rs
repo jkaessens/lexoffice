@@ -121,9 +121,13 @@ impl Client {
         method: Method,
         url: Url,
     ) -> RequestBuilder {
+        // Not using Request::bearer_auth() here as it's not yet available for
+        // wasm
+        let bearer = format!("Bearer {}", &self.api_key);
+
         self.http_client
             .request(method, url)
-            .bearer_auth(&self.api_key)
+            .header(reqwest::header::AUTHORIZATION, bearer)
     }
 
     /// Returns the base Url used by this client
