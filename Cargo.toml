@@ -10,6 +10,7 @@ fs = ["tokio"]
 env = []
 
 [dependencies]
+reqwest = { version = "0.10.2", features = ["json", "stream"] }
 futures = "0.3.4"
 uuid = { version = "0.8.1", features = ["serde"] }
 chrono = { version = "0.4.10", features = ["serde"] }
@@ -22,15 +23,8 @@ mime = "0.3.16"
 bytes = "0.5.4"
 typed-builder = "0.5.1"
 derive-error = "0.0.4"
-tokio = { version = "0.2.11", features = ["stream", "fs"], optional = true }
 cfg-if = "0.1.10"
-#reqwest = { version = "0.10.1", features = ["json", "stream"] }
-
-[dependencies.reqwest]
-git = "https://github.com/Gottox/reqwest"
-rev = "20d883fc2834e65b74bb4207bfc778ed7a294d29"
-#path = "../reqwest"
-features = ["json", "stream"]
+tokio = { version = "0.2.11", features = ["stream", "fs"], optional = true }
 
 [dev-dependencies]
 tokio = { version = "0.2.11", features = ["macros"] }
