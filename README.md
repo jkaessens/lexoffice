@@ -1,3 +1,5 @@
+[![Rust](https://github.com/Gottox/lexoffice/workflows/Rust/badge.svg)](https://github.com/Gottox/lexoffice/actions?query=workflow%3ARust)
+
 lexoffice - A typesafe API implementation for api.lexoffice.io
 ==============================================================
 
