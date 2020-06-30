@@ -40,10 +40,10 @@ macro_rules! mime_table {
 }
 
 mime_table!(
-    APPLICATION_PDF ["pdf"],
-    IMAGE_PNG ["png"],
-    IMAGE_JPEG ["jpg", "jpeg"]
-    );
+APPLICATION_PDF ["pdf"],
+IMAGE_PNG ["png"],
+IMAGE_JPEG ["jpg", "jpeg"]
+);
 
 impl MimeExt for Path {
     fn mime(&self) -> &'static mime::Mime {
