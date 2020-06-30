@@ -10,7 +10,13 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     while let Some(contact) = contacts.next().await {
         let contact = contact?;
-        println!("{}", contact.company.name);
+        println!("Person: {:?}", &contact);
+        if let Some(company) = contact.company {
+            println!("Company: {}", company.name);
+        }
+        if let Some(person) = contact.person {
+            println!("Person: {}", person.last_name);
+        }
     }
     Ok(())
 }

@@ -1,10 +1,9 @@
-use crate::model::server_resource::ServerResource;
 use serde::Deserialize;
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Page<T> {
-    pub content: Vec<ServerResource<T>>,
+    pub content: Vec<T>,
     #[serde(default = "default_true")]
     pub last: bool,
     #[serde(default)]

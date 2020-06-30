@@ -8,17 +8,39 @@ mod invoices;
 mod order_confirmations;
 mod profile;
 mod quotations;
-mod voucher_list;
+mod voucherlist;
 
 pub mod stream;
 
 mod impls;
 pub use impls::*;
-pub use voucher_list::*;
+pub use voucherlist::*;
+
 
 use crate::client::Client;
+use crate::marker::ReadOnly;
 use reqwest::Url;
 use std::marker::PhantomData;
+use serde::Deserialize;
+use uuid::Uuid;
+
+/// This struct is returned when an object has changed
+#[derive(Debug, Clone, PartialEq, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ResultInfo<T> {
+    /// The id of the changed object
+    pub id: uuid::Uuid,
+    /// The URI of the changed object
+    pub resource_uri: String,
+    /// The creation time of the changed object
+    pub created_date: chrono::DateTime<chrono::Utc>,
+    /// The update time of the changed object
+    pub updated_date: chrono::DateTime<chrono::Utc>,
+    /// The new version of the changed object
+    pub version: u64,
+    #[serde(skip)]
+    result_for: PhantomData<T>,
+}
 
 /// This crate is needed in order to build an URL for a request. It is implemented by
 /// all Request variants that allow Requests to the API.
@@ -52,6 +74,12 @@ pub struct Request<T, S> {
     url: Url,
     target: PhantomData<T>,
     state: PhantomData<S>,
+}
+
+/// Represents type with an id.
+pub trait HasId {
+    /// gets the id from an object.
+    fn id(&self) -> &ReadOnly<Uuid>;
 }
 
 impl<T, S> Request<T, S> {

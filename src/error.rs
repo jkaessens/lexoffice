@@ -2,38 +2,74 @@ use derive_error::Error;
 use derive_more::Display;
 use reqwest::StatusCode;
 use serde::Deserialize;
-use serde_json::Value;
 use std::fmt;
 
-#[derive(Debug, Deserialize, Display)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Message {
-    message: String,
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub enum Message {
+    #[serde(rename = "message")]
+    Message(String),
+    #[serde(rename = "IssueList")]
+    IssueList(Vec<Issue>),
 }
 
-#[derive(Debug, Deserialize, Display)]
-#[serde(deny_unknown_fields, rename_all = "PascalCase")]
-#[display(fmt = "{:#?}", issue_list)]
-pub struct LegacyMessage {
-    issue_list: Value,
+impl fmt::Display for Message {
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::result::Result<(), std::fmt::Error> {
+        match self {
+            Self::Message(x) => x.fmt(f)?,
+            Self::IssueList(x) => {
+                let mut first = true;
+                for item in x {
+                    if !first {
+                        write!(f, ", ")?;
+                        first = false;
+                    }
+                    item.fmt(f)?;
+                }
+            }
+        }
+        Ok(())
+    }
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct Issue {
+    i18n_key: String,
+    source: Option<String>,
+    _type: String,
+    additional_data: Option<String>,
+    args: Option<String>,
+}
+
+impl fmt::Display for Issue {
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::result::Result<(), std::fmt::Error> {
+        write!(f, "{}: {}", self._type, self.i18n_key)?;
+        if let Some(additional_data) = &self.additional_data {
+            write!(f, " data: {}", additional_data)?;
+        }
+        if let Some(args) = &self.args {
+            write!(f, " args({})", args)?;
+        }
+        Ok(())
+    }
 }
 
 /// The Errors that may occur working with this crate.
 #[derive(Debug, Error)]
 pub enum Error {
-    /// Legacy Errors from the LexOffice API
-    ///
-    /// See
-    /// [The official API](https://developers.lexoffice.io/docs/#error-codes-legacy-error-response)
-    /// for more information.
-    LexOfficeLegacy(LexOfficeError<LegacyMessage>),
-
     /// Errors from the LexOffice API
     ///
     /// See
     /// [The official API](https://developers.lexoffice.io/docs/#error-codes)
     /// for more information.
-    LexOffice(LexOfficeError<Message>),
+    LexOffice(LexOfficeError),
 
     /// I/O Errors
     Io(std::io::Error),
@@ -59,24 +95,24 @@ pub enum Error {
     /// To get more specific errors use the `ApiKey::from_env()`
     /// and `ApiKey::from_home()` functions.
     FailedToLoadApiKey,
+
+    /// When converting an object to its uuid
+    NoUuid,
 }
 
 impl Unpin for Error {}
 
 #[derive(Debug, Display)]
 #[display(fmt = "HTTP Error {}: {}", status, message)]
-pub struct LexOfficeError<T> {
+pub struct LexOfficeError {
     status: StatusCode,
-    message: T,
+    message: Message,
 }
 
-impl<T> LexOfficeError<T> {
-    pub fn new(status: StatusCode, message: T) -> Self {
+impl LexOfficeError {
+    pub fn new(status: StatusCode, message: Message) -> Self {
         Self { status, message }
     }
 }
 
-impl<T> std::error::Error for LexOfficeError<T> where
-    T: fmt::Display + fmt::Debug
-{
-}
+impl std::error::Error for LexOfficeError {}

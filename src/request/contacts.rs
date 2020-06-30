@@ -1,6 +1,8 @@
 use crate::model::Contact;
 use crate::request::impls::ById;
 use crate::request::impls::Paginated;
+use crate::request::impls::Storable;
+use crate::request::impls::Updatable;
 use crate::request::Endpoint;
 use crate::request::Request;
 
@@ -40,3 +42,9 @@ impl ById for Request<Contact, ()> {}
 /// ```
 ///
 impl Paginated for Request<Contact, ()> {}
+
+/// TODO doc
+impl Storable for Request<Contact, ()> {}
+
+/// TODO doc
+impl Updatable for Request<Contact, ()> {}

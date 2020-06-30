@@ -7,6 +7,7 @@
 pub mod client;
 pub mod model;
 pub mod request;
+mod marker;
 
 mod error;
 #[cfg(feature = "fs")]
@@ -17,3 +18,4 @@ mod util;
 
 pub use error::Error;
 pub use result::Result;
+pub use marker::ReadOnly;

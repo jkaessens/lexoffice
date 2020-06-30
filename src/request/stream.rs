@@ -1,7 +1,6 @@
 //! This module provides functionality to stream page items.
 
 use crate::error::Error;
-use crate::model::server_resource::ServerResource;
 use crate::model::Page;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
@@ -31,7 +30,7 @@ where
     request: Request<T, S>,
     future: Option<Pin<Box<FutureType<T>>>>,
     pages: Option<Range<usize>>,
-    iter: Option<IntoIter<ServerResource<T>>>,
+    iter: Option<IntoIter<T>>,
 }
 
 impl<T, S> From<Request<T, S>> for PageStream<T, S>
@@ -58,14 +57,14 @@ where
     T: DeserializeOwned + Unpin + Sync + Send + 'static,
     S: Sync + Send + 'static,
 {
-    fn poll_item(&mut self) -> Option<ServerResource<T>> {
+    fn poll_item(&mut self) -> Option<T> {
         self.iter.as_mut().and_then(|x| x.next())
     }
 
     fn poll_future(
         mut self: Pin<&mut Self>,
         cx: &mut Context<'_>,
-    ) -> Poll<Option<Result<ServerResource<T>>>> {
+    ) -> Poll<Option<Result<T>>> {
         if let Some(future) = self.future.as_mut() {
             match Pin::new(future).poll(cx) {
                 Poll::Ready(Ok(page)) => self.on_new_page(page),
@@ -80,7 +79,7 @@ where
     fn on_new_page(
         mut self: Pin<&mut Self>,
         page: Page<T>,
-    ) -> Poll<Option<Result<ServerResource<T>>>> {
+    ) -> Poll<Option<Result<T>>> {
         let request = self.request.clone();
         let pages = self.pages.get_or_insert(1..page.total_pages);
         self.future = match pages.next() {
@@ -98,7 +97,7 @@ where
     fn on_error(
         mut self: Pin<&mut Self>,
         err: Error,
-    ) -> Poll<Option<Result<ServerResource<T>>>> {
+    ) -> Poll<Option<Result<T>>> {
         self.future = None;
         self.pages = None;
         Poll::Ready(Some(Err(err)))
@@ -111,7 +110,7 @@ where
     T: DeserializeOwned + Unpin + Send + Sync + 'static,
     S: Sync + Send + 'static,
 {
-    type Item = Result<ServerResource<T>>;
+    type Item = Result<T>;
 
     fn poll_next(
         mut self: Pin<&mut Self>,

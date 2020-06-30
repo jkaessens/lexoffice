@@ -1,5 +1,5 @@
-use crate::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
-use crate::model::VoucherList;
+use crate::model::voucherlist::{VoucherStatus, VoucherType};
+use crate::model::Voucherlist;
 use crate::request::impls::ById;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
@@ -8,8 +8,8 @@ use std::marker::PhantomData;
 
 // Not implementing the into trait here as this mustn't be public.
 fn into<O, T, S>(
-    request: Request<VoucherList, O>,
-) -> Request<VoucherList, (T, S)> {
+    request: Request<Voucherlist, O>,
+) -> Request<Voucherlist, (T, S)> {
     Request {
         client: request.client,
         url: request.url,
@@ -18,45 +18,45 @@ fn into<O, T, S>(
     }
 }
 
-/// This type represents the state of a Request to the VoucherList endpoint
+/// This type represents the state of a Request to the Voucherlist endpoint
 /// that is ready to be sent
-pub type VoucherListStateFinished = (VoucherTypeEnum, VoucherStatusEnum);
+pub type VoucherlistStateFinished = (VoucherType, VoucherStatus);
 
-/// This type represents the state of a Request to the VoucherList endpoint
+/// This type represents the state of a Request to the Voucherlist endpoint
 /// hasn't been started to be configured
-pub type VoucherListStateUnstarted = ();
+pub type VoucherlistStateUnstarted = ();
 
-/// This type represents the state of a Request to the VoucherList endpoint
+/// This type represents the state of a Request to the Voucherlist endpoint
 /// that configuration hasn't been finished
-pub type VoucherListState<T, S> = (T, S);
+pub type VoucherlistState<T, S> = (T, S);
 
-impl<S> Endpoint for Request<VoucherList, S> {
+impl<S> Endpoint for Request<Voucherlist, S> {
     const ENDPOINT: &'static str = "voucherlist";
 }
 
-impl Request<VoucherList, VoucherListStateUnstarted> {
+impl Request<Voucherlist, VoucherlistStateUnstarted> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         self,
-        voucher_type: VoucherTypeEnum,
-    ) -> Request<VoucherList, VoucherListState<VoucherTypeEnum, ()>> {
+        voucher_type: VoucherType,
+    ) -> Request<Voucherlist, VoucherlistState<VoucherType, ()>> {
         into::<_, (), ()>(self).type_(voucher_type)
     }
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         self,
-        voucher_status: VoucherStatusEnum,
-    ) -> Request<VoucherList, VoucherListState<(), VoucherStatusEnum>> {
+        voucher_status: VoucherStatus,
+    ) -> Request<Voucherlist, VoucherlistState<(), VoucherStatus>> {
         into::<_, (), ()>(self).status(voucher_status)
     }
 }
 
-impl<S> Request<VoucherList, VoucherListState<(), S>> {
+impl<S> Request<Voucherlist, VoucherlistState<(), S>> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         mut self,
-        voucher_type: VoucherTypeEnum,
-    ) -> Request<VoucherList, VoucherListState<VoucherTypeEnum, S>> {
+        voucher_type: VoucherType,
+    ) -> Request<Voucherlist, VoucherlistState<VoucherType, S>> {
         self.url.query_pairs_mut().append_pair(
             "voucherType",
             &serde_plain::to_string(&voucher_type).unwrap(),
@@ -65,12 +65,12 @@ impl<S> Request<VoucherList, VoucherListState<(), S>> {
     }
 }
 
-impl<T> Request<VoucherList, VoucherListState<T, ()>> {
+impl<T> Request<Voucherlist, VoucherlistState<T, ()>> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         mut self,
-        voucher_status: VoucherStatusEnum,
-    ) -> Request<VoucherList, VoucherListState<T, VoucherStatusEnum>> {
+        voucher_status: VoucherStatus,
+    ) -> Request<Voucherlist, VoucherlistState<T, VoucherStatus>> {
         self.url.query_pairs_mut().append_pair(
             "voucherStatus",
             &serde_plain::to_string(&voucher_status).unwrap(),
@@ -83,36 +83,36 @@ impl<T> Request<VoucherList, VoucherListState<T, ()>> {
 ///
 /// ```
 /// use lexoffice::client::{ApiKey, Client};
-/// use lexoffice::model::VoucherList;
+/// use lexoffice::model::Voucherlist;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let uuid = uuid::Uuid::parse_str("f4add52b-44e3-474a-b718-890885094d9a")?;
-/// let invoices = client.request::<VoucherList>().by_id(uuid).await?;
+/// let invoices = client.request::<Voucherlist>().by_id(uuid).await?;
 /// println!("{:#?}", invoices);
 /// # Ok(())
 /// # }
 /// ```
 ///
-impl ById for Request<VoucherList, ()> {}
+impl ById for Request<Voucherlist, ()> {}
 
 /// # Examples
 ///
 /// ```
 /// use lexoffice::client::{ApiKey, Client};
-/// use lexoffice::model::VoucherList;
-/// use lexoffice::model::voucher_list::{VoucherStatusEnum, VoucherTypeEnum};
+/// use lexoffice::model::Voucherlist;
+/// use lexoffice::model::voucherlist::{VoucherStatus, VoucherType};
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let voucherlist = client
-///        .request::<VoucherList>()
-///        .type_(VoucherTypeEnum::Invoice)
-///        .status(VoucherStatusEnum::Open)
+///        .request::<Voucherlist>()
+///        .type_(VoucherType::Invoice)
+///        .status(VoucherStatus::Open)
 ///        .page(0).await?;
 /// println!("{:#?}", voucherlist);
 /// # Ok(())
 /// # }
 /// ```
 ///
-impl Paginated for Request<VoucherList, VoucherListStateFinished> {}
+impl Paginated for Request<Voucherlist, VoucherlistStateFinished> {}

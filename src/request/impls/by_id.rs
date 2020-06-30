@@ -1,4 +1,3 @@
-use crate::model::server_resource::ServerResource;
 use crate::request::Endpoint;
 use crate::request::Request;
 use crate::result::Result;
@@ -38,14 +37,14 @@ where
     /// This method requests an object identified by `uuid`.
     /// `Request<T>` must implement the `ById` trait in order to make
     /// this function available.
-    pub async fn by_id_str(self, uuid: &str) -> Result<ServerResource<T>> {
+    pub async fn by_id_str(self, uuid: &str) -> Result<T> {
         self.by_id(Uuid::from_str(uuid)?).await
     }
 
     /// This method requests an object identified by `uuid`.
     /// `Request<T>` must implement the `ById` trait in order to make
     /// this function available.
-    pub async fn by_id<I>(self, uuid: I) -> Result<ServerResource<T>>
+    pub async fn by_id<I>(self, uuid: I) -> Result<T>
     where
         I: Into<Uuid> + Send,
     {

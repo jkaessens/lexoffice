@@ -1,164 +1,376 @@
-use celes::Country;
-use chrono::{DateTime, Utc};
-use serde::{Deserialize, Serialize};
+# ! [ doc = "This endpoint provides read and write access to invoices which can be created as draft or finalized in open mode and additionally downloaded as printed pdf document.\n\nA higher level description of the handling of invoices via the lexoffice API can be found in the [invoice cookbook](../cookbooks/invoices/) (German only).\n\nIt is possible to create invoices with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) invoices can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. \u{a7}13b UStG*), constructional services (*Bauleistungen gem. \u{a7}13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. \u{a7}13b UStG*). For invoices to third countries, the tax types third party country service (*Dienstleistungen an Drittl\u{e4}nder*) and third party country delivery (*Ausfuhrlieferungen an Drittl\u{e4}nder*) are possible.\n\nInvoices for down payment (*Abschlagsrechnung*) are not supported via the API." ]use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
-use uuid::Uuid;
-
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub enum CurrencyEnum {
-    EUR,
+#[serde(deny_unknown_fields)]
+pub enum VoucherStatus {
+    #[serde(rename = "draft")]
+    Draft,
+    #[serde(rename = "open")]
+    Open,
+    #[serde(rename = "paid")]
+    Paid,
+    #[serde(rename = "voided")]
+    Voided,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub enum ShippingTypeEnum {
-    Service,
-    Serviceperiod,
-    Delivery,
-    Deliveryperiod,
-    None,
-}
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub enum TaxTypeEnum {
+#[serde(deny_unknown_fields)]
+pub enum TaxType {
+    #[serde(rename = "net")]
     Net,
+    #[serde(rename = "gross")]
     Gross,
+    #[serde(rename = "vatfree")]
     Vatfree,
+    #[serde(rename = "intraCommunitySupply")]
     IntraCommunitySupply,
+    #[serde(rename = "constructionService13b")]
     ConstructionService13b,
+    #[serde(rename = "externalService13b")]
     ExternalService13b,
+    #[serde(rename = "thirdPartyCountryService")]
     ThirdPartyCountryService,
+    #[serde(rename = "thirdPartyCountryDelivery")]
     ThirdPartyCountryDelivery,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub enum TypeEnum {
+#[serde(deny_unknown_fields)]
+pub enum Type {
+    #[serde(rename = "service")]
     Service,
+    #[serde(rename = "material")]
     Material,
+    #[serde(rename = "custom")]
     Custom,
+    #[serde(rename = "text")]
     Text,
 }
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub enum VoucherStatusEnum {
-    Draft,
-    Open,
-    Paid,
-    Voided,
+#[serde(deny_unknown_fields)]
+pub enum ShippingType {
+    #[serde(rename = "service")]
+    Service,
+    #[serde(rename = "serviceperiod")]
+    Serviceperiod,
+    #[serde(rename = "delivery")]
+    Delivery,
+    #[serde(rename = "deliveryperiod")]
+    Deliveryperiod,
+    #[serde(rename = "none")]
+    None,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Invoice {
-    pub organization_id: Uuid,
-    pub created_date: DateTime<Utc>,
-    pub updated_date: DateTime<Utc>,
-    pub language: String,
-    pub archived: bool,
-    pub voucher_status: VoucherStatusEnum,
-    pub voucher_number: String,
-    pub voucher_date: DateTime<Utc>,
-    pub due_date: DateTime<Utc>,
-    pub address: AddressDetails,
-    pub line_items: Vec<LineItemsDetails>,
-    pub total_price: TotalPriceDetails,
-    pub tax_amounts: Vec<TaxAmountsDetails>,
-    pub tax_conditions: TaxConditionsDetails,
-    pub payment_conditions: PaymentConditionsDetails,
-    pub shipping_conditions: ShippingConditionsDetails,
-    pub title: String,
-    pub introduction: String,
-    pub remark: String,
-    pub files: FilesDetails,
+    #[doc = "Unique id generated on creation by lexoffice.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub id: super::super::marker::ReadOnly<uuid::Uuid>,
+    #[doc = "Unique id of the organization the invoice belongs to.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub organization_id: super::super::marker::ReadOnly<uuid::Uuid>,
+    #[doc = "The instant of time when the invoice was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub created_date:
+        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    #[doc = "The instant of time when the invoice was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub updated_date:
+        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](#optimistic-locking).  \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    pub version: i64,
+    #[doc = "Specifies the language of the invoice which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639\\-1 code. Possible values are German **de** (default) and English **en**."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub language: Option<String>,
+    #[doc = "Specifies if the invoice is only available in the archive in lexoffice.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub archived: super::super::marker::ReadOnly<bool>,
+    #[doc = "Specifies the status of the invoice. Possible values are **draft** (editable later in lexoffice), **open** (finished and no longer editable but yet unpaid or only partially paid), **paid** (has been fully paid), **voided** (cancelled)  \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub voucher_status: super::super::marker::ReadOnly<VoucherStatus>,
+    #[doc = "The specific number an invoice is aware of. This consecutive number is set by lexoffice on creation.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub voucher_number: super::super::marker::ReadOnly<String>,
+    #[doc = "The date of invoice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub voucher_date: Option<chrono::DateTime<chrono::Utc>>,
+    #[doc = "Sets the date on which the invoice is payable before becoming overdue in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub due_date:
+        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    #[doc = "The address of the invoice recipient. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub address: Option<Address>,
+    #[doc = "The items of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub line_items: Option<Vec<LineItems>>,
+    #[doc = "The total price of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub total_price: Option<TotalPrice>,
+    #[doc = "The tax amounts for each tax rate. Please note: As done with every read\\-only element or object all submitted content (POST) will be ignored. For details see below.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub tax_amounts: super::super::marker::ReadOnly<Vec<TaxAmounts>>,
+    #[doc = "The tax conditions of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_conditions: Option<TaxConditions>,
+    #[doc = "The payment conditions of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub payment_conditions: Option<PaymentConditions>,
+    #[doc = "The shipping conditions of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub shipping_conditions: Option<ShippingConditions>,
+    #[doc = "(Optional) A title text. The organization's default is used if no value was sent."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub title: Option<String>,
+    #[doc = "(Optional) An introductory text / header. The organization's default is used if no value was send."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub introduction: Option<String>,
+    #[doc = "(Optional) A closing text note. The organization's default is used if no value was send."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub remark: Option<String>,
+    #[doc = "The document id for the PDF version of the invoice. For details see below.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub files: super::super::marker::ReadOnly<uuid::Uuid>,
 }
-
+impl super::super::request::HasId for Invoice {
+    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+        &self.id
+    }
+}
+#[doc = "There are two main options to address the recipient of an invoice. First, using an existing lexoffice contact or second creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific invoice. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.\n\nOtherwise, a **new address** for the invoice recipient can be created. That type of address is called a \"one\\-time address\". A one\\-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new invoice.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AddressDetails {
-    pub contact_id: Uuid,
-    pub name: String,
-    pub supplement: String,
-    pub street: String,
-    pub city: String,
-    pub zip: String,
-    pub country_code: Country,
+pub struct Address {
+    #[doc = "If the invoice recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub contact_id: Option<uuid::Uuid>,
+    #[doc = "The name of the invoice recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub name: Option<String>,
+    #[doc = "(Optional) An address supplement."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub supplement: Option<String>,
+    #[doc = "The street (street and street number) of the address."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub street: Option<String>,
+    #[doc = "The city of the address."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub city: Option<String>,
+    #[doc = "The zip code of the address."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub zip: Option<String>,
+    #[doc = "The ISO 3166 alpha2 country code of the address."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub country_code: Option<celes::Country>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct LineItemsDetails {
-    pub id: Option<Uuid>,
-    pub type_: TypeEnum,
-    pub name: String,
-    pub description: String,
-    pub quantity: f64,
-    pub unit_name: String,
-    pub unit_price: UnitPriceDetails,
-    pub discount_percentage: f64,
-    pub line_item_amount: f64,
+pub struct LineItems {
+    #[doc = "The field specifies the related id of the product/service.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub id: super::super::marker::ReadOnly<uuid::Uuid>,
+    #[doc = "The type of the item. Possible values are **service** (the line item is related to a supply of services), **material** (the line item is related to a physical product), **custom** (an item without reference in lexoffice and has no id) or **text** (contains only a name and/or a description for informative purposes)."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub _type: Option<Type>,
+    #[doc = "The name of the item."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub name: Option<String>,
+    #[doc = "The description of the item."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub description: Option<String>,
+    #[doc = "The amount of the purchased item. The value can contain up to 4 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub quantity: Option<f64>,
+    #[doc = "The unit name of the purchased item. If the provided unit name is not known in lexoffice it will be created on the fly."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub unit_name: Option<String>,
+    #[doc = "The unit price of the purchased item. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub unit_price: Option<UnitPrice>,
+    #[doc = "The offered discount for the item. The value can contain up to 2 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub discount_percentage: Option<f64>,
+    #[doc = "The total price of this line item. Depending by the selected *taxType* in *taxConditions*, the amount must be given either as net or gross. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub line_item_amount: super::super::marker::ReadOnly<f64>,
+}
+impl super::super::request::HasId for LineItems {
+    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+        &self.id
+    }
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct UnitPriceDetails {
-    pub currency: CurrencyEnum,
-    pub net_amount: f64,
-    pub gross_amount: f64,
-    pub tax_rate_percentage: f64,
+pub struct UnitPrice {
+    #[doc = "The currency of the price. Currently only **EUR** is supported."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub currency: Option<iso_currency::Currency>,
+    #[doc = "The net price of the unit price. The value can contain up to 4 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub net_amount: Option<f64>,
+    #[doc = "The gross price of the unit price. The value can contain up to 4 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub gross_amount: Option<f64>,
+    #[doc = "The tax rate of the unit price. [Supported tax rates](#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat\\-free sales vouchers the tax rate percentage must be **0**."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_rate_percentage: Option<f64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct TotalPriceDetails {
-    pub currency: String,
-    pub total_net_amount: f64,
-    pub total_gross_amount: f64,
-    pub total_tax_amount: f64,
-    pub total_discount_absolute: f64,
-    pub total_discount_percentage: f64,
+pub struct TotalPrice {
+    #[doc = "The currency of the total price. Currently only **EUR** is supported."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub currency: Option<iso_currency::Currency>,
+    #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub total_net_amount: super::super::marker::ReadOnly<f64>,
+    #[doc = "The total gross price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub total_gross_amount: super::super::marker::ReadOnly<f64>,
+    #[doc = "The total tax amount over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    #[serde(skip_serializing)]
+    pub total_tax_amount: super::super::marker::ReadOnly<f64>,
+    #[doc = "(Optional) A total discount as absolute value. The value can contain up to 2 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub total_discount_absolute: Option<f64>,
+    #[doc = "(Optional) A total discount relative to the gross amount or net amount dependent on the given tax conditions. The value can contain up to 2 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub total_discount_percentage: Option<f64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct TaxAmountsDetails {
-    pub tax_rate_percentage: f64,
-    pub tax_amount: f64,
-    pub net_amount: f64,
+pub struct TaxAmounts {
+    #[doc = "Tax rate as percentage value. [Supported tax rates](#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_rate_percentage: Option<f64>,
+    #[doc = "The total tax amount for this tax rate. The value can contain up to 2 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_amount: Option<f64>,
+    #[doc = "The total net amount for this tax rate. The value can contain up to 2 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub net_amount: Option<f64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct TaxConditionsDetails {
-    pub tax_type: TaxTypeEnum,
-    pub tax_type_note: String,
+pub struct TaxConditions {
+    #[doc = "The tax type for the invoice. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. \u{a7}13b UStG*), **constructionService13b** (*Bauleistungen gem. \u{a7}13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. \u{a7}13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittl\u{e4}nder*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittl\u{e4}nder*)"]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_type: Option<TaxType>,
+    #[doc = "When *taxType* is set to a vat\\-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization's default."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_type_note: Option<String>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct PaymentConditionsDetails {
-    pub payment_term_label: String,
-    pub payment_term_duration: i64,
-    pub payment_discount_conditions: Vec<PaymentDiscountConditionsDetails>,
+pub struct PaymentConditions {
+    #[doc = "A textual note regarding the payment conditions."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub payment_term_label: Option<String>,
+    #[doc = "The time left (in days) until the payment must be conducted."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub payment_term_duration: Option<i64>,
+    #[doc = "The payment discount conditions for the invoice."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub payment_discount_conditions: Option<Vec<PaymentDiscountConditions>>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct PaymentDiscountConditionsDetails {
-    pub discount_percentage: f64,
-    pub discount_range: i64,
+pub struct PaymentDiscountConditions {
+    #[doc = "The discount offered in return for payment within the **discountRange**. The value can contain up to 2 decimals."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub discount_percentage: Option<f64>,
+    #[doc = "The time left (in days) the discount is valid."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub discount_range: Option<i64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct ShippingConditionsDetails {
-    pub shipping_date: DateTime<Utc>,
-    pub shipping_end_date: DateTime<Utc>,
-    pub shipping_type: ShippingTypeEnum,
+pub struct ShippingConditions {
+    #[doc = "The instant of time when the purchased items have to be shipped. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub shipping_date: Option<chrono::DateTime<chrono::Utc>>,
+    #[doc = "An end instant in order to specify a shipping period of time. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*). Must not specify an instant before *shippingDate*."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub shipping_end_date: Option<chrono::DateTime<chrono::Utc>>,
+    #[doc = "The type of the shipping. Possible values are **service** (a service is supplied on *shippingDate*), **serviceperiod** (a service is supplied within the period [*shippingDate*,*shippingEndDate*] ), **delivery** (a product is delivered), **deliveryperiod** (a product is delivered within the period [*shippingDate*,*shippingEndDate*]) and **none** (no shipping date has to be provided)"]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub shipping_type: Option<ShippingType>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct FilesDetails {
-    pub document_file_id: Uuid,
+pub struct Files {
+    #[doc = "The id of the invoice PDF. The PDF will be created when the invoice turns from **draft** into status **open**. To download the invoice PDF file please use the files endpoint."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub document_file_id: Option<uuid::Uuid>,
 }

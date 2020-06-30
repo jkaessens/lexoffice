@@ -1,10 +1,10 @@
+use crate::util::error_for_lexoffice;
+use crate::util::to_json_response;
 use crate::error::Error;
 use crate::model::File;
 use crate::request::Endpoint;
 use crate::request::Request;
 use crate::result::Result;
-use crate::util::error_for_legacy_lexoffice;
-use crate::util::to_json_response;
 use reqwest::multipart::Form;
 use reqwest::multipart::Part;
 use reqwest::Method;
@@ -49,7 +49,7 @@ impl Request<File, ()> {
     {
         let uuid: Uuid = uuid.into();
         let url = self.by_id_url(uuid)?;
-        error_for_legacy_lexoffice(
+        error_for_lexoffice(
             self.client.http_builder(Method::GET, url).send().await?,
         )
         .await
