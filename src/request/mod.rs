@@ -16,12 +16,11 @@ mod impls;
 pub use impls::*;
 pub use voucherlist::*;
 
-
 use crate::client::Client;
 use crate::marker::ReadOnly;
 use reqwest::Url;
-use std::marker::PhantomData;
 use serde::Deserialize;
+use std::marker::PhantomData;
 use uuid::Uuid;
 
 /// This struct is returned when an object has changed

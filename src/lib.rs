@@ -5,9 +5,9 @@
 //! [LexOffice API](https://developers.lexoffice.io/docs/)
 
 pub mod client;
+mod marker;
 pub mod model;
 pub mod request;
-mod marker;
 
 mod error;
 #[cfg(feature = "fs")]
@@ -17,5 +17,5 @@ mod result;
 mod util;
 
 pub use error::Error;
-pub use result::Result;
 pub use marker::ReadOnly;
+pub use result::Result;

@@ -1,10 +1,10 @@
-use crate::util::error_for_lexoffice;
-use crate::util::to_json_response;
 use crate::error::Error;
 use crate::model::File;
 use crate::request::Endpoint;
 use crate::request::Request;
 use crate::result::Result;
+use crate::util::error_for_lexoffice;
+use crate::util::to_json_response;
 use reqwest::multipart::Form;
 use reqwest::multipart::Part;
 use reqwest::Method;

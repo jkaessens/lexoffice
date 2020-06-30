@@ -1,14 +1,14 @@
 use crate::request::Endpoint;
+use crate::request::HasId;
 use crate::request::Request;
 use crate::request::ResultInfo;
 use crate::result::Result;
 use crate::util::to_json_response;
+use crate::Error;
 use mime::APPLICATION_JSON;
 use reqwest::header::CONTENT_TYPE;
 use reqwest::Method;
-use serde::{Serialize, de::DeserializeOwned};
-use crate::request::HasId;
-use crate::Error;
+use serde::{de::DeserializeOwned, Serialize};
 
 /// This trait marks a `Request` as `Updatable` and unlocks the
 /// `Request::update()` method.
