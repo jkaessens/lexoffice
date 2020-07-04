@@ -1,15 +1,15 @@
-use tokio::stream::StreamExt;
-use tokio::fs;
-use structopt::StructOpt;
 use lexoffice::client::Client;
 use lexoffice::model::File;
 use lexoffice::request::Request;
 use lexoffice::Result;
-use tokio::prelude::*;
-use reqwest::header::CONTENT_TYPE;
-use std::str::FromStr;
-use std::pin::Pin;
 use mime_guess::get_extensions;
+use reqwest::header::CONTENT_TYPE;
+use std::pin::Pin;
+use std::str::FromStr;
+use structopt::StructOpt;
+use tokio::fs;
+use tokio::prelude::*;
+use tokio::stream::StreamExt;
 
 #[derive(Debug, StructOpt)]
 pub enum FileOpt {
@@ -43,7 +43,7 @@ impl UploadOpt {
 pub struct GetOpt {
     id: String,
     #[structopt(short, long)]
-    output: Option<String>
+    output: Option<String>,
 }
 
 impl GetOpt {
@@ -53,9 +53,19 @@ impl GetOpt {
         let output = if let Some(output) = self.output {
             output
         } else {
-            let content_type = response.headers().get(CONTENT_TYPE).expect("has Content-Type Header").to_str().unwrap();
+            let content_type = response
+                .headers()
+                .get(CONTENT_TYPE)
+                .expect("has Content-Type Header")
+                .to_str()
+                .unwrap();
             let mime = mime::Mime::from_str(content_type).unwrap();
-            format!("{}{}", self.id, get_extensions(mime.type_().as_str(), mime.subtype().as_str()).unwrap()[0])
+            format!(
+                "{}{}",
+                self.id,
+                get_extensions(mime.type_().as_str(), mime.subtype().as_str())
+                    .unwrap()[0]
+            )
         };
         let mut output: Pin<Box<dyn AsyncWrite>> = if output == "-" {
             Box::pin(tokio::io::stdout())
@@ -69,4 +79,3 @@ impl GetOpt {
         Ok(())
     }
 }
-

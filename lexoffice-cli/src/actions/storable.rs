@@ -1,7 +1,5 @@
-use structopt::StructOpt;
 use lexoffice::request::Storable;
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-pub struct StorableOpt {
-    
-}
+pub struct StorableOpt {}

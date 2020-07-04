@@ -1,10 +1,10 @@
-use structopt::StructOpt;
 use crate::actions::*;
+use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::Invoice;
 use lexoffice::Result;
 use serde::Serialize;
-use crate::ReturnType;
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub enum InvoiceOpt {

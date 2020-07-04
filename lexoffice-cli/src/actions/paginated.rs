@@ -1,6 +1,6 @@
+use lexoffice::model::Page;
 use lexoffice::request::Request;
 use lexoffice::request::{Endpoint, Paginated};
-use lexoffice::model::Page;
 use lexoffice::Result;
 use serde::de::DeserializeOwned;
 use structopt::StructOpt;

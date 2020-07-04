@@ -1,9 +1,9 @@
-use structopt::StructOpt;
 use crate::actions::*;
+use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::CreditNote;
 use lexoffice::Result;
-use crate::ReturnType;
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub enum CreditNoteOpt {

@@ -1,7 +1,5 @@
-use structopt::StructOpt;
 use lexoffice::request::Updatable;
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-pub struct UpdatableOpt {
-    
-}
+pub struct UpdatableOpt {}

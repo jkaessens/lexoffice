@@ -1,10 +1,10 @@
-mod resources;
 mod actions;
+mod resources;
 
-use structopt::StructOpt;
-use lexoffice::model::Page;
 use lexoffice::client::*;
+use lexoffice::model::Page;
 use resources::*;
+use structopt::StructOpt;
 
 pub enum ReturnType<T> {
     Paged(Page<T>),
@@ -27,7 +27,8 @@ enum Opt {
 }
 
 async fn out<T>(result: ReturnType<T>) -> Result<(), Box<dyn std::error::Error>>
-where T: serde::Serialize
+where
+    T: serde::Serialize,
 {
     let stdout = std::io::stdout();
     let out = stdout.lock();

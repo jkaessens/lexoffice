@@ -1,9 +1,9 @@
-use structopt::StructOpt;
 use crate::actions::*;
+use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::OrderConfirmation;
 use lexoffice::Result;
-use crate::ReturnType;
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub enum OrderConfirmationOpt {
@@ -13,7 +13,10 @@ pub enum OrderConfirmationOpt {
 }
 
 impl OrderConfirmationOpt {
-    pub async fn exec(self, client: Client) -> Result<ReturnType<OrderConfirmation>> {
+    pub async fn exec(
+        self,
+        client: Client,
+    ) -> Result<ReturnType<OrderConfirmation>> {
         let request = client.request::<OrderConfirmation>();
         let result = match self {
             //Self::New(x) => x.exec(request),

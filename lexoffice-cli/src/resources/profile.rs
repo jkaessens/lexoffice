@@ -1,14 +1,13 @@
-use structopt::StructOpt;
 use crate::actions::*;
+use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::Profile;
 use lexoffice::Result;
 use serde::Serialize;
-use crate::ReturnType;
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-pub struct ProfileOpt {
-}
+pub struct ProfileOpt {}
 
 impl ProfileOpt {
     pub async fn exec(self, client: Client) -> Result<ReturnType<Profile>> {
