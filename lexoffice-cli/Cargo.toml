@@ -1,0 +1,17 @@
+[package]
+name = "lexoffice-cli"
+version = "0.1.0"
+authors = ["Enno Boland <g@s01.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+lexoffice = { path = "../lexoffice" }
+tokio = { version = "0.2.21", features = ["stream", "fs", "io-std", "macros"] }
+structopt = "0.3"
+serde = "1.0.114"
+serde_json = "1.0.56"
+mime = "0.3.16"
+mime_guess = "2.0.3"
+reqwest = "0.10.6"
