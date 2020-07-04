@@ -10,22 +10,29 @@ fs = ["tokio"]
 env = []
 
 [dependencies]
+async-trait = "0.1.36"
 iso_currency = { version = "0.4.0", features = ["with-serde"] }
-reqwest = { version = "0.10.6", features = ["json", "stream"] }
+#reqwest = { version = "0.10.6", features = ["json", "stream"] }
 futures = "0.3.5"
 uuid = { version = "0.8.1", features = ["serde"] }
 chrono = { version = "0.4.11", features = ["serde"] }
 serde = "1.0.114"
 celes = "1.0.5"
 serde_json = "1.0.56"
-derive_more = "0.99.9"
 serde_plain = "0.3.0"
+derive_more = "0.99.9"
 mime = "0.3.16"
 bytes = "0.5.5"
 typed-builder = "0.6.0"
 derive-error = "0.0.4"
 cfg-if = "0.1.10"
 tokio = { version = "0.2.21", features = ["stream", "fs"], optional = true }
+structopt = "0.3"
+
+[dependencies.reqwest]
+git = "https://github.com/Gottox/reqwest.git"
+branch = "missing-wasm-functions"
+features = ["json", "stream"]
 
 [dev-dependencies]
 tokio = { version = "0.2.21", features = ["macros"] }

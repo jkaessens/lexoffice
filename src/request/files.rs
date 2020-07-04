@@ -5,12 +5,12 @@ use crate::request::Request;
 use crate::result::Result;
 use crate::util::error_for_lexoffice;
 use crate::util::to_json_response;
-use reqwest::multipart::Form;
-use reqwest::multipart::Part;
+use reqwest::multipart::{Form, Part};
 use reqwest::Method;
 use reqwest::Response;
 use reqwest::Url;
 use serde::Deserialize;
+use std::borrow::Cow;
 use uuid::Uuid;
 
 impl Endpoint for Request<File, ()> {
@@ -70,6 +70,19 @@ impl Request<File, ()> {
         )
         .await
         .map(|x| x.id)
+    }
+
+    // Uploads arbi
+    pub async fn upload_bytes<B>(
+        self,
+        mime: &'static mime::Mime,
+        bytes: B,
+    ) -> Result<Uuid>
+    where
+        B: Into<Cow<'static, [u8]>>,
+    {
+        let file_part = Part::bytes(bytes).mime_str(mime.as_ref())?;
+        self.upload(file_part).await
     }
 
     /// Uploads a file from a path to lexoffice

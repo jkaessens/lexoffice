@@ -8,13 +8,13 @@ mod invoices;
 mod order_confirmations;
 mod profile;
 mod quotations;
-mod voucherlist;
+mod voucher_list;
 
 pub mod stream;
 
 mod impls;
 pub use impls::*;
-pub use voucherlist::*;
+pub use voucher_list::*;
 
 use crate::client::Client;
 use crate::marker::ReadOnly;

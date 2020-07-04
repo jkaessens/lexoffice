@@ -1,5 +1,4 @@
 use derive_error::Error;
-use derive_more::Display;
 use reqwest::StatusCode;
 use serde::Deserialize;
 use std::fmt;
@@ -102,8 +101,7 @@ pub enum Error {
 
 impl Unpin for Error {}
 
-#[derive(Debug, Display)]
-#[display(fmt = "HTTP Error {}: {}", status, message)]
+#[derive(Debug)]
 pub struct LexOfficeError {
     status: StatusCode,
     message: Message,
@@ -112,6 +110,15 @@ pub struct LexOfficeError {
 impl LexOfficeError {
     pub fn new(status: StatusCode, message: Message) -> Self {
         Self { status, message }
+    }
+}
+
+impl fmt::Display for LexOfficeError {
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::result::Result<(), std::fmt::Error> {
+        write!(f, "HTTP Error {}: {}", self.status, self.message)
     }
 }
 
