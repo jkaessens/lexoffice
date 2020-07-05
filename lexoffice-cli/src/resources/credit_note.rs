@@ -5,10 +5,12 @@ use lexoffice::model::CreditNote;
 use lexoffice::Result;
 use structopt::StructOpt;
 
+/// credit note endpoint
 #[derive(Debug, StructOpt)]
 pub enum CreditNoteOpt {
     //New(StorableOpt),
     //Updatable(UpdatableOpt),
+    /// queries a specific credit note by its id
     Get(ByIdOpt),
 }
 

@@ -6,6 +6,7 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub struct ByIdOpt {
+    /// uuid of the element
     id: String,
 }
 

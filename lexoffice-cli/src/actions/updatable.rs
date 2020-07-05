@@ -1,14 +1,15 @@
-use edit::edit;
+use edit::edit_with_builder as edit;
 use lexoffice::request::HasId;
 use lexoffice::request::Request;
 use lexoffice::request::{ById, Endpoint, ResultInfo, Updatable};
-use lexoffice::Result;
+use lexoffice::{Error, Result};
 use serde::{de::DeserializeOwned, Serialize};
 use serde_any::{from_str, to_string_pretty, Format};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub struct UpdatableOpt {
+    /// uuid of the element
     id: String,
 }
 
@@ -23,11 +24,15 @@ impl UpdatableOpt {
         U: Clone,
     {
         let get = request.clone();
-        let obj: T = get.by_id_str(&self.id).await?;
+        let object: T = get.by_id_str(&self.id).await?;
+        let id = object.id().ok_or(Error::NoUuid)?;
 
-        let new_str = edit(to_string_pretty(&obj, Format::Yaml).unwrap())?;
+        let new_str = edit(
+            to_string_pretty(&object, Format::Yaml).unwrap(),
+            edit::Builder::new().suffix(".yaml"),
+        )?;
         let new_obj: T = from_str(&new_str, Format::Yaml).unwrap();
 
-        request.update(new_obj).await
+        request.update_with_id(id, new_obj).await
     }
 }

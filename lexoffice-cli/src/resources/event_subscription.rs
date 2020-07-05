@@ -3,15 +3,20 @@ use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::EventSubscription;
 use lexoffice::Result;
-use serde::Serialize;
 use structopt::StructOpt;
 
+/// event subscription endpoint
 #[derive(Debug, StructOpt)]
 pub enum EventSubscriptionOpt {
+    /// retrieves a paginated list of all event subscription
     List(PaginatedOpt),
+    /// creates new event subscription and opens it in an editor
     New(StorableOpt),
+    /// modifies a contact
     Updatable(UpdatableOpt),
+    /// queries a specific event subscription by its id
     Get(ByIdOpt),
+    /// deletes a event subscription
     Delete(DeletableOpt),
 }
 

@@ -7,8 +7,10 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub struct PaginatedOpt {
+    /// page to retrieve
     #[structopt(short, long)]
     page: Option<usize>,
+    /// number of items in a page
     #[structopt(short, long)]
     size: Option<usize>,
 }

@@ -3,14 +3,16 @@ use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::Quotation;
 use lexoffice::Result;
-use serde::Serialize;
 use structopt::StructOpt;
 
+/// quotation endpoint
 #[derive(Debug, StructOpt)]
 pub enum QuotationOpt {
+    /// retrieves a paginated list of all quotations
     List(PaginatedOpt),
     //New(StorableOpt),
     //Updatable(UpdatableOpt),
+    /// queries a specific quotation by its id
     Get(ByIdOpt),
 }
 

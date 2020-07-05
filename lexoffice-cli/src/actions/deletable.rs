@@ -7,6 +7,7 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub struct DeletableOpt {
+    /// uuid of the element
     id: String,
 }
 

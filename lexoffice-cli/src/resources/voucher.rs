@@ -3,13 +3,12 @@ use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::Voucher;
 use lexoffice::Result;
-use serde::Serialize;
 use structopt::StructOpt;
 
+/// voucher endpoint
 #[derive(Debug, StructOpt)]
 pub enum VoucherOpt {
-    //New(StorableOpt),
-    //Updatable(UpdatableOpt),
+    /// queries a specific voucher by its id
     Get(ByIdOpt),
 }
 

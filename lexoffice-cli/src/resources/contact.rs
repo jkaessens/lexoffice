@@ -6,11 +6,16 @@ use lexoffice::model::Contact;
 use lexoffice::Result;
 use structopt::StructOpt;
 
+/// contact endpoint
 #[derive(Debug, StructOpt)]
 pub enum ContactOpt {
+    /// retrieves a paginated list of all contacts
     List(PaginatedOpt),
+    /// creates new contact and opens it in an editor
     New(StorableOpt),
+    /// modifies a contact
     Edit(UpdatableOpt),
+    /// queries a specific contact by its id
     Get(ByIdOpt),
 }
 

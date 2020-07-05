@@ -11,9 +11,12 @@ use tokio::fs;
 use tokio::prelude::*;
 use tokio::stream::StreamExt;
 
+/// file endpoint
 #[derive(Debug, StructOpt)]
 pub enum FileOpt {
+    /// Uploads a file
     Upload(UploadOpt),
+    /// Downloads a file
     Get(GetOpt),
 }
 

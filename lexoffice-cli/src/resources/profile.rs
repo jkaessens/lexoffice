@@ -1,11 +1,10 @@
-use crate::actions::*;
 use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::Profile;
 use lexoffice::Result;
-use serde::Serialize;
 use structopt::StructOpt;
 
+/// retrieves the users profile
 #[derive(Debug, StructOpt)]
 pub struct ProfileOpt {}
 

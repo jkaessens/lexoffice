@@ -1,4 +1,4 @@
-use edit::edit;
+use edit::edit_with_builder as edit;
 use lexoffice::request::Request;
 use lexoffice::request::{Endpoint, ResultInfo, Storable};
 use lexoffice::Result;
@@ -20,7 +20,9 @@ impl StorableOpt {
         T: Serialize + DeserializeOwned + Send + Clone,
         U: Clone,
     {
-        let new_str = edit(to_string_pretty(&obj, Format::Yaml).unwrap())?;
+        let mut builder = edit::Builder::new();
+        let new_str =
+            edit(to_string_pretty(&obj, Format::Yaml).unwrap(), builder.suffix(".yaml"))?;
         let new_obj: T = from_str(&new_str, Format::Yaml).unwrap();
 
         request.save(new_obj).await

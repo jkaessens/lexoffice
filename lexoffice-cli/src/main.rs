@@ -73,7 +73,18 @@ impl Opt {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opt = Opt::from_args();
-    let client = Client::new(ApiKey::try_default().await?);
+    let api_key = match ApiKey::try_default().await {
+        Err(lexoffice::Error::FailedToLoadApiKey) => {
+            eprintln!("Please generate a new API-KEY here:\n");
+            eprintln!("    https://app.lexoffice.de/settings/#/public-api\n");
+            eprintln!("Then place it in $HOME/.lexoffice:\n");
+            eprintln!("    echo API-KEY > ~/.lexoffice\n");
+            std::process::exit(1);
+        },
+        x => x,
+
+    };
+    let client = Client::new(api_key?);
     match &opt.sub_opt {
         SubOpt::Contact(x) => opt.out(x.exec(client).await?).await,
         SubOpt::CreditNote(x) => opt.out(x.exec(client).await?).await,

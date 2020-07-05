@@ -21,8 +21,10 @@ const TYPE_VALUES: &'static [&str] = &[
     "quotation",
 ];
 
+/// voucherlist endpoint
 #[derive(Debug, StructOpt)]
 pub enum VoucherlistOpt {
+    /// retrieves a paginated list of all voucher list items
     List {
         #[structopt(flatten)]
         page: PaginatedOpt,
@@ -31,8 +33,7 @@ pub enum VoucherlistOpt {
         #[structopt(short = "S", long, possible_values = STATUS_VALUES)]
         status: VoucherStatus,
     },
-    //New(StorableOpt),
-    //Updatable(UpdatableOpt),
+    /// queries a specific voucher list item by its id
     Get(ByIdOpt),
 }
 

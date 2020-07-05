@@ -5,10 +5,10 @@ use lexoffice::model::OrderConfirmation;
 use lexoffice::Result;
 use structopt::StructOpt;
 
+/// order confirmation endpoint
 #[derive(Debug, StructOpt)]
 pub enum OrderConfirmationOpt {
-    //New(StorableOpt),
-    //Updatable(UpdatableOpt),
+    /// queries a specific order confirmation by its id
     Get(ByIdOpt),
 }
 

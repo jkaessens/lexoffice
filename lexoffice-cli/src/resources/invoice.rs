@@ -3,13 +3,12 @@ use crate::ReturnType;
 use lexoffice::client::Client;
 use lexoffice::model::Invoice;
 use lexoffice::Result;
-use serde::Serialize;
 use structopt::StructOpt;
 
+/// invoice endpoint
 #[derive(Debug, StructOpt)]
 pub enum InvoiceOpt {
-    //New(StorableOpt),
-    //Updatable(UpdatableOpt),
+    /// queries a specific invoice by its id
     Get(ByIdOpt),
 }
 
