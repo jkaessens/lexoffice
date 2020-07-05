@@ -21,8 +21,20 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: clippy
+    - name: IRC Message Action
+      uses: Gottox/irc-message-action@master
+      if: failure()
+      with:
+        channel: "Gottox"
+        nickname: gh-gottox
+        message: |-
+          [${{ github.workflow }} failed] ${{ github.ref }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: scripts
     strategy:
       matrix:
         feature_fs: ["fs", ""]
@@ -65,4 +77,40 @@ jobs:
       with:
         channel: "Gottox"
         nickname: gh-gottox
-        message: "https://github.com/${{ github.repository }} failed on push ${{ github.event.compare }}"
+        message: |-
+          [${{ github.workflow }} failed] ${{ github.ref }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  cli-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: scripts
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install latest stable
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: ${{ matrix.target }}
+        override: true
+    - name: Build
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: >
+          --verbose
+    - name: Run tests
+      uses: actions-rs/cargo@v1
+      if: matrix.target == 'x86_64-unknown-linux-gnu'
+      with:
+        command: test
+        args: >
+          --verbose
+    - name: IRC Message Action
+      uses: Gottox/irc-message-action@master
+      if: failure()
+      with:
+        channel: "Gottox"
+        nickname: gh-gottox
+        message: |-
+          [${{ github.workflow }} failed] ${{ github.ref }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
