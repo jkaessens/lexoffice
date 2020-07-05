@@ -14,7 +14,7 @@ pub enum OrderConfirmationOpt {
 
 impl OrderConfirmationOpt {
     pub async fn exec(
-        self,
+        &self,
         client: Client,
     ) -> Result<ReturnType<OrderConfirmation>> {
         let request = client.request::<OrderConfirmation>();

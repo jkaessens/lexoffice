@@ -13,7 +13,7 @@ pub enum CreditNoteOpt {
 }
 
 impl CreditNoteOpt {
-    pub async fn exec(self, client: Client) -> Result<ReturnType<CreditNote>> {
+    pub async fn exec(&self, client: Client) -> Result<ReturnType<CreditNote>> {
         let request = client.request::<CreditNote>();
         let result = match self {
             //Self::New(x) => x.exec(request),

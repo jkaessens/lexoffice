@@ -1,6 +1,5 @@
 use crate::model::CreditNote;
 use crate::request::impls::ById;
-use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
@@ -24,19 +23,3 @@ impl Endpoint for Request<CreditNote, ()> {
 /// ```
 ///
 impl ById for Request<CreditNote, ()> {}
-
-// /// # Examples
-// ///
-// /// ```
-// /// use lexoffice::client::{ApiKey, Client};
-// /// use lexoffice::model::CreditNote;
-// ///
-// /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
-// /// let client = Client::new(ApiKey::try_default().await?);
-// /// let contacts = client.request::<CreditNote>().page(0).await?;
-// /// println!("{:#?}", contacts);
-// /// # Ok(())
-// /// # }
-// /// ```
-// ///
-// impl Paginated for Request<CreditNote, ()> {}

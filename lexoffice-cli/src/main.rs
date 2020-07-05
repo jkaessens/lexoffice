@@ -3,17 +3,31 @@ mod resources;
 
 use lexoffice::client::*;
 use lexoffice::model::Page;
+use lexoffice::request::ResultInfo;
 use resources::*;
+use serde::Serialize;
+use serde_any::{to_writer_pretty, Format};
 use structopt::StructOpt;
 
 pub enum ReturnType<T> {
     Paged(Page<T>),
+    ResultInfo(ResultInfo<T>),
     Obj(T),
-    None,
+    Empty,
+}
+
+const OUTPUT_VARIANTS: &[&str] = &["yaml", "json", "toml"];
+
+#[derive(Debug, StructOpt)]
+struct Opt {
+    #[structopt(flatten)]
+    sub_opt: SubOpt,
+    #[structopt(short, long, possible_values = OUTPUT_VARIANTS, case_insensitive = true, default_value = "yaml")]
+    output: Format,
 }
 
 #[derive(Debug, StructOpt)]
-enum Opt {
+enum SubOpt {
     Contact(ContactOpt),
     CreditNote(CreditNoteOpt),
     EventSubscription(EventSubscriptionOpt),
@@ -26,37 +40,50 @@ enum Opt {
     Voucher(VoucherOpt),
 }
 
-async fn out<T>(result: ReturnType<T>) -> Result<(), Box<dyn std::error::Error>>
-where
-    T: serde::Serialize,
-{
-    let stdout = std::io::stdout();
-    let out = stdout.lock();
+impl Opt {
+    fn serialize<T: Serialize>(
+        &self,
+        obj: &T,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let stdout = std::io::stdout();
+        let out = stdout.lock();
 
-    match result {
-        ReturnType::Paged(x) => serde_json::to_writer_pretty(out, &x)?,
-        ReturnType::Obj(x) => serde_json::to_writer_pretty(out, &x)?,
-        ReturnType::None => return Ok(()),
+        Ok(to_writer_pretty(out, &obj, self.output).unwrap())
     }
-    println!("");
 
-    Ok(())
+    async fn out<T>(
+        &self,
+        result: ReturnType<T>,
+    ) -> Result<(), Box<dyn std::error::Error>>
+    where
+        T: serde::Serialize,
+    {
+        match result {
+            ReturnType::Paged(x) => self.serialize(&x)?,
+            ReturnType::Obj(x) => self.serialize(&x)?,
+            ReturnType::ResultInfo(x) => self.serialize(&x)?,
+            ReturnType::Empty => return Ok(()),
+        }
+        println!("");
+
+        Ok(())
+    }
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let opt = Opt::from_args();
     let client = Client::new(ApiKey::try_default().await?);
-    match opt {
-        Opt::Contact(x) => out(x.exec(client).await?).await,
-        Opt::CreditNote(x) => out(x.exec(client).await?).await,
-        Opt::EventSubscription(x) => out(x.exec(client).await?).await,
-        Opt::Invoice(x) => out(x.exec(client).await?).await,
-        Opt::OrderConfirmation(x) => out(x.exec(client).await?).await,
-        Opt::Quotation(x) => out(x.exec(client).await?).await,
-        Opt::Profile(x) => out(x.exec(client).await?).await,
-        Opt::File(x) => Ok(x.exec(client).await?),
-        Opt::Voucherlist(x) => out(x.exec(client).await?).await,
-        Opt::Voucher(x) => out(x.exec(client).await?).await,
+    match &opt.sub_opt {
+        SubOpt::Contact(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::CreditNote(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::EventSubscription(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::Invoice(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::OrderConfirmation(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::Quotation(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::Profile(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::File(x) => Ok(x.exec(client).await?),
+        SubOpt::Voucherlist(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::Voucher(x) => opt.out(x.exec(client).await?).await,
     }
 }

@@ -63,7 +63,7 @@ impl fmt::Display for Issue {
 /// The Errors that may occur working with this crate.
 #[derive(Debug, Error)]
 pub enum Error {
-    /// Errors from the LexOffice API
+    /// Errors from the exOffice API
     ///
     /// See
     /// [The official API](https://developers.lexoffice.io/docs/#error-codes)

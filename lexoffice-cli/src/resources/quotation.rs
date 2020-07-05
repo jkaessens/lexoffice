@@ -15,7 +15,7 @@ pub enum QuotationOpt {
 }
 
 impl QuotationOpt {
-    pub async fn exec(self, client: Client) -> Result<ReturnType<Quotation>> {
+    pub async fn exec(&self, client: Client) -> Result<ReturnType<Quotation>> {
         let request = client.request::<Quotation>();
         let result = match self {
             Self::List(x) => ReturnType::Paged(x.exec(request).await?),

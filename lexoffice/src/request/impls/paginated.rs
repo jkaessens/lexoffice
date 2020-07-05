@@ -17,8 +17,8 @@ pub trait Paginated {}
 impl<T, S> Request<T, S>
 where
     Self: Endpoint + Paginated + Sync + Send + Clone,
-    T: DeserializeOwned + Sync + Send + 'static,
-    S: Sync + Send,
+    T: DeserializeOwned + Sync + Send + Clone + 'static,
+    S: Sync + Send + Clone,
 {
     /// This method gets a page that contains items of type `T` from the API.
     /// It also allows to define a number of items to request per page.

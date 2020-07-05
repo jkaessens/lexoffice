@@ -17,7 +17,8 @@ pub trait Updatable {}
 impl<T, S> Request<T, S>
 where
     Self: Endpoint + Updatable,
-    T: Serialize + DeserializeOwned + HasId,
+    T: Serialize + DeserializeOwned + HasId + Clone,
+    S: Clone,
 {
     /// This method allows to update an existing model object. Please note, that
     /// `Request<T>` must implement the `Updatable` trait in order to make

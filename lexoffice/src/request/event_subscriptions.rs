@@ -1,6 +1,9 @@
 use crate::model::EventSubscription;
 use crate::request::impls::ById;
+use crate::request::impls::Deletable;
 use crate::request::impls::Paginated;
+use crate::request::impls::Storable;
+use crate::request::impls::Updatable;
 use crate::request::Endpoint;
 use crate::request::Request;
 
@@ -40,3 +43,12 @@ impl ById for Request<EventSubscription, ()> {}
 /// ```
 ///
 impl Paginated for Request<EventSubscription, ()> {}
+
+/// TODO
+impl Storable for Request<EventSubscription, ()> {}
+
+/// TODO
+impl Updatable for Request<EventSubscription, ()> {}
+
+/// TODO
+impl Deletable for Request<EventSubscription, ()> {}

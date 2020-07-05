@@ -113,7 +113,7 @@ impl Client {
     }
 
     /// Creates a new request.
-    pub fn request<T>(&self) -> Request<T, ()> {
+    pub fn request<T: Clone>(&self) -> Request<T, ()> {
         Request::new(self.clone())
     }
 

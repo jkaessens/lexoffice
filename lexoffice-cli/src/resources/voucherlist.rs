@@ -37,7 +37,10 @@ pub enum VoucherlistOpt {
 }
 
 impl VoucherlistOpt {
-    pub async fn exec(self, client: Client) -> Result<ReturnType<Voucherlist>> {
+    pub async fn exec(
+        &self,
+        client: Client,
+    ) -> Result<ReturnType<Voucherlist>> {
         let request = client.request::<Voucherlist>();
         let result = match self {
             Self::List {

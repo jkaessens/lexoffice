@@ -1,6 +1,5 @@
 use crate::model::Voucher;
 use crate::request::impls::ById;
-use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 

@@ -14,7 +14,8 @@ pub trait Storable {}
 impl<T, S> Request<T, S>
 where
     Self: Endpoint + Storable,
-    T: DeserializeOwned + Serialize,
+    T: DeserializeOwned + Serialize + Clone,
+    S: Clone,
 {
     /// This method allows to save a new model object. Please note, that
     /// `Request<T>` must implement the `Storable` trait in order to make

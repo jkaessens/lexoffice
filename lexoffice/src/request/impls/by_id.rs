@@ -16,7 +16,8 @@ pub trait ById {}
 impl<T, S> Request<T, S>
 where
     Self: Endpoint + ById,
-    T: DeserializeOwned,
+    T: DeserializeOwned + Clone,
+    S: Clone,
 {
     /// This method creates an `Url` that is used to address the object
     /// identified by `uuid`.

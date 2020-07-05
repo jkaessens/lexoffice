@@ -24,8 +24,8 @@ type FutureType<T> = dyn Future<Output = Result<Page<T>>> + Send;
 pub struct PageStream<T, S>
 where
     Request<T, S>: Paginated + Clone + Endpoint,
-    T: DeserializeOwned,
-    S: Sync + Send + 'static,
+    T: DeserializeOwned + Clone,
+    S: Sync + Send + Clone + 'static,
 {
     request: Request<T, S>,
     future: Option<Pin<Box<FutureType<T>>>>,
@@ -36,8 +36,8 @@ where
 impl<T, S> From<Request<T, S>> for PageStream<T, S>
 where
     Request<T, S>: Paginated + Clone + Endpoint,
-    T: DeserializeOwned + Sync + Send + 'static,
-    S: Sync + Send + 'static,
+    T: DeserializeOwned + Sync + Send + Clone + 'static,
+    S: Sync + Send + Clone + 'static,
 {
     fn from(request: Request<T, S>) -> Self {
         let request_clone = request.clone();
@@ -54,8 +54,8 @@ where
 impl<T, S> PageStream<T, S>
 where
     Request<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
-    T: DeserializeOwned + Unpin + Sync + Send + 'static,
-    S: Sync + Send + 'static,
+    T: DeserializeOwned + Unpin + Sync + Send + Clone + 'static,
+    S: Sync + Send + Clone + 'static,
 {
     fn poll_item(&mut self) -> Option<T> {
         self.iter.as_mut().and_then(|x| x.next())
@@ -107,8 +107,8 @@ where
 impl<T, S> Stream for PageStream<T, S>
 where
     Request<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
-    T: DeserializeOwned + Unpin + Send + Sync + 'static,
-    S: Sync + Send + 'static,
+    T: DeserializeOwned + Unpin + Send + Sync + Clone + 'static,
+    S: Sync + Send + Clone + 'static,
 {
     type Item = Result<T>;
 

@@ -46,7 +46,6 @@ jobs:
       with:
         command: build
         args: >
-          -p lexoffice
           --verbose
           --target ${{ matrix.target }}
           --no-default-features
@@ -57,7 +56,6 @@ jobs:
       with:
         command: test
         args: >
-          -p lexoffice
           --verbose
           --no-default-features
           --features "${{ matrix.feature_fs }} ${{ matrix.feature_env }}"

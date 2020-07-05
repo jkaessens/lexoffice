@@ -14,7 +14,7 @@ pub enum InvoiceOpt {
 }
 
 impl InvoiceOpt {
-    pub async fn exec(self, client: Client) -> Result<ReturnType<Invoice>> {
+    pub async fn exec(&self, client: Client) -> Result<ReturnType<Invoice>> {
         let request = client.request::<Invoice>();
         let result = match self {
             //Self::New(x) => x.exec(request),

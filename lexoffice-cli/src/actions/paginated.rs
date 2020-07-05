@@ -14,11 +14,11 @@ pub struct PaginatedOpt {
 }
 
 impl PaginatedOpt {
-    pub async fn exec<T, U>(self, request: Request<T, U>) -> Result<Page<T>>
+    pub async fn exec<T, U>(&self, request: Request<T, U>) -> Result<Page<T>>
     where
         Request<T, U>: Paginated + Endpoint + Send + Sync + Clone,
-        T: DeserializeOwned + Send + Sync + 'static,
-        U: Send + Sync + 'static,
+        T: DeserializeOwned + Send + Sync + Clone + 'static,
+        U: Send + Sync + Clone + 'static,
     {
         let page = self.page.unwrap_or(0);
         if let Some(size) = self.size {

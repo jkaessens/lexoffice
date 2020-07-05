@@ -23,3 +23,8 @@ pub struct EventSubscription {
     #[builder(default, setter(strip_option))]
     pub callback_url: Option<String>,
 }
+impl super::super::request::HasId for EventSubscription {
+    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+        &self.subscription_id
+    }
+}

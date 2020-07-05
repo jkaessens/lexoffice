@@ -7,7 +7,7 @@ use crate::request::Request;
 use std::marker::PhantomData;
 
 // Not implementing the into trait here as this mustn't be public.
-fn into<O, T, S>(
+fn into<O: Clone, T: Clone, S: Clone>(
     request: Request<Voucherlist, O>,
 ) -> Request<Voucherlist, (T, S)> {
     Request {
@@ -30,7 +30,7 @@ pub type VoucherlistStateUnstarted = ();
 /// that configuration hasn't been finished
 pub type VoucherlistState<T, S> = (T, S);
 
-impl<S> Endpoint for Request<Voucherlist, S> {
+impl<S: Clone> Endpoint for Request<Voucherlist, S> {
     const ENDPOINT: &'static str = "voucherlist";
 }
 
@@ -38,42 +38,42 @@ impl Request<Voucherlist, VoucherlistStateUnstarted> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         self,
-        voucher_type: VoucherType,
+        voucher_type: &VoucherType,
     ) -> Request<Voucherlist, VoucherlistState<VoucherType, ()>> {
         into::<_, (), ()>(self).type_(voucher_type)
     }
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         self,
-        voucher_status: VoucherStatus,
+        voucher_status: &VoucherStatus,
     ) -> Request<Voucherlist, VoucherlistState<(), VoucherStatus>> {
         into::<_, (), ()>(self).status(voucher_status)
     }
 }
 
-impl<S> Request<Voucherlist, VoucherlistState<(), S>> {
+impl<S: Clone> Request<Voucherlist, VoucherlistState<(), S>> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn type_(
         mut self,
-        voucher_type: VoucherType,
+        voucher_type: &VoucherType,
     ) -> Request<Voucherlist, VoucherlistState<VoucherType, S>> {
         self.url.query_pairs_mut().append_pair(
             "voucherType",
-            &serde_plain::to_string(&voucher_type).unwrap(),
+            &serde_plain::to_string(voucher_type).unwrap(),
         );
         into(self)
     }
 }
 
-impl<T> Request<Voucherlist, VoucherlistState<T, ()>> {
+impl<T: Clone> Request<Voucherlist, VoucherlistState<T, ()>> {
     /// Sets the voucher status for this request. Calling this function is mandatory
     pub fn status(
         mut self,
-        voucher_status: VoucherStatus,
+        voucher_status: &VoucherStatus,
     ) -> Request<Voucherlist, VoucherlistState<T, VoucherStatus>> {
         self.url.query_pairs_mut().append_pair(
             "voucherStatus",
-            &serde_plain::to_string(&voucher_status).unwrap(),
+            &serde_plain::to_string(voucher_status).unwrap(),
         );
         into(self)
     }

@@ -72,7 +72,7 @@ impl Request<File, ()> {
         .map(|x| x.id)
     }
 
-    // Uploads arbi
+    /// Uploads arbitrary data as file to lexoffice
     pub async fn upload_bytes<B>(
         self,
         mime: &'static mime::Mime,

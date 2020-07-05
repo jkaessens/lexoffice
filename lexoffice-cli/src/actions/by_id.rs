@@ -10,10 +10,11 @@ pub struct ByIdOpt {
 }
 
 impl ByIdOpt {
-    pub async fn exec<T, U>(self, request: Request<T, U>) -> Result<T>
+    pub async fn exec<T, U>(&self, request: Request<T, U>) -> Result<T>
     where
-        Request<T, U>: ById + Endpoint,
-        T: DeserializeOwned,
+        Request<T, U>: ById + Endpoint + Clone,
+        T: DeserializeOwned + Clone,
+        U: Clone,
     {
         request.by_id_str(&self.id).await
     }
