@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Enno Boland <mail@eboland.de>"]
 edition = "2018"
 license = "MIT"
+description = "type safe API bindings to the LexOffice API"
 
 [features]
 default = ["fs", "env"]
