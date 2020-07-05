@@ -6,11 +6,11 @@ use lexoffice::model::Voucherlist;
 use lexoffice::Result;
 use structopt::StructOpt;
 
-const STATUS_VALUES: &'static [&str] = &[
+const STATUS_VALUES: &[&str] = &[
     "draft", "open", "paid", "paidoff", "voided", "overdue", "accepted",
     "rejected",
 ];
-const TYPE_VALUES: &'static [&str] = &[
+const TYPE_VALUES: &[&str] = &[
     "salesinvoice",
     "salescreditnote",
     "purchaseinvoice",

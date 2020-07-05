@@ -21,8 +21,10 @@ impl StorableOpt {
         U: Clone,
     {
         let mut builder = edit::Builder::new();
-        let new_str =
-            edit(to_string_pretty(&obj, Format::Yaml).unwrap(), builder.suffix(".yaml"))?;
+        let new_str = edit(
+            to_string_pretty(&obj, Format::Yaml).unwrap(),
+            builder.suffix(".yaml"),
+        )?;
         let new_obj: T = from_str(&new_str, Format::Yaml).unwrap();
 
         request.save(new_obj).await

@@ -48,7 +48,8 @@ impl Opt {
         let stdout = std::io::stdout();
         let out = stdout.lock();
 
-        Ok(to_writer_pretty(out, &obj, self.output).unwrap())
+        to_writer_pretty(out, &obj, self.output).unwrap();
+        Ok(())
     }
 
     async fn out<T>(
@@ -64,7 +65,7 @@ impl Opt {
             ReturnType::ResultInfo(x) => self.serialize(&x)?,
             ReturnType::Empty => return Ok(()),
         }
-        println!("");
+        println!();
 
         Ok(())
     }
@@ -80,9 +81,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             eprintln!("Then place it in $HOME/.lexoffice:\n");
             eprintln!("    echo API-KEY > ~/.lexoffice\n");
             std::process::exit(1);
-        },
+        }
         x => x,
-
     };
     let client = Client::new(api_key?);
     match &opt.sub_opt {

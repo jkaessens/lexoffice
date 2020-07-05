@@ -35,14 +35,20 @@ where
     /// This method allows to update an existing model object. Please note, that
     /// `Request<T>` must implement the `Updatable` trait in order to make
     /// this function available.
-    pub async fn update_with_id<I, U>(self, uuid: U, object: I) -> Result<ResultInfo<T>>
+    pub async fn update_with_id<I, U>(
+        self,
+        uuid: U,
+        object: I,
+    ) -> Result<ResultInfo<T>>
     where
         I: Into<T> + Send + HasId,
-        U: Into<Uuid>
+        U: Into<Uuid>,
     {
         let object = object.into();
         let mut url = self.url().clone();
-        url.path_segments_mut().unwrap().push(&uuid.into().to_string());
+        url.path_segments_mut()
+            .unwrap()
+            .push(&uuid.into().to_string());
         Ok(to_json_response::<ResultInfo<T>>(
             self.client()
                 .http_builder(Method::PUT, url)
