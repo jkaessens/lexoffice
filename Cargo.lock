@@ -216,8 +216,7 @@ checksum = "134951f4028bdadb9b84baf4232681efbf277da25144b9b0ad65df75946c422b"
 [[package]]
 name = "edit"
 version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec106a0280d7b43765fd1ab955e461284a2eeea744919ee1de2ca4f66b867690"
+source = "git+https://github.com/Gottox/edit.git?branch=tempfile_builder#8b9b52361b688e0a2ac4ae4ff00314b1ff17aa4d"
 dependencies = [
  "tempfile",
  "which",
