@@ -1,6 +1,6 @@
 [package]
 name = "lexoffice-cli"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Enno Boland <mail@eboland.de>"]
 edition = "2018"
 repository = "https://github.com/Gottox/lexoffice"
