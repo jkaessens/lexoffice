@@ -3,6 +3,7 @@ name = "lexoffice"
 version = "0.1.0"
 authors = ["Enno Boland <mail@eboland.de>"]
 edition = "2018"
+repository = "https://github.com/Gottox/lexoffice"
 license = "AGPL-3.0-or-later"
 description = "type safe rust interface to the LexOffice public api."
 categories = ["api-bindings"]
