@@ -15,7 +15,7 @@ name = "lexoffice"
 path = "src/main.rs"
 
 [dependencies]
-lexoffice = { path = "../lexoffice" }
+lexoffice = { version = "0.1.1", path = "../lexoffice" }
 tokio = { version = "0.2.21", features = ["stream", "fs", "io-std", "macros"] }
 structopt = "0.3.15"
 serde = "1.0.114"

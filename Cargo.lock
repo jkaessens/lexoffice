@@ -547,12 +547,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ipnet"
-version = "2.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47be2f14c678be2fdcab04ab1171db51b2762ce6f0a8ee87c8dd4a04ed216135"
-
-[[package]]
 name = "iso_country"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -604,7 +598,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lexoffice"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "bytes",
  "cfg-if",
@@ -614,7 +608,7 @@ dependencies = [
  "futures",
  "iso_currency",
  "mime",
- "reqwest 0.10.6 (git+https://github.com/Gottox/reqwest.git?branch=missing-wasm-functions)",
+ "reqwest",
  "serde",
  "serde_json",
  "serde_plain",
@@ -625,13 +619,13 @@ dependencies = [
 
 [[package]]
 name = "lexoffice-cli"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "edit",
  "lexoffice",
  "mime",
  "mime_guess",
- "reqwest 0.10.6 (registry+https://github.com/rust-lang/crates.io-index)",
+ "reqwest",
  "serde",
  "serde_any",
  "structopt",
@@ -1017,41 +1011,6 @@ dependencies = [
 [[package]]
 name = "reqwest"
 version = "0.10.6"
-source = "git+https://github.com/Gottox/reqwest.git?branch=missing-wasm-functions#e09ea68519118eaff7c147df39dd72926f69294d"
-dependencies = [
- "base64 0.12.3",
- "bytes",
- "encoding_rs",
- "futures-core",
- "futures-util",
- "http",
- "http-body",
- "hyper",
- "hyper-tls",
- "ipnet",
- "js-sys",
- "lazy_static",
- "log 0.4.8",
- "mime",
- "mime_guess",
- "native-tls",
- "percent-encoding 2.1.0",
- "pin-project-lite",
- "serde",
- "serde_json",
- "serde_urlencoded 0.6.1",
- "tokio",
- "tokio-tls",
- "url 2.1.1",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "winreg",
-]
-
-[[package]]
-name = "reqwest"
-version = "0.10.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3b82c9238b305f26f53443e3a4bc8528d64b8d0bee408ec949eb7bf5635ec680"
 dependencies = [
@@ -1073,6 +1032,7 @@ dependencies = [
  "percent-encoding 2.1.0",
  "pin-project-lite",
  "serde",
+ "serde_json",
  "serde_urlencoded 0.6.1",
  "tokio",
  "tokio-tls",
