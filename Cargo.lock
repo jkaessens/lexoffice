@@ -25,17 +25,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "async-trait"
-version = "0.1.36"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a265e3abeffdce30b2e26b7a11b222fe37c6067404001b434101457d0385eb92"
-dependencies = [
- "proc-macro2",
- "quote 1.0.7",
- "syn 1.0.33",
-]
-
-[[package]]
 name = "atty"
 version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -128,15 +117,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fde55d2a2bfaa4c9668bbc63f531fbdeee3ffe188f4662511ce2c22b3eedebe"
 
 [[package]]
-name = "celes"
-version = "1.0.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c83d5d92ebe27c91fddf069dc8456fe52c199c9f5a24dd6ea23c7d7b7d97f59"
-dependencies = [
- "serde",
-]
-
-[[package]]
 name = "cfg-if"
 version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -215,8 +195,9 @@ checksum = "134951f4028bdadb9b84baf4232681efbf277da25144b9b0ad65df75946c422b"
 
 [[package]]
 name = "edit"
-version = "0.1.1"
-source = "git+https://github.com/Gottox/edit.git?branch=tempfile_builder#8b9b52361b688e0a2ac4ae4ff00314b1ff17aa4d"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "323032447eba6f5aca88b46d6e7815151c16c53e4128569420c09d7840db3bfc"
 dependencies = [
  "tempfile",
  "which",
@@ -625,9 +606,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 name = "lexoffice"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
- "celes",
  "cfg-if",
  "chrono",
  "derive-error",
