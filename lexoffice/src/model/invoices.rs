@@ -122,7 +122,8 @@ pub struct Invoice {
     pub voucher_date: Option<chrono::DateTime<chrono::Utc>>,
     #[doc = "Sets the date on which the invoice is payable before becoming overdue in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub due_date: super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub due_date:
+        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
     #[doc = "The address of the invoice recipient. For details see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

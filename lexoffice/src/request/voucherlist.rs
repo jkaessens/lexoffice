@@ -82,7 +82,7 @@ impl<T: Clone> Request<Voucherlist, VoucherlistState<T, ()>> {
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Voucherlist;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
@@ -99,7 +99,7 @@ impl ById for Request<Voucherlist, ()> {}
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Voucherlist;
 /// use lexoffice::model::voucherlist::{VoucherStatus, VoucherType};
 ///
@@ -107,8 +107,8 @@ impl ById for Request<Voucherlist, ()> {}
 /// let client = Client::new(ApiKey::try_default().await?);
 /// let voucherlist = client
 ///        .request::<Voucherlist>()
-///        .type_(VoucherType::Invoice)
-///        .status(VoucherStatus::Open)
+///        .type_(&VoucherType::Invoice)
+///        .status(&VoucherStatus::Open)
 ///        .page(0).await?;
 /// println!("{:#?}", voucherlist);
 /// # Ok(())

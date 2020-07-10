@@ -14,7 +14,7 @@ impl Endpoint for Request<EventSubscription, ()> {
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::EventSubscription;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
@@ -31,7 +31,7 @@ impl ById for Request<EventSubscription, ()> {}
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::EventSubscription;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {

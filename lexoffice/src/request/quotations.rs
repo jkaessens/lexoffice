@@ -11,7 +11,7 @@ impl Endpoint for Request<Quotation, ()> {
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Quotation;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
@@ -28,7 +28,7 @@ impl ById for Request<Quotation, ()> {}
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Quotation;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {

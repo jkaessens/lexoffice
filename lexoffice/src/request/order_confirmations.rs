@@ -10,7 +10,7 @@ impl Endpoint for Request<OrderConfirmation, ()> {
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::OrderConfirmation;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {

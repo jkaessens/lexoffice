@@ -1,4 +1,4 @@
-use lexoffice::client::{ApiKey, Client};
+use lexoffice::{ApiKey, Client};
 use lexoffice::model::Profile;
 
 use std::error::Error;

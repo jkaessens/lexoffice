@@ -13,7 +13,7 @@ impl Endpoint for Request<Contact, ()> {
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Contact;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
@@ -30,7 +30,7 @@ impl ById for Request<Contact, ()> {}
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Contact;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {

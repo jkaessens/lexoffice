@@ -12,7 +12,7 @@ impl Endpoint for Request<Profile, ()> {
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Profile;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {

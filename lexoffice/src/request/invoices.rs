@@ -10,7 +10,7 @@ impl Endpoint for Request<Invoice, ()> {
 /// # Examples
 ///
 /// ```
-/// use lexoffice::client::{ApiKey, Client};
+/// use lexoffice::{ApiKey, Client};
 /// use lexoffice::model::Invoice;
 ///
 /// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
