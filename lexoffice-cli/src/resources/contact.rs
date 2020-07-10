@@ -1,6 +1,6 @@
 use crate::actions::*;
 use crate::ReturnType;
-use lexoffice::client::Client;
+use lexoffice::Client;
 use lexoffice::model::contacts::*;
 use lexoffice::model::Contact;
 use lexoffice::Result;

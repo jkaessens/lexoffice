@@ -1,4 +1,4 @@
-use lexoffice::client::Client;
+use lexoffice::Client;
 use lexoffice::model::File;
 use lexoffice::request::Request;
 use lexoffice::Result;

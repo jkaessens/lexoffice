@@ -2,4 +2,5 @@
 members = [
 	"lexoffice",
 	"lexoffice-cli",
+	"lexoffice-js",
 ]

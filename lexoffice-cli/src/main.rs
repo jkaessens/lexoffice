@@ -1,7 +1,7 @@
 mod actions;
 mod resources;
 
-use lexoffice::client::*;
+use lexoffice::{ Client, ApiKey };
 use lexoffice::model::Page;
 use lexoffice::request::ResultInfo;
 use resources::*;

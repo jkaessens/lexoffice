@@ -1,11 +1,3 @@
-//! An asynchronous `Client` to make Requests with.
-//!
-//! The client can be invoked by the `try_default()` function,
-//! which tries to load a key from the following sources in
-//! this order:
-//! 1. The `LEXOFFICE_KEY` environment variable
-//! 2. The `~/.lexoffice` file containing the key
-
 use crate::request::Request;
 use crate::Error;
 use crate::Result;
@@ -50,8 +42,10 @@ impl ApiKey {
         Self::from_file(&file_name).await
     }
 
-    /// Tries to load the API key first from the env. In case of a failure it'll
-    /// load the key from `~/.lexoffice`
+    /// This function tries to load a key from the following sources in
+    /// this order:
+    /// 1. The `LEXOFFICE_KEY` environment variable
+    /// 2. The `~/.lexoffice` file containing the key
     pub async fn try_default() -> Result<Self> {
         cfg_if::cfg_if! {
             if #[cfg(feature = "env")] {

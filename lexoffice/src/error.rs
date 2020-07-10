@@ -1,13 +1,17 @@
+//! Error handling for the `lexoffice` crate
 use derive_error::Error;
 use reqwest::StatusCode;
 use serde::Deserialize;
 use std::fmt;
 
+/// This enum represents error messages from LexOffice
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum Message {
+    /// error messages from LexOffice
     #[serde(rename = "message")]
     Message(String),
+    /// legacy error messages from LexOffice
     #[serde(rename = "IssueList")]
     IssueList(Vec<Issue>),
 }
@@ -34,6 +38,7 @@ impl fmt::Display for Message {
     }
 }
 
+/// Represents an issue item, used in the legacy error message handling of Lexoffice
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Issue {
@@ -101,6 +106,7 @@ pub enum Error {
 
 impl Unpin for Error {}
 
+/// An error returned from LexOffice
 #[derive(Debug)]
 pub struct LexOfficeError {
     status: StatusCode,
@@ -108,7 +114,7 @@ pub struct LexOfficeError {
 }
 
 impl LexOfficeError {
-    pub fn new(status: StatusCode, message: Message) -> Self {
+    pub(crate) fn new(status: StatusCode, message: Message) -> Self {
         Self { status, message }
     }
 }
