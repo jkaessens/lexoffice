@@ -1,6 +1,6 @@
-use lexoffice::Client;
 use lexoffice::model::File;
 use lexoffice::request::Request;
+use lexoffice::Client;
 use lexoffice::Result;
 use mime_guess::get_extensions;
 use reqwest::header::CONTENT_TYPE;

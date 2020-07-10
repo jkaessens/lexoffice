@@ -1,9 +1,9 @@
 mod actions;
 mod resources;
 
-use lexoffice::{ Client, ApiKey };
 use lexoffice::model::Page;
 use lexoffice::request::ResultInfo;
+use lexoffice::{ApiKey, Client};
 use resources::*;
 use serde::Serialize;
 use serde_any::{to_writer_pretty, Format};

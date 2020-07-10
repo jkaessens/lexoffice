@@ -1,7 +1,7 @@
 use crate::actions::*;
 use crate::ReturnType;
-use lexoffice::Client;
 use lexoffice::model::CreditNote;
+use lexoffice::Client;
 use lexoffice::Result;
 use structopt::StructOpt;
 

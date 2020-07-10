@@ -1,8 +1,8 @@
 use crate::actions::*;
 use crate::ReturnType;
-use lexoffice::Client;
 use lexoffice::model::voucherlist::{VoucherStatus, VoucherType};
 use lexoffice::model::Voucherlist;
+use lexoffice::Client;
 use lexoffice::Result;
 use structopt::StructOpt;
 

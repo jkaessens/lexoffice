@@ -1,6 +1,6 @@
 use crate::ReturnType;
-use lexoffice::Client;
 use lexoffice::model::Profile;
+use lexoffice::Client;
 use lexoffice::Result;
 use structopt::StructOpt;
 
