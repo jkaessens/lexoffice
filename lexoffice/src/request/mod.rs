@@ -49,14 +49,13 @@ pub struct ResultInfo<T> {
 /// `https://api.lexoffice.io/foobar` you must implement this trait as follows:
 ///
 /// ```compile_fail
-/// use lexoffice::request::Request;
-/// use lexoffice::request::Endpoint;
+/// use lexoffice::request::{Request, Endpoint};
 ///
 /// // Model
-/// struct Foobar {
+/// struct FooBar {
 ///     // ...
 /// }
-/// impl Endpoint for Request<Foobar, ()> {
+/// impl Endpoint for Request<FooBar> {
 ///     const ENDPOINT: &'static str = "foobar";
 /// }
 /// ```
