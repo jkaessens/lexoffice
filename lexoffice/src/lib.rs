@@ -18,6 +18,7 @@ mod util;
 
 pub use client::ApiKey;
 pub use client::Client;
+pub use client::ClientBuilder;
 pub use error::Error;
 pub use marker::ReadOnly;
 pub use result::Result;
