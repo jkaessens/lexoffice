@@ -36,7 +36,7 @@ pub struct UploadOpt {
 }
 
 impl UploadOpt {
-    pub async fn exec(&self, request: Request<File, ()>) -> Result<()> {
+    pub async fn exec(&self, request: Request<File>) -> Result<()> {
         println!("{}", request.upload_path(self.file.clone()).await?);
         Ok(())
     }
@@ -50,7 +50,7 @@ pub struct GetOpt {
 }
 
 impl GetOpt {
-    pub async fn exec(&self, request: Request<File, ()>) -> Result<()> {
+    pub async fn exec(&self, request: Request<File>) -> Result<()> {
         let response = request.by_id_str(&self.id).await?;
         println!("{:?}", &self);
         let output = if let Some(output) = &self.output {

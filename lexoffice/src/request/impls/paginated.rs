@@ -1,7 +1,7 @@
 use crate::model::Page;
 use crate::request::stream::PageStream;
 use crate::request::Endpoint;
-use crate::request::Request;
+use crate::request::RequestWithState;
 use crate::result::Result;
 use crate::util::to_json_response;
 use reqwest::Method;
@@ -14,7 +14,7 @@ use serde::de::DeserializeOwned;
 /// [the official API docs](https://developers.lexoffice.io/docs/#paging-of-resources)
 pub trait Paginated {}
 
-impl<T, S> Request<T, S>
+impl<T, S> RequestWithState<T, S>
 where
     Self: Endpoint + Paginated + Sync + Send + Clone,
     T: DeserializeOwned + Sync + Send + Clone + 'static,
@@ -22,7 +22,7 @@ where
 {
     /// This method gets a page that contains items of type `T` from the API.
     /// It also allows to define a number of items to request per page.
-    /// `Request<T>` must implement the `Paginated` trait in order to make
+    /// `RequestWithState<T, S>` must implement the `Paginated` trait in order to make
     /// this function available.
     pub async fn page_size(self, page: usize, size: usize) -> Result<Page<T>> {
         let mut url = self.url();
@@ -34,7 +34,7 @@ where
     }
 
     /// This method gets a page that contains items of type `T` from the API
-    /// `Request<T>` must implement the `Paginated` trait in order to make
+    /// `RequestWithState<T, S>` must implement the `Paginated` trait in order to make
     /// this function available.
     pub async fn page(self, page: usize) -> Result<Page<T>> {
         let mut url = self.url();

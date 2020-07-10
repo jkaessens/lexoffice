@@ -67,9 +67,16 @@ pub trait Endpoint {
 
 /// Represents a request to the lexoffice API. Please note that in order to
 /// create a working `Request` the Type variable `T` must allow requests to be
-/// made. The type variable `S` is an optional argument that allows to share state
+/// made.
+pub type Request<T> = RequestWithState<T, ()>;
+
+/// Represents a request to the lexoffice API. Please note that in order to
+/// create a working `Request` the Type variable `T` must allow requests to be
+/// made. The type variable `S` is an optional argument that allows to share
+/// state of the time, for example to make sure that certain functions have
+/// been called.
 #[derive(Clone, Debug)]
-pub struct Request<T: Clone, S: Clone> {
+pub struct RequestWithState<T: Clone, S: Clone> {
     client: Client,
     url: Url,
     target: PhantomData<T>,
@@ -82,11 +89,11 @@ pub trait HasId {
     fn id(&self) -> &ReadOnly<Uuid>;
 }
 
-impl<T: Clone, S: Clone> Request<T, S> {
+impl<T: Clone, S: Clone> RequestWithState<T, S> {
     /// Creates a new Request based with a Client
     pub fn new(client: Client) -> Self {
         let url = client.base_url().clone();
-        Self {
+        RequestWithState {
             client,
             url,
             target: PhantomData,
@@ -95,7 +102,7 @@ impl<T: Clone, S: Clone> Request<T, S> {
     }
 }
 
-impl<T: Clone, S: Clone> Request<T, S>
+impl<T: Clone, S: Clone> RequestWithState<T, S>
 where
     Self: Endpoint,
 {

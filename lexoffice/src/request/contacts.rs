@@ -6,7 +6,7 @@ use crate::request::impls::Updatable;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-impl Endpoint for Request<Contact, ()> {
+impl Endpoint for Request<Contact> {
     const ENDPOINT: &'static str = "contacts";
 }
 
@@ -25,7 +25,7 @@ impl Endpoint for Request<Contact, ()> {
 /// # }
 /// ```
 ///
-impl ById for Request<Contact, ()> {}
+impl ById for Request<Contact> {}
 
 /// # Examples
 ///
@@ -41,10 +41,10 @@ impl ById for Request<Contact, ()> {}
 /// # }
 /// ```
 ///
-impl Paginated for Request<Contact, ()> {}
+impl Paginated for Request<Contact> {}
 
 /// TODO doc
-impl Storable for Request<Contact, ()> {}
+impl Storable for Request<Contact> {}
 
 /// TODO doc
-impl Updatable for Request<Contact, ()> {}
+impl Updatable for Request<Contact> {}

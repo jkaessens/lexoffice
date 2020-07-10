@@ -35,15 +35,15 @@ macro_rules! request {
         paste::item! {
             #[wasm_bindgen]
             pub struct [<$x Request>] {
-                inner: Request<$x, ()>,
+                inner: Request<$x>,
             }
-            impl From<Request<$x, ()>> for [<$x Request>] {
-                fn from(inner: Request<$x, ()>) -> Self {
+            impl From<Request<$x>> for [<$x Request>] {
+                fn from(inner: Request<$x>) -> Self {
                     Self{ inner }
                 }
             }
-            impl Into<Request<$x, ()>> for [<$x Request>] {
-                fn into(self) -> Request<$x, ()> {
+            impl Into<Request<$x>> for [<$x Request>] {
+                fn into(self) -> Request<$x> {
                     self.inner
                 }
             }

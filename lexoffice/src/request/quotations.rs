@@ -4,7 +4,7 @@ use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-impl Endpoint for Request<Quotation, ()> {
+impl Endpoint for Request<Quotation> {
     const ENDPOINT: &'static str = "quotations";
 }
 
@@ -23,7 +23,7 @@ impl Endpoint for Request<Quotation, ()> {
 /// # }
 /// ```
 ///
-impl ById for Request<Quotation, ()> {}
+impl ById for Request<Quotation> {}
 
 /// # Examples
 ///
@@ -39,4 +39,4 @@ impl ById for Request<Quotation, ()> {}
 /// # }
 /// ```
 ///
-impl Paginated for Request<Quotation, ()> {}
+impl Paginated for Request<Quotation> {}

@@ -3,7 +3,7 @@ use crate::request::impls::ById;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-impl Endpoint for Request<CreditNote, ()> {
+impl Endpoint for Request<CreditNote> {
     const ENDPOINT: &'static str = "credit-notes";
 }
 
@@ -22,4 +22,4 @@ impl Endpoint for Request<CreditNote, ()> {
 /// # }
 /// ```
 ///
-impl ById for Request<CreditNote, ()> {}
+impl ById for Request<CreditNote> {}

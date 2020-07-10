@@ -1,4 +1,4 @@
-use lexoffice::request::Request;
+use lexoffice::request::RequestWithState;
 use lexoffice::request::{ById, Endpoint};
 use lexoffice::Result;
 use serde::de::DeserializeOwned;
@@ -11,9 +11,9 @@ pub struct ByIdOpt {
 }
 
 impl ByIdOpt {
-    pub async fn exec<T, U>(&self, request: Request<T, U>) -> Result<T>
+    pub async fn exec<T, U>(&self, request: RequestWithState<T, U>) -> Result<T>
     where
-        Request<T, U>: ById + Endpoint + Clone,
+        RequestWithState<T, U>: ById + Endpoint + Clone,
         T: DeserializeOwned + Clone,
         U: Clone,
     {

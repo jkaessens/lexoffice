@@ -4,7 +4,7 @@ use crate::error::Error;
 use crate::model::Page;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
-use crate::request::Request;
+use crate::request::RequestWithState;
 use crate::result::Result;
 use futures::stream::Stream;
 use serde::de::DeserializeOwned;
@@ -23,23 +23,23 @@ type FutureType<T> = dyn Future<Output = Result<Page<T>>> + Send;
 /// Stream that allows to view multiple pages as contiguous stream of Page items `T`.
 pub struct PageStream<T, S>
 where
-    Request<T, S>: Paginated + Clone + Endpoint,
+    RequestWithState<T, S>: Paginated + Clone + Endpoint,
     T: DeserializeOwned + Clone,
     S: Sync + Send + Clone + 'static,
 {
-    request: Request<T, S>,
+    request: RequestWithState<T, S>,
     future: Option<Pin<Box<FutureType<T>>>>,
     pages: Option<Range<usize>>,
     iter: Option<IntoIter<T>>,
 }
 
-impl<T, S> From<Request<T, S>> for PageStream<T, S>
+impl<T, S> From<RequestWithState<T, S>> for PageStream<T, S>
 where
-    Request<T, S>: Paginated + Clone + Endpoint,
+    RequestWithState<T, S>: Paginated + Clone + Endpoint,
     T: DeserializeOwned + Sync + Send + Clone + 'static,
     S: Sync + Send + Clone + 'static,
 {
-    fn from(request: Request<T, S>) -> Self {
+    fn from(request: RequestWithState<T, S>) -> Self {
         let request_clone = request.clone();
 
         Self {
@@ -53,7 +53,7 @@ where
 
 impl<T, S> PageStream<T, S>
 where
-    Request<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
+    RequestWithState<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
     T: DeserializeOwned + Unpin + Sync + Send + Clone + 'static,
     S: Sync + Send + Clone + 'static,
 {
@@ -106,7 +106,7 @@ where
 
 impl<T, S> Stream for PageStream<T, S>
 where
-    Request<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
+    RequestWithState<T, S>: Endpoint + Paginated + Unpin + Sync + Send + Clone,
     T: DeserializeOwned + Unpin + Send + Sync + Clone + 'static,
     S: Sync + Send + Clone + 'static,
 {

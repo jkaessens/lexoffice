@@ -13,7 +13,7 @@ use serde::Deserialize;
 use std::borrow::Cow;
 use uuid::Uuid;
 
-impl Endpoint for Request<File, ()> {
+impl Endpoint for Request<File> {
     const ENDPOINT: &'static str = "files";
 }
 
@@ -22,7 +22,7 @@ struct FileResponse {
     pub id: Uuid,
 }
 
-impl Request<File, ()> {
+impl Request<File> {
     /// This method creates an `Url` that is used to address the object
     /// identified by `uuid`.
     pub fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>

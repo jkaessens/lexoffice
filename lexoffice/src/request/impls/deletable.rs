@@ -1,7 +1,7 @@
 use super::ById;
 use crate::request::Endpoint;
 use crate::request::HasId;
-use crate::request::Request;
+use crate::request::RequestWithState;
 use crate::result::Result;
 use reqwest::Method;
 use serde::{de::DeserializeOwned, Serialize};
@@ -12,7 +12,7 @@ use uuid::Uuid;
 /// `Request::delete()` method.
 pub trait Deletable {}
 
-impl<T, S> Request<T, S>
+impl<T, S> RequestWithState<T, S>
 where
     Self: Endpoint + Deletable + ById,
     T: Serialize + DeserializeOwned + HasId + Clone,

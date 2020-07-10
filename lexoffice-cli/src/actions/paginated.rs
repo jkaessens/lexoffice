@@ -1,5 +1,5 @@
 use lexoffice::model::Page;
-use lexoffice::request::Request;
+use lexoffice::request::RequestWithState;
 use lexoffice::request::{Endpoint, Paginated};
 use lexoffice::Result;
 use serde::de::DeserializeOwned;
@@ -16,9 +16,9 @@ pub struct PaginatedOpt {
 }
 
 impl PaginatedOpt {
-    pub async fn exec<T, U>(&self, request: Request<T, U>) -> Result<Page<T>>
+    pub async fn exec<T, U>(&self, request: RequestWithState<T, U>) -> Result<Page<T>>
     where
-        Request<T, U>: Paginated + Endpoint + Send + Sync + Clone,
+        RequestWithState<T, U>: Paginated + Endpoint + Send + Sync + Clone,
         T: DeserializeOwned + Send + Sync + Clone + 'static,
         U: Send + Sync + Clone + 'static,
     {

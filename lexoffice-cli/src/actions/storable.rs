@@ -1,5 +1,5 @@
 use edit::edit_with_builder as edit;
-use lexoffice::request::Request;
+use lexoffice::request::RequestWithState;
 use lexoffice::request::{Endpoint, ResultInfo, Storable};
 use lexoffice::Result;
 use serde::{de::DeserializeOwned, Serialize};
@@ -12,11 +12,11 @@ pub struct StorableOpt {}
 impl StorableOpt {
     pub async fn exec<T, U>(
         &self,
-        request: Request<T, U>,
+        request: RequestWithState<T, U>,
         obj: T,
     ) -> Result<ResultInfo<T>>
     where
-        Request<T, U>: Storable + Endpoint + Clone,
+        RequestWithState<T, U>: Storable + Endpoint + Clone,
         T: Serialize + DeserializeOwned + Send + Clone,
         U: Clone,
     {

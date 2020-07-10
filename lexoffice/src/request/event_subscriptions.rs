@@ -7,7 +7,7 @@ use crate::request::impls::Updatable;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-impl Endpoint for Request<EventSubscription, ()> {
+impl Endpoint for Request<EventSubscription> {
     const ENDPOINT: &'static str = "event-subscriptions";
 }
 
@@ -26,7 +26,7 @@ impl Endpoint for Request<EventSubscription, ()> {
 /// # }
 /// ```
 ///
-impl ById for Request<EventSubscription, ()> {}
+impl ById for Request<EventSubscription> {}
 
 /// # Examples
 ///
@@ -42,13 +42,13 @@ impl ById for Request<EventSubscription, ()> {}
 /// # }
 /// ```
 ///
-impl Paginated for Request<EventSubscription, ()> {}
+impl Paginated for Request<EventSubscription> {}
 
 /// TODO
-impl Storable for Request<EventSubscription, ()> {}
+impl Storable for Request<EventSubscription> {}
 
 /// TODO
-impl Updatable for Request<EventSubscription, ()> {}
+impl Updatable for Request<EventSubscription> {}
 
 /// TODO
-impl Deletable for Request<EventSubscription, ()> {}
+impl Deletable for Request<EventSubscription> {}

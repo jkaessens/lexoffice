@@ -1,4 +1,4 @@
-use lexoffice::request::Request;
+use lexoffice::request::RequestWithState;
 use lexoffice::request::{ById, Deletable, Endpoint, HasId};
 use lexoffice::Result;
 use serde::de::DeserializeOwned;
@@ -12,9 +12,9 @@ pub struct DeletableOpt {
 }
 
 impl DeletableOpt {
-    pub async fn exec<T, U>(&self, request: Request<T, U>) -> Result<()>
+    pub async fn exec<T, U>(&self, request: RequestWithState<T, U>) -> Result<()>
     where
-        Request<T, U>: Deletable + ById + Endpoint + Clone,
+        RequestWithState<T, U>: Deletable + ById + Endpoint + Clone,
         T: DeserializeOwned + Clone + Serialize + HasId,
         U: Clone,
     {

@@ -1,5 +1,5 @@
 use crate::request::Endpoint;
-use crate::request::Request;
+use crate::request::RequestWithState;
 use crate::request::ResultInfo;
 use crate::result::Result;
 use crate::util::to_json_response;
@@ -11,7 +11,7 @@ use serde::Serialize;
 /// `Request::save()` method.
 pub trait Storable {}
 
-impl<T, S> Request<T, S>
+impl<T, S> RequestWithState<T, S>
 where
     Self: Endpoint + Storable,
     T: DeserializeOwned + Serialize + Clone,

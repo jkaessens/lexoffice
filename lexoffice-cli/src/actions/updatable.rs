@@ -1,6 +1,6 @@
 use edit::edit_with_builder as edit;
 use lexoffice::request::HasId;
-use lexoffice::request::Request;
+use lexoffice::request::RequestWithState;
 use lexoffice::request::{ById, Endpoint, ResultInfo, Updatable};
 use lexoffice::{Error, Result};
 use serde::{de::DeserializeOwned, Serialize};
@@ -16,10 +16,10 @@ pub struct UpdatableOpt {
 impl UpdatableOpt {
     pub async fn exec<T, U>(
         &self,
-        request: Request<T, U>,
+        request: RequestWithState<T, U>,
     ) -> Result<ResultInfo<T>>
     where
-        Request<T, U>: Updatable + ById + Endpoint + Clone,
+        RequestWithState<T, U>: Updatable + ById + Endpoint + Clone,
         T: Serialize + DeserializeOwned + Send + HasId + Clone,
         U: Clone,
     {

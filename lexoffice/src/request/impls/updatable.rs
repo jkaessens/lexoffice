@@ -1,6 +1,6 @@
 use crate::request::Endpoint;
 use crate::request::HasId;
-use crate::request::Request;
+use crate::request::RequestWithState;
 use crate::request::ResultInfo;
 use crate::result::Result;
 use crate::util::to_json_response;
@@ -15,7 +15,7 @@ use uuid::Uuid;
 /// `Request::update()` method.
 pub trait Updatable {}
 
-impl<T, S> Request<T, S>
+impl<T, S> RequestWithState<T, S>
 where
     Self: Endpoint + Updatable,
     T: Serialize + DeserializeOwned + Clone,

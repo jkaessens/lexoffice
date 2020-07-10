@@ -3,7 +3,7 @@ use crate::request::impls::ById;
 use crate::request::Endpoint;
 use crate::request::Request;
 
-impl Endpoint for Request<Voucher, ()> {
+impl Endpoint for Request<Voucher> {
     const ENDPOINT: &'static str = "invoices";
 }
 
@@ -22,4 +22,4 @@ impl Endpoint for Request<Voucher, ()> {
 /// # }
 /// ```
 ///
-impl ById for Request<Voucher, ()> {}
+impl ById for Request<Voucher> {}
