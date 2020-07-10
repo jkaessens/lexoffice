@@ -40,7 +40,7 @@ pub struct Profile {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
-    #[doc = "Reflects whether the organization is marked as a \"small business\" (*Kleinunternehmer* according to \u{a7}19 UStG.)"]
+    #[doc = "Reflects whether the organization is marked as a \"small business\" (*Kleinunternehmer* according to §19 UStG.)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub small_business: Option<bool>,

@@ -25,7 +25,7 @@ pub struct Contact {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub organization_id: Option<uuid::Uuid>,
-    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](#optimistic-locking).  \n*Read\\-only.*"]
+    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
     #[doc = "Defines contact roles and supports further contact information. For object details see below."]
@@ -114,11 +114,12 @@ pub struct Company {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub vat_registration_id: Option<String>,
-    #[doc = "A list of company contact persons. Each entry is an object of [company contact person](#company-contact-person-details). Details of nested object please see below."]
+    #[doc = "A list of company contact persons. Each entry is an object of [company contact person](https://developers.lexoffice.io/docs/#company-contact-person-details). Details of nested object please see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub contact_persons: Option<Vec<CompanyContactPerson>>,
 }
+#[doc = "Please note that it's only possible to create and change contacts with a maximum of one contact person. It's possible to retrieve contacts with more than one contact person, but it's not possible to update such a contact via the REST API."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
@@ -133,6 +134,10 @@ pub struct CompanyContactPerson {
     #[doc = "Last name of the contact person."]
     #[builder(setter(into))]
     pub last_name: String,
+    #[doc = "Flags if contact person is the primary contact person. Primary contact persons are shown on vouchers. Default is **false**."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub primary: Option<bool>,
     #[doc = "Email address of the contact person."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -163,11 +168,11 @@ pub struct Person {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Addresses {
-    #[doc = "A list of billing addresses. Each entry is an object of [address](#address-details)."]
+    #[doc = "A list of billing addresses. Each entry is an object of [address](https://developers.lexoffice.io/docs/#address-details)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub billing: Option<Vec<Address>>,
-    #[doc = "A list of shipping addresses. Each entry is an object of [address](#address-details)."]
+    #[doc = "A list of shipping addresses. Each entry is an object of [address](https://developers.lexoffice.io/docs/#address-details)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub shipping: Option<Vec<Address>>,

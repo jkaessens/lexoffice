@@ -73,6 +73,12 @@ impl ApiKey {
     }
 }
 
+impl From<&str> for ApiKey {
+    fn from(s: &str) -> Self {
+        Self(s.to_string())
+    }
+}
+
 #[cfg(not(target_arch = "wasm32"))]
 fn default_client() -> reqwest::Client {
     let user_agent = concat!(
@@ -108,8 +114,8 @@ pub struct Client {
 
 impl Client {
     /// Creates a new Client with an API key.
-    pub fn new(api_key: ApiKey) -> Self {
-        Self::builder().api_key(api_key).build()
+    pub fn new<T: Into<ApiKey>>(api_key: T) -> Self {
+        Self::builder().api_key(api_key.into()).build()
     }
 
     /// Creates a new request.

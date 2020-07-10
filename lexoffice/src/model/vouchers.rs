@@ -90,11 +90,11 @@ pub struct Voucher {
     #[doc = "Tax type of the order. Possible values are **net** (positions amount will be provided net and taxes have to be calculated on top), **gross** (positions amount will be provided gross and tax is already included)."]
     #[builder(setter(into))]
     pub tax_type: TaxType,
-    #[doc = "Set to true if the [Collective Contact](#faq) (customer/vendor) within lexoffice should be used. If used, the optional contactId will be ignored."]
+    #[doc = "Set to true if the [Collective Contact](https://developers.lexoffice.io/docs/#faq) (customer/vendor) within lexoffice should be used. If used, the optional contactId will be ignored."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub use_collective_contact: Option<bool>,
-    #[doc = "If not using the collective contact option, an existing contact id must be provided. This must exist within lexoffice before and can be created via the [Contacts](#contacts-endpoint) endpoint. If a contact is assigned to a voucher, its role must either be **Customer**, or both **Customer** and **Vendor**."]
+    #[doc = "If not using the collective contact option, an existing contact id must be provided. This must exist within lexoffice before and can be created via the [Contacts](https://developers.lexoffice.io/docs/#contacts-endpoint) endpoint. If a contact is assigned to a voucher, its role must either be **Customer**, or both **Customer** and **Vendor**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub contact_id: Option<uuid::Uuid>,
@@ -105,7 +105,7 @@ pub struct Voucher {
     #[doc = "Positions of the voucher grouped by tax rate. Specification of object voucherItems please see below."]
     #[builder(setter(into))]
     pub voucher_items: Vec<VoucherItems>,
-    #[doc = "A list of voucher image file uuids. Voucher images can be uploaded and assigned to an existing voucher via the [Upload a File to a Voucher](#Upload-a-File-to-a-Voucher) sub\\-resource endpoint. **Please note: Each file (voucher image) can only be assigned once.**"]
+    #[doc = "A list of voucher image file uuids. Voucher images can be uploaded and assigned to an existing voucher via the [Upload a File to a Voucher](https://developers.lexoffice.io/docs/#Upload-a-File-to-a-Voucher) sub\\-resource endpoint. **Please note: Each file (voucher image) can only be assigned once.**"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub files: Option<Vec<uuid::Uuid>>,
@@ -117,7 +117,7 @@ pub struct Voucher {
     #[builder(default, setter(skip))]
     pub updated_date:
         super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
-    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](#optimistic-locking). Set to **0 for initial POST**, for **PUT get latest version from lexoffice** *(via GET)* and merge with your changes. **Please note: If the version did not match the version stored in your system, the user must be informed about losing changes from lexoffice.**"]
+    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking). Set to **0 for initial POST**, for **PUT get latest version from lexoffice** *(via GET)* and merge with your changes. **Please note: If the version did not match the version stored in your system, the user must be informed about losing changes from lexoffice.**"]
     #[builder(default, setter(skip))]
     pub version: i64,
 }
@@ -136,10 +136,10 @@ pub struct VoucherItems {
     #[doc = "Tax amount of the voucher's item. Format must be **##.00** *(19.00)*."]
     #[builder(setter(into))]
     pub tax_amount: f64,
-    #[doc = "Tax rate as percentage value. [Supported tax rates](#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19** (*e.g. 19*)."]
+    #[doc = "Tax rate as percentage value. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19** (*e.g. 19*)."]
     #[builder(setter(into))]
     pub tax_rate_percent: f64,
-    #[doc = "Booking category for this voucher's revenue or expenditure. Supported and appropriate categoryId's can be found [here](#vouchers-endpoint-list-of-categoryids)."]
+    #[doc = "Booking category for this voucher's revenue or expenditure. Supported and appropriate categoryId's can be found [here](https://developers.lexoffice.io/docs/#vouchers-endpoint-list-of-categoryids)."]
     #[builder(setter(into))]
     pub category_id: uuid::Uuid,
 }

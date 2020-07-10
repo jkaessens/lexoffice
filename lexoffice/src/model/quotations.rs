@@ -1,4 +1,4 @@
-# ! [ doc = "This endpoint provides read and write access to quotations which can be created as draft or finalized in open mode and additionally downloaded as printed pdf document.\n\nPlease note that Public API connections that were established prior to the release of the quotations endpoint (see [Change Log](#change-log)) are not automatically granted the permission for quotations access. Re\\-generate a new Public API key to benefit from quotations access.\n\nIt is possible to create quotations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) quotations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. \u{a7}13b UStG*), constructional services (*Bauleistungen gem. \u{a7}13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. \u{a7}13b UStG*). For quotations to third countries, the tax types third party country service (*Dienstleistungen an Drittl\u{e4}nder*) and third party country delivery (*Ausfuhrlieferungen an Drittl\u{e4}nder*) are possible." ]use serde::{Deserialize, Serialize};
+# ! [ doc = "This endpoint provides read and write access to quotations which can be created as draft or finalized in open mode and additionally downloaded as printed pdf document.\n\nPlease note that Public API connections that were established prior to the release of the quotations endpoint (see [Change Log](#change-log)) are not automatically granted the permission for quotations access. Re\\-generate a new Public API key to benefit from quotations access.\n\nIt is possible to create quotations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) quotations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For quotations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible." ]use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -83,7 +83,7 @@ pub struct Quotation {
     #[doc = "The instant of time when the quotation will expire. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[builder(setter(into))]
     pub expiration_date: chrono::DateTime<chrono::Utc>,
-    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](#optimistic-locking).  \n*Read\\-only.*"]
+    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
     #[doc = "Specifies the language of the quotation which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639\\-1 code. Possible values are German **de** (default) and English **en**."]
@@ -175,6 +175,9 @@ pub struct Address {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub country_code: Option<String>,
+    #[doc = "The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced `contactId`.  \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    pub contact_person: super::super::marker::ReadOnly<String>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
@@ -245,7 +248,7 @@ pub struct UnitPrice {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub gross_amount: Option<f64>,
-    #[doc = "The tax rate of the unit price. [Supported tax rates](#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat\\-free sales vouchers the tax rate percentage must be **0**."]
+    #[doc = "The tax rate of the unit price. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat\\-free sales vouchers the tax rate percentage must be **0**."]
     #[builder(setter(into))]
     pub tax_rate_percentage: f64,
 }
@@ -278,7 +281,7 @@ pub struct TotalPrice {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxAmounts {
-    #[doc = "Tax rate as percentage value. [Supported tax rates](#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**."]
+    #[doc = "Tax rate as percentage value. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_rate_percentage: Option<f64>,
@@ -295,7 +298,7 @@ pub struct TaxAmounts {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxConditions {
-    #[doc = "The tax type for the quotation. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. \u{a7}13b UStG*), **constructionService13b** (*Bauleistungen gem. \u{a7}13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. \u{a7}13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittl\u{e4}nder*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittl\u{e4}nder*)"]
+    #[doc = "The tax type for the quotation. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,

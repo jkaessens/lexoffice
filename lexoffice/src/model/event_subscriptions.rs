@@ -14,11 +14,11 @@ pub struct EventSubscription {
     #[builder(default, setter(skip))]
     pub created_date:
         super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
-    #[doc = "The event type is a combined key which defines the resource and its event name you are subscribing to. All available events receivable via the API can be taken from the table [Event Types](#event-subscriptions-endpoint-event-types)."]
+    #[doc = "The event type is a combined key which defines the resource and its event name you are subscribing to. All available events receivable via the API can be taken from the table [Event Types](https://developers.lexoffice.io/docs/#event-subscriptions-endpoint-event-types)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub event_type: Option<String>,
-    #[doc = "When a resource entity triggers an event, the callback url is used to notify the subscriber about it. The payload of the callback is described in [Webhook Callback Properties](#event-subscriptions-endpoint-webhook-callback-properties)."]
+    #[doc = "When a resource entity triggers an event, the callback url is used to notify the subscriber about it. The payload of the callback is described in [Webhook Callback Properties](https://developers.lexoffice.io/docs/#event-subscriptions-endpoint-webhook-callback-properties)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub callback_url: Option<String>,

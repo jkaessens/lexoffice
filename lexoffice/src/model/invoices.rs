@@ -1,4 +1,4 @@
-# ! [ doc = "This endpoint provides read and write access to invoices which can be created as draft or finalized in open mode and additionally downloaded as printed pdf document.\n\nA higher level description of the handling of invoices via the lexoffice API can be found in the [invoice cookbook](../cookbooks/invoices/) (German only).\n\nIt is possible to create invoices with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) invoices can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. \u{a7}13b UStG*), constructional services (*Bauleistungen gem. \u{a7}13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. \u{a7}13b UStG*). For invoices to third countries, the tax types third party country service (*Dienstleistungen an Drittl\u{e4}nder*) and third party country delivery (*Ausfuhrlieferungen an Drittl\u{e4}nder*) are possible.\n\nInvoices for down payment (*Abschlagsrechnung*) are not supported via the API." ]use serde::{Deserialize, Serialize};
+# ! [ doc = "This endpoint provides read and write access to invoices which can be created as draft or finalized in open mode and additionally downloaded as printed pdf document.\n\nA higher level description of the handling of invoices via the lexoffice API can be found in the [invoice cookbook](../cookbooks/invoices/) (German only).\n\nIt is possible to create invoices with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) invoices can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For invoices to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible.\n\nInvoices for down payment (*Abschlagsrechnung*) are not supported via the API." ]use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -100,7 +100,7 @@ pub struct Invoice {
     #[builder(default, setter(skip))]
     pub updated_date:
         super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
-    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](#optimistic-locking).  \n*Read\\-only.*"]
+    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
     #[doc = "Specifies the language of the invoice which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639\\-1 code. Possible values are German **de** (default) and English **en**."]
@@ -122,7 +122,8 @@ pub struct Invoice {
     pub voucher_date: Option<chrono::DateTime<chrono::Utc>>,
     #[doc = "Sets the date on which the invoice is payable before becoming overdue in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub due_date: super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub due_date:
+        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
     #[doc = "The address of the invoice recipient. For details see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -204,6 +205,9 @@ pub struct Address {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub country_code: Option<String>,
+    #[doc = "The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced `contactId`.  \n*Read\\-only.*"]
+    #[builder(default, setter(skip))]
+    pub contact_person: super::super::marker::ReadOnly<String>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
@@ -265,7 +269,7 @@ pub struct UnitPrice {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub gross_amount: Option<f64>,
-    #[doc = "The tax rate of the unit price. [Supported tax rates](#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat\\-free sales vouchers the tax rate percentage must be **0**."]
+    #[doc = "The tax rate of the unit price. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat\\-free sales vouchers the tax rate percentage must be **0**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_rate_percentage: Option<f64>,
@@ -300,7 +304,7 @@ pub struct TotalPrice {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxAmounts {
-    #[doc = "Tax rate as percentage value. [Supported tax rates](#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**."]
+    #[doc = "Tax rate as percentage value. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_rate_percentage: Option<f64>,
@@ -317,7 +321,7 @@ pub struct TaxAmounts {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxConditions {
-    #[doc = "The tax type for the invoice. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. \u{a7}13b UStG*), **constructionService13b** (*Bauleistungen gem. \u{a7}13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. \u{a7}13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittl\u{e4}nder*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittl\u{e4}nder*)"]
+    #[doc = "The tax type for the invoice. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
