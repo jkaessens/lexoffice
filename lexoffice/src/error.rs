@@ -1,5 +1,5 @@
 //! Error handling for the `lexoffice` crate
-use derive_error::Error;
+use derive_more::*;
 use reqwest::StatusCode;
 use serde::Deserialize;
 use std::fmt;
@@ -66,7 +66,7 @@ impl fmt::Display for Issue {
 }
 
 /// The Errors that may occur working with this crate.
-#[derive(Debug, Error)]
+#[derive(Debug, Display, Error, From)]
 pub enum Error {
     /// Errors from the exOffice API
     ///
