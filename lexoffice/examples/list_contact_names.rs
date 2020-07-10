@@ -1,5 +1,5 @@
-use lexoffice::{ApiKey, Client};
 use lexoffice::model::Contact;
+use lexoffice::{ApiKey, Client};
 use tokio::stream::StreamExt;
 
 use std::error::Error;

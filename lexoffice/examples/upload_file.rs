@@ -1,6 +1,6 @@
-use lexoffice::{ApiKey, Client};
 use lexoffice::model::File;
 use lexoffice::Result;
+use lexoffice::{ApiKey, Client};
 use std::path::Path;
 
 #[tokio::main]

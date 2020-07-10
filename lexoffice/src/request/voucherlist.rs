@@ -3,8 +3,8 @@ use crate::model::Voucherlist;
 use crate::request::impls::ById;
 use crate::request::impls::Paginated;
 use crate::request::Endpoint;
-use crate::request::RequestWithState;
 use crate::request::Request;
+use crate::request::RequestWithState;
 use std::marker::PhantomData;
 
 // Not implementing the into trait here as this mustn't be public.
@@ -47,7 +47,8 @@ impl RequestWithState<Voucherlist, VoucherlistStateUnstarted> {
     pub fn status(
         self,
         voucher_status: &VoucherStatus,
-    ) -> RequestWithState<Voucherlist, VoucherlistState<(), VoucherStatus>> {
+    ) -> RequestWithState<Voucherlist, VoucherlistState<(), VoucherStatus>>
+    {
         into::<_, (), ()>(self).status(voucher_status)
     }
 }

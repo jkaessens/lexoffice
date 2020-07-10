@@ -12,7 +12,10 @@ pub struct DeletableOpt {
 }
 
 impl DeletableOpt {
-    pub async fn exec<T, U>(&self, request: RequestWithState<T, U>) -> Result<()>
+    pub async fn exec<T, U>(
+        &self,
+        request: RequestWithState<T, U>,
+    ) -> Result<()>
     where
         RequestWithState<T, U>: Deletable + ById + Endpoint + Clone,
         T: DeserializeOwned + Clone + Serialize + HasId,

@@ -1,6 +1,6 @@
-use lexoffice::{ApiKey, Client};
 use lexoffice::model::voucherlist::*;
 use lexoffice::model::Voucherlist;
+use lexoffice::{ApiKey, Client};
 use tokio::stream::StreamExt;
 
 use std::error::Error;

@@ -1,5 +1,5 @@
-use lexoffice::{ApiKey, Client};
 use lexoffice::model::Profile;
+use lexoffice::{ApiKey, Client};
 
 use std::error::Error;
 #[tokio::main]

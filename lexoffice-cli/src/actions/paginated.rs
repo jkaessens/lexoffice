@@ -16,7 +16,10 @@ pub struct PaginatedOpt {
 }
 
 impl PaginatedOpt {
-    pub async fn exec<T, U>(&self, request: RequestWithState<T, U>) -> Result<Page<T>>
+    pub async fn exec<T, U>(
+        &self,
+        request: RequestWithState<T, U>,
+    ) -> Result<Page<T>>
     where
         RequestWithState<T, U>: Paginated + Endpoint + Send + Sync + Clone,
         T: DeserializeOwned + Send + Sync + Clone + 'static,
