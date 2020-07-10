@@ -1,4 +1,5 @@
-# ! [ doc = "This endpoint provides read access to contacts (e.g. customers, vendors). A contact can hold addresses, contact information (e.g. phone numbers, email addresses) and contact persons for company related contacts. It is also possible to use filters on the contacts collection." ]use serde::{Deserialize, Serialize};
+#![doc = "This endpoint provides read access to contacts (e.g. customers, vendors). A contact can hold addresses, contact information (e.g. phone numbers, email addresses) and contact persons for company related contacts. It is also possible to use filters on the contacts collection."]
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -199,7 +200,7 @@ pub struct Address {
     pub city: Option<String>,
     #[doc = "Country code in the format of ISO 3166 alpha2 (e.g. DE is used for germany)."]
     #[builder(setter(into))]
-    pub country_code: String,
+    pub country_code: crate::types::CountryCode,
 }
 #[doc = "Please note that it's only possible to create and change contacts with a maximum of one entry in each of the below described lists. It's possible to retrieve contacts with more than one entry in the lists, but it's not possible to update such a contact via the REST API."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]

@@ -1,4 +1,5 @@
-# ! [ doc = "Using event subscriptions you will be notified about certain events on resources \\- e.g. you receive a notification every time a contact changes in lexoffice. This will make pull requests superfluous to keep your data synced between lexoffice and your application. The notifications are implemented as webhooks. Subscribing to an event simply requires the *event type* and your *callback url*. With the event\\-subscriptions endpoint you can manage your subscriptions within lexoffice." ]use serde::{Deserialize, Serialize};
+#![doc = "Using event subscriptions you will be notified about certain events on resources \\- e.g. you receive a notification every time a contact changes in lexoffice. This will make pull requests superfluous to keep your data synced between lexoffice and your application. The notifications are implemented as webhooks. Subscribing to an event simply requires the *event type* and your *callback url*. With the event\\-subscriptions endpoint you can manage your subscriptions within lexoffice."]
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
@@ -12,8 +13,7 @@ pub struct EventSubscription {
     pub organization_id: super::super::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The instant of time when the event subscription was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub created_date:
-        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub created_date: super::super::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The event type is a combined key which defines the resource and its event name you are subscribing to. All available events receivable via the API can be taken from the table [Event Types](https://developers.lexoffice.io/docs/#event-subscriptions-endpoint-event-types)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

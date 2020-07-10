@@ -1,4 +1,9 @@
-# ! [ allow ( missing_docs ) ] # ! [ doc = r" This model was semi-automaticly generated from The official lexoffice" ] # ! [ doc = r" documentation" ] # ! [ doc = r"" ] # ! [ doc = r" See <https://developers.lexoffice.io/docs/> for more information" ]pub mod contacts;
+#![allow(missing_docs)]
+#![doc = r" This model was semi-automaticly generated from The official lexoffice"]
+#![doc = r" documentation"]
+#![doc = r""]
+#![doc = r" See <https://developers.lexoffice.io/docs/> for more information"]
+pub mod contacts;
 pub mod credit_notes;
 pub mod event_subscriptions;
 pub mod files;

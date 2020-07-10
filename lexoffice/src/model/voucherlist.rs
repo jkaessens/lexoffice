@@ -1,4 +1,5 @@
-# ! [ doc = "The voucherlist endpoint provides read access to meta data of [invoices](#invoices-endpoint), [credit notes](#credit-notes-endpoint), [order confirmations](#order-confirmations-endpoint), and [quotations](#quotations-endpoint). For filters that can be applied to the list see below. Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints." ]use serde::{Deserialize, Serialize};
+#![doc = "The voucherlist endpoint provides read access to meta data of [invoices](#invoices-endpoint), [credit notes](#credit-notes-endpoint), [order confirmations](#order-confirmations-endpoint), and [quotations](#quotations-endpoint). For filters that can be applied to the list see below. Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints."]
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -75,15 +76,15 @@ pub struct Voucherlist {
     #[doc = "Date when the voucher was issued. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub voucher_date: Option<chrono::DateTime<chrono::Utc>>,
+    pub voucher_date: Option<crate::types::DateTime>,
     #[doc = "Date when the voucher was last changed (or status changed) in lexoffice. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub updated_date: Option<chrono::DateTime<chrono::Utc>>,
+    pub updated_date: Option<crate::types::DateTime>,
     #[doc = "Date when the voucher's payment has to be settled. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub due_date: Option<chrono::DateTime<chrono::Utc>>,
+    pub due_date: Option<crate::types::DateTime>,
     #[doc = "Name of the recipient or invoicing party. Further information on the contact can be retrieved by using the corresponding voucher endpoint (see below)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -95,7 +96,7 @@ pub struct Voucherlist {
     #[doc = "Currency of the voucher. Only possible value is **EUR**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub currency: Option<iso_currency::Currency>,
+    pub currency: Option<crate::types::Currency>,
     #[doc = "Indicates if the voucher is marked as archived in lexoffice."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

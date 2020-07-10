@@ -1,4 +1,5 @@
-# ! [ doc = "The voucher endpoint provides read/write access to (bookkeeping) sales vouchers (e.g. invoices, creditnotes). For the lexoffice API, write access is currently restricted to sales vouchers, while purchase vouchers can be read.\n\nIn contrast to usual invoices which contain item positions, stocks, etc., bookkeeping vouchers are more about bookkeeping and thus this only have positions grouped by tax rate. Optionally, a file (pdf or image) can be added to the voucher as a *receipt* which was created by an external system.\n\nA higher level description of the handling of vouchers via the lexoffice API can be found in the [bookkeeping cookbook](../cookbooks/bookkeeping/) (German only)." ]use serde::{Deserialize, Serialize};
+#![doc = "The voucher endpoint provides read/write access to (bookkeeping) sales vouchers (e.g. invoices, creditnotes). For the lexoffice API, write access is currently restricted to sales vouchers, while purchase vouchers can be read.\n\nIn contrast to usual invoices which contain item positions, stocks, etc., bookkeeping vouchers are more about bookkeeping and thus this only have positions grouped by tax rate. Optionally, a file (pdf or image) can be added to the voucher as a *receipt* which was created by an external system.\n\nA higher level description of the handling of vouchers via the lexoffice API can be found in the [bookkeeping cookbook](../cookbooks/bookkeeping/) (German only)."]
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -76,11 +77,11 @@ pub struct Voucher {
     pub voucher_number: String,
     #[doc = "Date when the voucher was issued. Format must be `yyyy-MM-dd` (e.g. *2016\\-06\\-28*)."]
     #[builder(setter(into))]
-    pub voucher_date: chrono::DateTime<chrono::Utc>,
+    pub voucher_date: crate::types::DateTime,
     #[doc = "Date when the voucher's payment has to be settled. Format must be `yyyy-MM-dd` (e.g. *2016\\-06\\-28*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub due_date: Option<chrono::DateTime<chrono::Utc>>,
+    pub due_date: Option<crate::types::DateTime>,
     #[doc = "Total gross amount of the voucher. Must match the sum of all positions with added/calculated tax amounts. Format must be **##.00** *(119.00)*."]
     #[builder(setter(into))]
     pub total_gross_amount: f64,
@@ -111,12 +112,10 @@ pub struct Voucher {
     pub files: Option<Vec<uuid::Uuid>>,
     #[doc = "The instant of time when the voucher was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub created_date:
-        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub created_date: super::super::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The instant of time when the voucher was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub updated_date:
-        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub updated_date: super::super::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking). Set to **0 for initial POST**, for **PUT get latest version from lexoffice** *(via GET)* and merge with your changes. **Please note: If the version did not match the version stored in your system, the user must be informed about losing changes from lexoffice.**"]
     #[builder(default, setter(skip))]
     pub version: i64,

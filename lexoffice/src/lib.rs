@@ -7,6 +7,7 @@
 pub mod error;
 pub mod model;
 pub mod request;
+pub mod types;
 
 mod client;
 #[cfg(feature = "fs")]

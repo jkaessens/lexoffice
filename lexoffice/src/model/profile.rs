@@ -1,4 +1,5 @@
-# ! [ doc = "The profile endpoint provides read access to basic profile information such as company name, user id, name and email from your lexoffice account." ]use serde::{Deserialize, Serialize};
+#![doc = "The profile endpoint provides read access to basic profile information such as company name, user id, name and email from your lexoffice account."]
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]

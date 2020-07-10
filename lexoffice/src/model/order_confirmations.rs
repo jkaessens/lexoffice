@@ -1,4 +1,5 @@
-# ! [ doc = "This endpoint provides read and write access to order confirmations which can only be created as draft and additionally downloaded as printed pdf document.\n\nIt is possible to create order confirmations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) order confirmations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For order confirmations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible." ]use serde::{Deserialize, Serialize};
+#![doc = "This endpoint provides read and write access to order confirmations which can only be created as draft and additionally downloaded as printed pdf document.\n\nIt is possible to create order confirmations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) order confirmations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For order confirmations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -88,12 +89,10 @@ pub struct OrderConfirmation {
     pub organization_id: super::super::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The instant of time when the order confirmation was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub created_date:
-        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub created_date: super::super::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The instant of time when the order confirmation was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub updated_date:
-        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub updated_date: super::super::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
@@ -113,7 +112,7 @@ pub struct OrderConfirmation {
     #[doc = "The date of order confirmation in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub voucher_date: Option<chrono::DateTime<chrono::Utc>>,
+    pub voucher_date: Option<crate::types::DateTime>,
     #[doc = "The address of the order confirmation recipient. For details see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -198,7 +197,7 @@ pub struct Address {
     #[doc = "The ISO 3166 alpha2 country code of the address."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub country_code: Option<String>,
+    pub country_code: Option<crate::types::CountryCode>,
     #[doc = "The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced `contactId`.  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub contact_person: super::super::marker::ReadOnly<String>,
@@ -254,7 +253,7 @@ pub struct UnitPrice {
     #[doc = "The currency of the price. Currently only **EUR** is supported."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub currency: Option<iso_currency::Currency>,
+    pub currency: Option<crate::types::Currency>,
     #[doc = "The net price of the unit price. The value can contain up to 4 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -275,7 +274,7 @@ pub struct TotalPrice {
     #[doc = "The currency of the total price. Currently only **EUR** is supported."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub currency: Option<iso_currency::Currency>,
+    pub currency: Option<crate::types::Currency>,
     #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub total_net_amount: super::super::marker::ReadOnly<f64>,
@@ -361,11 +360,11 @@ pub struct ShippingConditions {
     #[doc = "The instant of time when the purchased items have to be shipped. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub shipping_date: Option<chrono::DateTime<chrono::Utc>>,
+    pub shipping_date: Option<crate::types::DateTime>,
     #[doc = "An end instant in order to specify a shipping period of time. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*). Must not specify an instant before *shippingDate*."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub shipping_end_date: Option<chrono::DateTime<chrono::Utc>>,
+    pub shipping_end_date: Option<crate::types::DateTime>,
     #[doc = "The type of the shipping. Possible values are **service** (a service is supplied on *shippingDate*), **serviceperiod** (a service is supplied within the period [*shippingDate*,*shippingEndDate*] ), **delivery** (a product is delivered), **deliveryperiod** (a product is delivered within the period [*shippingDate*,*shippingEndDate*]) and **none** (no shipping date has to be provided)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

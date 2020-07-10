@@ -1,4 +1,5 @@
-# ! [ doc = "This endpoint provides read and write access to quotations which can be created as draft or finalized in open mode and additionally downloaded as printed pdf document.\n\nPlease note that Public API connections that were established prior to the release of the quotations endpoint (see [Change Log](#change-log)) are not automatically granted the permission for quotations access. Re\\-generate a new Public API key to benefit from quotations access.\n\nIt is possible to create quotations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) quotations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For quotations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible." ]use serde::{Deserialize, Serialize};
+#![doc = "This endpoint provides read and write access to quotations which can be created as draft or finalized in open mode and additionally downloaded as printed pdf document.\n\nPlease note that Public API connections that were established prior to the release of the quotations endpoint (see [Change Log](#change-log)) are not automatically granted the permission for quotations access. Re\\-generate a new Public API key to benefit from quotations access.\n\nIt is possible to create quotations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) quotations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For quotations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
+use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -74,15 +75,13 @@ pub struct Quotation {
     pub organization_id: super::super::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The instant of time when the quotation was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub created_date:
-        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub created_date: super::super::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The instant of time when the quotation was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub updated_date:
-        super::super::marker::ReadOnly<chrono::DateTime<chrono::Utc>>,
+    pub updated_date: super::super::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The instant of time when the quotation will expire. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[builder(setter(into))]
-    pub expiration_date: chrono::DateTime<chrono::Utc>,
+    pub expiration_date: crate::types::DateTime,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
@@ -101,7 +100,7 @@ pub struct Quotation {
     pub voucher_number: super::super::marker::ReadOnly<String>,
     #[doc = "The date of quotation in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[builder(setter(into))]
-    pub voucher_date: chrono::DateTime<chrono::Utc>,
+    pub voucher_date: crate::types::DateTime,
     #[doc = "The address of the quotation recipient. For details see below."]
     #[builder(setter(into))]
     pub address: Address,
@@ -174,7 +173,7 @@ pub struct Address {
     #[doc = "The ISO 3166 alpha2 country code of the address."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub country_code: Option<String>,
+    pub country_code: Option<crate::types::CountryCode>,
     #[doc = "The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced `contactId`.  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub contact_person: super::super::marker::ReadOnly<String>,
@@ -239,7 +238,7 @@ impl super::super::request::HasId for LineItems {
 pub struct UnitPrice {
     #[doc = "The currency of the price. Currently only **EUR** is supported."]
     #[builder(setter(into))]
-    pub currency: iso_currency::Currency,
+    pub currency: crate::types::Currency,
     #[doc = "The net price of the unit price. The value can contain up to 4 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -258,7 +257,7 @@ pub struct UnitPrice {
 pub struct TotalPrice {
     #[doc = "The currency of the total price. Currently only **EUR** is supported."]
     #[builder(setter(into))]
-    pub currency: iso_currency::Currency,
+    pub currency: crate::types::Currency,
     #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub total_net_amount: super::super::marker::ReadOnly<f64>,
