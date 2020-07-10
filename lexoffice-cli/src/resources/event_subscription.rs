@@ -1,5 +1,6 @@
 use crate::actions::*;
 use crate::ReturnType;
+use lexoffice::model::event_subscriptions::EventType;
 use lexoffice::model::EventSubscription;
 use lexoffice::Client;
 use lexoffice::Result;
@@ -22,7 +23,7 @@ pub enum EventSubscriptionOpt {
 
 fn default() -> EventSubscription {
     EventSubscription::builder()
-        .event_type("contact.created".to_string())
+        .event_type(EventType::ContactCreated)
         .callback_url("http://example.com/callback".to_string())
         .build()
 }
