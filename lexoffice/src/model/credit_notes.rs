@@ -69,16 +69,16 @@ impl std::str::FromStr for Type {
 pub struct CreditNote {
     #[doc = "Unique id generated on creation by lexoffice.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "Unique id of the organization the credit note belongs to.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub organization_id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub organization_id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The instant of time when the credit note was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub created_date: super::super::marker::ReadOnly<crate::types::DateTime>,
+    pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The instant of time when the credit note was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub updated_date: super::super::marker::ReadOnly<crate::types::DateTime>,
+    pub updated_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
@@ -88,13 +88,13 @@ pub struct CreditNote {
     pub language: Option<String>,
     #[doc = "Specifies if the credit note is only available in the archive in lexoffice.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub archived: super::super::marker::ReadOnly<bool>,
+    pub archived: crate::marker::ReadOnly<bool>,
     #[doc = "Specifies the status of the credit note. Possible values are **draft** (editable later in lexoffice), **open** (finished and no longer editable but not yet paid off), **paidoff** (has been fully paid back to the customer), **voided** (cancelled)  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub voucher_status: super::super::marker::ReadOnly<VoucherStatus>,
+    pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
     #[doc = "The specific number a credit note is aware of. This consecutive number is set by lexoffice on creation.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub voucher_number: super::super::marker::ReadOnly<String>,
+    pub voucher_number: crate::marker::ReadOnly<String>,
     #[doc = "The date of credit note in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
     #[builder(setter(into))]
     pub voucher_date: crate::types::DateTime,
@@ -109,7 +109,7 @@ pub struct CreditNote {
     pub total_price: TotalPrice,
     #[doc = "The tax amounts for each tax rate. Please note: As done with every read\\-only element or object all submitted content (POST) will be ignored. For details see below.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub tax_amounts: super::super::marker::ReadOnly<Vec<TaxAmounts>>,
+    pub tax_amounts: crate::marker::ReadOnly<Vec<TaxAmounts>>,
     #[doc = "The tax conditions of the credit note. For details see below."]
     #[builder(setter(into))]
     pub tax_conditions: TaxConditions,
@@ -127,10 +127,10 @@ pub struct CreditNote {
     pub remark: Option<String>,
     #[doc = "The document id for the PDF version of the credit note. For details see below.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub files: super::super::marker::ReadOnly<Files>,
+    pub files: crate::marker::ReadOnly<Files>,
 }
-impl super::super::request::HasId for CreditNote {
-    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+impl crate::request::HasId for CreditNote {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }
@@ -169,7 +169,7 @@ pub struct Address {
     pub country_code: Option<crate::types::CountryCode>,
     #[doc = "The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced `contactId`.  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub contact_person: super::super::marker::ReadOnly<String>,
+    pub contact_person: crate::marker::ReadOnly<String>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
@@ -177,7 +177,7 @@ pub struct Address {
 pub struct LineItems {
     #[doc = "The field specifies the related id of the product/service.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The type of the item. Possible values are **service** (the line item is related to a supply of services), **material** (the line item is related to a physical product), **custom** (an item without reference in lexoffice and has no id) or **text** (contains only a name and/or a description for informative purposes)."]
     #[builder(setter(into))]
     pub _type: Type,
@@ -202,10 +202,10 @@ pub struct LineItems {
     pub unit_price: Option<UnitPrice>,
     #[doc = "The total price of this line item. Depending by the selected *taxType* in *taxConditions*, the amount must be given either as net or gross. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub line_item_amount: super::super::marker::ReadOnly<f64>,
+    pub line_item_amount: crate::marker::ReadOnly<f64>,
 }
-impl super::super::request::HasId for LineItems {
-    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+impl crate::request::HasId for LineItems {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }
@@ -237,13 +237,13 @@ pub struct TotalPrice {
     pub currency: crate::types::Currency,
     #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub total_net_amount: super::super::marker::ReadOnly<f64>,
+    pub total_net_amount: crate::marker::ReadOnly<f64>,
     #[doc = "The total gross price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub total_gross_amount: super::super::marker::ReadOnly<f64>,
+    pub total_gross_amount: crate::marker::ReadOnly<f64>,
     #[doc = "The total tax amount over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub total_tax_amount: super::super::marker::ReadOnly<f64>,
+    pub total_tax_amount: crate::marker::ReadOnly<f64>,
     #[doc = "(Optional) A total discount as absolute value. The value can contain up to 2 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

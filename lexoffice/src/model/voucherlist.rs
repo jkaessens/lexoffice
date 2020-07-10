@@ -60,7 +60,7 @@ impl std::str::FromStr for VoucherType {
 pub struct Voucherlist {
     #[doc = "Unique id of the voucher in lexoffice."]
     #[builder(default, setter(skip))]
-    pub id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "Type of the voucher. Possible values are **salesinvoice**, **salescreditnote**, **purchaseinvoice**, **purchasecreditnote**, **invoice**, **creditnote**, **orderconfirmation**, and **quotation**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -102,8 +102,8 @@ pub struct Voucherlist {
     #[builder(default, setter(strip_option))]
     pub archived: Option<bool>,
 }
-impl super::super::request::HasId for Voucherlist {
-    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+impl crate::request::HasId for Voucherlist {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }

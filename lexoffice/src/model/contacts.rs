@@ -21,7 +21,7 @@ impl std::str::FromStr for Salutation {
 pub struct Contact {
     #[doc = "Unique id of the contact generated on creation by lexoffice."]
     #[builder(default, setter(skip))]
-    pub id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "Unique id of the organization the contact belongs to."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -58,10 +58,10 @@ pub struct Contact {
     pub note: Option<String>,
     #[doc = "Archived flag of the contact.  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub archived: super::super::marker::ReadOnly<bool>,
+    pub archived: crate::marker::ReadOnly<bool>,
 }
-impl super::super::request::HasId for Contact {
-    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+impl crate::request::HasId for Contact {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }
@@ -85,7 +85,7 @@ pub struct Roles {
 pub struct Customer {
     #[doc = "Unique customer number within the current organization. This number is created by lexoffice for contacts with role Customer. It cannot be set during creation and cannot be changed.  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub number: super::super::marker::ReadOnly<i64>,
+    pub number: crate::marker::ReadOnly<i64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
@@ -93,7 +93,7 @@ pub struct Customer {
 pub struct Vendor {
     #[doc = "Unique vendor number within the current organization. This number is created by lexoffice for contacts with role Vendor. It cannot be set during creation and cannot be changed.  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub number: super::super::marker::ReadOnly<i64>,
+    pub number: crate::marker::ReadOnly<i64>,
 }
 #[doc = "Use this object to provide information for a contact of type company."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]

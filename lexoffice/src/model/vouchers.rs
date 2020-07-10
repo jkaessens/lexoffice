@@ -61,7 +61,7 @@ impl std::str::FromStr for Type {
 pub struct Voucher {
     #[doc = "Unique id of the voucher generated on creation by lexoffice."]
     #[builder(default, setter(skip))]
-    pub id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "Unique id of the organization the voucher was generated on."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -71,7 +71,7 @@ pub struct Voucher {
     pub _type: Type,
     #[doc = "Billing state of the voucher. Possible values are **open**, **paid**, **paidoff**, **voided**, **transferred** and **sepadebit**.  \n*Read\\-only*."]
     #[builder(default, setter(skip))]
-    pub voucher_status: super::super::marker::ReadOnly<VoucherStatus>,
+    pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
     #[doc = "Number of the voucher. Should be the order's identification/reference number."]
     #[builder(setter(into))]
     pub voucher_number: String,
@@ -112,16 +112,16 @@ pub struct Voucher {
     pub files: Option<Vec<uuid::Uuid>>,
     #[doc = "The instant of time when the voucher was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub created_date: super::super::marker::ReadOnly<crate::types::DateTime>,
+    pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The instant of time when the voucher was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub updated_date: super::super::marker::ReadOnly<crate::types::DateTime>,
+    pub updated_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking). Set to **0 for initial POST**, for **PUT get latest version from lexoffice** *(via GET)* and merge with your changes. **Please note: If the version did not match the version stored in your system, the user must be informed about losing changes from lexoffice.**"]
     #[builder(default, setter(skip))]
     pub version: i64,
 }
-impl super::super::request::HasId for Voucher {
-    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+impl crate::request::HasId for Voucher {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }

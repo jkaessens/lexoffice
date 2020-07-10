@@ -90,13 +90,13 @@ impl std::str::FromStr for EventType {
 pub struct EventSubscription {
     #[doc = "Unique id of the event subscription generated on creation by lexoffice.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub subscription_id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub subscription_id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "Unique id of the organization the event subscription belongs to.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub organization_id: super::super::marker::ReadOnly<uuid::Uuid>,
+    pub organization_id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The instant of time when the event subscription was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub created_date: super::super::marker::ReadOnly<crate::types::DateTime>,
+    pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The event type is a combined key which defines the resource and its event name you are subscribing to. All available events receivable via the API can be taken from the table [Event Types](https://developers.lexoffice.io/docs/#event-subscriptions-endpoint-event-types)."]
     #[builder(setter(into))]
     pub event_type: EventType,
@@ -104,8 +104,8 @@ pub struct EventSubscription {
     #[builder(setter(into))]
     pub callback_url: String,
 }
-impl super::super::request::HasId for EventSubscription {
-    fn id(&self) -> &super::super::marker::ReadOnly<uuid::Uuid> {
+impl crate::request::HasId for EventSubscription {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.subscription_id
     }
 }
@@ -127,5 +127,5 @@ pub struct WebhookCallback {
     pub resource_id: Option<uuid::Uuid>,
     #[doc = "The instant of time when the event was triggered in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
-    pub event_date: super::super::marker::ReadOnly<crate::types::DateTime>,
+    pub event_date: crate::marker::ReadOnly<crate::types::DateTime>,
 }
