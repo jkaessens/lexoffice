@@ -26,7 +26,6 @@ derive_more = "0.99.9"
 mime = "0.3.16"
 bytes = "0.5.5"
 typed-builder = "0.6.0"
-derive-error = "0.0.4"
 cfg-if = "0.1.10"
 tokio = { version = "0.2.21", features = ["stream", "fs"], optional = true }
 
