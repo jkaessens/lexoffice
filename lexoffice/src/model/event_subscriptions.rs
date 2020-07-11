@@ -115,16 +115,14 @@ impl crate::request::HasId for EventSubscription {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct WebhookCallback {
     #[doc = "The organization for which an event has been triggered."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub organization_id: Option<uuid::Uuid>,
+    #[builder(setter(into))]
+    pub organization_id: uuid::Uuid,
     #[doc = "Describes the occurred event. The eventType describes the resource and the event name."]
     #[builder(setter(into))]
     pub event_type: EventType,
     #[doc = "The resource entity on which the event has occurred. Use the corresponding resource endpoint and the resourceId to get the latest data of the resource entity."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub resource_id: Option<uuid::Uuid>,
+    #[builder(setter(into))]
+    pub resource_id: uuid::Uuid,
     #[doc = "The instant of time when the event was triggered in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub event_date: crate::marker::ReadOnly<crate::types::DateTime>,
