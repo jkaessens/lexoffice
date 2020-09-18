@@ -116,7 +116,7 @@ pub struct Quotation {
     #[doc = "The tax conditions of the quotation. For details see below."]
     #[builder(setter(into))]
     pub tax_conditions: TaxConditions,
-    #[doc = "The payment conditions of the quotation. For details see below."]
+    #[doc = "The payment conditions of the quotation. The organization's (or contact\\-specific) default is used if no value was send. For details see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_conditions: Option<PaymentConditions>,
@@ -170,7 +170,7 @@ pub struct Address {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub zip: Option<String>,
-    #[doc = "The ISO 3166 alpha2 country code of the address."]
+    #[doc = "The [ISO 3166 alpha2 country code](https://developers.lexoffice.io/docs/#faq-country-codes) of the address."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub country_code: Option<crate::types::CountryCode>,
@@ -271,7 +271,7 @@ pub struct TotalPrice {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub total_discount_absolute: Option<f64>,
-    #[doc = "(Optional) A total discount relative to the gross amount or net amount dependent on the given tax conditions. The value can contain up to 2 decimals."]
+    #[doc = "(Optional) A total discount relative to the gross amount or net amount dependent on the given tax conditions. A contact\\-specific default will be set if available and no total discount was send. The value can contain up to 2 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub total_discount_percentage: Option<f64>,
@@ -306,6 +306,7 @@ pub struct TaxConditions {
     #[builder(default, setter(strip_option))]
     pub tax_type_note: Option<String>,
 }
+#[doc = "The payment conditions are optional and the organization's or contact\\-specific defaults will be used if ommitted."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]

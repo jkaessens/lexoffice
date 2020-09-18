@@ -198,7 +198,7 @@ pub struct Address {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub city: Option<String>,
-    #[doc = "Country code in the format of ISO 3166 alpha2 (e.g. DE is used for germany)."]
+    #[doc = "Country code in the format of [ISO 3166 alpha2](https://developers.lexoffice.io/docs/#faq-country-codes) (e.g. DE is used for germany)."]
     #[builder(setter(into))]
     pub country_code: crate::types::CountryCode,
 }
