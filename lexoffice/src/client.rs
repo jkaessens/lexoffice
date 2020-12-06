@@ -8,6 +8,7 @@ use reqwest::Url;
 use typed_builder::TypedBuilder;
 
 static BASE_URL: &str = "https://api.lexoffice.io/v1";
+//static BASE_URL: &str = "http://127.0.0.1:8100";
 
 /// Represents an API Key
 #[derive(Clone, Debug, Display, FromStr, From)]

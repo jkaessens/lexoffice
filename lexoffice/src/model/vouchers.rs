@@ -76,12 +76,19 @@ pub struct Voucher {
     #[builder(setter(into))]
     pub voucher_number: String,
     #[doc = "Date when the voucher was issued. Format must be `yyyy-MM-dd` (e.g. *2016\\-06\\-28*)."]
+    #[serde(with = "crate::serde::date")]
     #[builder(setter(into))]
-    pub voucher_date: crate::types::DateTime,
-    #[doc = "Date when the voucher's payment has to be settled. Format must be `yyyy-MM-dd` (e.g. *2016\\-06\\-28*)."]
+    pub voucher_date: crate::types::Date,
+    #[doc = "Date when the purchased item/service has to be shipped/supplied. If it is a period of time, the end date must be given. Format must be `yyyy-MM-dd` (e.g. *2016\\-07\\-02*). Please note: ShippingDate can only be specified for voucher types **salesinvoice** and **salescreditnote**."]
+    #[serde(with = "crate::serde::optional_date")]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub due_date: Option<crate::types::DateTime>,
+    pub shipping_date: Option<crate::types::Date>,
+    #[doc = "Date when the voucher's payment has to be settled. Format must be `yyyy-MM-dd` (e.g. *2016\\-06\\-28*)."]
+    #[serde(with = "crate::serde::optional_date")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub due_date: Option<crate::types::Date>,
     #[doc = "Total gross amount of the voucher. Must match the sum of all positions with added/calculated tax amounts. Format must be **##.00** *(119.00)*."]
     #[builder(setter(into))]
     pub total_gross_amount: f64,

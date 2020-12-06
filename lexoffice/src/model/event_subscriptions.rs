@@ -77,6 +77,9 @@ pub enum EventType {
     #[doc = "The status of a voucher has changed. Get the updated voucher by calling the [vouchers endpoint](https://developers.lexoffice.io/docs/#vouchers-endpoint)."]
     #[serde(rename = "voucher.status.changed")]
     VoucherStatusChanged,
+    #[doc = "The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the [payments endpoint](https://developers.lexoffice.io/docs/#payments-endpoint) or the respective resource endpoints to retrieve further informaton about the payment status of the resource"]
+    #[serde(rename = "payment.changed")]
+    PaymentChanged,
 }
 impl std::str::FromStr for EventType {
     type Err = serde_plain::Error;

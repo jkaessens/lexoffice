@@ -15,6 +15,7 @@ mod fs;
 mod marker;
 mod mime;
 mod result;
+mod serde;
 mod util;
 
 pub use client::ApiKey;

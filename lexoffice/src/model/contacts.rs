@@ -1,20 +1,6 @@
 #![doc = "This endpoint provides read access to contacts (e.g. customers, vendors). A contact can hold addresses, contact information (e.g. phone numbers, email addresses) and contact persons for company related contacts. It is also possible to use filters on the contacts collection."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub enum Salutation {
-    #[serde(rename = "Herr")]
-    Herr,
-    #[serde(rename = "Frau")]
-    Frau,
-}
-impl std::str::FromStr for Salutation {
-    type Err = serde_plain::Error;
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        serde_plain::from_str::<Self>(s)
-    }
-}
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
@@ -125,9 +111,10 @@ pub struct Company {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CompanyContactPerson {
-    #[doc = "Salutation for the contact person. Possible values are **Herr** and **Frau**."]
-    #[builder(setter(into))]
-    pub salutation: Salutation,
+    #[doc = "Salutation for the contact person with max length of 25 characters."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub salutation: Option<String>,
     #[doc = "First name of the contact person."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -153,9 +140,10 @@ pub struct CompanyContactPerson {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Person {
-    #[doc = "Salutation for the individual person. Possible values are **Herr** and **Frau**."]
-    #[builder(setter(into))]
-    pub salutation: Salutation,
+    #[doc = "Salutation for the individual person with max length of 25 characters."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub salutation: Option<String>,
     #[doc = "First name of the person."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

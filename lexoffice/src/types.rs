@@ -2,9 +2,11 @@
 
 use serde::{Deserialize, Serialize};
 
-/// Type for safing date and time
+/// Type for storing date and time
 pub type DateTime = chrono::DateTime<chrono::Utc>;
-/// Type for safing a country code
+/// Type for storing dates
+pub type Date = chrono::NaiveDate;
+/// Type for storing a country code
 pub type CountryCode = String;
 
 /// Type for safing Currencies

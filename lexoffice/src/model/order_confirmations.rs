@@ -1,4 +1,4 @@
-#![doc = "This endpoint provides read and write access to order confirmations which can only be created as draft and additionally downloaded as printed pdf document.\n\nIt is possible to create order confirmations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) order confirmations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For order confirmations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
+#![doc = "This endpoint provides read and write access to order confirmations and also the possibility to render the document as a PDF in order to download it. Order confirmations are always created in draft mode and do not need to be finalized.\n\nIt is possible to create order confirmations with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) order confirmations can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For order confirmations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -103,7 +103,7 @@ pub struct OrderConfirmation {
     #[doc = "Specifies if the order confirmation is only available in the archive in lexoffice.   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub archived: crate::marker::ReadOnly<bool>,
-    #[doc = "Specifies the status of the order confirmation. The only possible status is **draft** (editable later in lexoffice).   \n*Read\\-only.*"]
+    #[doc = "Specifies the status of the order confirmation. The only possible status is **draft** (is editable).   \n*Read\\-only.*"]
     #[builder(default, setter(skip))]
     pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
     #[doc = "The specific number an order confirmation is aware of. This consecutive number set is by lexoffice on creation.   \n*Read\\-only.*"]
