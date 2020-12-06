@@ -64,7 +64,7 @@ impl GetOpt {
                 .unwrap();
             let mime = mime::Mime::from_str(content_type).unwrap();
             format!(
-                "{}{}",
+                "{}.{}",
                 self.id,
                 get_extensions(mime.type_().as_str(), mime.subtype().as_str())
                     .unwrap()[0]
