@@ -22,7 +22,7 @@ jobs:
       with:
         command: clippy
     - name: IRC Message Action
-      uses: Gottox/irc-message-action@master
+      uses: Gottox/irc-message-action@main
       if: failure()
       with:
         channel: "Gottox"
@@ -76,7 +76,7 @@ jobs:
           --no-default-features
           --features "${{ matrix.feature_fs }} ${{ matrix.feature_env }}"
     - name: IRC Message Action
-      uses: Gottox/irc-message-action@master
+      uses: Gottox/irc-message-action@main
       if: failure()
       with:
         channel: "Gottox"
@@ -111,7 +111,7 @@ jobs:
           --manifest-path lexoffice-cli/Cargo.toml
           --verbose
     - name: IRC Message Action
-      uses: Gottox/irc-message-action@master
+      uses: Gottox/irc-message-action@main
       if: failure()
       with:
         channel: "Gottox"
