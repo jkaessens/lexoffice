@@ -6,7 +6,7 @@ pub fn deserialize<'de, D>(deserializer: D) -> Result<Option<Date>, D::Error>
 where
     D: Deserializer<'de>,
 {
-    date::deserialize(deserializer).map(|x| Some(x))
+    date::deserialize(deserializer).map(Some)
 }
 
 pub fn serialize<S>(

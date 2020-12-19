@@ -25,7 +25,7 @@ struct FileResponse {
 impl Request<File> {
     /// This method creates an `Url` that is used to address the object
     /// identified by `uuid`.
-    pub fn by_id_url<I>(self: &Self, uuid: I) -> Result<Url>
+    pub fn by_id_url<I>(&self, uuid: I) -> Result<Url>
     where
         I: Into<Uuid> + Send + Sync,
     {
