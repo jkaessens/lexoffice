@@ -1,9 +1,9 @@
 use async_std::task::sleep;
-use debug_rs::debug;
 use fantoccini::error::CmdError;
 use fantoccini::Client;
 use fantoccini::Element;
 use fantoccini::Locator;
+use log::info;
 use std::time::Duration;
 
 const URL: &str = "https://app.lexoffice.de/settings/#/public-api";
@@ -27,10 +27,10 @@ pub struct PublicApiPage {
 
 impl PublicApiPage {
     pub async fn navigate(client: Client) -> Result<Self, CmdError> {
-        debug!("Navigate to signup...");
+        info!("Navigate to signup...");
         let mut client = client.clone();
         client.goto(URL).await?;
-        debug!("Checking if a key exists");
+        info!("Checking if a key exists");
         let submit = if let Ok(submit) =
             Self::prepare_create_button(client.clone()).await
         {
@@ -46,7 +46,7 @@ impl PublicApiPage {
     ) -> Result<Element, CmdError> {
         let recreate_button =
             client.wait_for_find(RECREATE_BUTTON_LOCATOR).await?;
-        debug!("Key exists, prepare dialog for recreation...");
+        info!("Key exists, prepare dialog for recreation...");
         let mut client = recreate_button.click().await?;
         sleep(Duration::from_millis(500)).await;
         client.wait_for_find(CONFIRM_RECREATE_LOCATOR).await
@@ -56,7 +56,7 @@ impl PublicApiPage {
         mut client: Client,
     ) -> Result<Element, CmdError> {
         let create_button = client.wait_for_find(CREATE_BUTTON_LOCATOR).await?;
-        debug!("Key does not exist, prepare dialog for creation...");
+        info!("Key does not exist, prepare dialog for creation...");
         let mut client = create_button.click().await?;
         sleep(Duration::from_millis(500)).await;
         let mut client = client
@@ -76,7 +76,6 @@ impl PublicApiPage {
             .attr("value")
             .await?
             .expect("API field unset");
-        debug!(api_key);
 
         Ok(api_key)
     }

@@ -1,6 +1,5 @@
 use crate::mail_link::MailLinkAddress;
 use crate::pages::account::AccountPage;
-use debug_rs::debug;
 use fantoccini::Client;
 use fantoccini::Locator;
 use mail_link::MailLink;
@@ -76,7 +75,6 @@ pub async fn delete_account(
         .wait_for_delete_confirum()
         .await?;
 
-    debug!(link);
     client.goto(&link).await?;
     client
         .wait_for_find(Locator::Id("confirm_delete_organization"))

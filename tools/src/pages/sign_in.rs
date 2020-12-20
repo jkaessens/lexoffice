@@ -1,9 +1,9 @@
 use crate::mail_link::MailLinkAddress;
-use debug_rs::debug;
 use fantoccini::error::CmdError;
 use fantoccini::Client;
 use fantoccini::Element;
 use fantoccini::Locator;
+use log::info;
 
 const URL: &str = "https://app.lexoffice.de/";
 
@@ -19,7 +19,7 @@ pub struct SignInPage {
 
 impl SignInPage {
     pub async fn navigate(client: Client) -> Result<Self, CmdError> {
-        debug!("Navigate to signin...");
+        info!("Navigate to signin...");
         let mut client = client.clone();
         client.goto(URL).await?;
         Ok(Self {
@@ -38,7 +38,7 @@ impl SignInPage {
         T: Into<MailLinkAddress>,
     {
         let mail: MailLinkAddress = mail.into();
-        debug!(format!("Provide Credentials for {:?}...", mail.mail()));
+        info!("Provide Credentials for {:?}...", mail.mail());
         self.email.send_keys(&mail.mail()).await?;
         self.password.send_keys(password).await?;
 

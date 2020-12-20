@@ -1,8 +1,8 @@
 use async_std::task::sleep;
-use debug_rs::debug;
 use fantoccini::Client;
 use feed_rs::model::Entry;
 use feed_rs::parser::parse;
+use log::info;
 use std::error::Error;
 use std::time::Duration;
 
@@ -78,7 +78,7 @@ impl MailLink {
     }
 
     async fn get_entries(&self) -> Result<Vec<Entry>, Box<dyn Error>> {
-        debug!("Getting list index...");
+        info!("Getting list index...");
         let body = reqwest::get(&index_link(&self.mail.name()))
             .await?
             .bytes()
@@ -90,7 +90,7 @@ impl MailLink {
     }
 
     pub async fn wait_for_welcome(&self) -> Result<String, Box<dyn Error>> {
-        debug!("Waiting for welcome link...");
+        info!("Waiting for welcome link...");
         self.wait_for_link("Bitte bestätigen Sie ihren Account!")
             .await
     }
@@ -98,7 +98,7 @@ impl MailLink {
     pub async fn wait_for_delete_confirum(
         &self,
     ) -> Result<String, Box<dyn Error>> {
-        debug!("Waiting for delete confirmation...");
+        info!("Waiting for delete confirmation...");
         self.wait_for_link("lexoffice - Zugang löschen").await
     }
 
@@ -106,10 +106,7 @@ impl MailLink {
         &self,
         title: &str,
     ) -> Result<String, Box<dyn Error>> {
-        debug!(format!(
-            "Getting link from a mail with title {:?}...",
-            title
-        ));
+        info!("Getting link from a mail with title {:?}...", title);
 
         let entry = self.wait_for_title(title).await?;
         if let Some(content) = entry.content {
@@ -127,7 +124,7 @@ impl MailLink {
         &self,
         title: &str,
     ) -> Result<Entry, Box<dyn Error>> {
-        debug!(format!("Waiting for Entry with title {:?}...", title));
+        info!("Waiting for Entry with title {:?}...", title);
 
         loop {
             if let Some(entry) = self.get_by_title(title).await? {
@@ -141,7 +138,7 @@ impl MailLink {
         &self,
         html: String,
     ) -> Result<String, Box<dyn Error>> {
-        debug!("Extracting link from mail...");
+        info!("Extracting link from mail...");
 
         let mut client = self.client.clone();
         let href = client
@@ -163,7 +160,7 @@ impl MailLink {
         &self,
         id: &str,
     ) -> Result<Option<Entry>, Box<dyn Error>> {
-        debug!(format!("Getting entry with id {:?}...", id));
+        info!("Getting entry with id {:?}...", id);
 
         let body = reqwest::get(&entry_link(&self.mail.name(), id))
             .await?
@@ -179,7 +176,7 @@ impl MailLink {
         &self,
         title: &str,
     ) -> Result<Option<Entry>, Box<dyn Error>> {
-        debug!(format!("Searching for entry with title {:?}...", title));
+        info!("Searching for entry with title {:?}...", title);
 
         let entries = self.get_entries().await?;
         let entry = entries.iter().to_owned().find(|e| {

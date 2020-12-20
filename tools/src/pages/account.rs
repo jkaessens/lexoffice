@@ -1,8 +1,8 @@
 use async_std::task::sleep;
-use debug_rs::debug;
 use fantoccini::error::CmdError;
 use fantoccini::Client;
 use fantoccini::Locator;
+use log::info;
 use std::time::Duration;
 
 const URL: &str = "https://app.lexoffice.de/subscription/#/account";
@@ -17,14 +17,14 @@ pub struct AccountPage {
 
 impl AccountPage {
     pub async fn navigate(client: Client) -> Result<Self, CmdError> {
-        debug!("Navigate to account...");
+        info!("Navigate to account...");
         let mut client = client.clone();
         client.goto(URL).await?;
         Ok(Self { client })
     }
 
     pub async fn delete_account(self) -> Result<(), CmdError> {
-        debug!("Pressing account delete button...");
+        info!("Pressing account delete button...");
         let delete_button = self
             .client
             .clone()
@@ -33,7 +33,7 @@ impl AccountPage {
         delete_button.click().await?;
 
         sleep(Duration::from_secs(1)).await;
-        debug!("Confirming account delete...");
+        info!("Confirming account delete...");
         let confirm_delete_button = self
             .client
             .clone()
