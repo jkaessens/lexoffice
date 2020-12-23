@@ -1,4 +1,4 @@
-use crate::mail_link::MailLinkAddress;
+use crate::account::mail_link::MailLinkAddress;
 use fantoccini::error::CmdError;
 use fantoccini::Client;
 use fantoccini::Element;

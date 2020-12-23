@@ -1,6 +1,6 @@
 use serde_json::json;
 use std::env::args;
-use tools::create_api_key;
+use tools::account::create_api_key;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

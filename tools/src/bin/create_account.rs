@@ -1,10 +1,11 @@
 use serde_json::json;
+use tools::account::new_account;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     pretty_env_logger::init();
 
-    let (mail, password) = tools::new_account().await?;
+    let (mail, password) = new_account().await?;
 
     println!(
         "{}",
