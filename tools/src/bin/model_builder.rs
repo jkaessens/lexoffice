@@ -1,8 +1,3 @@
-use tools::model_builder::io::write_token_stream;
-use tools::model_builder::modules::ModelModule;
-use tools::model_builder::result::Result;
-use tools::model_builder::utils::StringUtils;
-use tools::model_builder::io;
 use proc_macro2::TokenStream;
 use quote::format_ident;
 use quote::quote;
@@ -13,6 +8,11 @@ use std::env;
 use std::fs;
 use std::path::PathBuf;
 use std::str::FromStr;
+use tools::model_builder::io;
+use tools::model_builder::io::write_token_stream;
+use tools::model_builder::modules::ModelModule;
+use tools::model_builder::result::Result;
+use tools::model_builder::utils::StringUtils;
 
 fn create_mod_rs(modules: &[ModelModule]) -> TokenStream {
     let reexports = modules

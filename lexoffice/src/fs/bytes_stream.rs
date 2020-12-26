@@ -4,7 +4,8 @@ use std::pin::Pin;
 use std::task::Context;
 use std::task::Poll;
 use tokio::io::AsyncRead;
-use tokio::stream::Stream;
+use tokio::io::ReadBuf;
+use tokio_stream::Stream;
 
 #[derive(Debug)]
 pub struct BytesStream<R: AsyncRead + Unpin + Send + Sync> {
@@ -19,12 +20,17 @@ impl<R: AsyncRead + Unpin + Send + Sync> Stream for BytesStream<R> {
         cx: &mut Context,
     ) -> Poll<Option<Result<Bytes>>> {
         let mut buf = [0u8; 1024];
+        let mut buf_reader = ReadBuf::new(&mut buf);
 
-        match R::poll_read(Pin::new(&mut self.reader), cx, &mut buf) {
-            Poll::Ready(Ok(0)) => Poll::Ready(None),
-            Poll::Ready(Ok(n)) => {
-                Poll::Ready(Some(Ok(Bytes::copy_from_slice(&buf[0..n]))))
-            }
+        match R::poll_read(Pin::new(&mut self.reader), cx, &mut buf_reader) {
+            Poll::Ready(Ok(_)) => Poll::Ready({
+                let filled = buf_reader.filled();
+                if filled.is_empty() {
+                    None
+                } else {
+                    Some(Ok(Bytes::copy_from_slice(filled)))
+                }
+            }),
             Poll::Ready(Err(e)) => Poll::Ready(Some(Err(e))),
             Poll::Pending => Poll::Pending,
         }

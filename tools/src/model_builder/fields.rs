@@ -71,10 +71,16 @@ impl ModelField {
             ModelType::Number => "f64".to_string(),
             ModelType::String => "String".to_string(),
             ModelType::Bool => "bool".to_string(),
-            ModelType::CountryCode => "crate::model_builder::types::CountryCode".to_string(),
-            ModelType::DateTime => "crate::model_builder::types::DateTime".to_string(),
+            ModelType::CountryCode => {
+                "crate::model_builder::types::CountryCode".to_string()
+            }
+            ModelType::DateTime => {
+                "crate::model_builder::types::DateTime".to_string()
+            }
             ModelType::Date => "crate::model_builder::types::Date".to_string(),
-            ModelType::Currency => "crate::model_builder::types::Currency".to_string(),
+            ModelType::Currency => {
+                "crate::model_builder::types::Currency".to_string()
+            }
             ModelType::Enum(_) => {
                 string_morph::to_pascal_case(self.name.as_str())
             }

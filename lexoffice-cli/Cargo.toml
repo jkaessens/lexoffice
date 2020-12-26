@@ -12,11 +12,12 @@ categories = ["command-line-utilities"]
 
 [dependencies]
 lexoffice = { version = "0.1.1", path = "../lexoffice" }
-tokio = { version = "0.2.21", features = ["stream", "fs", "io-std", "macros"] }
-structopt = "0.3.15"
-serde = "1.0.114"
+tokio = { version = "1.0.1", features = ["fs", "io-std", "macros"] }
+structopt = "0.3.21"
+serde = "1.0.118"
 serde_any = { version = "0.5.0", default-features = false, features = ["yaml", "toml"] }
 mime = "0.3.16"
 mime_guess = "2.0.3"
-reqwest = "0.10.6"
+reqwest = "0.10.10"
 edit = "0.1.2"
+tokio-stream = "0.1.0"

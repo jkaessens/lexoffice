@@ -8,8 +8,8 @@ use std::pin::Pin;
 use std::str::FromStr;
 use structopt::StructOpt;
 use tokio::fs;
-use tokio::prelude::*;
-use tokio::stream::StreamExt;
+use tokio::io::{AsyncWrite, AsyncWriteExt};
+use tokio_stream::StreamExt;
 
 /// file endpoint
 #[derive(Debug, StructOpt)]

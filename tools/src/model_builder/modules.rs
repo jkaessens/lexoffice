@@ -49,8 +49,9 @@ impl ModelModule {
         section: Vec<ElementRef>,
     ) {
         let mut iter = section.iter();
-        let mut extra_enum =
-            crate::model_builder::enums::ModelEnum::create(name.as_str().remove_suffix("s"));
+        let mut extra_enum = crate::model_builder::enums::ModelEnum::create(
+            name.as_str().remove_suffix("s"),
+        );
         while let Some(element) = iter.next() {
             if element.value().name() == "p" {
                 extra_enum.doc = Some(element.inner_html());

@@ -1,7 +1,7 @@
 use lexoffice::model::voucherlist::*;
 use lexoffice::model::Voucherlist;
 use lexoffice::{ApiKey, Client};
-use tokio::stream::StreamExt;
+use tokio_stream::StreamExt;
 
 use std::error::Error;
 #[tokio::main]
