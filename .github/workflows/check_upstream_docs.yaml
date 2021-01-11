@@ -1,0 +1,27 @@
+name: Check for Updates
+
+on:
+  schedule:
+    - cron:  '0 10 * * *'
+  push: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: diff
+      run: |
+        wget --quiet -O /tmp/index.html.new https://developers.lexoffice.io/docs/ && \
+        diff -upr tools/index.html /tmp/index.html.new
+
+    - name: IRC Message Action
+      uses: Gottox/irc-message-action@main
+      if: failure()
+      with:
+        channel: "Gottox"
+        nickname: gh-gottox
+        message: |-
+          [${{ github.workflow }} failed] ${{ github.ref }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
