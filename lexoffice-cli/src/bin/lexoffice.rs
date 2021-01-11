@@ -1,20 +1,9 @@
-mod actions;
-mod resources;
-
-use lexoffice::model::Page;
-use lexoffice::request::ResultInfo;
 use lexoffice::{ApiKey, Client};
-use resources::*;
+use lexoffice_cli::resources::*;
+use lexoffice_cli::ReturnType;
 use serde::Serialize;
 use serde_any::{to_writer_pretty, Format};
 use structopt::StructOpt;
-
-pub enum ReturnType<T> {
-    Paged(Page<T>),
-    ResultInfo(ResultInfo<T>),
-    Obj(T),
-    Empty,
-}
 
 const OUTPUT_VARIANTS: &[&str] = &["yaml", "json", "toml"];
 
