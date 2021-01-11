@@ -6,6 +6,7 @@ mod event_subscriptions;
 mod files;
 mod invoices;
 mod order_confirmations;
+mod payments;
 mod profile;
 mod quotations;
 mod voucherlist;
