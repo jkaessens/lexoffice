@@ -2,6 +2,7 @@
 mod contacts;
 mod countries;
 mod credit_notes;
+mod down_payment_invoices;
 mod event_subscriptions;
 #[cfg(not(target_arch = "wasm32"))]
 mod files;

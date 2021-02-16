@@ -1,6 +1,7 @@
 mod contact;
 mod countries;
 mod credit_note;
+mod down_payment_invoice;
 mod event_subscription;
 mod file;
 mod invoice;
@@ -14,6 +15,7 @@ mod voucherlist;
 pub use contact::ContactOpt;
 pub use countries::CountryOpt;
 pub use credit_note::CreditNoteOpt;
+pub use down_payment_invoice::DownPaymentInvoiceOpt;
 pub use event_subscription::EventSubscriptionOpt;
 pub use file::FileOpt;
 pub use invoice::InvoiceOpt;
