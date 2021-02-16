@@ -81,7 +81,7 @@ impl ModelStruct {
             .to_string();
 
         match self.type_name().as_str() {
-            "WebhookCallback" | "EventSubscription" => {
+            "WebhookCallback" | "EventSubscription" | "Country" => {
                 self.assume_mandatory = true
             }
             _ => (),

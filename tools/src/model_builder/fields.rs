@@ -86,6 +86,13 @@ impl ModelField {
             model_type
         }
     }
+    pub fn is_reversable_ident(&self) -> bool {
+        if self.name == "type" {
+            true
+        } else {
+            string_morph::to_camel_case(&self.ident()) == self.name
+        }
+    }
     pub fn ident(&self) -> String {
         match self.name.as_str() {
             "type" => "_type".to_string(),
@@ -264,6 +271,12 @@ impl ModelField {
                 quote! { Option< #property_type > }
             }
         };
+        if self.is_reversable_ident() == false {
+            let name = &self.name;
+            annotations.push(quote! {
+                #[serde(rename = #name)]
+            })
+        }
         let doc = mk_doc(&self.doc);
         quote! {
             #doc

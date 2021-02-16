@@ -18,6 +18,7 @@ struct Opt {
 #[derive(Debug, StructOpt)]
 enum SubOpt {
     Contact(ContactOpt),
+    Countries(CountryOpt),
     CreditNote(CreditNoteOpt),
     EventSubscription(EventSubscriptionOpt),
     File(FileOpt),
@@ -76,6 +77,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::new(api_key?);
     match &opt.sub_opt {
         SubOpt::Contact(x) => opt.out(x.exec(client).await?).await,
+        SubOpt::Countries(x) => opt.out(x.exec(client).await?).await,
         SubOpt::CreditNote(x) => opt.out(x.exec(client).await?).await,
         SubOpt::EventSubscription(x) => opt.out(x.exec(client).await?).await,
         SubOpt::Invoice(x) => opt.out(x.exec(client).await?).await,

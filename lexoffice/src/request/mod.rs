@@ -1,5 +1,6 @@
 //! module that handles requests to the Lexoffice API
 mod contacts;
+mod countries;
 mod credit_notes;
 mod event_subscriptions;
 #[cfg(not(target_arch = "wasm32"))]

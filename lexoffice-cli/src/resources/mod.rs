@@ -1,4 +1,5 @@
 mod contact;
+mod countries;
 mod credit_note;
 mod event_subscription;
 mod file;
@@ -11,6 +12,7 @@ mod voucher;
 mod voucherlist;
 
 pub use contact::ContactOpt;
+pub use countries::CountryOpt;
 pub use credit_note::CreditNoteOpt;
 pub use event_subscription::EventSubscriptionOpt;
 pub use file::FileOpt;

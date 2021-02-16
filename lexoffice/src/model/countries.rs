@@ -22,19 +22,17 @@ impl std::str::FromStr for TaxClassification {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Country {
     #[doc = "The country's code. See [our FAQ](https://developers.lexoffice.io/docs/#faq-country-codes) for specification."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub country_code: Option<crate::types::CountryCode>,
+    #[builder(setter(into))]
+    pub country_code: crate::types::CountryCode,
     #[doc = "Country name (English)"]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub country_name_en: Option<String>,
+    #[builder(setter(into))]
+    #[serde(rename = "countryNameEN")]
+    pub country_name_en: String,
     #[doc = "Country name (German translation)"]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub country_name_de: Option<String>,
+    #[builder(setter(into))]
+    #[serde(rename = "countryNameDE")]
+    pub country_name_de: String,
     #[doc = "Tax classification. Possible values are **de** (*Germany*), **intraCommunity** (eligible for *Innergemeinschaftliche Lieferung*), and **thirdPartyCountry** (other). See [below](https://developers.lexoffice.io/docs/#countries-endpoint-country-tax-classification)"]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub tax_classification: Option<TaxClassification>,
+    #[builder(setter(into))]
+    pub tax_classification: TaxClassification,
 }
