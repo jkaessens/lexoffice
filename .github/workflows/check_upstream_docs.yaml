@@ -3,7 +3,6 @@ name: Check for Updates
 on:
   schedule:
     - cron:  '0 10 * * *'
-  push: {}
 
 jobs:
   check:
