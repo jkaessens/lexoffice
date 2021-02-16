@@ -69,22 +69,22 @@ pub struct Voucher {
     #[doc = "Type of the voucher. Possible values are **salesinvoice** (e.g. for sales orders), **salescreditnote** (e.g. for refunds or returned sales orders), **purchaseinvoice** and **purchasecreditnote**. Note that the same categoryId can be used for salescreditnotes and for salesinvoices."]
     #[builder(setter(into))]
     pub _type: Type,
-    #[doc = "Billing state of the voucher. Possible values are **open**, **paid**, **paidoff**, **voided**, **transferred** and **sepadebit**.  \n*Read\\-only*."]
+    #[doc = "Billing state of the voucher. Possible values are **open**, **paid**, **paidoff**, **voided**, **transferred** and **sepadebit**.  \n*Read-only*."]
     #[builder(default, setter(skip))]
     pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
     #[doc = "Number of the voucher. Should be the order's identification/reference number."]
     #[builder(setter(into))]
     pub voucher_number: String,
-    #[doc = "Date when the voucher was issued. Format must be `yyyy-MM-dd` (e.g. *2016\\-06\\-28*)."]
+    #[doc = "Date when the voucher was issued. Format must be `yyyy-MM-dd` (e.g. *2016-06-28*)."]
     #[serde(with = "crate::serde::date")]
     #[builder(setter(into))]
     pub voucher_date: crate::types::Date,
-    #[doc = "Date when the purchased item/service has to be shipped/supplied. If it is a period of time, the end date must be given. Format must be `yyyy-MM-dd` (e.g. *2016\\-07\\-02*). Please note: ShippingDate can only be specified for voucher types **salesinvoice** and **salescreditnote**."]
+    #[doc = "Date when the purchased item/service has to be shipped/supplied. If it is a period of time, the end date must be given. Format must be `yyyy-MM-dd` (e.g. *2016-07-02*). Please note: ShippingDate can only be specified for voucher types **salesinvoice** and **salescreditnote**."]
     #[serde(with = "crate::serde::optional_date")]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub shipping_date: Option<crate::types::Date>,
-    #[doc = "Date when the voucher's payment has to be settled. Format must be `yyyy-MM-dd` (e.g. *2016\\-06\\-28*)."]
+    #[doc = "Date when the voucher's payment has to be settled. Format must be `yyyy-MM-dd` (e.g. *2016-06-28*)."]
     #[serde(with = "crate::serde::optional_date")]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -113,14 +113,14 @@ pub struct Voucher {
     #[doc = "Positions of the voucher grouped by tax rate. Specification of object voucherItems please see below."]
     #[builder(setter(into))]
     pub voucher_items: Vec<VoucherItems>,
-    #[doc = "A list of voucher image file uuids. Voucher images can be uploaded and assigned to an existing voucher via the [Upload a File to a Voucher](https://developers.lexoffice.io/docs/#Upload-a-File-to-a-Voucher) sub\\-resource endpoint. **Please note: Each file (voucher image) can only be assigned once.**"]
+    #[doc = "A list of voucher image file uuids. Voucher images can be uploaded and assigned to an existing voucher via the [Upload a File to a Voucher](https://developers.lexoffice.io/docs/#Upload-a-File-to-a-Voucher) sub-resource endpoint. **Please note: Each file (voucher image) can only be assigned once.**"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub files: Option<Vec<uuid::Uuid>>,
-    #[doc = "The instant of time when the voucher was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[doc = "The instant of time when the voucher was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "The instant of time when the voucher was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[doc = "The instant of time when the voucher was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub updated_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking). Set to **0 for initial POST**, for **PUT get latest version from lexoffice** *(via GET)* and merge with your changes. **Please note: If the version did not match the version stored in your system, the user must be informed about losing changes from lexoffice.**"]

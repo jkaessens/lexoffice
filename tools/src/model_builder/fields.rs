@@ -42,6 +42,7 @@ pub struct ModelField {
 
 impl ModelField {
     pub fn create(table_row: ElementRef) -> Self {
+        println!("{:?}", table_row.inner_html());
         let mut children = table_row.children().filter_map(ElementRef::wrap);
         let property = children.next().unwrap();
         let description = children.next().unwrap();
@@ -71,16 +72,10 @@ impl ModelField {
             ModelType::Number => "f64".to_string(),
             ModelType::String => "String".to_string(),
             ModelType::Bool => "bool".to_string(),
-            ModelType::CountryCode => {
-                "crate::model_builder::types::CountryCode".to_string()
-            }
-            ModelType::DateTime => {
-                "crate::model_builder::types::DateTime".to_string()
-            }
-            ModelType::Date => "crate::model_builder::types::Date".to_string(),
-            ModelType::Currency => {
-                "crate::model_builder::types::Currency".to_string()
-            }
+            ModelType::CountryCode => "crate::types::CountryCode".to_string(),
+            ModelType::DateTime => "crate::types::DateTime".to_string(),
+            ModelType::Date => "crate::types::Date".to_string(),
+            ModelType::Currency => "crate::types::Currency".to_string(),
             ModelType::Enum(_) => {
                 string_morph::to_pascal_case(self.name.as_str())
             }
@@ -115,7 +110,11 @@ impl ModelField {
 
         let codes = property.select(&code_selector).collect::<Vec<_>>();
 
-        codes[0].text().collect::<String>() == "list"
+        codes
+            .get(0)
+            .map(|x| x.text().collect::<String>())
+            .unwrap_or(String::new())
+            == "list"
     }
 
     pub fn find_type(
@@ -141,13 +140,17 @@ impl ModelField {
         }
 
         let codes = property.select(&code_selector).collect::<Vec<_>>();
-        assert_eq!(codes.len(), 1);
+        if codes.len() == 0 && property.inner_html().ends_with("Date") {
+            return ModelType::DateTime;
+        }
+        assert_eq!(codes.len(), 1, "<code> tags: {:?}", property.inner_html());
+
         println!(
             "   {}: {}",
             name,
             codes[0].text().collect::<String>().as_str()
         );
-        match codes[0].text().collect::<String>().as_str() {
+        match codes[0].text().collect::<String>().to_lowercase().as_str() {
             "date" => {
                 assert!(description.select(&code_selector).any(|x| x
                     .text()
@@ -156,7 +159,7 @@ impl ModelField {
                     == "yyyy-MM-dd"));
                 return ModelType::Date;
             }
-            "dateTime" => return ModelType::DateTime,
+            "datetime" => return ModelType::DateTime,
             "uuid" => return ModelType::Uuid,
             "integer" => return ModelType::Integer,
             "number" => return ModelType::Number,
@@ -233,10 +236,10 @@ impl ModelField {
         if matches!(self.model_type, ModelType::Date) {
             match access_type {
                 AccessType::Optional | AccessType::Unsure => annotations.push(
-                    quote!( #[serde(with = "crate::model_builder::serde::optional_date")]),
+                    quote!( #[serde(with = "crate::serde::optional_date")]),
                 ),
                 _ => annotations
-                    .push(quote!( #[serde(with = "crate::model_builder::serde::date")])),
+                    .push(quote!( #[serde(with = "crate::serde::date")])),
             }
         }
         let property_type = match access_type {
@@ -252,7 +255,7 @@ impl ModelField {
             AccessType::ReadOnly => {
                 annotations.push(quote! {#[builder(default, setter(skip))] });
                 //annotations.push(quote! {#[serde(skip_serializing)] });
-                quote! { crate::model_builder::marker::ReadOnly< #property_type > }
+                quote! { crate::marker::ReadOnly< #property_type > }
             }
             AccessType::Optional | AccessType::Unsure => {
                 annotations.push(quote! { #[serde(skip_serializing_if = "Option::is_none")] });

@@ -6,10 +6,11 @@ use std::path::Path;
 use std::process::Command;
 use tempfile::NamedTempFile;
 
-const CACHE_FILE: &str = include_str!("../../index.html");
+const CACHE_FILE: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/index.html");
 
 pub fn load_docs() -> Result<String> {
-    Ok(CACHE_FILE.to_string())
+    println!("{:?}", CACHE_FILE);
+    Ok(fs::read_to_string(CACHE_FILE)?)
 }
 
 fn quickfmt(token_stream: TokenStream) -> String {

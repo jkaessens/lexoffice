@@ -1,6 +1,6 @@
 use crate::model_builder::enums::ModelEnum;
 use crate::model_builder::structs::ModelStruct;
-use crate::model_builder::utils::StringUtils;
+use inflector::string::singularize::to_singular;
 use proc_macro2::TokenStream;
 use quote::quote;
 use scraper::ElementRef;
@@ -49,9 +49,8 @@ impl ModelModule {
         section: Vec<ElementRef>,
     ) {
         let mut iter = section.iter();
-        let mut extra_enum = crate::model_builder::enums::ModelEnum::create(
-            name.as_str().remove_suffix("s"),
-        );
+        let mut extra_enum =
+            crate::model_builder::enums::ModelEnum::create(to_singular(&name));
         while let Some(element) = iter.next() {
             if element.value().name() == "p" {
                 extra_enum.doc = Some(element.inner_html());
@@ -77,7 +76,7 @@ impl ModelModule {
             {
                 if "Event Types" == element.text().collect::<String>().trim() {
                     self.parse_extra_enums(
-                        element.text().collect::<String>().trim().to_string(),
+                        "EventType".into(),
                         iter.clone().map(|x| x.to_owned()).collect::<Vec<_>>(),
                     );
                 } else {
@@ -160,11 +159,20 @@ impl ModelModule {
             .chain(self.extra_enums.iter())
             .map(|x| x.codegen())
             .collect::<Vec<_>>();
+        let extra_use = if self.id == "down-payment-invoices-endpoint" {
+            quote!(
+                use crate::model::invoices::ShippingConditions;
+            )
+        } else {
+            quote!()
+        };
+        println!("{}", self.id);
         quote! {
             #![doc = #doc]
 
             use serde::{Deserialize, Serialize};
             use typed_builder::TypedBuilder;
+            #extra_use
 
             #( #enums )*
             #( #types )*

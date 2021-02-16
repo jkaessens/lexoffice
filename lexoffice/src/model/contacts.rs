@@ -12,7 +12,7 @@ pub struct Contact {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub organization_id: Option<uuid::Uuid>,
-    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
+    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
     #[doc = "Defines contact roles and supports further contact information. For object details see below."]
@@ -30,6 +30,10 @@ pub struct Contact {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub addresses: Option<Addresses>,
+    #[doc = "XRechnung related properties of the contact"]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub x_rechnung: Option<XRechnung>,
     #[doc = "Email addresses for the contact. Contains a list for each EMail type. For details see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -42,7 +46,7 @@ pub struct Contact {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub note: Option<String>,
-    #[doc = "Archived flag of the contact.  \n*Read\\-only.*"]
+    #[doc = "Archived flag of the contact.  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub archived: crate::marker::ReadOnly<bool>,
 }
@@ -69,7 +73,7 @@ pub struct Roles {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Customer {
-    #[doc = "Unique customer number within the current organization. This number is created by lexoffice for contacts with role Customer. It cannot be set during creation and cannot be changed.  \n*Read\\-only.*"]
+    #[doc = "Unique customer number within the current organization. This number is created by lexoffice for contacts with role Customer. It cannot be set during creation and cannot be changed.  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub number: crate::marker::ReadOnly<i64>,
 }
@@ -77,7 +81,7 @@ pub struct Customer {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Vendor {
-    #[doc = "Unique vendor number within the current organization. This number is created by lexoffice for contacts with role Vendor. It cannot be set during creation and cannot be changed.  \n*Read\\-only.*"]
+    #[doc = "Unique vendor number within the current organization. This number is created by lexoffice for contacts with role Vendor. It cannot be set during creation and cannot be changed.  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub number: crate::marker::ReadOnly<i64>,
 }
@@ -93,11 +97,11 @@ pub struct Company {
     #[doc = "Company name"]
     #[builder(setter(into))]
     pub name: String,
-    #[doc = "Tax number for this company \\-\\-\\> *\"Steuernummer\"*."]
+    #[doc = "Tax number for this company --> *\"Steuernummer\"*."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_number: Option<String>,
-    #[doc = "Vat registration id for this company. This id has to follow the german rules for the vat registration ids \\-\\-\\> *\"Umsatzsteuer ID\"*."]
+    #[doc = "Vat registration id for this company. This id has to follow the german rules for the vat registration ids --> *\"Umsatzsteuer ID\"*."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub vat_registration_id: Option<String>,
@@ -189,6 +193,20 @@ pub struct Address {
     #[doc = "Country code in the format of [ISO 3166 alpha2](https://developers.lexoffice.io/docs/#faq-country-codes) (e.g. DE is used for germany)."]
     #[builder(setter(into))]
     pub country_code: crate::types::CountryCode,
+}
+#[doc = "Contacts for German public authorities should be created with both of the following attributes set.\nThis results in the generation of invoice documents conforming to the German XRechnung standard when creating invoices in lexoffice.\n\nIf a customer's `buyerReference` is set, its `vendorNumberAtCustomer` needs to be set as well."]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct XRechnung {
+    #[doc = "Customer's *Leitweg-ID* conforming to the German XRechnung system"]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub buyer_reference: Option<String>,
+    #[doc = "Your vendor number as used by the customer"]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub vendor_number_at_customer: Option<String>,
 }
 #[doc = "Please note that it's only possible to create and change contacts with a maximum of one entry in each of the below described lists. It's possible to retrieve contacts with more than one entry in the lists, but it's not possible to update such a contact via the REST API."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]

@@ -1,4 +1,4 @@
-#![doc = "This endpoint provides read and write access to credit notes and also the possibility to render the document as a PDF in order to download it. Credit notes can be created as a draft or finalized in open mode.\n\nWith a credit note the partial or full amount of an invoice can be refunded to a customer.\n\nAt the moment, credit notes can only be created without any reference to an invoice. To refer a credit note to an invoice on the printed document, the invoice number can be included in the header text (*introduction*).\n\nIt is possible to create credit notes with value\\-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat\\-free. For tax\\-exempt organizations vat\\-free (*Steuerfrei*) credit notes can be created exclusively. All other vat\\-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra\\-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For credit notes to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
+#![doc = "This endpoint provides read and write access to credit notes and also the possibility to render the document as a PDF in order to download it. Credit notes can be created as a draft or finalized in open mode.\n\nWith a credit note the partial or full amount of an invoice can be refunded to a customer.\n\nAt the moment, credit notes can only be created without any reference to an invoice. To refer a credit note to an invoice on the printed document, the invoice number can be included in the header text (*introduction*).\n\nIt is possible to create credit notes with value-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat-free. For tax-exempt organizations vat-free (*Steuerfrei*) credit notes can be created exclusively. All other vat-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For credit notes to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -67,35 +67,35 @@ impl std::str::FromStr for Type {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreditNote {
-    #[doc = "Unique id generated on creation by lexoffice.   \n*Read\\-only.*"]
+    #[doc = "Unique id generated on creation by lexoffice.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "Unique id of the organization the credit note belongs to.   \n*Read\\-only.*"]
+    #[doc = "Unique id of the organization the credit note belongs to.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub organization_id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "The instant of time when the credit note was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[doc = "The instant of time when the credit note was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "The instant of time when the credit note was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[doc = "The instant of time when the credit note was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub updated_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read\\-only.*"]
+    #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
-    #[doc = "Specifies the language of the credit note which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639\\-1 code. Possible values are German **de** (default) and English **en**."]
+    #[doc = "Specifies the language of the credit note which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German **de** (default) and English **en**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub language: Option<String>,
-    #[doc = "Specifies if the credit note is only available in the archive in lexoffice.   \n*Read\\-only.*"]
+    #[doc = "Specifies if the credit note is only available in the archive in lexoffice.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub archived: crate::marker::ReadOnly<bool>,
-    #[doc = "Specifies the status of the credit note. Possible values are **draft** (is editable), **open** (finalized and no longer editable but not yet paid off), **paidoff** (has been fully paid back to the customer), **voided** (cancelled)  \n*Read\\-only.*"]
+    #[doc = "Specifies the status of the credit note. Possible values are **draft** (is editable), **open** (finalized and no longer editable but not yet paid off), **paidoff** (has been fully paid back to the customer), **voided** (cancelled)  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
-    #[doc = "The specific number a credit note is aware of. This consecutive number is set by lexoffice on creation.   \n*Read\\-only.*"]
+    #[doc = "The specific number a credit note is aware of. This consecutive number is set by lexoffice on creation.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub voucher_number: crate::marker::ReadOnly<String>,
-    #[doc = "The date of credit note in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
+    #[doc = "The date of credit note in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
     #[builder(setter(into))]
     pub voucher_date: crate::types::DateTime,
     #[doc = "The address of the credit note recipient. For details see below."]
@@ -107,7 +107,7 @@ pub struct CreditNote {
     #[doc = "The total price of the credit note. For details see below."]
     #[builder(setter(into))]
     pub total_price: TotalPrice,
-    #[doc = "The tax amounts for each tax rate. Please note: As done with every read\\-only element or object all submitted content (POST) will be ignored. For details see below.   \n*Read\\-only.*"]
+    #[doc = "The tax amounts for each tax rate. Please note: As done with every read-only element or object all submitted content (POST) will be ignored. For details see below.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub tax_amounts: crate::marker::ReadOnly<Vec<TaxAmounts>>,
     #[doc = "The tax conditions of the credit note. For details see below."]
@@ -125,7 +125,7 @@ pub struct CreditNote {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub remark: Option<String>,
-    #[doc = "The document id for the PDF version of the credit note. For details see below.   \n*Read\\-only.*"]
+    #[doc = "The document id for the PDF version of the credit note. For details see below.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub files: crate::marker::ReadOnly<Files>,
 }
@@ -134,7 +134,7 @@ impl crate::request::HasId for CreditNote {
         &self.id
     }
 }
-#[doc = "There are two main options to address the recipient of a credit note. First, using an existing lexoffice contact or second creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific credit note. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.\n\nOtherwise, a **new address** for the credit note recipient can be created. That type of address is called a \"one\\-time address\". A one\\-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new credit note.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
+#[doc = "There are two main options to address the recipient of a credit note. First, using an existing lexoffice contact or second creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific credit note. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.\n\nOtherwise, a **new address** for the credit note recipient can be created. That type of address is called a \"one-time address\". A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new credit note.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
@@ -167,7 +167,7 @@ pub struct Address {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub country_code: Option<crate::types::CountryCode>,
-    #[doc = "The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced `contactId`.  \n*Read\\-only.*"]
+    #[doc = "The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced `contactId`.  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub contact_person: crate::marker::ReadOnly<String>,
 }
@@ -175,7 +175,7 @@ pub struct Address {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LineItems {
-    #[doc = "The field specifies the related id of the product/service.   \n*Read\\-only.*"]
+    #[doc = "The field specifies the related id of the product/service.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The type of the item. Possible values are **service** (the line item is related to a supply of services), **material** (the line item is related to a physical product), **custom** (an item without reference in lexoffice and has no id) or **text** (contains only a name and/or a description for informative purposes)."]
@@ -200,7 +200,7 @@ pub struct LineItems {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub unit_price: Option<UnitPrice>,
-    #[doc = "The total price of this line item. Depending by the selected *taxType* in *taxConditions*, the amount must be given either as net or gross. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[doc = "The total price of this line item. Depending by the selected *taxType* in *taxConditions*, the amount must be given either as net or gross. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub line_item_amount: crate::marker::ReadOnly<f64>,
 }
@@ -224,7 +224,7 @@ pub struct UnitPrice {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub gross_amount: Option<f64>,
-    #[doc = "The tax rate of the unit price. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat\\-free sales vouchers the tax rate percentage must be **0**."]
+    #[doc = "The tax rate of the unit price. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat-free sales vouchers the tax rate percentage must be **0**."]
     #[builder(setter(into))]
     pub tax_rate_percentage: f64,
 }
@@ -235,20 +235,20 @@ pub struct TotalPrice {
     #[doc = "The currency of the total price. Currently only **EUR** is supported."]
     #[builder(setter(into))]
     pub currency: crate::types::Currency,
-    #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub total_net_amount: crate::marker::ReadOnly<f64>,
-    #[doc = "The total gross price over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[doc = "The total gross price over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub total_gross_amount: crate::marker::ReadOnly<f64>,
-    #[doc = "The total tax amount over all line items. The value can contain up to 2 decimals.   \n*Read\\-only.*"]
+    #[doc = "The total tax amount over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub total_tax_amount: crate::marker::ReadOnly<f64>,
     #[doc = "(Optional) A total discount as absolute value. The value can contain up to 2 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub total_discount_absolute: Option<f64>,
-    #[doc = "(Optional) A total discount relative to the gross amount or net amount dependent on the given tax conditions. A contact\\-specific default will be set if available and no total discount was send. The value can contain up to 2 decimals."]
+    #[doc = "(Optional) A total discount relative to the gross amount or net amount dependent on the given tax conditions. A contact-specific default will be set if available and no total discount was send. The value can contain up to 2 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub total_discount_percentage: Option<f64>,
@@ -278,7 +278,7 @@ pub struct TaxConditions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
-    #[doc = "When *taxType* is set to a vat\\-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization's default."]
+    #[doc = "When *taxType* is set to a vat-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization's default."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type_note: Option<String>,

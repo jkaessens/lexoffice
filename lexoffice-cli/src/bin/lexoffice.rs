@@ -5,7 +5,7 @@ use serde::Serialize;
 use serde_any::{to_writer_pretty, Format};
 use structopt::StructOpt;
 
-const OUTPUT_VARIANTS: &[&str] = &["yaml", "json", "toml"];
+const OUTPUT_VARIANTS: &[&str] = &["yaml", "json"];
 
 #[derive(Debug, StructOpt)]
 struct Opt {

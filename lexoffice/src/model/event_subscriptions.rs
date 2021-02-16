@@ -1,4 +1,4 @@
-#![doc = "Using event subscriptions you will be notified about certain events on resources \\- e.g. you receive a notification every time a contact changes in lexoffice. This will make pull requests superfluous to keep your data synced between lexoffice and your application. The notifications are implemented as webhooks. Subscribing to an event simply requires the *event type* and your *callback url*. With the event\\-subscriptions endpoint you can manage your subscriptions within lexoffice."]
+#![doc = "Using event subscriptions you will be notified about certain events on resources - e.g. you receive a notification every time a contact changes in lexoffice. This will make pull requests superfluous to keep your data synced between lexoffice and your application. The notifications are implemented as webhooks. Subscribing to an event simply requires the *event type* and your *callback url*. With the event-subscriptions endpoint you can manage your subscriptions within lexoffice."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[doc = "The following table lists all types of events you can subscribe to. The property *EventType* is the combined key of a resource and a event name. The *EventType* is handled in lower case."]
@@ -38,6 +38,18 @@ pub enum EventType {
     #[doc = "The status of an invoice has changed. Update the invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint) to retrieve the new status."]
     #[serde(rename = "invoice.status.changed")]
     InvoiceStatusChanged,
+    #[doc = "A new down payment invoice was created in lexoffice. Get the new down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint)."]
+    #[serde(rename = "down-payment-invoice.created")]
+    DownPaymentInvoiceCreated,
+    #[doc = "A down payment invoice has changed. Get the updated down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint). Please note that the status may also have changed."]
+    #[serde(rename = "down-payment-invoice.changed")]
+    DownPaymentInvoiceChanged,
+    #[doc = "A down payment invoice was deleted in lexoffice."]
+    #[serde(rename = "down-payment-invoice.deleted")]
+    DownPaymentInvoiceDeleted,
+    #[doc = "The status of a down payment invoice has changed. Update the down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint) to retrieve the new status."]
+    #[serde(rename = "down-payment-invoice.status.changed")]
+    DownPaymentInvoiceStatusChanged,
     #[doc = "A new order confirmation was created in lexoffice. Get the new order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint)."]
     #[serde(rename = "order-confirmation.created")]
     OrderConfirmationCreated,
@@ -47,7 +59,7 @@ pub enum EventType {
     #[doc = "An order confirmation was deleted in lexoffice."]
     #[serde(rename = "order-confirmation.deleted")]
     OrderConfirmationDeleted,
-    #[doc = "The status of an order confirmation has changed. Update the order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint) to retrieve the new status."]
+    #[doc = "The status of an order confirmation has changed. Update the order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint) to retrieve the new status. **Please note that at this time there are no status transitions triggering the status changed event for order confirmations. This event solely exists to provide symmetric events for all voucher types.**"]
     #[serde(rename = "order-confirmation.status.changed")]
     OrderConfirmationStatusChanged,
     #[doc = "A new quotation was created in lexoffice. Get the new quotation by calling the [quotations endpoint](https://developers.lexoffice.io/docs/#quotations-endpoint)."]
@@ -91,13 +103,13 @@ impl std::str::FromStr for EventType {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct EventSubscription {
-    #[doc = "Unique id of the event subscription generated on creation by lexoffice.   \n*Read\\-only.*"]
+    #[doc = "Unique id of the event subscription generated on creation by lexoffice.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub subscription_id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "Unique id of the organization the event subscription belongs to.   \n*Read\\-only.*"]
+    #[doc = "Unique id of the organization the event subscription belongs to.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub organization_id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "The instant of time when the event subscription was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[doc = "The instant of time when the event subscription was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "The event type is a combined key which defines the resource and its event name you are subscribing to. All available events receivable via the API can be taken from the table [Event Types](https://developers.lexoffice.io/docs/#event-subscriptions-endpoint-event-types)."]
@@ -126,7 +138,7 @@ pub struct WebhookCallback {
     #[doc = "The resource entity on which the event has occurred. Use the corresponding resource endpoint and the resourceId to get the latest data of the resource entity."]
     #[builder(setter(into))]
     pub resource_id: uuid::Uuid,
-    #[doc = "The instant of time when the event was triggered in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*).  \n*Read\\-only.*"]
+    #[doc = "The instant of time when the event was triggered in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub event_date: crate::marker::ReadOnly<crate::types::DateTime>,
 }

@@ -13,7 +13,7 @@ pub enum EventSubscriptionOpt {
     List(PaginatedOpt),
     /// creates new event subscription and opens it in an editor
     New(StorableOpt),
-    /// modifies a contact
+    /// modifies an event subscription
     Updatable(UpdatableOpt),
     /// queries a specific event subscription by its id
     Get(ByIdOpt),

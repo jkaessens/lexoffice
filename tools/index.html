@@ -260,6 +260,23 @@
               </ul>
           </li>
           <li>
+            <a href="#countries-endpoint" class="toc-h1 toc-link" data-title="Countries Endpoint">Countries Endpoint</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#countries-endpoint-purpose" class="toc-h2 toc-link" data-title="Purpose">Purpose</a>
+                  </li>
+                  <li>
+                    <a href="#countries-endpoint-country-properties" class="toc-h2 toc-link" data-title="Country properties">Country properties</a>
+                  </li>
+                  <li>
+                    <a href="#countries-endpoint-country-tax-classification" class="toc-h2 toc-link" data-title="Country tax classification">Country tax classification</a>
+                  </li>
+                  <li>
+                    <a href="#countries-endpoint-retrieve-list-of-countries" class="toc-h2 toc-link" data-title="Retrieve List of Countries">Retrieve List of Countries</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#credit-notes-endpoint" class="toc-h1 toc-link" data-title="Credit Notes Endpoint">Credit Notes Endpoint</a>
               <ul class="toc-list-h2">
                   <li>
@@ -279,6 +296,23 @@
                   </li>
                   <li>
                     <a href="#credit-notes-endpoint-deeplink-to-a-credit-note" class="toc-h2 toc-link" data-title="Deeplink to a Credit Note">Deeplink to a Credit Note</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#down-payment-invoices-endpoint" class="toc-h1 toc-link" data-title="Down Payment Invoices Endpoint">Down Payment Invoices Endpoint</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#down-payment-invoices-endpoint-purpose" class="toc-h2 toc-link" data-title="Purpose">Purpose</a>
+                  </li>
+                  <li>
+                    <a href="#down-payment-invoices-endpoint-down-payment-invoices-properties" class="toc-h2 toc-link" data-title="Down Payment Invoices Properties">Down Payment Invoices Properties</a>
+                  </li>
+                  <li>
+                    <a href="#down-payment-invoices-endpoint-retrieve-a-down-payment-invoice" class="toc-h2 toc-link" data-title="Retrieve a Down Payment Invoice">Retrieve a Down Payment Invoice</a>
+                  </li>
+                  <li>
+                    <a href="#down-payment-invoices-endpoint-deeplink-to-a-down-payment-invoice" class="toc-h2 toc-link" data-title="Deeplink to a Down Payment Invoice">Deeplink to a Down Payment Invoice</a>
                   </li>
               </ul>
           </li>
@@ -341,6 +375,9 @@
                     <a href="#invoices-endpoint-invoices-properties" class="toc-h2 toc-link" data-title="Invoices Properties">Invoices Properties</a>
                   </li>
                   <li>
+                    <a href="#invoices-endpoint-closing-invoices" class="toc-h2 toc-link" data-title="Closing invoices">Closing invoices</a>
+                  </li>
+                  <li>
                     <a href="#invoices-endpoint-create-an-invoice" class="toc-h2 toc-link" data-title="Create an Invoice">Create an Invoice</a>
                   </li>
                   <li>
@@ -388,6 +425,20 @@
                   </li>
                   <li>
                     <a href="#payments-endpoint-retrieve-payment-information" class="toc-h2 toc-link" data-title="Retrieve payment Information">Retrieve payment Information</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#payment-conditions-endpoint" class="toc-h1 toc-link" data-title="Payment Conditions Endpoint">Payment Conditions Endpoint</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#payment-conditions-endpoint-purpose" class="toc-h2 toc-link" data-title="Purpose">Purpose</a>
+                  </li>
+                  <li>
+                    <a href="#payment-conditions-endpoint-payment-conditions-properties" class="toc-h2 toc-link" data-title="Payment Conditions properties">Payment Conditions properties</a>
+                  </li>
+                  <li>
+                    <a href="#payment-conditions-endpoint-retrieve-list-of-payment-conditions" class="toc-h2 toc-link" data-title="Retrieve List of Payment Conditions">Retrieve List of Payment Conditions</a>
                   </li>
               </ul>
           </li>
@@ -1373,6 +1424,74 @@ This results in the generation of invoice documents conforming to the German XRe
 </tbody></table>
 
 <aside class="notice">The values of all mentioned properties have to be URL encoded when used to send data to lexoffice.</aside>
+<h1 id='countries-endpoint'>Countries Endpoint</h1><h2 id='countries-endpoint-purpose'>Purpose</h2>
+<p>The countries endpoint provides read access to the list of countries known to lexoffice.</p>
+<h2 id='countries-endpoint-country-properties'>Country properties</h2>
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">countryCode<br><code>string</code></td>
+<td>The country&#39;s code. See <a href="#faq-country-codes">our FAQ</a> for specification.</td>
+</tr>
+<tr>
+<td style="text-align: right">countryNameEN<br><code>string</code></td>
+<td>Country name (English)</td>
+</tr>
+<tr>
+<td style="text-align: right">countryNameDE<br><code>string</code></td>
+<td>Country name (German translation)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxClassification<br /><code>enum</code></td>
+<td>Tax classification. Possible values are <strong>de</strong> (<em>Germany</em>), <strong>intraCommunity</strong> (eligible for <em>Innergemeinschaftliche Lieferung</em>), and <strong>thirdPartyCountry</strong> (other). See <a href="#countries-endpoint-country-tax-classification">below</a></td>
+</tr>
+</tbody></table>
+<h2 id='countries-endpoint-country-tax-classification'>Country tax classification</h2>
+<p>The tax classification as supplied by the countries endpoint refers to the <strong>current</strong> classification of the country. As countries enter or leave the EU, their
+classification may be subject to change. At this time, the countries endpoint will always return the current state.</p>
+
+<p>When a country bearing the <code>intraCommunity</code> classification is referred to in vouchers, their tax type may be eligible to be set to <code>intraCommunitySupply</code>. However, that
+decision may be based on other properties of the organization and the referenced contact information.</p>
+<h2 id='countries-endpoint-retrieve-list-of-countries'>Retrieve List of Countries</h2>
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/countries
+-X GET
+-H <span class="s2">"Authorization: Bearer {accessToken}"</span>
+-H <span class="s2">"Accept: application/json"</span>
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countryNameDE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deutschland"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countryNameEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Germany"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"taxClassification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"de"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FR"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countryNameDE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Frankreich"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countryNameEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"taxClassification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"intraCommunity"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countryNameDE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vereinigte Staaten von Amerika"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countryNameEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"taxClassification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thirdPartyCountry"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p><code>GET {resourceurl}/v1/countries</code></p>
+
+<p>The following sample shows how to retrieve list of currently known countries. It is required to replace the placeholder <code>{accessToken}</code> before sending the request.</p>
 <h1 id='credit-notes-endpoint'>Credit Notes Endpoint</h1><h2 id='credit-notes-endpoint-purpose'>Purpose</h2>
 <p>This endpoint provides read and write access to credit notes and also the possibility to render the document as a PDF in order to download it.
 Credit notes can be created as a draft or finalized in open mode.</p>
@@ -2165,6 +2284,542 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <p><strong>View URL</strong> <code>{appbaseurl}/permalink/credit-notes/view/{id}</code></p>
 
 <p><strong>Edit URL</strong> <code>{appbaseurl}/permalink/credit-notes/edit/{id}</code></p>
+<h1 id='down-payment-invoices-endpoint'>Down Payment Invoices Endpoint</h1><h2 id='down-payment-invoices-endpoint-purpose'>Purpose</h2>
+<p>This endpoint provides read-only access to down payment invoices.</p>
+<h2 id='down-payment-invoices-endpoint-down-payment-invoices-properties'>Down Payment Invoices Properties</h2>
+<p>Most properties of down payment invoices are identical with the ones of regular invoices.</p>
+
+<blockquote>
+<p>Sample of a down payment invoice. Fields with no content are displayed with &quot;null&quot; just for demonstration purposes.</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0333f0c7-2b89-4889-b64e-68b3ca3f167a"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-20T10:26:40.956+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-21T13:34:13.228+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE1129"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-20T10:26:26.565+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-02-19T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"supplement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"lineItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pauschaler Abschlag"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">559.66</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">666</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">666.00</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"totalPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalNetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">559.66</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalGrossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">666.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalTaxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">106.34</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"taxAmounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">106.34</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">559.66</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gross"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"discountRange"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"shippingConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vielen Dank für die gute Zusammenarbeit."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"documentFileId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa0388c5-20b5-49d7-96ce-0c08ac0482f4"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1. Abschlagsrechnung"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>All attributes are read-only, as down payment invoices cannot be created or modified by means of the API.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">Unique id generated on creation by lexoffice.</td>
+</tr>
+<tr>
+<td style="text-align: right">organizationId <br><code>uuid</code></td>
+<td style="text-align: left">Unique id of the organization the down payment invoice belongs to.</td>
+</tr>
+<tr>
+<td style="text-align: right">createdDate <br><code>dateTime</code></td>
+<td style="text-align: left">The instant of time when the down payment invoice was created by lexoffice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">updatedDate <br><code>dateTime</code></td>
+<td style="text-align: left">The instant of time when the down payment invoice was updated by lexoffice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">version <br><code>integer</code></td>
+<td style="text-align: left">Version <em>(revision)</em> number which will be increased on each change to handle <a href="#optimistic-locking">optimistic locking</a>.<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">language <br><code>string</code></td>
+<td style="text-align: left">Specifies the language of the down payment invoice which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German <strong>de</strong> (default) and English <strong>en</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">archived <br><code>boolean</code></td>
+<td style="text-align: left">Specifies if the down payment invoice is only available in the archive in lexoffice.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherStatus <br><code>enum</code></td>
+<td style="text-align: left">Specifies the status of the down payment invoice. Possible values are <strong>draft</strong> (is editable), <strong>open</strong> (finalized and no longer editable but yet unpaid or only partially paid), <strong>paid</strong> (has been fully paid), <strong>voided</strong> (cancelled)</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number a down payment invoice is aware of. This consecutive number is set by lexoffice on creation.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherDate <br><code>dateTime</code></td>
+<td style="text-align: left">The date of the down payment invoice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
+</tr>
+<tr>
+<td style="text-align: right">dueDate <br><code>dateTime</code></td>
+<td style="text-align: left">Sets the date on which the down payment invoice is payable before becoming overdue in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-address-details">address</a> <br><code>object</code></td>
+<td style="text-align: left">The address of the down payment invoice recipient. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-lineItems-details">lineItems</a> <br><code>list</code></td>
+<td style="text-align: left">The items of the down payment invoice. For down payment invoices, this list contains exactly one item. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-totalPrice-details">totalPrice</a> <br><code>object</code></td>
+<td style="text-align: left">The total price of the down payment invoice. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-taxAmounts-details">taxAmounts</a> <br><code>list</code></td>
+<td style="text-align: left">The tax amounts for each tax rate. Please note: As done with every read-only element or object all submitted content (POST) will be ignored. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-taxConditions-details">taxConditions</a> <br><code>object</code></td>
+<td style="text-align: left">The tax conditions of the down payment invoice. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-paymentConditions-details">paymentConditions</a> <br><code>object</code></td>
+<td style="text-align: left">The payment conditions of the down payment invoice. The organization&#39;s (or contact-specific) default is used if no value was send. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-shippingConditions-details">shippingConditions</a> <br><code>object</code></td>
+<td style="text-align: left">The shipping conditions of the invoice. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">title <br><code>string</code></td>
+<td style="text-align: left">(Optional) A title text. The organization&#39;s default is used if no value was sent.</td>
+</tr>
+<tr>
+<td style="text-align: right">introduction <br><code>string</code></td>
+<td style="text-align: left">(Optional) An introductory text / header. The organization&#39;s default is used if no value was send.</td>
+</tr>
+<tr>
+<td style="text-align: right">remark <br><code>string</code></td>
+<td style="text-align: left">(Optional) A closing text note. The organization&#39;s default is used if no value was send.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-files-details">files</a> <br><code>object</code></td>
+<td style="text-align: left">The document id for the PDF version of the down payment invoice. For details see below.</td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-address-details"></div>
+
+<p><strong>Address Details</strong></p>
+
+<p>There are two main options to address the recipient of a down payment invoice. First, using an existing lexoffice contact or second creating a new address.</p>
+
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific down payment invoice. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.</p>
+
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.</aside>
+
+<p>Otherwise, a <strong>new address</strong> for the down payment invoice recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new down payment invoice.</p>
+
+<p>Please get in touch with us if you are not sure which option fits your use case best.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">contactId <br><code>uuid</code></td>
+<td style="text-align: left">If the down payment invoice recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact.</td>
+</tr>
+<tr>
+<td style="text-align: right">name <br><code>string</code></td>
+<td style="text-align: left">The name of the down payment invoice recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}.</td>
+</tr>
+<tr>
+<td style="text-align: right">supplement <br><code>string</code></td>
+<td style="text-align: left">(Optional) An address supplement.</td>
+</tr>
+<tr>
+<td style="text-align: right">street <br><code>string</code></td>
+<td style="text-align: left">The street (street and street number) of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">city <br><code>string</code></td>
+<td style="text-align: left">The city of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">zip <br><code>string</code></td>
+<td style="text-align: left">The zip code of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">countryCode <br><code>enum</code></td>
+<td style="text-align: left">The <a href="#faq-country-codes">ISO 3166 alpha2 country code</a> of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">contactPerson <br><code>string</code></td>
+<td style="text-align: left">The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced <code>contactId</code>.<br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-lineItems-details"></div>
+
+<p><strong>Line Items Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The field specifies the related id of the product/service. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">type <br><code>enum</code></td>
+<td style="text-align: left">The type of the item. Possible values are <strong>service</strong> (the line item is related to a supply of services), <strong>material</strong> (the line item is related to a physical product), <strong>custom</strong> (an item without reference in lexoffice and has no id) or <strong>text</strong> (contains only a name and/or a description for informative purposes).</td>
+</tr>
+<tr>
+<td style="text-align: right">name <br><code>string</code></td>
+<td style="text-align: left">The name of the item.</td>
+</tr>
+<tr>
+<td style="text-align: right">description <br><code>string</code></td>
+<td style="text-align: left">The description of the item.</td>
+</tr>
+<tr>
+<td style="text-align: right">quantity <br><code>number</code></td>
+<td style="text-align: left">The amount of the purchased item. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">unitName <br><code>string</code></td>
+<td style="text-align: left">The unit name of the purchased item. If the provided unit name is not known in lexoffice it will be created on the fly.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#down-payment-invoices-unitPrice-details">unitPrice</a> <br><code>object</code></td>
+<td style="text-align: left">The unit price of the purchased item. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">discountPercentage <br><code>number</code></td>
+<td style="text-align: left">The offered discount for the item. The value can contain up to 2 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">lineItemAmount <br><code>number</code></td>
+<td style="text-align: left">The total price of this line item. Depending by the selected <em>taxType</em> in <em>taxConditions</em>, the amount must be given either as net or gross. The value can contain up to 2 decimals. <br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-unitPrice-details"></div>
+
+<p><strong>Unit Price Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">currency <br><code>enum</code></td>
+<td style="text-align: left">The currency of the price. Currently only <strong>EUR</strong> is supported.</td>
+</tr>
+<tr>
+<td style="text-align: right">netAmount <br><code>number</code></td>
+<td style="text-align: left">The net price of the unit price. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">grossAmount <br><code>number</code></td>
+<td style="text-align: left">The gross price of the unit price. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxRatePercentage <br><code>number</code></td>
+<td style="text-align: left">The tax rate of the unit price. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-totalPrice-details"></div>
+
+<p><strong>Total Price Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">currency <br><code>string</code></td>
+<td style="text-align: left">The currency of the total price. Currently only <strong>EUR</strong> is supported.</td>
+</tr>
+<tr>
+<td style="text-align: right">totalNetAmount <br><code>number</code></td>
+<td style="text-align: left">The total net price over all line items. The value can contain up to 2 decimals. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">totalGrossAmount <br><code>number</code></td>
+<td style="text-align: left">The total gross price over all line items. The value can contain up to 2 decimals. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">totalTaxAmount <br><code>number</code></td>
+<td style="text-align: left">The total tax amount over all line items. The value can contain up to 2 decimals. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">totalDiscountAbsolute <br><code>number</code></td>
+<td style="text-align: left">(Optional) A total discount as absolute value. The value can contain up to 2 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">totalDiscountPercentage <br><code>number</code></td>
+<td style="text-align: left">(Optional) A total discount relative to the gross amount or net amount dependent on the given tax conditions. A contact-specific default will be set if available and no total discount was send. The value can contain up to 2 decimals.</td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-taxAmounts-details"></div>
+
+<p><strong>Tax Amounts Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">taxRatePercentage <br><code>number</code></td>
+<td style="text-align: left">Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxAmount <br><code>number</code></td>
+<td style="text-align: left">The total tax amount for this tax rate. The value can contain up to 2 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">netAmount <br><code>number</code></td>
+<td style="text-align: left">The total net amount for this tax rate. The value can contain up to 2 decimals.</td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-taxConditions-details"></div>
+
+<p><strong>Tax Conditions Details</strong></p>
+
+<blockquote>
+<p>Sample for vat-free tax conditions</p>
+</blockquote>
+
+<pre class="highlight json tab-json"><code><span class="s2">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constructionService13b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"taxTypeNote"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge)"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">taxType <br><code>enum</code></td>
+<td style="text-align: left">The tax type for the down payment invoice. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxTypeNote <br><code>string</code></td>
+<td style="text-align: left">When <em>taxType</em> is set to a vat-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization&#39;s default.</td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-paymentConditions-details"></div>
+
+<p><strong>Payment Conditions Details</strong></p>
+
+<p>The payment conditions are optional and the organization&#39;s or contact-specific defaults will be used if ommitted.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">paymentTermLabel <br><code>string</code></td>
+<td style="text-align: left">A textual note regarding the payment conditions.</td>
+</tr>
+<tr>
+<td style="text-align: right">paymentTermLabelTemplate <br><code>string</code></td>
+<td style="text-align: left">A textual note regarding the payment conditions. This label template may contain variables such as the discount range. These variables are enclosed in curly braces, e.g., <em>{discountRange}</em>.&#39;<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">paymentTermDuration <br><code>integer</code></td>
+<td style="text-align: left">The time left (in days) until the payment must be conducted.</td>
+</tr>
+</tbody></table>
+
+<div id="down-payment-invoices-files-details"></div>
+
+<p><strong>Files Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">documentFileId <br><code>uuid</code></td>
+<td style="text-align: left">The id of the down payment invoice PDF. The PDF will be created when the invoice turns from <strong>draft</strong> into status <strong>open</strong>. To download the invoice PDF file please use the files endpoint.</td>
+</tr>
+</tbody></table>
+
+<p><br/><br/></p>
+<h2 id='down-payment-invoices-endpoint-retrieve-a-down-payment-invoice'>Retrieve a Down Payment Invoice</h2>
+<blockquote>
+<p>Sample request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/down-payment-invoices/28af0062-5b19-11eb-9609-57d780e21aed
+-X GET
+-H <span class="s2">"Authorization: Bearer {accessToken}"</span>
+-H <span class="s2">"Content-Type: application/json"</span>
+-H <span class="s2">"Accept: application/json"</span>
+</code></pre>
+<blockquote>
+<p>Sample response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0333f0c7-2b89-4889-b64e-68b3ca3f167a"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-20T10:26:40.956+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-21T13:34:13.228+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE1129"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-01-20T10:26:26.565+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-02-19T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"supplement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"lineItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pauschaler Abschlag"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">559.66</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">666</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">666.00</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"totalPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalNetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">559.66</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalGrossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">666.00</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalTaxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">106.34</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"taxAmounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">106.34</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">559.66</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gross"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"discountRange"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"shippingConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vielen Dank für die gute Zusammenarbeit."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"documentFileId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa0388c5-20b5-49d7-96ce-0c08ac0482f4"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1. Abschlagsrechnung"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><code>GET {resourceurl}/v1/down-payment-invoices/{id}</code></p>
+
+<p>Returns the down payment invoice with id value <code>{id}</code>.</p>
+
+<!--
+Currently no mailing of down payments
+-->
+<h2 id='down-payment-invoices-endpoint-deeplink-to-a-down-payment-invoice'>Deeplink to a Down Payment Invoice</h2>
+<p>Down payment invoices can be directly accessed by permanent HTTPS links to either be viewed or to be edited. If a down payment invoice is not allowed to be edited, a redirection to the view page takes place.
+In case the given <code>id</code> does not exist, a redirection to the main voucher list takes place.</p>
+
+<p><strong>View URL</strong> <code>{appbaseurl}/permalink/invoices/view/{id}</code></p>
+
+<p><strong>Edit URL</strong> <code>{appbaseurl}/permalink/invoices/edit/{id}</code></p>
 <h1 id='event-subscriptions-endpoint'>Event Subscriptions Endpoint</h1><h2 id='event-subscriptions-endpoint-purpose'>Purpose</h2>
 <p>Using event subscriptions you will be notified about certain events on resources - e.g. you receive a notification every time a contact changes in lexoffice. This will make pull requests superfluous to keep your data synced between lexoffice and your application. The notifications are implemented as webhooks. Subscribing to an event simply requires the <em>event type</em> and your <em>callback url</em>. With the event-subscriptions endpoint you can manage your subscriptions within lexoffice.</p>
 
@@ -2288,6 +2943,26 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <td style="text-align: left">The status of an invoice has changed. Update the invoice by calling the <a href="#invoices-endpoint">invoices endpoint</a> to retrieve the new status.</td>
 </tr>
 <tr>
+<td>down-payment-invoices</td>
+<td style="text-align: left">down-payment-invoice.created</td>
+<td style="text-align: left">A new down payment invoice was created in lexoffice. Get the new down payment invoice by calling the <a href="#down-payment-invoices-endpoint">down payment invoices endpoint</a>.</td>
+</tr>
+<tr>
+<td>down-payment-invoices</td>
+<td style="text-align: left">down-payment-invoice.changed</td>
+<td style="text-align: left">A down payment invoice has changed. Get the updated down payment invoice by calling the <a href="#down-payment-invoices-endpoint">down payment invoices endpoint</a>. Please note that the status may also have changed.</td>
+</tr>
+<tr>
+<td>down-payment-invoices</td>
+<td style="text-align: left">down-payment-invoice.deleted</td>
+<td style="text-align: left">A down payment invoice was deleted in lexoffice.</td>
+</tr>
+<tr>
+<td>down-payment-invoices</td>
+<td style="text-align: left">down-payment-invoice.status.changed</td>
+<td style="text-align: left">The status of a down payment invoice has changed. Update the down payment invoice by calling the <a href="#down-payment-invoices-endpoint">down payment invoices endpoint</a> to retrieve the new status.</td>
+</tr>
+<tr>
 <td>order-confirmations</td>
 <td style="text-align: left">order-confirmation.created</td>
 <td style="text-align: left">A new order confirmation was created in lexoffice. Get the new order confirmation by calling the <a href="#order-confirmations-endpoint">order confirmations endpoint</a>.</td>
@@ -2305,7 +2980,7 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <tr>
 <td>order-confirmations</td>
 <td style="text-align: left">order-confirmation.status.changed</td>
-<td style="text-align: left">The status of an order confirmation has changed. Update the order confirmation by calling the <a href="#order-confirmations-endpoint">order confirmations endpoint</a> to retrieve the new status.</td>
+<td style="text-align: left">The status of an order confirmation has changed. Update the order confirmation by calling the <a href="#order-confirmations-endpoint">order confirmations endpoint</a> to retrieve the new status. <strong>Please note that at this time there are no status transitions triggering the status changed event for order confirmations. This event solely exists to provide symmetric events for all voucher types.</strong></td>
 </tr>
 <tr>
 <td>quotations</td>
@@ -2652,7 +3327,7 @@ Invoices can be created in draft or open (finalized) states.</p>
 
 <p>It is possible to create invoices with value-added tax such as of type net (<em>Netto</em>), gross (<em>Brutto</em>) or different types of vat-free. For tax-exempt organizations vat-free (<em>Steuerfrei</em>) invoices can be created exclusively. All other vat-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra-community supply (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), constructional services (<em>Bauleistungen gem. §13b UStG</em>) and external services (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>). For invoices to third countries, the tax types third party country service (<em>Dienstleistungen an Drittländer</em>) and third party country delivery (<em>Ausfuhrlieferungen an Drittländer</em>) are possible.</p>
 
-<p>Invoices for down payment (<em>Abschlagsrechnung</em>) are not supported via the API.</p>
+<p>Read-only support for invoices for down payment (<em>Abschlagsrechnung</em>) is provided by the <a href="#down-payment-invoice-endpoint">Down Payment Invoice Endpoint</a>.</p>
 <h2 id='invoices-endpoint-invoices-properties'>Invoices Properties</h2>
 <blockquote>
 <p>Sample of an invoice with multiple line items. Fields with no content are displayed with &quot;null&quot; just for demonstration purposes.</p>
@@ -2763,6 +3438,7 @@ Invoices can be created in draft or open (finalized) states.</p>
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -2789,7 +3465,7 @@ Invoices can be created in draft or open (finalized) states.</p>
 </tr>
 </thead><tbody>
 <tr>
-<td style="text-align: right">id  <br><code>uuid</code></td>
+<td style="text-align: right">id <br><code>uuid</code></td>
 <td style="text-align: left">Unique id generated on creation by lexoffice. <br><em>Read-only.</em></td>
 </tr>
 <tr>
@@ -2826,7 +3502,7 @@ Invoices can be created in draft or open (finalized) states.</p>
 </tr>
 <tr>
 <td style="text-align: right">voucherDate <br><code>dateTime</code></td>
-<td style="text-align: left">The date of invoice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
+<td style="text-align: left">The date of the invoice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
 </tr>
 <tr>
 <td style="text-align: right">dueDate <br><code>dateTime</code></td>
@@ -2867,6 +3543,18 @@ Invoices can be created in draft or open (finalized) states.</p>
 <tr>
 <td style="text-align: right">title <br><code>string</code></td>
 <td style="text-align: left">(Optional) A title text. The organization&#39;s default is used if no value was sent.</td>
+</tr>
+<tr>
+<td style="text-align: right">closingInvoice <br><code>boolean</code></td>
+<td style="text-align: left">Denotes whether this invoice is a closing invoice (<a href="#invoices-endpoint-closing-invoices">Schlussrechnung</a>)<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">claimedGrossAmount <br><code>number</code></td>
+<td style="text-align: left">The remaining gross amount (see <a href="#invoices-endpoint-closing-invoices">description below</a>)<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-downPaymentDeductions-details">downPaymentDeductions</a> <br><code>list</code></td>
+<td style="text-align: left">The down payments connected to this closing invoice.<br><em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">introduction <br><code>string</code></td>
@@ -3119,6 +3807,10 @@ Invoices can be created in draft or open (finalized) states.</p>
 <td style="text-align: left">A textual note regarding the payment conditions.</td>
 </tr>
 <tr>
+<td style="text-align: right">paymentTermLabelTemplate <br><code>string</code></td>
+<td style="text-align: left">A textual note regarding the payment conditions. This label template may contain variables such as the discount range. These variables are enclosed in curly braces, e.g., <em>{discountRange}</em>.&#39;<br><em>Read-only.</em></td>
+</tr>
+<tr>
 <td style="text-align: right">paymentTermDuration <br><code>integer</code></td>
 <td style="text-align: left">The time left (in days) until the payment must be conducted.</td>
 </tr>
@@ -3172,6 +3864,58 @@ Invoices can be created in draft or open (finalized) states.</p>
 </tr>
 </tbody></table>
 
+<div id="invoices-downPaymentDeductions-details"></div>
+
+<p><strong>Down Payment Deductions Details</strong></p>
+
+<p>Use the <a href="#down-payment-invoices-endpoint">Down Payment Invoices endpoint</a> to retrieve details of a down payment invoice.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The down payment deduction&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the down payment. Currently, always contains the string <code>downpaymentinvoice</code>.</td>
+</tr>
+<tr>
+<td style="text-align: right">title <br><code>string</code></td>
+<td style="text-align: left">Down payment&#39;s title</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">Down payment&#39;s voucher number</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherDate</td>
+<td style="text-align: left">Down payment&#39;s date in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
+</tr>
+<tr>
+<td style="text-align: right">receivedGrossAmount <br><code>number</code></td>
+<td style="text-align: left">The gross amount received for this down payment invoice</td>
+</tr>
+<tr>
+<td style="text-align: right">receivedNetAmount <br><code>number</code></td>
+<td style="text-align: left">The net amount received for this down payment invoice</td>
+</tr>
+<tr>
+<td style="text-align: right">receivedTaxAmount <br><code>number</code></td>
+<td style="text-align: left">Tax received for this down payment invoice</td>
+</tr>
+<tr>
+<td style="text-align: right">taxRatePercentage <br><code>number</code></td>
+<td style="text-align: left">The tax rate used for amount calculation in this down payment invoice</td>
+</tr>
+</tbody></table>
+
+<p>As closing invoices are currently read-only, all of the attributes listed above are read-only.</p>
+
 <div id="invoices-files-details"></div>
 
 <p><strong>Files Details</strong></p>
@@ -3213,6 +3957,16 @@ If a buyer reference is specified, but the linked contact has no buyer reference
 <td style="text-align: left">The customer&#39;s <em>Leitweg-ID</em> for XRechnung enabled invoices</td>
 </tr>
 </tbody></table>
+<h2 id='invoices-endpoint-closing-invoices'>Closing invoices</h2>
+<p>lexoffice provides closing invoices (<em>Schlussrechnungen</em>), representing the last invoice for a project, and referencing a number of down payments (<em>Abschlagsrechnungen</em>). Closing invoices have a number of unique properties:</p>
+
+<ul>
+<li>The <code>closingInvoice</code> attribute is true</li>
+<li>They provide a <code>claimedGrossAmount</code> attribute, reflecting the amount yet to be claimed (i.e., the total gross amount minus the sum of the received gross amounts in all related down payments)</li>
+<li>They contain a list of <a href="#invoices-downPaymentDeductions-details">down payment objects</a></li>
+</ul>
+
+<p>At the moment, the API only provides read only access to closing invoices; the three attributes are read-only.</p>
 <h2 id='invoices-endpoint-create-an-invoice'>Create an Invoice</h2>
 <blockquote>
 <p>Sample Request to create an invoice</p>
@@ -3649,6 +4403,7 @@ for type <strong>custom</strong>, but will be ignored for type
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -3812,6 +4567,7 @@ Order confirmations are always created in draft mode and do not need to be final
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -4160,6 +4916,10 @@ Order confirmations are always created in draft mode and do not need to be final
 <tr>
 <td style="text-align: right">paymentTermLabel <br><code>string</code></td>
 <td style="text-align: left">A textual note regarding the payment conditions.</td>
+</tr>
+<tr>
+<td style="text-align: right">paymentTermLabelTemplate <br><code>string</code></td>
+<td style="text-align: left">A textual note regarding the payment conditions. This label template may contain variables such as the discount range. These variables are enclosed in curly braces, e.g., <em>{discountRange}</em>.&#39;<br><em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">paymentTermDuration <br><code>integer</code></td>
@@ -4656,6 +5416,7 @@ for type <strong>custom</strong>, but will be ignored for type
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -4757,7 +5518,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 </tr>
 <tr>
 <td style="text-align: right">voucherType <br><code>enum</code></td>
-<td>Contains the voucher type: <em>salesinvoice</em>, <em>salescreditnote</em>, <em>purchaseinvoice</em>, <em>purchasecreditnote</em>, <em>invoice</em>, <em>creditnote</em></td>
+<td>Contains the voucher type: <em>salesinvoice</em>, <em>salescreditnote</em>, <em>purchaseinvoice</em>, <em>purchasecreditnote</em>, <em>invoice</em>, <em>downpaymentinvoice</em>, <em>creditnote</em></td>
 </tr>
 <tr>
 <td style="text-align: right">voucherStatus <br><code>enum</code></td>
@@ -4768,7 +5529,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <p>Please note that the payment status refers to the underlying voucher type. Due to this, an unbalanced (sales) credit note bears an <strong>openRevenue</strong> payment status, while an unbalanced purchase credit note is in state <strong>openExpense</strong>.
 In addition, voided vouchers behave as paid vouchers and are returned as <strong>balanced</strong> with a zero open amount.</p>
 
-<p>Further information including total amounts about the voucher is available in the respective endpoints (<a href="#vouchers-endpoint">vouchers</a>, <a href="#invoices-endpoint">invoices</a>, <a href="#credit-notes-endpoint">credit-notes</a>).</p>
+<p>Further information including total amounts about the voucher is available in the respective endpoints (<a href="#vouchers-endpoint">vouchers</a>, <a href="#invoices-endpoint">invoices</a>, <a href="#down-payment-invoices-endpoint">down-payment-invoices</a>, <a href="#credit-notes-endpoint">credit-notes</a>).</p>
 
 <aside class="warning">
 The payments endpoint will return an error code for vouchers/voucher types that do not provide payment information (e.g. quotations, vouchers in draft state, credit notes related to invoices, etc.).
@@ -4796,6 +5557,92 @@ The payments endpoint will return an error code for vouchers/voucher types that 
 <p><code>GET {resourceurl}/v1/payments/{voucherId}</code></p>
 
 <p>The following sample shows how to retrieve payment information of a voucher. It is required to replace the placeholder <code>{accessToken}</code> before sending the request.</p>
+<h1 id='payment-conditions-endpoint'>Payment Conditions Endpoint</h1><h2 id='payment-conditions-endpoint-purpose'>Purpose</h2>
+<p>The payment conditions endpoint provides read access to the list of payment conditions configured in lexoffice.</p>
+<h2 id='payment-conditions-endpoint-payment-conditions-properties'>Payment Conditions properties</h2>
+<p>The payment conditions are optional and the organization&#39;s or contact-specific defaults will be used if ommitted.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>UUID</code></td>
+<td style="text-align: left">The payment conditions&#39; identifier</td>
+</tr>
+<tr>
+<td style="text-align: right">organizationDefault <br><code>boolean</code></td>
+<td style="text-align: left">True for one payment condition object that was selected by the user as her default, false for all others</td>
+</tr>
+<tr>
+<td style="text-align: right">paymentTermLabelTemplate <br><code>string</code></td>
+<td style="text-align: left">A textual note regarding the payment conditions. This label template may contain variables such as the discount range. These variables are enclosed in curly braces, e.g., <em>{discountRange}</em>.&#39;<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">paymentTermDuration <br><code>integer</code></td>
+<td style="text-align: left">The time left (in days) until the payment must be conducted.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#payment-conditions-paymentDiscountConditions-details">paymentDiscountConditions</a> <br><code>list</code></td>
+<td style="text-align: left">The payment discount conditions for the payment condition.</td>
+</tr>
+</tbody></table>
+
+<div id="payment-conditions-paymentDiscountConditions-details"></div>
+
+<p><strong>Payment Discount Conditions Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">discountPercentage <br><code>number</code></td>
+<td style="text-align: left">The discount offered in return for payment within the <strong>discountRange</strong>. The value can contain up to 2 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">discountRange <br><code>integer</code></td>
+<td style="text-align: left">The time left (in days) the discount is valid.</td>
+</tr>
+</tbody></table>
+<h2 id='payment-conditions-endpoint-retrieve-list-of-payment-conditions'>Retrieve List of Payment Conditions</h2>
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/payment-conditions
+-X GET
+-H <span class="s2">"Authorization: Bearer {accessToken}"</span>
+-H <span class="s2">"Accept: application/json"</span>
+</code></pre>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"65be0654-60b6-11eb-b66d-5731dbc9bf6b"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zahlbar in {paymentRange} Tagen, rein netto ohne Abzug"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"organizationDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fcc62d1-0925-456d-890b-779b56e7289e"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"discountRange"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.00</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"organizationDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p><code>GET {resourceurl}/v1/payment-conditions</code></p>
+
+<p>The following sample shows how to retrieve list of currently configured payment conditions. It is required to replace the placeholder <code>{accessToken}</code> before sending the request.</p>
 <h1 id='profile-endpoint'>Profile Endpoint</h1><h2 id='profile-endpoint-purpose'>Purpose</h2>
 <p>The profile endpoint provides read access to basic profile information such as company name, user id, name and email of the connected lexoffice account.</p>
 <h2 id='profile-endpoint-profile-properties'>Profile Properties</h2>
@@ -4996,6 +5843,7 @@ Quotations can be created as a draft or finalized in open mode.</p>
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
         </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -5349,6 +6197,10 @@ Quotations can be created as a draft or finalized in open mode.</p>
 <tr>
 <td style="text-align: right">paymentTermLabel <br><code>string</code></td>
 <td style="text-align: left">A textual note regarding the payment conditions.</td>
+</tr>
+<tr>
+<td style="text-align: right">paymentTermLabelTemplate <br><code>string</code></td>
+<td style="text-align: left">A textual note regarding the payment conditions. This label template may contain variables such as the discount range. These variables are enclosed in curly braces, e.g., <em>{discountRange}</em>.&#39;<br><em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">paymentTermDuration <br><code>integer</code></td>
@@ -5812,6 +6664,7 @@ for type <strong>custom</strong>, but will be ignored for type
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
         </span><span class="s2">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
@@ -5861,7 +6714,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <p><strong>Edit URL</strong> <code>{appbaseurl}/permalink/quotations/edit/{id}</code></p>
 <h1 id='voucherlist-endpoint'>Voucherlist Endpoint</h1><h2 id='voucherlist-endpoint-purpose'>Purpose</h2>
 <p>The voucherlist endpoint provides read access to meta data of
-<a href="#invoices-endpoint">invoices</a>, <a href="#credit-notes-endpoint">credit notes</a>, <a href="#order-confirmations-endpoint">order confirmations</a>, and <a href="#quotations-endpoint">quotations</a>.
+(bookkeeping) <a href="#vouchers-endpoint">vouchers</a> (e.g. salesinvoices, salescreditnotes), <a href="#invoices-endpoint">invoices</a> (including <a href="#down-payment-invoices-endpoint">down payment invoices</a>), <a href="#credit-notes-endpoint">credit notes</a>, <a href="#order-confirmations-endpoint">order confirmations</a>, and <a href="#quotations-endpoint">quotations</a>.
 For filters that can be applied to the list see below. Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints.</p>
 <h2 id='voucherlist-endpoint-voucherlist-properties'>Voucherlist Properties</h2>
 <p>This section describes the properties of the meta data object for vouchers returned by this endpoint.</p>
@@ -5878,11 +6731,11 @@ For filters that can be applied to the list see below. Details concerning items 
 </tr>
 <tr>
 <td style="text-align: right">voucherType <br><code>enum</code></td>
-<td>Type of the voucher. Possible values are <strong>salesinvoice</strong>, <strong>salescreditnote</strong>, <strong>purchaseinvoice</strong>, <strong>purchasecreditnote</strong>, <strong>invoice</strong>, <strong>creditnote</strong>, <strong>orderconfirmation</strong>, and <strong>quotation</strong>.</td>
+<td>Type of the voucher. Possible values are <strong>salesinvoice</strong>, <strong>salescreditnote</strong>, <strong>purchaseinvoice</strong>, <strong>purchasecreditnote</strong>, <strong>invoice</strong>, <strong>downpaymentinvoice</strong>, <strong>creditnote</strong>, <strong>orderconfirmation</strong>, and <strong>quotation</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">voucherStatus <br><code>enum</code></td>
-<td>Showing the current workflow status of the voucher in lexoffice. Possible values are <strong>draft</strong>, <strong>open</strong>, <strong>paid</strong>, <strong>paidoff</strong>, <strong>voided</strong>, <strong>overdue</strong>, <strong>accepted</strong>, and <strong>rejected</strong>.</td>
+<td>Showing the current workflow status of the voucher in lexoffice. Possible values are <strong>draft</strong>, <strong>open</strong>, <strong>paid</strong>, <strong>paidoff</strong>, <strong>voided</strong>, <strong>transferred</strong>, <strong>sepadebit</strong>, <strong>overdue</strong>, <strong>accepted</strong>, and <strong>rejected</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">voucherNumber <br><code>string</code></td>
@@ -5907,6 +6760,10 @@ For filters that can be applied to the list see below. Details concerning items 
 <tr>
 <td style="text-align: right">totalAmount <br><code>number</code></td>
 <td>Total amount of the voucher (may include taxes). Format is <strong>##.00</strong> <em>(119.00)</em>.</td>
+</tr>
+<tr>
+<td style="text-align: right">openAmount <br><code>number</code></td>
+<td>Open amount of the voucher. May be null (e.g., for invoices in draft, or various non-invoice vouchers). Format is <strong>##.00</strong> <em>(123.00)</em>.</td>
 </tr>
 <tr>
 <td style="text-align: right">currency <br><code>enum</code></td>
@@ -5964,6 +6821,10 @@ For filters that can be applied to the list see below. Details concerning items 
 <td style="text-align: right">quotation</td>
 <td><a href="#quotations-endpoint-retrieve-a-quotation">Quotations Endpoint</a></td>
 </tr>
+<tr>
+<td style="text-align: right">downpaymentinvoice</td>
+<td><a href="#down-payment-invoices-endpoint-retrieve-a-down-payment-invoice">Down Payment Invoice Endpoint</a></td>
+</tr>
 </tbody></table>
 
 <p><strong>Filter parameter voucherStatus</strong></p>
@@ -5999,6 +6860,14 @@ For filters that can be applied to the list see below. Details concerning items 
 <tr>
 <td style="text-align: right">voided</td>
 <td>Voucher is cancelled.</td>
+</tr>
+<tr>
+<td style="text-align: right">transferred</td>
+<td>Voucher is transferred via the lexoffice online banking connector. When the payment is handled by the bank this status changes to paid.</td>
+</tr>
+<tr>
+<td style="text-align: right">sepadebit</td>
+<td>The payment has already been authorized or the amount will be collected by direct debit (direct withdrawal). When the payment is handled by the bank this status changes to paid.</td>
 </tr>
 <tr>
 <td style="text-align: right">accepted</td>
@@ -6067,7 +6936,7 @@ For filters that can be applied to the list see below. Details concerning items 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/voucherlist?voucherType<span class="o">=</span>invoice&amp;voucherStatus<span class="o">=</span>open
+<pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/voucherlist?voucherType<span class="o">=</span>purchaseinvoice,invoice&amp;voucherStatus<span class="o">=</span>open
 -X GET
 -H <span class="s2">"Authorization: Bearer {accessToken}"</span>
 -H <span class="s2">"Accept: application/json"</span>
@@ -6078,6 +6947,20 @@ For filters that can be applied to the list see below. Details concerning items 
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57b8d457-1fb6-4ae9-944a-9fe763da2aff"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchaseinvoice"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2010096"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-14T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-22T12:36:22.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-14T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sammellieferant"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">80.04</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">80.04</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f3d3ae48-30d9-4b56-973a-b3159cbe743c"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
@@ -6087,6 +6970,7 @@ For filters that can be applied to the list see below. Details concerning items 
             </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-13T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterfrau, Erika"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.8</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">74.8</span><span class="p">,</span><span class="w">
             </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
         </span><span class="p">},</span><span class="w">
@@ -6100,6 +6984,7 @@ For filters that can be applied to the list see below. Details concerning items 
             </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-06T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test GmbH"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">498.8</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">498.8</span><span class="p">,</span><span class="w">
             </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -6107,8 +6992,8 @@ For filters that can be applied to the list see below. Details concerning items 
     </span><span class="s2">"first"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"numberOfElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"numberOfElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
     </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
     </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="s2">"sort"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -7281,8 +8166,8 @@ Invoices addressed to German public authorities may mandatorily be required to b
 <li><a href="https://support.lexoffice.de/de-form/articles/4582325-wie-erstelle-ich-eine-xrechnung" target="_blank">Creating a XRechnung with lexoffice</a></li>
 </ul>
 <h2 id='faq-country-codes'>Country codes</h2>
-<p>Lexoffice supports ISO 3166 alpha2 country codes for addresses, e.g. in contacts, or within vouchers etc. However, certain European regions require divergent tax handling, despite being
-part of a EU country. This includes, e.g., the Spanish Canary Islands.</p>
+<p>Lexoffice supports <a href="https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes">ISO 3166</a> alpha2 country codes for addresses, e.g. in contacts, or within vouchers etc.
+However, certain European regions require divergent tax handling, despite being part of a EU country. This includes, e.g., the Spanish Canary Islands.</p>
 
 <p>Support for these countries is provided by extended ISO-3116-2 country codes such as <code>ES_CN</code> (Canary Islands) or <code>GR_69</code> (Mount Athos).</p>
 
@@ -7332,6 +8217,10 @@ part of a EU country. This includes, e.g., the Spanish Canary Islands.</p>
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>09.02.2021 - Added the new <strong>paymentTermsLabelTemplate</strong> attribute in various sales voucher endpoints, and renamed attribute <strong>paymentTermsLabel</strong> to <strong>paymentTermsLabelTemplate</strong> in <a href="#payment-conditions-endpoint">payment-conditions endpoint</a></li>
+<li>02.02.2021 - Added <strong>new endpoint <a href="#payment-conditions-endpoint">payment-conditions</a></strong></li>
+<li>01.02.2021 - Added read-only access to <strong><a href="#invoices-endpoint-closing-invoices">closing invoices</a></strong> through the <a href="#invoices-endpoint">invoices endpoint</a>, to down payment invoices through the newly created <strong><a href="#down-payment-invoices-endpoint">down payment invoice endpoint</a></strong>, and their listing in the <strong><a href="#voucherlist-endpoint">voucher list</a></strong></li>
+<li>12.01.2021 - Added <strong>new endpoint countries (GET)</strong>.</li>
 <li>21.12.2020 - Fixed files endpoint where the Content-Disposition header including the filename for downloads was missing.</li>
 <li>17.12.2020 - Added support for the creation of an XRechnung (standard for electronic transmission of invoices to public authorities). Extended endpoints are invoices, contacts and files. For more info see <a href="#faq-xrechnung">FAQ</a>.</li>
 <li>02.11.2020 - <strong>BREAKING</strong>: Changed contacts api allowing any salutations up to 25 characters and made it an optional property.</li>

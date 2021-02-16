@@ -210,8 +210,8 @@ impl ModelStruct {
         let implementation = if let Some(id_name) = self.has_id() {
             let id_name = format_ident!("{}", id_name);
             quote! {
-                impl crate::model_builder::request::HasId for #name {
-                    fn id(&self) -> &crate::model_builder::marker::ReadOnly<uuid::Uuid> {
+                impl crate::request::HasId for #name {
+                    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
                         &self.#id_name
                     }
                 }

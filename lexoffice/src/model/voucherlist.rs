@@ -1,4 +1,4 @@
-#![doc = "The voucherlist endpoint provides read access to meta data of [invoices](#invoices-endpoint), [credit notes](#credit-notes-endpoint), [order confirmations](#order-confirmations-endpoint), and [quotations](#quotations-endpoint). For filters that can be applied to the list see below. Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints."]
+#![doc = "The voucherlist endpoint provides read access to meta data of (bookkeeping) [vouchers](#vouchers-endpoint) (e.g. salesinvoices, salescreditnotes), [invoices](#invoices-endpoint) (including [down payment invoices](#down-payment-invoices-endpoint)), [credit notes](#credit-notes-endpoint), [order confirmations](#order-confirmations-endpoint), and [quotations](#quotations-endpoint). For filters that can be applied to the list see below. Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -14,6 +14,10 @@ pub enum VoucherStatus {
     Paidoff,
     #[serde(rename = "voided")]
     Voided,
+    #[serde(rename = "transferred")]
+    Transferred,
+    #[serde(rename = "sepadebit")]
+    Sepadebit,
     #[serde(rename = "overdue")]
     Overdue,
     #[serde(rename = "accepted")]
@@ -40,6 +44,8 @@ pub enum VoucherType {
     Purchasecreditnote,
     #[serde(rename = "invoice")]
     Invoice,
+    #[serde(rename = "downpaymentinvoice")]
+    Downpaymentinvoice,
     #[serde(rename = "creditnote")]
     Creditnote,
     #[serde(rename = "orderconfirmation")]
@@ -61,11 +67,11 @@ pub struct Voucherlist {
     #[doc = "Unique id of the voucher in lexoffice."]
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "Type of the voucher. Possible values are **salesinvoice**, **salescreditnote**, **purchaseinvoice**, **purchasecreditnote**, **invoice**, **creditnote**, **orderconfirmation**, and **quotation**."]
+    #[doc = "Type of the voucher. Possible values are **salesinvoice**, **salescreditnote**, **purchaseinvoice**, **purchasecreditnote**, **invoice**, **downpaymentinvoice**, **creditnote**, **orderconfirmation**, and **quotation**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub voucher_type: Option<VoucherType>,
-    #[doc = "Showing the current workflow status of the voucher in lexoffice. Possible values are **draft**, **open**, **paid**, **paidoff**, **voided**, **overdue**, **accepted**, and **rejected**."]
+    #[doc = "Showing the current workflow status of the voucher in lexoffice. Possible values are **draft**, **open**, **paid**, **paidoff**, **voided**, **transferred**, **sepadebit**, **overdue**, **accepted**, and **rejected**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub voucher_status: Option<VoucherStatus>,
@@ -73,15 +79,15 @@ pub struct Voucherlist {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub voucher_number: Option<String>,
-    #[doc = "Date when the voucher was issued. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
+    #[doc = "Date when the voucher was issued. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub voucher_date: Option<crate::types::DateTime>,
-    #[doc = "Date when the voucher was last changed (or status changed) in lexoffice. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
+    #[doc = "Date when the voucher was last changed (or status changed) in lexoffice. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub updated_date: Option<crate::types::DateTime>,
-    #[doc = "Date when the voucher's payment has to be settled. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020\\-02\\-21T00:00:00.000\\+01:00*)."]
+    #[doc = "Date when the voucher's payment has to be settled. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub due_date: Option<crate::types::DateTime>,
@@ -93,6 +99,10 @@ pub struct Voucherlist {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub total_amount: Option<f64>,
+    #[doc = "Open amount of the voucher. May be null (e.g., for invoices in draft, or various non-invoice vouchers). Format is **##.00** *(123.00)*."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub open_amount: Option<f64>,
     #[doc = "Currency of the voucher. Only possible value is **EUR**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

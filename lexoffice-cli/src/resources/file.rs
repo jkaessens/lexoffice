@@ -52,7 +52,6 @@ pub struct GetOpt {
 impl GetOpt {
     pub async fn exec(&self, request: Request<File>) -> Result<()> {
         let response = request.by_id_str(&self.id).await?;
-        println!("{:?}", &self);
         let output = if let Some(output) = &self.output {
             output.clone()
         } else {

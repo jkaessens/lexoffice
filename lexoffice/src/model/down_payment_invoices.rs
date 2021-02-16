@@ -1,4 +1,5 @@
-#![doc = "This endpoint provides read and write access to quotations and also the possibility to render the document as a PDF in order to download it. Quotations can be created as a draft or finalized in open mode.\n\nPlease note that Public API connections that were established prior to the release of the quotations endpoint (see [Change Log](#change-log)) are not automatically granted the permission for quotations access. Re-generate a new Public API key to benefit from quotations access.\n\nIt is possible to create quotations with value-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat-free. For tax-exempt organizations vat-free (*Steuerfrei*) quotations can be created exclusively. All other vat-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For quotations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
+#![doc = "This endpoint provides read-only access to down payment invoices."]
+use crate::model::invoices::ShippingConditions;
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -8,10 +9,10 @@ pub enum VoucherStatus {
     Draft,
     #[serde(rename = "open")]
     Open,
-    #[serde(rename = "accepted")]
-    Accepted,
-    #[serde(rename = "rejected")]
-    Rejected,
+    #[serde(rename = "paid")]
+    Paid,
+    #[serde(rename = "voided")]
+    Voided,
 }
 impl std::str::FromStr for VoucherStatus {
     type Err = serde_plain::Error;
@@ -63,63 +64,78 @@ impl std::str::FromStr for Type {
         serde_plain::from_str::<Self>(s)
     }
 }
+#[doc = "Most properties of down payment invoices are identical with the ones of regular invoices.\n\nAll attributes are read-only, as down payment invoices cannot be created or modified by means of the API."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Quotation {
-    #[doc = "Unique id generated on creation by lexoffice.   \n*Read-only.*"]
+pub struct DownPaymentInvoice {
+    #[doc = "Unique id generated on creation by lexoffice."]
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "Unique id of the organization the quotation belongs to.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub organization_id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "The instant of time when the quotation was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
+    #[doc = "Unique id of the organization the down payment invoice belongs to."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub organization_id: Option<uuid::Uuid>,
+    #[doc = "The instant of time when the down payment invoice was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "The instant of time when the quotation was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
+    #[doc = "The instant of time when the down payment invoice was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub updated_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "The instant of time when the quotation will expire. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
-    #[builder(setter(into))]
-    pub expiration_date: crate::types::DateTime,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
-    #[doc = "Specifies the language of the quotation which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German **de** (default) and English **en**."]
+    #[doc = "Specifies the language of the down payment invoice which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German **de** (default) and English **en**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub language: Option<String>,
-    #[doc = "Specifies if the quotation is only available in the archive in lexoffice.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub archived: crate::marker::ReadOnly<bool>,
-    #[doc = "Specifies the status of the quotation. Possible values are **draft** (is editable), **open** (finalized and no longer editable but yet neither accepted nor rejected), **accepted** (has been accepted by the customer), **rejected** (rejected by the customer)  \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
-    #[doc = "The specific number a quotation is aware of. This consecutive number is set by lexoffice on creation.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub voucher_number: crate::marker::ReadOnly<String>,
-    #[doc = "The date of quotation in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
-    #[builder(setter(into))]
-    pub voucher_date: crate::types::DateTime,
-    #[doc = "The address of the quotation recipient. For details see below."]
-    #[builder(setter(into))]
-    pub address: Address,
-    #[doc = "The items of the quotation. For details see below."]
-    #[builder(setter(into))]
-    pub line_items: Vec<LineItems>,
-    #[doc = "The total price of the quotation. For details see below."]
-    #[builder(setter(into))]
-    pub total_price: TotalPrice,
-    #[doc = "The tax amounts for each tax rate. Please note: As done with every read-only element or object all submitted content (POST) will be ignored. For details see below.   \n*Read-only.*"]
+    #[doc = "Specifies if the down payment invoice is only available in the archive in lexoffice."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub archived: Option<bool>,
+    #[doc = "Specifies the status of the down payment invoice. Possible values are **draft** (is editable), **open** (finalized and no longer editable but yet unpaid or only partially paid), **paid** (has been fully paid), **voided** (cancelled)"]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub voucher_status: Option<VoucherStatus>,
+    #[doc = "The specific number a down payment invoice is aware of. This consecutive number is set by lexoffice on creation."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub voucher_number: Option<String>,
+    #[doc = "The date of the down payment invoice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub voucher_date: Option<crate::types::DateTime>,
+    #[doc = "Sets the date on which the down payment invoice is payable before becoming overdue in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub due_date: Option<crate::types::DateTime>,
+    #[doc = "The address of the down payment invoice recipient. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub address: Option<Address>,
+    #[doc = "The items of the down payment invoice. For down payment invoices, this list contains exactly one item. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub line_items: Option<Vec<LineItems>>,
+    #[doc = "The total price of the down payment invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub total_price: Option<TotalPrice>,
+    #[doc = "The tax amounts for each tax rate. Please note: As done with every read-only element or object all submitted content (POST) will be ignored. For details see below."]
     #[builder(default, setter(skip))]
     pub tax_amounts: crate::marker::ReadOnly<Vec<TaxAmounts>>,
-    #[doc = "The tax conditions of the quotation. For details see below."]
-    #[builder(setter(into))]
-    pub tax_conditions: TaxConditions,
-    #[doc = "The payment conditions of the quotation. The organization's (or contact-specific) default is used if no value was send. For details see below."]
+    #[doc = "The tax conditions of the down payment invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_conditions: Option<TaxConditions>,
+    #[doc = "The payment conditions of the down payment invoice. The organization's (or contact-specific) default is used if no value was send. For details see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_conditions: Option<PaymentConditions>,
+    #[doc = "The shipping conditions of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub shipping_conditions: Option<ShippingConditions>,
     #[doc = "(Optional) A title text. The organization's default is used if no value was sent."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -132,25 +148,26 @@ pub struct Quotation {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub remark: Option<String>,
-    #[doc = "The document id for the PDF version of the quotation. For details see below.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub files: crate::marker::ReadOnly<Files>,
+    #[doc = "The document id for the PDF version of the down payment invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub files: Option<Files>,
 }
-impl crate::request::HasId for Quotation {
+impl crate::request::HasId for DownPaymentInvoice {
     fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }
-#[doc = "There are two main options to address the recipient of a quotation. First, using an existing lexoffice contact or second creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific quotation. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.\n\nOtherwise, a **new address** for the quotation recipient can be created. That type of address is called a \"one-time address\". A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new quotation.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
+#[doc = "There are two main options to address the recipient of a down payment invoice. First, using an existing lexoffice contact or second creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific down payment invoice. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.\n\nOtherwise, a **new address** for the down payment invoice recipient can be created. That type of address is called a \"one-time address\". A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new down payment invoice.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Address {
-    #[doc = "If the quotation recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact."]
+    #[doc = "If the down payment invoice recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub contact_id: Option<uuid::Uuid>,
-    #[doc = "The name of the quotation recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}."]
+    #[doc = "The name of the down payment invoice recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub name: Option<String>,
@@ -186,11 +203,13 @@ pub struct LineItems {
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The type of the item. Possible values are **service** (the line item is related to a supply of services), **material** (the line item is related to a physical product), **custom** (an item without reference in lexoffice and has no id) or **text** (contains only a name and/or a description for informative purposes)."]
-    #[builder(setter(into))]
-    pub _type: Type,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub _type: Option<Type>,
     #[doc = "The name of the item."]
-    #[builder(setter(into))]
-    pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub name: Option<String>,
     #[doc = "The description of the item."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -214,18 +233,6 @@ pub struct LineItems {
     #[doc = "The total price of this line item. Depending by the selected *taxType* in *taxConditions*, the amount must be given either as net or gross. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub line_item_amount: crate::marker::ReadOnly<f64>,
-    #[doc = "A list of subitems of this line item. At this time, all `subItems` need to be alternative items."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub sub_items: Option<Vec<LineItems>>,
-    #[doc = "If true, the line item is optional (\"Optionale Position\"). Not a valid attribute for subitems. Defaults to false if unset"]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub optional: Option<bool>,
-    #[doc = "If true, the line item is an alternative position for its parent item. Currently only valid for subitems, and mandatory to be true in that case. Defaults to false if unset"]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub alternative: Option<bool>,
 }
 impl crate::request::HasId for LineItems {
     fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
@@ -237,8 +244,9 @@ impl crate::request::HasId for LineItems {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct UnitPrice {
     #[doc = "The currency of the price. Currently only **EUR** is supported."]
-    #[builder(setter(into))]
-    pub currency: crate::types::Currency,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub currency: Option<crate::types::Currency>,
     #[doc = "The net price of the unit price. The value can contain up to 4 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -248,16 +256,18 @@ pub struct UnitPrice {
     #[builder(default, setter(strip_option))]
     pub gross_amount: Option<f64>,
     #[doc = "The tax rate of the unit price. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat-free sales vouchers the tax rate percentage must be **0**."]
-    #[builder(setter(into))]
-    pub tax_rate_percentage: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_rate_percentage: Option<f64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TotalPrice {
     #[doc = "The currency of the total price. Currently only **EUR** is supported."]
-    #[builder(setter(into))]
-    pub currency: crate::types::Currency,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub currency: Option<crate::types::Currency>,
     #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub total_net_amount: crate::marker::ReadOnly<f64>,
@@ -297,7 +307,7 @@ pub struct TaxAmounts {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxConditions {
-    #[doc = "The tax type for the quotation. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
+    #[doc = "The tax type for the down payment invoice. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
@@ -322,29 +332,12 @@ pub struct PaymentConditions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_term_duration: Option<i64>,
-    #[doc = "The payment discount conditions for the quotation."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub payment_discount_conditions: Option<Vec<PaymentDiscountConditions>>,
-}
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
-#[builder(doc)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct PaymentDiscountConditions {
-    #[doc = "The discount offered in return for payment within the **discountRange**. The value can contain up to 2 decimals."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub discount_percentage: Option<f64>,
-    #[doc = "The time left (in days) the discount is valid."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub discount_range: Option<i64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Files {
-    #[doc = "The id of the quotation PDF. The PDF will be created when the quotation turns from **draft** into status **open**. To download the quotation PDF file please use the files endpoint."]
+    #[doc = "The id of the down payment invoice PDF. The PDF will be created when the invoice turns from **draft** into status **open**. To download the invoice PDF file please use the files endpoint."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub document_file_id: Option<uuid::Uuid>,

@@ -1,3 +1,4 @@
+use inflector::string::singularize::to_singular;
 use proc_macro2::TokenStream;
 use quote::format_ident;
 use quote::quote;
@@ -12,7 +13,6 @@ use tools::model_builder::io;
 use tools::model_builder::io::write_token_stream;
 use tools::model_builder::modules::ModelModule;
 use tools::model_builder::result::Result;
-use tools::model_builder::utils::StringUtils;
 
 fn create_mod_rs(modules: &[ModelModule]) -> TokenStream {
     let reexports = modules
@@ -21,7 +21,7 @@ fn create_mod_rs(modules: &[ModelModule]) -> TokenStream {
             format!(
                 "{}::{}",
                 x.type_name(),
-                string_morph::to_pascal_case(&x.type_name().remove_suffix("s"))
+                to_singular(&string_morph::to_pascal_case(&x.type_name()))
             )
         })
         .map(|x| TokenStream::from_str(&x).unwrap())
@@ -51,7 +51,10 @@ fn main() -> Result<()> {
     let html = io::load_docs()?;
     let document = Html::parse_document(&html);
     let mut modules = vec![];
-    let dir = PathBuf::from_str(&env::args().nth(1).unwrap())?;
+    let dir = PathBuf::from_str(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/../lexoffice/src/model"
+    ))?;
     let _ = fs::create_dir(&dir);
 
     for header in document.select(&content_selector) {

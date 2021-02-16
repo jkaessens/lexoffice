@@ -44,7 +44,7 @@ pub struct Payment {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_status: Option<PaymentStatus>,
-    #[doc = "Contains the voucher type: *salesinvoice*, *salescreditnote*, *purchaseinvoice*, *purchasecreditnote*, *invoice*, *creditnote*"]
+    #[doc = "Contains the voucher type: *salesinvoice*, *salescreditnote*, *purchaseinvoice*, *purchasecreditnote*, *invoice*, *downpaymentinvoice*, *creditnote*"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub voucher_type: Option<VoucherType>,
