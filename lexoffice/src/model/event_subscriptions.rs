@@ -92,6 +92,15 @@ pub enum EventType {
     #[doc = "The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the [payments endpoint](https://developers.lexoffice.io/docs/#payments-endpoint) or the respective resource endpoints to retrieve further informaton about the payment status of the resource"]
     #[serde(rename = "payment.changed")]
     PaymentChanged,
+    #[doc = "A new template for recurring invoices was created in lexoffice. Get the new recurring template by calling the [recurring templates endpoint](https://developers.lexoffice.io/docs/#recurring-templates-endpoint)."]
+    #[serde(rename = "recurring-template.created")]
+    RecurringTemplateCreated,
+    #[doc = "A template for recurring invoices has changed. Get the updated recurring template by calling the [recurring templates endpoint](https://developers.lexoffice.io/docs/#recurring-templates-endpoint)."]
+    #[serde(rename = "recurring-template.changed")]
+    RecurringTemplateChanged,
+    #[doc = "A template for recurring invoices was deleted in lexoffice."]
+    #[serde(rename = "recurring-template.deleted")]
+    RecurringTemplateDeleted,
 }
 impl std::str::FromStr for EventType {
     type Err = serde_plain::Error;

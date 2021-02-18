@@ -136,6 +136,10 @@ pub struct DownPaymentInvoice {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub shipping_conditions: Option<ShippingConditions>,
+    #[doc = "Id of the closing invoice that references this down payment invoice, if one exists. Null otherwise."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub closing_invoice_id: Option<uuid::Uuid>,
     #[doc = "(Optional) A title text. The organization's default is used if no value was sent."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

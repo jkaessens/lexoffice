@@ -2354,6 +2354,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
   </span><span class="s2">"shippingConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="w">
   </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"closingInvoiceId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vielen Dank für die gute Zusammenarbeit."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2441,6 +2442,10 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <tr>
 <td style="text-align: right"><a href="#invoices-shippingConditions-details">shippingConditions</a> <br><code>object</code></td>
 <td style="text-align: left">The shipping conditions of the invoice. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">closingInvoiceId <br><code>UUID</code></td>
+<td style="text-align: left">Id of the closing invoice that references this down payment invoice, if one exists. Null otherwise.</td>
 </tr>
 <tr>
 <td style="text-align: right">title <br><code>string</code></td>
@@ -2798,6 +2803,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
   </span><span class="s2">"shippingConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="w">
   </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"closingInvoiceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4ba90e2d-c206-4bb0-a135-3e714db617fb"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vielen Dank für die gute Zusammenarbeit."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3031,6 +3037,21 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <td>credit-notes, invoices, vouchers</td>
 <td style="text-align: left">payment.changed</td>
 <td style="text-align: left">The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the <a href="#payments-endpoint">payments endpoint</a> or the respective resource endpoints to retrieve further informaton about the payment status of the resource</td>
+</tr>
+<tr>
+<td>recurring-templates</td>
+<td style="text-align: left">recurring-template.created</td>
+<td style="text-align: left">A new template for recurring invoices was created in lexoffice. Get the new recurring template by calling the <a href="#recurring-templates-endpoint">recurring templates endpoint</a>.</td>
+</tr>
+<tr>
+<td>recurring-templates</td>
+<td style="text-align: left">recurring-template.changed</td>
+<td style="text-align: left">A template for recurring invoices has changed. Get the updated recurring template by calling the <a href="#recurring-templates-endpoint">recurring templates endpoint</a>.</td>
+</tr>
+<tr>
+<td>recurring-templates</td>
+<td style="text-align: left">recurring-template.deleted</td>
+<td style="text-align: left">A template for recurring invoices was deleted in lexoffice.</td>
 </tr>
 </tbody></table>
 <h2 id='event-subscriptions-endpoint-webhook-callback-properties'>Webhook Callback Properties</h2>
@@ -8217,6 +8238,7 @@ However, certain European regions require divergent tax handling, despite being 
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>16.02.2021 - Added <code>closingInvoiceId</code> attribute to down-payment-invoices endpoint.</li>
 <li>09.02.2021 - Added the new <strong>paymentTermsLabelTemplate</strong> attribute in various sales voucher endpoints, and renamed attribute <strong>paymentTermsLabel</strong> to <strong>paymentTermsLabelTemplate</strong> in <a href="#payment-conditions-endpoint">payment-conditions endpoint</a></li>
 <li>02.02.2021 - Added <strong>new endpoint <a href="#payment-conditions-endpoint">payment-conditions</a></strong></li>
 <li>01.02.2021 - Added read-only access to <strong><a href="#invoices-endpoint-closing-invoices">closing invoices</a></strong> through the <a href="#invoices-endpoint">invoices endpoint</a>, to down payment invoices through the newly created <strong><a href="#down-payment-invoices-endpoint">down payment invoice endpoint</a></strong>, and their listing in the <strong><a href="#voucherlist-endpoint">voucher list</a></strong></li>
