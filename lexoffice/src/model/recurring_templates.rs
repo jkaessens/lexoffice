@@ -1,19 +1,39 @@
-#![doc = "This endpoint provides read and write access to quotations and also the possibility to render the document as a PDF in order to download it. Quotations can be created as a draft or finalized in open mode.\n\nPlease note that Public API connections that were established prior to the release of the quotations endpoint (see [Change Log](#change-log)) are not automatically granted the permission for quotations access. Re-generate a new Public API key to benefit from quotations access.\n\nIt is possible to create quotations with value-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat-free. For tax-exempt organizations vat-free (*Steuerfrei*) quotations can be created exclusively. All other vat-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For quotations to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
+#![doc = "This endpoint provides read-only access to the templates of recurring invoices, either individually or all as collection. Based on recurring invoice templates, lexoffice will create regular invoices in configured intervals. This operation is executed at night around 2am CET/CEST.\n\nPlease note that it is not possible to query all deduced invoices for a given recurring template. However, when GETting an [invoice](#invoices-endpoint) that was deduced from a recurring template, it will include a reference to the respective recurring template. This allows gathering of information such as the next execution date or the execution status."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub enum VoucherStatus {
-    #[serde(rename = "draft")]
-    Draft,
-    #[serde(rename = "open")]
-    Open,
-    #[serde(rename = "accepted")]
-    Accepted,
-    #[serde(rename = "rejected")]
-    Rejected,
+pub enum ExecutionStatus {
+    #[serde(rename = "ACTIVE")]
+    Active,
+    #[serde(rename = "PAUSED")]
+    Paused,
+    #[serde(rename = "ENDED")]
+    Ended,
 }
-impl std::str::FromStr for VoucherStatus {
+impl std::str::FromStr for ExecutionStatus {
+    type Err = serde_plain::Error;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        serde_plain::from_str::<Self>(s)
+    }
+}
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub enum ExecutionInterval {
+    #[serde(rename = "WEEKLY")]
+    Weekly,
+    #[serde(rename = "BIWEEKLY")]
+    Biweekly,
+    #[serde(rename = "MONTHLY")]
+    Monthly,
+    #[serde(rename = "QUARTERLY")]
+    Quarterly,
+    #[serde(rename = "BIANNUALLY")]
+    Biannually,
+    #[serde(rename = "ANNUALLY")]
+    Annually,
+}
+impl std::str::FromStr for ExecutionInterval {
     type Err = serde_plain::Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         serde_plain::from_str::<Self>(s)
@@ -63,61 +83,70 @@ impl std::str::FromStr for Type {
         serde_plain::from_str::<Self>(s)
     }
 }
-#[doc = "```json\n{\n    \"id\": \"424f784e-1f4e-439e-8f71-19673e6d6583\",\n    \"organizationId\": \"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n    \"createdDate\": \"2019-12-16T12:43:16.689+01:00\",\n    \"updatedDate\": \"2019-12-16T15:26:30.074+01:00\",\n    \"version\": 4,\n    \"language\": \"de\",\n    \"archived\": false,\n    \"voucherStatus\": \"open\",\n    \"voucherNumber\": \"AG0006\",\n    \"voucherDate\": \"2019-12-16T12:43:03.900+01:00\",\n    \"expirationDate\": \"2020-01-15T12:43:03.900+01:00\",\n    \"address\": {\n        \"contactId\": \"97c5794f-8ab2-43ad-b459-c5980b055e4d\",\n        \"name\": \"Berliner Kindl GmbH\",\n        \"street\": \"Jubiläumsweg 25\",\n        \"city\": \"Berlin\",\n        \"zip\": \"14089\",\n        \"countryCode\": \"DE\"\n    },\n    \"lineItems\": [\n        {\n            \"id\": \"68569bfc-e5ae-472d-bbdf-6d51a82b1d2f\",\n            \"type\": \"material\",\n            \"name\": \"Axa Rahmenschloss Defender RL\",\n            \"description\": \"Vollständig symmetrisches Design in metallicfarbener Ausführung. Der ergonomische Bedienkopf garantiert die große Benutzerfreundlichkeit dieses Schlosses. Sehr niedrige Kopfhöhe von 46 mm, also mehr Rahmenfreiheit... \",\n            \"quantity\": 1,\n            \"unitName\": \"Stück\",\n            \"unitPrice\": {\n                \"currency\": \"EUR\",\n                \"netAmount\": 20.08,\n                \"grossAmount\": 23.9,\n                \"taxRatePercentage\": 19\n            },\n            \"discountPercentage\": 0,\n            \"lineItemAmount\": 23.90,\n            \"subItems\": [\n                {\n                    \"id\": \"97b98491-e953-4dc9-97a9-ae437a8052b4\",\n                    \"type\": \"material\",\n                    \"name\": \"Abus Kabelschloss Primo 590 \",\n                    \"description\": \"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm\",\n                    \"quantity\": 1,\n                    \"unitName\": \"Stück\",\n                    \"unitPrice\": {\n                        \"currency\": \"EUR\",\n                        \"netAmount\": 13.4,\n                        \"grossAmount\": 15.95,\n                        \"taxRatePercentage\": 19\n                    },\n                    \"discountPercentage\": 0,\n                    \"lineItemAmount\": 15.95,\n                    \"alternative\": true,\n                    \"optional\": false\n                }\n            ],\n            \"alternative\": false,\n            \"optional\": false\n        },\n        {\n            \"id\": \"0722bcc6-d1b7-417b-b834-3b47794fa9ab\",\n            \"type\": \"service\",\n            \"name\": \"Einfache Montage\",\n            \"description\": \"Aufwand für einfache Montagetätigkeit\",\n            \"quantity\": 1,\n            \"unitName\": \"Stunde\",\n            \"unitPrice\": {\n                \"currency\": \"EUR\",\n                \"netAmount\": 4.12,\n                \"grossAmount\": 4.9,\n                \"taxRatePercentage\": 19\n            },\n            \"discountPercentage\": 0,\n            \"lineItemAmount\": 4.90,\n            \"alternative\": false,\n            \"optional\": true\n        }\n    ],\n    \"totalPrice\": {\n        \"currency\": \"EUR\",\n        \"totalNetAmount\": 20.08,\n        \"totalGrossAmount\": 23.90,\n        \"totalTaxAmount\": 3.82\n    },\n    \"taxAmounts\": [\n        {\n            \"taxRatePercentage\": 19,\n            \"taxAmount\": 3.82,\n            \"netAmount\": 20.08\n        }\n    ],\n    \"taxConditions\": {\n        \"taxType\": \"gross\"\n    },\n    \"paymentConditions\": {\n        \"paymentTermLabel\": \"10 Tage - 3 %, 30 Tage netto\",\n        \"paymentTermLabelTemplate\": \"{discountRange} Tage -{discount}, {paymentRange} Tage netto\",\n        \"paymentTermDuration\": 30,\n        \"paymentDiscountConditions\": {\n            \"discountPercentage\": 3,\n            \"discountRange\": 10\n        }\n    },\n    \"introduction\": \"Gerne bieten wir Ihnen an:\",\n    \"remark\": \"Wir freuen uns auf Ihre Auftragserteilung und sichern eine einwandfreie Ausführung zu.\",\n    \"files\": {\n        \"documentFileId\": \"ebd84e8a-716d-4a20-a76d-21de75a6d3d1\"\n    },\n    \"title\": \"Angebot\"\n}\n\n```"]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub enum ShippingType {
+    #[serde(rename = "service")]
+    Service,
+    #[serde(rename = "serviceperiod")]
+    Serviceperiod,
+    #[serde(rename = "delivery")]
+    Delivery,
+    #[serde(rename = "deliveryperiod")]
+    Deliveryperiod,
+    #[serde(rename = "none")]
+    None,
+}
+impl std::str::FromStr for ShippingType {
+    type Err = serde_plain::Error;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        serde_plain::from_str::<Self>(s)
+    }
+}
+#[doc = "The set of properties of recurring templates are almost the same as of regular invoices, however, recurring templates\ndo not have any date values set because these will only be derived when the recurring invoices are created.\nAdditionally, the configuration of recurring invoices is defined in a nested object.\nRecurring templates always reference an existing contact.\n\n```json\n{\n  \"id\": \"ac1d66a8-6d59-408b-9413-d56b1db7946f\",\n  \"organizationId\": \"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n  \"createdDate\": \"2021-02-10T09:00:00.000+01:00\",\n  \"updatedDate\": \"2021-02-10T09:00:00.000+01:00\",\n  \"version\": 0,\n  \"language\": \"de\",\n  \"archived\": false,\n  \"address\": {\n    \"contactId\": \"464f4881-7a8c-4dc4-87de-7c6fd9a506b8\",\n    \"name\": \"Bike & Ride GmbH & Co. KG\",\n    \"supplement\": \"Gebäude 10\",\n    \"street\": \"Musterstraße 42\",\n    \"city\": \"Freiburg\",\n    \"zip\": \"79112\",\n    \"countryCode\": \"DE\"\n  },\n  \"lineItems\": [\n    {\n      \"id\": \"97b98491-e953-4dc9-97a9-ae437a8052b4\",\n      \"type\": \"material\",\n      \"name\": \"Abus Kabelschloss Primo 590 \",\n      \"description\": \"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm\",\n      \"quantity\": 2,\n      \"unitName\": \"Stück\",\n      \"unitPrice\": {\n        \"currency\": \"EUR\",\n        \"netAmount\": 13.4,\n        \"grossAmount\": 15.95,\n        \"taxRatePercentage\": 19\n      },\n      \"discountPercentage\": 50,\n      \"lineItemAmount\": 13.4\n    },\n    {\n      \"id\": \"dc4c805b-7df1-4310-a548-22be4499eb04\",\n      \"type\": \"service\",\n      \"name\": \"Aufwändige Montage\",\n      \"description\": \"Aufwand für arbeitsintensive Montagetätigkeit\",\n      \"quantity\": 1,\n      \"unitName\": \"Stunde\",\n      \"unitPrice\": {\n        \"currency\": \"EUR\",\n        \"netAmount\": 8.32,\n        \"grossAmount\": 8.9,\n        \"taxRatePercentage\": 7\n      },\n      \"discountPercentage\": 0,\n      \"lineItemAmount\": 8.32\n    },\n    {\n      \"id\": null,\n      \"type\": \"custom\",\n      \"name\": \"Energieriegel Testpaket\",\n      \"description\": null,\n      \"quantity\": 1,\n      \"unitName\": \"Stück\",\n      \"unitPrice\": {\n        \"currency\": \"EUR\",\n        \"netAmount\": 5,\n        \"grossAmount\": 5,\n        \"taxRatePercentage\": 0\n      },\n      \"discountPercentage\": 0,\n      \"lineItemAmount\": 5\n    },\n    {\n      \"type\": \"text\",\n      \"name\": \"Freitextposition\",\n      \"description\": \"This item type can contain either a name or a description or both.\"\n    }\n  ],\n  \"totalPrice\": {\n    \"currency\": \"EUR\",\n    \"totalNetAmount\": 26.72,\n    \"totalGrossAmount\": 29.85,\n    \"totalTaxAmount\": 3.13,\n    \"totalDiscountAbsolute\": null,\n    \"totalDiscountPercentage\": null\n  },\n  \"taxAmounts\": [\n    {\n      \"taxRatePercentage\": 0,\n      \"taxAmount\": 0,\n      \"netAmount\": 5\n    },\n    {\n      \"taxRatePercentage\": 7,\n      \"taxAmount\": 0.58,\n      \"netAmount\": 8.32\n    },\n    {\n      \"taxRatePercentage\": 19,\n      \"taxAmount\": 2.55,\n      \"netAmount\": 13.4\n    }\n  ],\n  \"taxConditions\": {\n    \"taxType\": \"net\",\n    \"taxTypeNote\": null\n  },\n  \"paymentConditions\": {\n    \"paymentTermLabel\": \"10 Tage - 3 %, 30 Tage netto\",\n    \"paymentTermLabelTemplate\": \"{discountRange} Tage -{discount}, {paymentRange} Tage netto\",\n    \"paymentTermDuration\": 30,\n    \"paymentDiscountConditions\": {\n      \"discountPercentage\": 3,\n      \"discountRange\": 10\n    }\n  },\n  \"title\": \"Rechnung\",\n  \"introduction\": \"Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung\",\n  \"remark\": \"Vielen Dank für Ihren Einkauf\",\n  \"recurringTemplateSettings\": {\n    \"id\": \"9c5b8bde-7d36-49e8-af5c-4fbe7dc9fa01\",\n    \"startDate\": \"2021-03-01\",\n    \"endDate\": \"2021-06-30\",\n    \"finalize\": true,\n    \"shippingType\": \"service\",\n    \"executionInterval\": \"MONTHLY\",\n    \"nextExecutionDate\": \"2021-03-01\",\n    \"lastExecutionFailed\": false,\n    \"lastExecutionErrorMessage\": null,\n    \"executionStatus\": \"ACTIVE\"\n  }\n}\n\n```\n\nCompared to invoices, recurring templates do not have a voucherStatus, voucherNumber, voucherDate, dueDate, shippingConditions, and files, as these are only derived or calculated during invoice creation."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Quotation {
+pub struct RecurringTemplate {
     #[doc = "Unique id generated on creation by lexoffice.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "Unique id of the organization the quotation belongs to.   \n*Read-only.*"]
+    #[doc = "Unique id of the organization the recurring template belongs to.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub organization_id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "The instant of time when the quotation was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
+    #[doc = "The instant of time when the invoice was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "The instant of time when the quotation was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
+    #[doc = "The instant of time when the invoice was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub updated_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "The instant of time when the quotation will expire. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
-    #[builder(setter(into))]
-    pub expiration_date: crate::types::DateTime,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
-    #[doc = "Specifies the language of the quotation which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German **de** (default) and English **en**."]
+    #[doc = "Specifies the language of the invoice which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German **de** (default) and English **en**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub language: Option<String>,
-    #[doc = "Specifies if the quotation is only available in the archive in lexoffice.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub archived: crate::marker::ReadOnly<bool>,
-    #[doc = "Specifies the status of the quotation. Possible values are **draft** (is editable), **open** (finalized and no longer editable but yet neither accepted nor rejected), **accepted** (has been accepted by the customer), **rejected** (rejected by the customer)  \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
-    #[doc = "The specific number a quotation is aware of. This consecutive number is set by lexoffice on creation.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub voucher_number: crate::marker::ReadOnly<String>,
-    #[doc = "The date of quotation in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
-    #[builder(setter(into))]
-    pub voucher_date: crate::types::DateTime,
-    #[doc = "The address of the quotation recipient. For details see below."]
-    #[builder(setter(into))]
-    pub address: Address,
-    #[doc = "The items of the quotation. For details see below."]
-    #[builder(setter(into))]
-    pub line_items: Vec<LineItems>,
-    #[doc = "The total price of the quotation. For details see below."]
-    #[builder(setter(into))]
-    pub total_price: TotalPrice,
+    #[doc = "The address of the invoice recipient. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub address: Option<Address>,
+    #[doc = "The items of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub line_items: Option<Vec<LineItems>>,
+    #[doc = "The total price of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub total_price: Option<TotalPrice>,
     #[doc = "The tax amounts for each tax rate. Please note: As done with every read-only element or object all submitted content (POST) will be ignored. For details see below.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub tax_amounts: crate::marker::ReadOnly<Vec<TaxAmounts>>,
-    #[doc = "The tax conditions of the quotation. For details see below."]
-    #[builder(setter(into))]
-    pub tax_conditions: TaxConditions,
-    #[doc = "The payment conditions of the quotation. The organization's (or contact-specific) default is used if no value was send. For details see below."]
+    #[doc = "The tax conditions of the invoice. For details see below."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_conditions: Option<TaxConditions>,
+    #[doc = "The payment conditions of the invoice. The organization's (or contact-specific) default is used if no value was send. For details see below."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_conditions: Option<PaymentConditions>,
@@ -133,25 +162,25 @@ pub struct Quotation {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub remark: Option<String>,
-    #[doc = "The document id for the PDF version of the quotation. For details see below.   \n*Read-only.*"]
+    #[doc = "The settings for creating recurring template.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
-    pub files: crate::marker::ReadOnly<Files>,
+    pub recurring_template_settings:
+        crate::marker::ReadOnly<RecurringTemplateSettings>,
 }
-impl crate::request::HasId for Quotation {
+impl crate::request::HasId for RecurringTemplate {
     fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }
-#[doc = "There are two main options to address the recipient of a quotation. First, using an existing lexoffice contact or second creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific quotation. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.\n\nOtherwise, a **new address** for the quotation recipient can be created. That type of address is called a \"one-time address\". A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new quotation.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Address {
-    #[doc = "If the quotation recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact."]
+    #[doc = "If the recurring-template recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub contact_id: Option<uuid::Uuid>,
-    #[doc = "The name of the quotation recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}."]
+    #[doc = "The name of the recurring-template recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub name: Option<String>,
@@ -187,11 +216,13 @@ pub struct LineItems {
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
     #[doc = "The type of the item. Possible values are **service** (the line item is related to a supply of services), **material** (the line item is related to a physical product), **custom** (an item without reference in lexoffice and has no id) or **text** (contains only a name and/or a description for informative purposes)."]
-    #[builder(setter(into))]
-    pub _type: Type,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub _type: Option<Type>,
     #[doc = "The name of the item."]
-    #[builder(setter(into))]
-    pub name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub name: Option<String>,
     #[doc = "The description of the item."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -215,18 +246,6 @@ pub struct LineItems {
     #[doc = "The total price of this line item. Depending by the selected *taxType* in *taxConditions*, the amount must be given either as net or gross. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub line_item_amount: crate::marker::ReadOnly<f64>,
-    #[doc = "A list of subitems of this line item. At this time, all `subItems` need to be alternative items."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub sub_items: Option<Vec<LineItems>>,
-    #[doc = "If true, the line item is optional (\"Optionale Position\"). Not a valid attribute for subitems. Defaults to false if unset"]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub optional: Option<bool>,
-    #[doc = "If true, the line item is an alternative position for its parent item. Currently only valid for subitems, and mandatory to be true in that case. Defaults to false if unset"]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub alternative: Option<bool>,
 }
 impl crate::request::HasId for LineItems {
     fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
@@ -238,8 +257,9 @@ impl crate::request::HasId for LineItems {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct UnitPrice {
     #[doc = "The currency of the price. Currently only **EUR** is supported."]
-    #[builder(setter(into))]
-    pub currency: crate::types::Currency,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub currency: Option<crate::types::Currency>,
     #[doc = "The net price of the unit price. The value can contain up to 4 decimals."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -249,16 +269,18 @@ pub struct UnitPrice {
     #[builder(default, setter(strip_option))]
     pub gross_amount: Option<f64>,
     #[doc = "The tax rate of the unit price. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat-free sales vouchers the tax rate percentage must be **0**."]
-    #[builder(setter(into))]
-    pub tax_rate_percentage: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_rate_percentage: Option<f64>,
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TotalPrice {
     #[doc = "The currency of the total price. Currently only **EUR** is supported."]
-    #[builder(setter(into))]
-    pub currency: crate::types::Currency,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub currency: Option<crate::types::Currency>,
     #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub total_net_amount: crate::marker::ReadOnly<f64>,
@@ -299,7 +321,7 @@ pub struct TaxAmounts {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxConditions {
-    #[doc = "The tax type for the quotation. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
+    #[doc = "The tax type for the recurring-template. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
@@ -324,7 +346,7 @@ pub struct PaymentConditions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_term_duration: Option<i64>,
-    #[doc = "The payment discount conditions for the quotation."]
+    #[doc = "The payment discount conditions for the recurring-template."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_discount_conditions: Option<Vec<PaymentDiscountConditions>>,
@@ -345,9 +367,44 @@ pub struct PaymentDiscountConditions {
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Files {
-    #[doc = "The id of the quotation PDF. The PDF will be created when the quotation turns from **draft** into status **open**. To download the quotation PDF file please use the files endpoint."]
+pub struct RecurringTemplateSettings {
+    #[doc = "The id of the recurring template settings.  \n*Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
+    #[doc = "(Optional) The start date of the first recurring invoice in short iso date `yyyy-MM-dd`. If null, recurring template is **PAUSED**."]
+    #[serde(with = "crate::serde::optional_date")]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
-    pub document_file_id: Option<uuid::Uuid>,
+    pub start_date: Option<crate::types::Date>,
+    #[doc = "(Optional) The end date of the first recurring invoice in short iso date `yyyy-MM-dd`."]
+    #[serde(with = "crate::serde::optional_date")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub end_date: Option<crate::types::Date>,
+    #[doc = "Specifies the status of the invoice. If false recurring invoices are created as **draft** (is editable), otherwise they are finalized as **open** (finalized and no longer editable but yet unpaid or only partially paid). In contrast to the invoice endpoint, finalized recurring invoices will immediately and automatically be sent to the customer via email."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub finalize: Option<bool>,
+    #[doc = "The same shipping types defined in the shipping conditions of invoices. Can be either one of: **service**, **serviceperiod**, **delivery**, **deliveryperiod**, **none**. The shipping dates/date range will be calculated automatically during execution."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub shipping_type: Option<ShippingType>,
+    #[doc = "The execution interval defined as **WEEKLY**, **BIWEEKLY**, **MONTHLY**, **QUARTERLY**, **BIANNUALLY**, **ANNUALLY**."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub execution_interval: Option<ExecutionInterval>,
+    #[doc = "Whether the last execution of the recurring template was successful or not.  \n*Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub last_execution_failed: crate::marker::ReadOnly<bool>,
+    #[doc = "Describes the problem briefly when the last execution has failed.  \n*Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub last_execution_error_message: crate::marker::ReadOnly<String>,
+    #[doc = "The status of the recurring template defined as **ACTIVE**, **PAUSED**, **ENDED**. Note, that there is no error state.  \n*Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub execution_status: crate::marker::ReadOnly<ExecutionStatus>,
+}
+impl crate::request::HasId for RecurringTemplateSettings {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
+        &self.id
+    }
 }

@@ -28,6 +28,7 @@ impl std::str::FromStr for VoucherType {
         serde_plain::from_str::<Self>(s)
     }
 }
+#[doc = "```json\n{\n  \"openAmount\": 200.00,\n  \"currency\": \"EUR\",\n  \"paymentStatus\": \"openRevenue\",\n  \"voucherType\": \"invoice\",\n  \"voucherStatus\": \"open\"\n}\n\n{\n  \"openAmount\": 39.90,\n  \"paymentStatus\": \"openExpense\",\n  \"currency\": \"EUR\",\n  \"voucherType\": \"purchaseinvoice\",\n  \"voucherStatus\": \"open\"\n}\n\n{\n  \"openAmount\": 0,\n  \"currency\": \"EUR\",\n  \"paymentStatus\": \"balanced\",\n  \"voucherType\": \"purchasecreditnote\",\n  \"voucherStatus\": \"paidoff\"\n}\n\n```"]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]

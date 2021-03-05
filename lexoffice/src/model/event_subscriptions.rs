@@ -108,6 +108,7 @@ impl std::str::FromStr for EventType {
         serde_plain::from_str::<Self>(s)
     }
 }
+#[doc = "```json\n{\n  \"subscriptionId\": \"4d43ad14-671d-4e0c-fd4b-2fd8cc117eff\",\n  \"organizationId\": \"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n  \"createdDate\": \"2018-04-11T12:15:00.000+02:00\",\n  \"eventType\": \"contact.changed\",\n  \"callbackUrl\": \"https://example.org/webhook\"\n}\n\n```"]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
@@ -133,7 +134,7 @@ impl crate::request::HasId for EventSubscription {
         &self.subscription_id
     }
 }
-#[doc = "Subscribed events will send a POST request to your given webhook url and contain the following JSON payload."]
+#[doc = "```json\n{\n  \"organizationId\": \"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n  \"eventType\": \"contact.changed\",\n  \"resourceId\": \"4d43ad14-671d-4e0c-fd4b-2fd8cc117eff\",\n  \"eventDate\": \"2018-04-11T12:30:00.000+02:00\"\n}\n\n```\n\nSubscribed events will send a POST request to your given webhook url and contain the following JSON payload."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
