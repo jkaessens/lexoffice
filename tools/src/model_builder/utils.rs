@@ -59,6 +59,47 @@ impl TagHandler for AnchorHandler {
     }
 }
 
+#[derive(Default)]
+struct CodeHandlerFactory {}
+impl TagHandlerFactory for CodeHandlerFactory {
+    fn instantiate(
+        &self,
+    ) -> std::boxed::Box<(dyn html2md::TagHandler + 'static)> {
+        Box::new(CodeHandler::default())
+    }
+}
+
+#[derive(Default)]
+struct CodeHandler {
+    start_pos: usize,
+    lang: String,
+}
+
+impl TagHandler for CodeHandler {
+    fn handle(&mut self, tag: &Handle, printer: &mut StructuredPrinter) {
+        self.start_pos = printer.data.len();
+
+        self.lang = match tag.data {
+            NodeData::Element { ref attrs, .. } => attrs
+                .borrow()
+                .iter()
+                .find(|attr| attr.name.local.to_string() == "class")
+                .map(|classes| classes.value.split_whitespace())
+                .unwrap()
+                .filter(|class| class != &"highlight")
+                .next()
+                .unwrap_or("plain")
+                .into(),
+            _ => panic!(),
+        };
+    }
+
+    fn after_handle(&mut self, printer: &mut StructuredPrinter) {
+        printer.insert_str(self.start_pos, &format!("\n```{}\n", self.lang));
+        printer.append_str("\n```\n")
+    }
+}
+
 pub trait StringUtils {
     fn remove_suffix(&self, suffix: &'static str) -> String;
     fn remove_prefix(&self, prefix: &str) -> String;
@@ -98,6 +139,7 @@ pub fn mk_doc(html: &str) -> TokenStream {
     let mut tag_handlers: HashMap<String, Box<dyn TagHandlerFactory>> =
         HashMap::new();
     tag_handlers.insert("a".to_string(), Box::new(AnchorHandlerFactory {}));
+    tag_handlers.insert("pre".to_string(), Box::new(CodeHandlerFactory {}));
 
     let md = html2md::parse_html_custom(html, &tag_handlers)
         .trim()
