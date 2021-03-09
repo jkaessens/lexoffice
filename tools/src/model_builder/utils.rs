@@ -86,8 +86,7 @@ impl TagHandler for CodeHandler {
                 .find(|attr| attr.name.local.to_string() == "class")
                 .map(|classes| classes.value.split_whitespace())
                 .unwrap()
-                .filter(|class| class != &"highlight")
-                .next()
+                .find(|class| class != &"highlight")
                 .unwrap_or("plain")
                 .into(),
             _ => panic!(),
@@ -144,7 +143,7 @@ pub fn mk_doc(html: &str) -> TokenStream {
     let md = html2md::parse_html_custom(html, &tag_handlers)
         .trim()
         .to_string();
-    if md == "" {
+    if md.is_empty() {
         quote! {}
     } else {
         quote! { #[doc = #md] }

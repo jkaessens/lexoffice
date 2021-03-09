@@ -57,7 +57,7 @@ impl ModelEnum {
                 return None;
             }
             let name = format_ident!("{}", name);
-            let doc = mk_doc(&x.1.clone().unwrap_or("".to_string()));
+            let doc = mk_doc(&x.1.clone().unwrap_or_default());
             let org_name = x.0.clone();
             Some(quote! {
                 #doc
@@ -66,7 +66,7 @@ impl ModelEnum {
             })
         });
         let type_name = format_ident!("{}", self.type_name());
-        let doc = mk_doc(&self.doc.clone().unwrap_or("".to_string()));
+        let doc = mk_doc(&self.doc.clone().unwrap_or_default());
         Some(quote! {
             #doc
             #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

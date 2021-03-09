@@ -44,9 +44,8 @@ impl ModelStruct {
     pub fn type_name(&self) -> String {
         // Fastpath:
         let name = &self.name;
-        match name.as_str() {
-            "E-Mail Addresses Details" => return "EmailAddresses".to_string(),
-            _ => (),
+        if let "E-Mail Addresses Details" = name.as_str() {
+            return "EmailAddresses".to_string();
         }
 
         let name = if name.to_ascii_lowercase().ends_with(" properties") {
@@ -63,7 +62,7 @@ impl ModelStruct {
     pub fn parse_section(&mut self, section: Vec<ElementRef>) {
         let thead_selector = Selector::parse("thead").unwrap();
         let mut iter = section.iter();
-        if self.name == "" {
+        if self.name.is_empty() {
             self.name = iter.next().unwrap().text().collect();
         }
         self.doc = iter
@@ -123,7 +122,7 @@ impl ModelStruct {
     }
 
     pub fn parse_creation_info(&mut self, section: Vec<&ElementRef>) {
-        if section.len() == 0 {
+        if section.is_empty() {
             return;
         }
 
@@ -141,7 +140,7 @@ impl ModelStruct {
                 break;
             }
 
-            if element.inner_html().trim().starts_with("<strong") == false {
+            if !element.inner_html().trim().starts_with("<strong") {
                 continue;
             }
 
@@ -166,7 +165,7 @@ impl ModelStruct {
                 break;
             }
         }
-        let table = iter.skip_while(|x| x.value().name() != "table").next();
+        let table = iter.find(|x| x.value().name() == "table");
         if table.is_none() {
             return;
         }
@@ -190,8 +189,7 @@ impl ModelStruct {
                 let mut field = self
                     .fields
                     .iter_mut()
-                    .skip_while(|x| x.name != property)
-                    .next()
+                    .find(|x| x.name == property)
                     .unwrap();
                 if field.access_type == AccessType::Unsure {
                     field.access_type = AccessType::Mandatory

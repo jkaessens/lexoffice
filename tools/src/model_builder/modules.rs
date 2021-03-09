@@ -48,10 +48,10 @@ impl ModelModule {
         name: String,
         section: Vec<ElementRef>,
     ) {
-        let mut iter = section.iter();
+        let iter = section.iter();
         let mut extra_enum =
             crate::model_builder::enums::ModelEnum::create(to_singular(&name));
-        while let Some(element) = iter.next() {
+        for element in iter {
             if element.value().name() == "p" {
                 extra_enum.doc = Some(element.inner_html());
             }
@@ -71,8 +71,8 @@ impl ModelModule {
         while let Some(element) = iter.next() {
             let html = element.inner_html();
             if element.value().name() == "h2"
-                && html.to_lowercase().contains(" properties") == false
-                && html.contains("Purpose") == false
+                && !html.to_lowercase().contains(" properties")
+                && !html.contains("Purpose")
             {
                 if "Event Types" == element.text().collect::<String>().trim() {
                     self.parse_extra_enums(
@@ -87,7 +87,7 @@ impl ModelModule {
             let name = if html.starts_with("<strong>")
                 && (html.ends_with(" Details</strong>")
                     || html.ends_with(" Properties</strong>"))
-                && html.contains(" Required ") == false
+                && !html.contains(" Required ")
             {
                 element.text().collect::<String>()
             } else if element.value().id().is_some()
@@ -119,7 +119,7 @@ impl ModelModule {
             let create_info = iter
                 .clone()
                 .skip_while(|x| {
-                    x.value().id().unwrap_or("").contains("-create-a-") == false
+                    !x.value().id().unwrap_or("").contains("-create-a-")
                 })
                 .take_while(|x| {
                     x.value().name() != "h2"

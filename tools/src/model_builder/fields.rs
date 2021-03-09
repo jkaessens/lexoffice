@@ -120,7 +120,7 @@ impl ModelField {
         codes
             .get(0)
             .map(|x| x.text().collect::<String>())
-            .unwrap_or(String::new())
+            .unwrap_or_default()
             == "list"
     }
 
@@ -147,7 +147,7 @@ impl ModelField {
         }
 
         let codes = property.select(&code_selector).collect::<Vec<_>>();
-        if codes.len() == 0 && property.inner_html().ends_with("Date") {
+        if codes.is_empty() && property.inner_html().ends_with("Date") {
             return ModelType::DateTime;
         }
         assert_eq!(codes.len(), 1, "<code> tags: {:?}", property.inner_html());
@@ -271,7 +271,7 @@ impl ModelField {
                 quote! { Option< #property_type > }
             }
         };
-        if self.is_reversable_ident() == false {
+        if !self.is_reversable_ident() {
             let name = &self.name;
             annotations.push(quote! {
                 #[serde(rename = #name)]
