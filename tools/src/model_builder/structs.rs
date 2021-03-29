@@ -50,9 +50,11 @@ impl ModelStruct {
 
         let name = if name.to_ascii_lowercase().ends_with(" properties") {
             // Endpoint properties should be singular
-            name.remove_suffix(" properties").remove_suffix("s")
+            name.remove_suffix(" properties").to_singular()
         } else if name.ends_with(" Details") {
-            name.remove_suffix(" details").remove_prefix("object ")
+            name.remove_suffix(" details")
+                .remove_prefix("object ")
+                .to_string()
         } else {
             panic!("{:?}", name);
         };

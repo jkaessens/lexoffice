@@ -1,6 +1,7 @@
 use html2md::StructuredPrinter;
 use html2md::TagHandler;
 use html2md::{Handle, NodeData, TagHandlerFactory};
+use inflector::string::singularize;
 use proc_macro2::TokenStream;
 use quote::quote;
 use std::collections::HashMap;
@@ -102,6 +103,7 @@ impl TagHandler for CodeHandler {
 pub trait StringUtils {
     fn remove_suffix(&self, suffix: &'static str) -> String;
     fn remove_prefix(&self, prefix: &str) -> String;
+    fn to_singular(&self) -> String;
 }
 
 impl StringUtils for String {
@@ -111,6 +113,10 @@ impl StringUtils for String {
 
     fn remove_prefix(&self, prefix: &str) -> String {
         self.as_str().remove_prefix(prefix)
+    }
+
+    fn to_singular(&self) -> String {
+        self.as_str().to_singular()
     }
 }
 
@@ -131,6 +137,17 @@ impl StringUtils for &str {
             self
         }
         .to_string()
+    }
+
+    fn to_singular(&self) -> String {
+        let mut words: Vec<_> =
+            self.split_ascii_whitespace().map(str::to_string).collect();
+
+        if let Some(last_word) = words.last_mut() {
+            *last_word = singularize::to_singular(last_word);
+        }
+
+        words.join(" ")
     }
 }
 
