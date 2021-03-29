@@ -1194,7 +1194,7 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "lexoffice"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "bytes 1.0.1",
  "cfg-if 1.0.0",
@@ -1214,7 +1214,7 @@ dependencies = [
 
 [[package]]
 name = "lexoffice-cli"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "edit",
  "lexoffice",

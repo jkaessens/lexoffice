@@ -11,7 +11,7 @@ categories = ["command-line-utilities"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-lexoffice = { path = "../lexoffice" }
+lexoffice = { version = "0.2.0", path = "../lexoffice" }
 tokio = { version = "1.0.1", features = ["fs", "io-std", "io-util", "macros", "rt-multi-thread"] }
 structopt = "0.3.21"
 serde = "1.0.118"
