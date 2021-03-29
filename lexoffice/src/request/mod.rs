@@ -9,6 +9,7 @@ mod files;
 mod invoices;
 mod order_confirmations;
 mod payments;
+mod posting_categories;
 mod profile;
 mod quotations;
 mod voucherlist;

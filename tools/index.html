@@ -529,6 +529,20 @@
               </ul>
           </li>
           <li>
+            <a href="#posting-categories-endpoint" class="toc-h1 toc-link" data-title="Posting Categories Endpoint">Posting Categories Endpoint</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#posting-categories-endpoint-purpose" class="toc-h2 toc-link" data-title="Purpose">Purpose</a>
+                  </li>
+                  <li>
+                    <a href="#posting-categories-endpoint-posting-categories-properties" class="toc-h2 toc-link" data-title="Posting Categories Properties">Posting Categories Properties</a>
+                  </li>
+                  <li>
+                    <a href="#posting-categories-endpoint-retrieve-list-of-posting-categories" class="toc-h2 toc-link" data-title="Retrieve List of Posting Categories">Retrieve List of Posting Categories</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#profile-endpoint" class="toc-h1 toc-link" data-title="Profile Endpoint">Profile Endpoint</a>
               <ul class="toc-list-h2">
                   <li>
@@ -5780,6 +5794,93 @@ The payments endpoint will return an error code for vouchers/voucher types that 
 <p><code>GET {resourceurl}/v1/payment-conditions</code></p>
 
 <p>The following sample shows how to retrieve list of currently configured payment conditions. It is required to replace the placeholder <code>{accessToken}</code> before sending the request.</p>
+<h1 id='posting-categories-endpoint'>Posting Categories Endpoint</h1><h2 id='posting-categories-endpoint-purpose'>Purpose</h2>
+<p>This endpoint provides read access to the list of posting categories for the (bookkeeping) vouchers revenue or expense which are supported in lexoffice.</p>
+
+<p>Category ids with type <em>income</em> can be used for revenue vouchers such as <em>salesinvoice</em> and <em>salescreditnote</em> and posting categories with type <em>outgo</em>
+can be applied for expense vouchers with voucher types <em>purchaseinvoice</em> or <em>purchasecreditnote</em>.</p>
+<h2 id='posting-categories-endpoint-posting-categories-properties'>Posting Categories Properties</h2>
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id<br><code>UUID</code></td>
+<td>Unique id of the posting category.</td>
+</tr>
+<tr>
+<td style="text-align: right">name<br><code>string</code></td>
+<td>Name of the posting category.</td>
+</tr>
+<tr>
+<td style="text-align: right">type<br><code>string</code></td>
+<td>Type of the posting category. Possible values are <strong>income</strong> for revenues and <strong>outgo</strong> for expenses.</td>
+</tr>
+<tr>
+<td style="text-align: right">contactRequired<br><code>boolean</code></td>
+<td>Flags if a referenced contact is required for this posting category. Possible values are <strong>true</strong> and <strong>false</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">splitAllowed<br><code>boolean</code></td>
+<td>Flags if items with different tax rate percentages (e.g. 7% and 19%) are allowed for this posting category. Possible values are <strong>true</strong> and <strong>false</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">groupName<br><code>string</code></td>
+<td>Name of the top level posting category.</td>
+</tr>
+</tbody></table>
+<h2 id='posting-categories-endpoint-retrieve-list-of-posting-categories'>Retrieve List of Posting Categories</h2>
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/posting-categories
+<span class="nt">-X</span> GET
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+</code></pre></div>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cf03a2b0-f838-474f-ac5e-67adb9b830c7"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reise MA"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"outgo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contactRequired"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"splitAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reisen"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3620798f-ae06-4492-b775-1c87eb99247c"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fahrtkosten MA"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"outgo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contactRequired"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"splitAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Reisen"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8f8664a1-fd86-11e1-a21f-0800200c9a66"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Einnahmen"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"income"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contactRequired"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"splitAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Einnahmen"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8f8664a0-fd86-11e1-a21f-0800200c9a66"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dienstleistung"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"income"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contactRequired"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"splitAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"groupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Einnahmen"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p><code>GET {resourceurl}/v1/posting-categories</code></p>
+
+<p>The following sample shows how to retrieve list of currently known posting categories. It is required to replace the placeholder <code>{accessToken}</code> before sending the request.</p>
 <h1 id='profile-endpoint'>Profile Endpoint</h1><h2 id='profile-endpoint-purpose'>Purpose</h2>
 <p>The profile endpoint provides read access to basic profile information such as company name, user id, name and email of the connected lexoffice account.</p>
 <h2 id='profile-endpoint-profile-properties'>Profile Properties</h2>
@@ -8387,7 +8488,8 @@ If needed, the file upload status can be retrieved via the <a href="#files-endpo
 <h2 id='vouchers-endpoint-list-of-categoryids'>List of CategoryIds</h2>
 <p><strong>CategoryId&#39;s for vouchers of type <code>salesinvoice</code> and <code>salescreditnote</code></strong></p>
 
-<p>The list of categoryIds is not complete. Please contact us for more information.</p>
+<aside class="notice">The following list of categoryIds is not complete.
+Please use the <a href="#posting-categories-endpoint">posting-categories endpoint</a> in order to retrieve all supported categories in lexoffice.</aside>
 
 <table><thead>
 <tr>
@@ -9117,6 +9219,7 @@ However, certain European regions require divergent tax handling, despite being 
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>22.03.2021 - Added <strong>new endpoint posting-categories (GET)</strong>.</li>
 <li>23.02.2021 - Technical updates and improved syntax highlighting.</li>
 <li>18.02.2021 - Added <strong>new endpoint <a href="#recurring-templates-endpoint">recurring templates</a> (GET)</strong> to retrieve the templates of recurring invoices and extended invoices resource by property <code>recurringTemplateId</code> referencing the template if exists.</li>
 <li>16.02.2021 - Added <code>closingInvoiceId</code> attribute to down-payment-invoices endpoint.</li>
