@@ -1,7 +1,7 @@
 use crate::account::mail_link::MailLinkAddress;
+use fantoccini::elements::Element;
 use fantoccini::error::CmdError;
 use fantoccini::Client;
-use fantoccini::Element;
 use fantoccini::Locator;
 use log::info;
 

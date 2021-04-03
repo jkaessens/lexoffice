@@ -1,6 +1,7 @@
 use crate::account::mail_link::MailLinkAddress;
 use crate::account::pages::account::AccountPage;
 use fantoccini::Client;
+use fantoccini::ClientBuilder;
 use fantoccini::Locator;
 use mail_link::MailLink;
 use mkpasswd::{
@@ -14,13 +15,19 @@ use pages::sign_up::SignUpPage;
 pub mod mail_link;
 pub mod pages;
 
+pub async fn new_client() -> Result<Client, Box<dyn std::error::Error>> {
+    Ok(ClientBuilder::native()
+        .connect("http://localhost:4444")
+        .await?)
+}
+
 pub async fn new_account(
 ) -> Result<(MailLinkAddress, String), Box<dyn std::error::Error>> {
     let mail: MailLinkAddress =
         String::from_utf8(generate(&LatinLowerNumbers, 10)?)?.into();
     let password =
         format!("@aA10{}", String::from_utf8(generate(&Password, 10)?)?);
-    let mut client = Client::new("http://localhost:4444").await?;
+    let mut client = new_client().await?;
 
     SignUpPage::navigate(client.clone())
         .await?
@@ -41,7 +48,7 @@ pub async fn create_api_key(
     mail: &MailLinkAddress,
     password: &str,
 ) -> Result<String, Box<dyn std::error::Error>> {
-    let client = Client::new("http://localhost:4444").await?;
+    let client = new_client().await?;
 
     SignInPage::navigate(client.clone())
         .await?
@@ -59,7 +66,7 @@ pub async fn delete_account(
     mail: &MailLinkAddress,
     password: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = Client::new("http://localhost:4444").await?;
+    let mut client = new_client().await?;
 
     SignInPage::navigate(client.clone())
         .await?
