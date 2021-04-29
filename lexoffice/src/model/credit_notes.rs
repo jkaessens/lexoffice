@@ -63,7 +63,7 @@ impl std::str::FromStr for Type {
         serde_plain::from_str::<Self>(s)
     }
 }
-#[doc = "```json\n{\n    \"id\": \"e9066f04-8cc7-4616-93f8-ac9ecc8479c8\",\n    \"organizationId\": \"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n    \"createdDate\": \"2019-06-17T18:32:07.480+02:00\",\n    \"updatedDate\": \"2019-06-17T18:32:07.551+02:00\",\n    \"version\": 1,\n    \"language\": \"de\",\n    \"archived\": false,\n    \"voucherStatus\": \"draft\",\n    \"voucherNumber\": \"GS0007\",\n    \"voucherDate\": \"2017-02-22T00:00:00.000+01:00\",\n    \"address\": {\n        \"name\": \"Bike & Ride GmbH & Co. KG\",\n        \"supplement\": \"Gebäude 10\",\n        \"street\": \"Musterstraße 42\",\n        \"city\": \"Freiburg\",\n        \"zip\": \"79112\",\n        \"countryCode\": \"DE\"\n    },\n    \"lineItems\": [\n        {\n            \"type\": \"custom\",\n            \"name\": \"Abus Kabelschloss Primo 590 \",\n            \"description\": \"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm\",\n            \"quantity\": 2,\n            \"unitName\": \"Stück\",\n            \"unitPrice\": {\n                \"currency\": \"EUR\",\n                \"netAmount\": 13.4,\n                \"grossAmount\": 15.946,\n                \"taxRatePercentage\": 19\n            },\n            \"lineItemAmount\": 26.8\n        },\n        {\n            \"type\": \"custom\",\n            \"name\": \"Energieriegel Testpaket\",\n            \"quantity\": 1,\n            \"unitName\": \"Stück\",\n            \"unitPrice\": {\n                \"currency\": \"EUR\",\n                \"netAmount\": 5,\n                \"grossAmount\": 5,\n                \"taxRatePercentage\": 0\n            },\n            \"lineItemAmount\": 5\n        }\n    ],\n    \"totalPrice\": {\n        \"currency\": \"EUR\",\n        \"totalNetAmount\": 31.8,\n        \"totalGrossAmount\": 36.89,\n        \"totalTaxAmount\": 5.09\n    },\n    \"taxAmounts\": [\n        {\n            \"taxRatePercentage\": 0,\n            \"taxAmount\": 0,\n            \"netAmount\": 5\n        },\n        {\n            \"taxRatePercentage\": 19,\n            \"taxAmount\": 5.09,\n            \"netAmount\": 26.8\n        }\n    ],\n    \"taxConditions\": {\n        \"taxType\": \"net\"\n    },\n    \"title\": \"Rechnungskorrektur\",\n    \"introduction\": \"Rechnungskorrektur zur Rechnung RE-00020\",\n    \"remark\": \"Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.\",\n    \"files\": {\n      \"documentFileId\": \"a79fea19-a892-4ea9-89ad-e879946329a3\"\n    }\n}\n\n```"]
+#[doc = "```json\n{\n   \"id\":\"e9066f04-8cc7-4616-93f8-ac9ecc8479c8\",\n   \"organizationId\":\"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n   \"createdDate\":\"2019-06-17T18:32:07.480+02:00\",\n   \"updatedDate\":\"2019-06-17T18:32:07.551+02:00\",\n   \"version\":1,\n   \"language\":\"de\",\n   \"archived\":false,\n   \"voucherStatus\":\"draft\",\n   \"voucherNumber\":\"GS0007\",\n   \"voucherDate\":\"2017-02-22T00:00:00.000+01:00\",\n   \"address\":{\n      \"name\":\"Bike & Ride GmbH & Co. KG\",\n      \"supplement\":\"Gebäude 10\",\n      \"street\":\"Musterstraße 42\",\n      \"city\":\"Freiburg\",\n      \"zip\":\"79112\",\n      \"countryCode\":\"DE\"\n   },\n   \"lineItems\":[\n      {\n         \"type\":\"custom\",\n         \"name\":\"Abus Kabelschloss Primo 590 \",\n         \"description\":\"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm\",\n         \"quantity\":2,\n         \"unitName\":\"Stück\",\n         \"unitPrice\":{\n            \"currency\":\"EUR\",\n            \"netAmount\":13.4,\n            \"grossAmount\":15.946,\n            \"taxRatePercentage\":19\n         },\n         \"lineItemAmount\":26.8\n      },\n      {\n         \"type\":\"custom\",\n         \"name\":\"Energieriegel Testpaket\",\n         \"quantity\":1,\n         \"unitName\":\"Stück\",\n         \"unitPrice\":{\n            \"currency\":\"EUR\",\n            \"netAmount\":5,\n            \"grossAmount\":5,\n            \"taxRatePercentage\":0\n         },\n         \"lineItemAmount\":5\n      }\n   ],\n   \"totalPrice\":{\n      \"currency\":\"EUR\",\n      \"totalNetAmount\":31.8,\n      \"totalGrossAmount\":36.89,\n      \"totalTaxAmount\":5.09\n   },\n   \"taxAmounts\":[\n      {\n         \"taxRatePercentage\":0,\n         \"taxAmount\":0,\n         \"netAmount\":5\n      },\n      {\n         \"taxRatePercentage\":19,\n         \"taxAmount\":5.09,\n         \"netAmount\":26.8\n      }\n   ],\n   \"taxConditions\":{\n      \"taxType\":\"net\"\n   },\n   \"relatedVouchers\":[],\n   \"title\":\"Rechnungskorrektur\",\n   \"introduction\":\"Rechnungskorrektur zur Rechnung RE-00020\",\n   \"remark\":\"Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.\",\n   \"files\":{\n      \"documentFileId\":\"a79fea19-a892-4ea9-89ad-e879946329a3\"\n   }\n}\n\n```"]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
@@ -114,6 +114,9 @@ pub struct CreditNote {
     #[doc = "The tax conditions of the credit note. For details see below."]
     #[builder(setter(into))]
     pub tax_conditions: TaxConditions,
+    #[doc = "The related vouchers of the invoice. *Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub related_vouchers: crate::marker::ReadOnly<Vec<RelatedVouchers>>,
     #[doc = "(Optional) A title text. The organization's default is used if no value was sent."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -284,6 +287,27 @@ pub struct TaxConditions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type_note: Option<String>,
+}
+#[doc = "The *relatedVouchers* property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned."]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct RelatedVouchers {
+    #[doc = "The related sales voucher's unique id."]
+    #[builder(default, setter(skip))]
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
+    #[doc = "The specific number of the related sales voucher.   \n*Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub voucher_number: crate::marker::ReadOnly<String>,
+    #[doc = "Voucher type of the related sales voucher."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub voucher_type: Option<String>,
+}
+impl crate::request::HasId for RelatedVouchers {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
+        &self.id
+    }
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]

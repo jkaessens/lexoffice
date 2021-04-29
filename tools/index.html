@@ -375,6 +375,9 @@
                     <a href="#credit-notes-endpoint-create-a-credit-note" class="toc-h2 toc-link" data-title="Create a Credit Note">Create a Credit Note</a>
                   </li>
                   <li>
+                    <a href="#credit-notes-endpoint-pursue-to-a-credit-note" class="toc-h2 toc-link" data-title="Pursue to a Credit Note">Pursue to a Credit Note</a>
+                  </li>
+                  <li>
                     <a href="#credit-notes-endpoint-retrieve-a-credit-note" class="toc-h2 toc-link" data-title="Retrieve a Credit Note">Retrieve a Credit Note</a>
                   </li>
                   <li>
@@ -467,6 +470,9 @@
                     <a href="#invoices-endpoint-create-an-invoice" class="toc-h2 toc-link" data-title="Create an Invoice">Create an Invoice</a>
                   </li>
                   <li>
+                    <a href="#invoices-endpoint-pursue-to-an-invoice" class="toc-h2 toc-link" data-title="Pursue to an Invoice">Pursue to an Invoice</a>
+                  </li>
+                  <li>
                     <a href="#invoices-endpoint-retrieve-an-invoice" class="toc-h2 toc-link" data-title="Retrieve an Invoice">Retrieve an Invoice</a>
                   </li>
                   <li>
@@ -488,6 +494,9 @@
                   </li>
                   <li>
                     <a href="#order-confirmations-endpoint-create-an-order-confirmation" class="toc-h2 toc-link" data-title="Create an Order Confirmation">Create an Order Confirmation</a>
+                  </li>
+                  <li>
+                    <a href="#order-confirmations-endpoint-pursue-to-an-order-confirmation" class="toc-h2 toc-link" data-title="Pursue to an Order Confirmation">Pursue to an Order Confirmation</a>
                   </li>
                   <li>
                     <a href="#order-confirmations-endpoint-retrieve-an-order-confirmation" class="toc-h2 toc-link" data-title="Retrieve an Order Confirmation">Retrieve an Order Confirmation</a>
@@ -1631,80 +1640,81 @@ An unrelated and finalized credit note will remain in status open until the lexo
 <p>Sample of a credit note with multiple line items. Fields with no content are displayed with &quot;null&quot; just for demonstration purposes.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-17T18:32:07.480+02:00"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-17T18:32:07.551+02:00"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"de"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GS0007"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-22T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"supplement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"lineItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abus Kabelschloss Primo 590 "</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.4</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">15.946</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">26.8</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"totalPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"totalNetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">31.8</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"totalGrossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">36.89</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"totalTaxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.09</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"taxAmounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.09</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">26.8</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"net"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rechnungskorrektur"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rechnungskorrektur zur Rechnung RE-00020"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a79fea19-a892-4ea9-89ad-e879946329a3"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="s2">"2019-06-17T18:32:07.480+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="s2">"2019-06-17T18:32:07.551+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"version"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"language"</span><span class="p">:</span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"archived"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="s2">"GS0007"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="s2">"2017-02-22T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"address"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"supplement"</span><span class="p">:</span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"street"</span><span class="p">:</span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"zip"</span><span class="p">:</span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="s2">"DE"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"lineItems"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Abus Kabelschloss Primo 590 "</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mf">13.4</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="mf">15.946</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">19</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="mf">26.8</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">0</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="mi">5</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"totalPrice"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalNetAmount"</span><span class="p">:</span><span class="mf">31.8</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalGrossAmount"</span><span class="p">:</span><span class="mf">36.89</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalTaxAmount"</span><span class="p">:</span><span class="mf">5.09</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"taxAmounts"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mi">5</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="mf">5.09</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mf">26.8</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"taxConditions"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"taxType"</span><span class="p">:</span><span class="s2">"net"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"relatedVouchers"</span><span class="p">:[],</span><span class="w">
+   </span><span class="nl">"title"</span><span class="p">:</span><span class="s2">"Rechnungskorrektur"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"introduction"</span><span class="p">:</span><span class="s2">"Rechnungskorrektur zur Rechnung RE-00020"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"remark"</span><span class="p">:</span><span class="s2">"Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"files"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="s2">"a79fea19-a892-4ea9-89ad-e879946329a3"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
@@ -1772,6 +1782,10 @@ An unrelated and finalized credit note will remain in status open until the lexo
 <tr>
 <td style="text-align: right"><a href="#credit-notes-taxConditions-details">taxConditions</a> <br><code>object</code></td>
 <td style="text-align: left">The tax conditions of the credit note. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-relatedVouchers-details">relatedVouchers</a> <br><code>list</code></td>
+<td style="text-align: left">The related vouchers of the invoice. <em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">title <br><code>string</code></td>
@@ -2008,6 +2022,34 @@ An unrelated and finalized credit note will remain in status open until the lexo
 <td style="text-align: left">When <em>taxType</em> is set to a vat-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization&#39;s default.</td>
 </tr>
 </tbody></table>
+
+<div id="invoices-relatedVouchers-details"></div>
+
+<p><strong>Related Vouchers Details</strong></p>
+
+<p>The <em>relatedVouchers</em> property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The related sales voucher&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number of the related sales voucher. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the related sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p>All attributes listed above are read-only.</p>
 
 <div id="credit-notes-files-details"></div>
 
@@ -2284,6 +2326,18 @@ for type <strong>custom</strong>, but will be ignored for type
 <td style="text-align: left">Supported values are: <em>gross</em>, <em>net</em>, <em>vatfree</em>, <em>intraCommunitySupply</em>, <em>constructionService13b</em>, <em>externalService13b</em>, <em>thirdPartyCountryService</em>, <em>thirdPartyCountryDelivery</em>.</td>
 </tr>
 </tbody></table>
+<h2 id='credit-notes-endpoint-pursue-to-a-credit-note'>Pursue to a Credit Note</h2>
+<p><code>POST {resourceurl}/v1/credit-notes?precedingSalesVoucherId={id}</code></p>
+
+<p>To be able to pursue a sales voucher to a credit note, the optional query parameter
+<code>precedingSalesVoucherId</code> needs to be set. The id value <code>{id}</code> refers to the preceding sales voucher which is going to be pursued.</p>
+
+<p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
+The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
+
+<aside class="notice">Please note that not all pursue actions in lexoffice are supported via the API. Duns and delivery-notes cannot be pursued currently. Nonetheless, the <strong>id</strong> of an existing delivery-note can be used as <strong>precedingSalesVoucherId</strong>. </aside>
+
+<aside class="notice"> Please note that a closing invoice cannot be pursued to a credit note.</aside>
 <h2 id='credit-notes-endpoint-retrieve-a-credit-note'>Retrieve a Credit Note</h2>
 <blockquote>
 <p>Sample request</p>
@@ -2475,6 +2529,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
     </span><span class="nl">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"closingInvoiceId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"relatedVouchers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
   </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen."</span><span class="p">,</span><span class="w">
   </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vielen Dank für die gute Zusammenarbeit."</span><span class="p">,</span><span class="w">
   </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2566,6 +2621,10 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <tr>
 <td style="text-align: right">closingInvoiceId <br><code>UUID</code></td>
 <td style="text-align: left">Id of the closing invoice that references this down payment invoice, if one exists. Null otherwise.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-relatedVouchers-details">relatedVouchers</a> <br><code>list</code></td>
+<td style="text-align: left">The related vouchers of the invoice. <em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">title <br><code>string</code></td>
@@ -2830,6 +2889,34 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <td style="text-align: left">The time left (in days) until the payment must be conducted.</td>
 </tr>
 </tbody></table>
+
+<div id="invoices-relatedVouchers-details"></div>
+
+<p><strong>Related Vouchers Details</strong></p>
+
+<p>The <em>relatedVouchers</em> property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The related sales voucher&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number of the related sales voucher. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the related sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p>All attributes listed above are read-only.</p>
 
 <div id="down-payment-invoices-files-details"></div>
 
@@ -3474,135 +3561,136 @@ Invoices can be created in draft or open (finalized) states.</p>
 <p>Sample of an invoice with multiple line items. Fields with no content are displayed with &quot;null&quot; just for demonstration purposes.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-24T08:20:22.528+02:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-24T08:20:22.528+02:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"de"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE1019"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-22T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"contactId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"supplement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"xRechnung"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"lineItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"97b98491-e953-4dc9-97a9-ae437a8052b4"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"material"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abus Kabelschloss Primo 590 "</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.4</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">15.95</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="w">
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="s2">"2017-04-24T08:20:22.528+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="s2">"2017-04-24T08:20:22.528+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"version"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"language"</span><span class="p">:</span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"archived"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="s2">"RE1019"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="s2">"2017-02-22T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"address"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"contactId"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"supplement"</span><span class="p">:</span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"street"</span><span class="p">:</span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"zip"</span><span class="p">:</span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="s2">"DE"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"xRechnung"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"lineItems"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"97b98491-e953-4dc9-97a9-ae437a8052b4"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"material"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Abus Kabelschloss Primo 590 "</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mf">13.4</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="mf">15.95</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">19</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="mf">13.4</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.4</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc4c805b-7df1-4310-a548-22be4499eb04"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aufwändige Montage"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aufwand für arbeitsintensive Montagetätigkeit"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stunde"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.32</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.9</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"dc4c805b-7df1-4310-a548-22be4499eb04"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"service"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Aufwändige Montage"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"Aufwand für arbeitsintensive Montagetätigkeit"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="s2">"Stunde"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mf">8.32</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="mf">8.9</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">7</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="mf">8.32</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.32</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">0</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="mi">5</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Freitextposition"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This item type can contain either a name or a description or both."</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"totalPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalNetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">26.72</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalGrossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.85</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalTaxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.13</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalDiscountAbsolute"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalDiscountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"taxAmounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.58</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">8.32</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.55</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.4</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"net"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"taxTypeNote"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"paymentConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"paymentTermLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"paymentTermDuration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"paymentDiscountConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"discountRange"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"shippingConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"shippingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-04-22T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"shippingEndDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delivery"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"closingInvoice"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"claimedGrossAmount"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"downPaymentDeductions"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recurringTemplateId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rechnung"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vielen Dank für Ihren Einkauf"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"75295db7-7e69-4630-befd-a7f4ddfdaa83"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Freitextposition"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"This item type can contain either a name or a description or both."</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"totalPrice"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalNetAmount"</span><span class="p">:</span><span class="mf">26.72</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalGrossAmount"</span><span class="p">:</span><span class="mf">29.85</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalTaxAmount"</span><span class="p">:</span><span class="mf">3.13</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalDiscountAbsolute"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalDiscountPercentage"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"taxAmounts"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mi">5</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="mf">0.58</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mf">8.32</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="mf">2.55</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mf">13.4</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"taxConditions"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"taxType"</span><span class="p">:</span><span class="s2">"net"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"taxTypeNote"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"paymentConditions"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"paymentTermLabel"</span><span class="p">:</span><span class="s2">"10 Tage - 3 %, 30 Tage netto"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"paymentTermLabelTemplate"</span><span class="p">:</span><span class="s2">"{discountRange} Tage -{discount}, {paymentRange} Tage netto"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"paymentTermDuration"</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"paymentDiscountConditions"</span><span class="p">:{</span><span class="w">
+         </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"discountRange"</span><span class="p">:</span><span class="mi">10</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"shippingConditions"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"shippingDate"</span><span class="p">:</span><span class="s2">"2017-04-22T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"shippingEndDate"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"shippingType"</span><span class="p">:</span><span class="s2">"delivery"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"closingInvoice"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"claimedGrossAmount"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"downPaymentDeductions"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"recurringTemplateId"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"relatedVouchers"</span><span class="p">:[],</span><span class="w">
+   </span><span class="nl">"title"</span><span class="p">:</span><span class="s2">"Rechnung"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"introduction"</span><span class="p">:</span><span class="s2">"Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"remark"</span><span class="p">:</span><span class="s2">"Vielen Dank für Ihren Einkauf"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"files"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="s2">"75295db7-7e69-4630-befd-a7f4ddfdaa83"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
@@ -3702,6 +3790,10 @@ Invoices can be created in draft or open (finalized) states.</p>
 <tr>
 <td style="text-align: right">recurringTemplateId <br><code>UUID</code></td>
 <td style="text-align: left">The id of the recurring template, if this is a recurring invoice deduced from a template. Null otherwise.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-relatedVouchers-details">relatedVouchers</a> <br><code>list</code></td>
+<td style="text-align: left">The related vouchers of the invoice. <em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">title <br><code>string</code></td>
@@ -4014,6 +4106,34 @@ Invoices can be created in draft or open (finalized) states.</p>
 <td style="text-align: left">The type of the shipping. Possible values are <strong>service</strong> (a service is supplied on <em>shippingDate</em>), <strong>serviceperiod</strong> (a service is supplied within the period [<em>shippingDate</em>,<em>shippingEndDate</em>] ), <strong>delivery</strong> (a product is delivered), <strong>deliveryperiod</strong> (a product is delivered within the period [<em>shippingDate</em>,<em>shippingEndDate</em>]) and <strong>none</strong> (no shipping date has to be provided)</td>
 </tr>
 </tbody></table>
+
+<div id="invoices-relatedVouchers-details"></div>
+
+<p><strong>Related Vouchers Details</strong></p>
+
+<p>The <em>relatedVouchers</em> property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The related sales voucher&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number of the related sales voucher. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the related sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p>All attributes listed above are read-only.</p>
 
 <div id="invoices-downPaymentDeductions-details"></div>
 
@@ -4445,6 +4565,20 @@ for type <strong>custom</strong>, but will be ignored for type
 <td style="text-align: left">Required for shipping types <strong>serviceperiod</strong> and <strong>deliveryperiod</strong>.</td>
 </tr>
 </tbody></table>
+<h2 id='invoices-endpoint-pursue-to-an-invoice'>Pursue to an Invoice</h2>
+<p><code>POST {resourceurl}/v1/invoices?precedingSalesVoucherId={id}</code></p>
+
+<p>To be able to pursue a sales voucher to an invoice, the optional query parameter
+<code>precedingSalesVoucherId</code> needs to be set. The id value <code>{id}</code> refers to the preceding sales voucher which is going to be pursued.</p>
+
+<p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
+The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
+
+<aside class="notice">Please note that not all pursue actions in lexoffice are supported via the API. Duns and delivery-notes cannot be pursued currently. Nonetheless, the <strong>id</strong> of an existing delivery-note can be used as <strong>precedingSalesVoucherId</strong>. </aside>
+
+<aside class="warning">If a quotation is referenced by the <strong>precedingSalesVoucherId</strong> which contains any alternative or optional line items, the request will be rejected with 406 response.</aside>
+
+<aside class="notice"> Please note that the pursuing of a sales voucher to a closing invoice via API is not possible because the API provides read only access for closing invoices.</aside>
 <h2 id='invoices-endpoint-retrieve-an-invoice'>Retrieve an Invoice</h2>
 <blockquote>
 <p>Sample request</p>
@@ -4730,6 +4864,7 @@ Order confirmations are always created in draft mode and do not need to be final
     </span><span class="nl">"shippingEndDate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="nl">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delivery"</span><span class="w">
   </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"relatedVouchers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Auftragsbestätigung"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vielen Dank für Ihren Einkauf"</span><span class="p">,</span><span class="w">
@@ -4809,6 +4944,10 @@ Order confirmations are always created in draft mode and do not need to be final
 <tr>
 <td style="text-align: right"><a href="#shippingConditions-details-order">shippingConditions</a> <br><code>object</code></td>
 <td style="text-align: left">The shipping conditions of the order confirmation. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-relatedVouchers-details">relatedVouchers</a> <br><code>list</code></td>
+<td style="text-align: left">The related vouchers of the invoice. <em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">title <br><code>string</code></td>
@@ -5125,6 +5264,34 @@ Order confirmations are always created in draft mode and do not need to be final
 <td style="text-align: left">The type of the shipping. Possible values are <strong>service</strong> (a service is supplied on <em>shippingDate</em>), <strong>serviceperiod</strong> (a service is supplied within the period [<em>shippingDate</em>,<em>shippingEndDate</em>] ), <strong>delivery</strong> (a product is delivered), <strong>deliveryperiod</strong> (a product is delivered within the period [<em>shippingDate</em>,<em>shippingEndDate</em>]) and <strong>none</strong> (no shipping date has to be provided)</td>
 </tr>
 </tbody></table>
+
+<div id="invoices-relatedVouchers-details"></div>
+
+<p><strong>Related Vouchers Details</strong></p>
+
+<p>The <em>relatedVouchers</em> property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The related sales voucher&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number of the related sales voucher. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the related sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p>All attributes listed above are read-only.</p>
 
 <div id="order-confirmations-files-details"></div>
 
@@ -5459,6 +5626,18 @@ for type <strong>custom</strong>, but will be ignored for type
 <td style="text-align: left">Required for shipping types <strong>serviceperiod</strong> and <strong>deliveryperiod</strong>.</td>
 </tr>
 </tbody></table>
+<h2 id='order-confirmations-endpoint-pursue-to-an-order-confirmation'>Pursue to an Order Confirmation</h2>
+<p><code>POST {resourceurl}/v1/order-confirmations?precedingSalesVoucherId={id}</code></p>
+
+<p>To be able to pursue a sales voucher to an order confirmation, the optional query parameter
+<code>precedingSalesVoucherId</code> needs to be set. The id value <code>{id}</code> refers to the preceding sales voucher which is going to be pursued.</p>
+
+<p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
+The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
+
+<aside class="notice">Please note that not all pursue actions in lexoffice are supported via the API. Duns and delivery-notes cannot be pursued currently. Nonetheless, the <strong>id</strong> of an existing delivery-note can be used as <strong>precedingSalesVoucherId</strong>. </aside>
+
+<aside class="warning">If a quotation is referenced by the <strong>precedingSalesVoucherId</strong> which contains any alternative or optional line items, the request will be rejected with 406 response.</aside>
 <h2 id='order-confirmations-endpoint-retrieve-an-order-confirmation'>Retrieve an Order Confirmation</h2>
 <blockquote>
 <p>Sample request</p>
@@ -6088,6 +6267,7 @@ Quotations can be created as a draft or finalized in open mode.</p>
             </span><span class="nl">"discountRange"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"relatedVouchers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
     </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gerne bieten wir Ihnen an:"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wir freuen uns auf Ihre Auftragserteilung und sichern eine einwandfreie Ausführung zu."</span><span class="p">,</span><span class="w">
     </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -6169,6 +6349,10 @@ Quotations can be created as a draft or finalized in open mode.</p>
 <tr>
 <td style="text-align: right"><a href="#quotations-paymentConditions-details">paymentConditions</a> <br><code>object</code></td>
 <td style="text-align: left">The payment conditions of the quotation. The organization&#39;s (or contact-specific) default is used if no value was send. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-relatedVouchers-details">relatedVouchers</a> <br><code>list</code></td>
+<td style="text-align: left">The related vouchers of the invoice. <em>Read-only.</em></td>
 </tr>
 <tr>
 <td style="text-align: right">title <br><code>string</code></td>
@@ -6469,6 +6653,34 @@ Quotations can be created as a draft or finalized in open mode.</p>
 <td style="text-align: left">The time left (in days) the discount is valid.</td>
 </tr>
 </tbody></table>
+
+<div id="invoices-relatedVouchers-details"></div>
+
+<p><strong>Related Vouchers Details</strong></p>
+
+<p>The <em>relatedVouchers</em> property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The related sales voucher&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number of the related sales voucher. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the related sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p>All attributes listed above are read-only.</p>
 
 <div id="quotations-files-details"></div>
 
@@ -9219,6 +9431,8 @@ However, certain European regions require divergent tax handling, despite being 
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>28.04.2021 - Added <code>relatedVouchers</code> attribute to quotations, order-confirmations, down-payment-invoices, invoices, and credit-notes endpoints.</li>
+<li>28.04.2021 - Enabled pursue actions for order-confirmations, invoices, and credit-notes.</li>
 <li>22.03.2021 - Added <strong>new endpoint posting-categories (GET)</strong>.</li>
 <li>23.02.2021 - Technical updates and improved syntax highlighting.</li>
 <li>18.02.2021 - Added <strong>new endpoint <a href="#recurring-templates-endpoint">recurring templates</a> (GET)</strong> to retrieve the templates of recurring invoices and extended invoices resource by property <code>recurringTemplateId</code> referencing the template if exists.</li>

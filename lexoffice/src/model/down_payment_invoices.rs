@@ -64,7 +64,7 @@ impl std::str::FromStr for Type {
         serde_plain::from_str::<Self>(s)
     }
 }
-#[doc = "Most properties of down payment invoices are identical with the ones of regular invoices.\n\n```json\n{\n  \"id\": \"0333f0c7-2b89-4889-b64e-68b3ca3f167a\",\n  \"organizationId\": \"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n  \"createdDate\": \"2021-01-20T10:26:40.956+01:00\",\n  \"updatedDate\": \"2021-01-21T13:34:13.228+01:00\",\n  \"version\": 3,\n  \"language\": \"de\",\n  \"archived\": false,\n  \"voucherStatus\": \"open\",\n  \"voucherNumber\": \"RE1129\",\n  \"voucherDate\": \"2021-01-20T10:26:26.565+01:00\",\n  \"dueDate\": \"2021-02-19T00:00:00.000+01:00\",\n  \"address\": {\n    \"name\": \"Bike & Ride GmbH & Co. KG\",\n    \"supplement\": \"Gebäude 10\",\n    \"street\": \"Musterstraße 42\",\n    \"city\": \"Freiburg\",\n    \"zip\": \"79112\",\n    \"countryCode\": \"DE\"\n  },\n  \"lineItems\": [\n    {\n      \"type\": \"custom\",\n      \"name\": \"Pauschaler Abschlag\",\n      \"quantity\": 1,\n      \"unitPrice\": {\n        \"currency\": \"EUR\",\n        \"netAmount\": 559.66,\n        \"grossAmount\": 666,\n        \"taxRatePercentage\": 19\n      },\n      \"lineItemAmount\": 666.00\n    }\n  ],\n  \"totalPrice\": {\n    \"currency\": \"EUR\",\n    \"totalNetAmount\": 559.66,\n    \"totalGrossAmount\": 666.00,\n    \"totalTaxAmount\": 106.34\n  },\n  \"taxAmounts\": [\n    {\n      \"taxRatePercentage\": 19,\n      \"taxAmount\": 106.34,\n      \"netAmount\": 559.66\n    }\n  ],\n  \"taxConditions\": {\n    \"taxType\": \"gross\"\n  },\n  \"paymentConditions\": {\n    \"paymentTermLabel\": \"10 Tage - 3 %, 30 Tage netto\",\n    \"paymentTermLabelTemplate\": \"{discountRange} Tage -{discount}, {paymentRange} Tage netto\",\n    \"paymentTermDuration\": 30,\n    \"paymentDiscountConditions\": {\n      \"discountPercentage\": 3,\n      \"discountRange\": 10\n    }\n  },\n  \"shippingConditions\": {\n    \"shippingType\": \"none\"\n  },\n  \"closingInvoiceId\": null,\n  \"introduction\": \"Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen.\",\n  \"remark\": \"Vielen Dank für die gute Zusammenarbeit.\",\n  \"files\": {\n    \"documentFileId\": \"aa0388c5-20b5-49d7-96ce-0c08ac0482f4\"\n  },\n  \"title\": \"1. Abschlagsrechnung\"\n}\n\n```\n\nAll attributes are read-only, as down payment invoices cannot be created or modified by means of the API."]
+#[doc = "Most properties of down payment invoices are identical with the ones of regular invoices.\n\n```json\n{\n  \"id\": \"0333f0c7-2b89-4889-b64e-68b3ca3f167a\",\n  \"organizationId\": \"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n  \"createdDate\": \"2021-01-20T10:26:40.956+01:00\",\n  \"updatedDate\": \"2021-01-21T13:34:13.228+01:00\",\n  \"version\": 3,\n  \"language\": \"de\",\n  \"archived\": false,\n  \"voucherStatus\": \"open\",\n  \"voucherNumber\": \"RE1129\",\n  \"voucherDate\": \"2021-01-20T10:26:26.565+01:00\",\n  \"dueDate\": \"2021-02-19T00:00:00.000+01:00\",\n  \"address\": {\n    \"name\": \"Bike & Ride GmbH & Co. KG\",\n    \"supplement\": \"Gebäude 10\",\n    \"street\": \"Musterstraße 42\",\n    \"city\": \"Freiburg\",\n    \"zip\": \"79112\",\n    \"countryCode\": \"DE\"\n  },\n  \"lineItems\": [\n    {\n      \"type\": \"custom\",\n      \"name\": \"Pauschaler Abschlag\",\n      \"quantity\": 1,\n      \"unitPrice\": {\n        \"currency\": \"EUR\",\n        \"netAmount\": 559.66,\n        \"grossAmount\": 666,\n        \"taxRatePercentage\": 19\n      },\n      \"lineItemAmount\": 666.00\n    }\n  ],\n  \"totalPrice\": {\n    \"currency\": \"EUR\",\n    \"totalNetAmount\": 559.66,\n    \"totalGrossAmount\": 666.00,\n    \"totalTaxAmount\": 106.34\n  },\n  \"taxAmounts\": [\n    {\n      \"taxRatePercentage\": 19,\n      \"taxAmount\": 106.34,\n      \"netAmount\": 559.66\n    }\n  ],\n  \"taxConditions\": {\n    \"taxType\": \"gross\"\n  },\n  \"paymentConditions\": {\n    \"paymentTermLabel\": \"10 Tage - 3 %, 30 Tage netto\",\n    \"paymentTermLabelTemplate\": \"{discountRange} Tage -{discount}, {paymentRange} Tage netto\",\n    \"paymentTermDuration\": 30,\n    \"paymentDiscountConditions\": {\n      \"discountPercentage\": 3,\n      \"discountRange\": 10\n    }\n  },\n  \"shippingConditions\": {\n    \"shippingType\": \"none\"\n  },\n  \"closingInvoiceId\": null,\n  \"relatedVouchers\": [],\n  \"introduction\": \"Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen.\",\n  \"remark\": \"Vielen Dank für die gute Zusammenarbeit.\",\n  \"files\": {\n    \"documentFileId\": \"aa0388c5-20b5-49d7-96ce-0c08ac0482f4\"\n  },\n  \"title\": \"1. Abschlagsrechnung\"\n}\n\n```\n\nAll attributes are read-only, as down payment invoices cannot be created or modified by means of the API."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
@@ -140,6 +140,9 @@ pub struct DownPaymentInvoice {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub closing_invoice_id: Option<uuid::Uuid>,
+    #[doc = "The related vouchers of the invoice. *Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub related_vouchers: crate::marker::ReadOnly<Vec<RelatedVouchers>>,
     #[doc = "(Optional) A title text. The organization's default is used if no value was sent."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -337,6 +340,27 @@ pub struct PaymentConditions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub payment_term_duration: Option<i64>,
+}
+#[doc = "The *relatedVouchers* property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned."]
+#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
+#[builder(doc)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct RelatedVouchers {
+    #[doc = "The related sales voucher's unique id."]
+    #[builder(default, setter(skip))]
+    pub id: crate::marker::ReadOnly<uuid::Uuid>,
+    #[doc = "The specific number of the related sales voucher.   \n*Read-only.*"]
+    #[builder(default, setter(skip))]
+    pub voucher_number: crate::marker::ReadOnly<String>,
+    #[doc = "Voucher type of the related sales voucher."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub voucher_type: Option<String>,
+}
+impl crate::request::HasId for RelatedVouchers {
+    fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
+        &self.id
+    }
 }
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
