@@ -4,10 +4,11 @@ use quote::format_ident;
 use quote::quote;
 use scraper::ElementRef;
 use scraper::Selector;
+use std::collections::BTreeMap;
 
 #[derive(Debug, PartialEq, PartialOrd, Eq, Ord, Hash)]
 pub struct ModelEnum {
-    variants: Vec<(String, Option<String>)>,
+    variants: BTreeMap<String, Option<String>>,
     name: String,
     pub doc: Option<String>,
 }
@@ -16,7 +17,7 @@ impl ModelEnum {
     pub fn create(name: String) -> Self {
         Self {
             name,
-            variants: vec![],
+            variants: BTreeMap::new(),
             doc: None,
         }
     }
@@ -34,10 +35,10 @@ impl ModelEnum {
             let event_type = children.next().unwrap();
             let description = children.next().unwrap();
 
-            self.variants.push((
+            self.variants.insert(
                 event_type.text().collect::<String>(),
                 Some(description.inner_html()),
-            ))
+            );
         }
     }
 
@@ -51,6 +52,7 @@ impl ModelEnum {
     }
 
     pub fn codegen(&self) -> Option<TokenStream> {
+        println!("VAR=>{:?}", self.variants);
         let variants = self.variants.iter().filter_map(|x| {
             let name = string_morph::to_pascal_case(&x.0);
             if name.contains("WillSoonAllowAnyValue") {

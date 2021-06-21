@@ -4,10 +4,10 @@ use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum TaxType {
-    #[serde(rename = "net")]
-    Net,
     #[serde(rename = "gross")]
     Gross,
+    #[serde(rename = "net")]
+    Net,
 }
 impl std::str::FromStr for TaxType {
     type Err = serde_plain::Error;
@@ -24,12 +24,12 @@ pub enum VoucherStatus {
     Paid,
     #[serde(rename = "paidoff")]
     Paidoff,
-    #[serde(rename = "voided")]
-    Voided,
-    #[serde(rename = "transferred")]
-    Transferred,
     #[serde(rename = "sepadebit")]
     Sepadebit,
+    #[serde(rename = "transferred")]
+    Transferred,
+    #[serde(rename = "voided")]
+    Voided,
 }
 impl std::str::FromStr for VoucherStatus {
     type Err = serde_plain::Error;
@@ -40,14 +40,14 @@ impl std::str::FromStr for VoucherStatus {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum Type {
-    #[serde(rename = "salesinvoice")]
-    Salesinvoice,
-    #[serde(rename = "salescreditnote")]
-    Salescreditnote,
-    #[serde(rename = "purchaseinvoice")]
-    Purchaseinvoice,
     #[serde(rename = "purchasecreditnote")]
     Purchasecreditnote,
+    #[serde(rename = "purchaseinvoice")]
+    Purchaseinvoice,
+    #[serde(rename = "salescreditnote")]
+    Salescreditnote,
+    #[serde(rename = "salesinvoice")]
+    Salesinvoice,
 }
 impl std::str::FromStr for Type {
     type Err = serde_plain::Error;
@@ -143,7 +143,7 @@ pub struct VoucherItems {
     #[doc = "Tax amount of the voucher's item. Format must be **##.00** *(19.00)*."]
     #[builder(setter(into))]
     pub tax_amount: f64,
-    #[doc = "Tax rate as percentage value. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19** (*e.g. 19*)."]
+    #[doc = "Tax rate as percentage value. See [the \"Supported tax rates\" FAQ](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) for more information and a list of possible values. (*e.g. 19*)."]
     #[builder(setter(into))]
     pub tax_rate_percent: f64,
     #[doc = "Booking category for this voucher's revenue or expenditure. Supported and appropriate categoryId's can be found [here](https://developers.lexoffice.io/docs/#vouchers-endpoint-list-of-categoryids)."]

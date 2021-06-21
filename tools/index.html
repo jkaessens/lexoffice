@@ -1929,7 +1929,7 @@ An unrelated and finalized credit note will remain in status open until the lexo
 </tr>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">The tax rate of the unit price. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
 </tr>
 </tbody></table>
 
@@ -1981,7 +1981,7 @@ An unrelated and finalized credit note will remain in status open until the lexo
 </thead><tbody>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>.</td>
+<td style="text-align: left">Tax rate as percentage value. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values..</td>
 </tr>
 <tr>
 <td style="text-align: right">taxAmount <br><code>number</code></td>
@@ -2016,6 +2016,10 @@ An unrelated and finalized credit note will remain in status open until the lexo
 <tr>
 <td style="text-align: right">taxType <br><code>enum</code></td>
 <td style="text-align: left">The tax type for the credit note. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
 </tr>
 <tr>
 <td style="text-align: right">taxTypeNote <br><code>string</code></td>
@@ -2770,7 +2774,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 </tr>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">The tax rate of the unit price. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
 </tr>
 </tbody></table>
 
@@ -2822,7 +2826,7 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 </thead><tbody>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>.</td>
+<td style="text-align: left">Tax rate as percentage value. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values..</td>
 </tr>
 <tr>
 <td style="text-align: right">taxAmount <br><code>number</code></td>
@@ -2857,6 +2861,10 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <tr>
 <td style="text-align: right">taxType <br><code>enum</code></td>
 <td style="text-align: left">The tax type for the down payment invoice. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
 </tr>
 <tr>
 <td style="text-align: right">taxTypeNote <br><code>string</code></td>
@@ -3939,7 +3947,7 @@ Invoices can be created in draft or open (finalized) states.</p>
 </tr>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">The tax rate of the unit price. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
 </tr>
 </tbody></table>
 
@@ -3991,7 +3999,7 @@ Invoices can be created in draft or open (finalized) states.</p>
 </thead><tbody>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>.</td>
+<td style="text-align: left">Tax rate as percentage value. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values..</td>
 </tr>
 <tr>
 <td style="text-align: right">taxAmount <br><code>number</code></td>
@@ -4026,6 +4034,10 @@ Invoices can be created in draft or open (finalized) states.</p>
 <tr>
 <td style="text-align: right">taxType <br><code>enum</code></td>
 <td style="text-align: left">The tax type for the invoice. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
 </tr>
 <tr>
 <td style="text-align: right">taxTypeNote <br><code>string</code></td>
@@ -5097,7 +5109,7 @@ Order confirmations are always created in draft mode and do not need to be final
 </tr>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">The tax rate of the unit price. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
 </tr>
 </tbody></table>
 
@@ -5149,7 +5161,7 @@ Order confirmations are always created in draft mode and do not need to be final
 </thead><tbody>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>.</td>
+<td style="text-align: left">Tax rate as percentage value. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values..</td>
 </tr>
 <tr>
 <td style="text-align: right">taxAmount <br><code>number</code></td>
@@ -5184,6 +5196,10 @@ Order confirmations are always created in draft mode and do not need to be final
 <tr>
 <td style="text-align: right">taxType <br><code>enum</code></td>
 <td style="text-align: left">The tax type for the order confirmation. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
 </tr>
 <tr>
 <td style="text-align: right">taxTypeNote <br><code>string</code></td>
@@ -6090,6 +6106,10 @@ can be applied for expense vouchers with voucher types <em>purchaseinvoice</em> 
 <td>Configured tax type. Possible values are <strong>net</strong>, <strong>gross</strong>, and <strong>vatfree</strong>.</td>
 </tr>
 <tr>
+<td style="text-align: right">distanceSalesPrinciple<br /><code>enum</code></td>
+<td>The distance sales principle configured by the user, or undefined if not yet set. Possible values are <strong>ORIGIN</strong> and <strong>DESTINATION</strong>. See the in-app documentation (Section &quot;Umsatzsteuer bei Privatpersonen im EU-Ausland&quot; in <a href="https://app.lexoffice.de/settings/#/general">https://app.lexoffice.de/settings/#/general</a>) for information about the implications of this setting.</td>
+</tr>
+<tr>
 <td style="text-align: right">smallBusiness<br /><code>boolean</code></td>
 <td>Reflects whether the organization is marked as a &quot;small business&quot; (<em>Kleinunternehmer</em> according to §19 UStG.)</td>
 </tr>
@@ -6510,7 +6530,7 @@ Quotations can be created as a draft or finalized in open mode.</p>
 </tr>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">The tax rate of the unit price. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
 </tr>
 </tbody></table>
 
@@ -6562,7 +6582,7 @@ Quotations can be created as a draft or finalized in open mode.</p>
 </thead><tbody>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>.</td>
+<td style="text-align: left">Tax rate as percentage value. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values..</td>
 </tr>
 <tr>
 <td style="text-align: right">taxAmount <br><code>number</code></td>
@@ -6597,6 +6617,10 @@ Quotations can be created as a draft or finalized in open mode.</p>
 <tr>
 <td style="text-align: right">taxType <br><code>enum</code></td>
 <td style="text-align: left">The tax type for the quotation. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
 </tr>
 <tr>
 <td style="text-align: right">taxTypeNote <br><code>string</code></td>
@@ -7498,7 +7522,7 @@ Recurring templates always reference an existing contact.</p>
 </tr>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">The tax rate of the unit price. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
 </tr>
 </tbody></table>
 
@@ -7550,7 +7574,7 @@ Recurring templates always reference an existing contact.</p>
 </thead><tbody>
 <tr>
 <td style="text-align: right">taxRatePercentage <br><code>number</code></td>
-<td style="text-align: left">Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong>.</td>
+<td style="text-align: left">Tax rate as percentage value. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values..</td>
 </tr>
 <tr>
 <td style="text-align: right">taxAmount <br><code>number</code></td>
@@ -7585,6 +7609,10 @@ Recurring templates always reference an existing contact.</p>
 <tr>
 <td style="text-align: right">taxType <br><code>enum</code></td>
 <td style="text-align: left">The tax type for the recurring-template. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
 </tr>
 <tr>
 <td style="text-align: right">taxTypeNote <br><code>string</code></td>
@@ -7785,6 +7813,7 @@ Recurring templates always reference an existing contact.</p>
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cab021e5-91d3-4e93-a696-56b7f2417547"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a3d94eb4-98bc-429e-b7ad-17f1a8463af9"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rechnung"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-02-10T14:35:40.642+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-02-10T14:36:49.741+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -7819,6 +7848,7 @@ Recurring templates always reference an existing contact.</p>
         </span><span class="p">{</span><span class="w">
             </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ac1d66a8-6d59-408b-9413-d56b1db7946f"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a3d94eb4-98bc-429e-b7ad-17f1a8463af9"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rechnung"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-02-10T14:29:03.114+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-02-10T14:29:03.143+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -8375,7 +8405,7 @@ by an external system.</p>
 </tr>
 <tr>
 <td style="text-align: right">taxRatePercent <br><code>number</code></td>
-<td>Tax rate as percentage value. <a href="#faq-valid-tax-rates">Supported tax rates</a> are <strong>0</strong>, <strong>5</strong>, <strong>7</strong>, <strong>16</strong>, <strong>19</strong> (<em>e.g. 19</em>).</td>
+<td>Tax rate as percentage value. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values. (<em>e.g. 19</em>).</td>
 </tr>
 <tr>
 <td style="text-align: right">categoryId <br><code>uuid</code></td>
@@ -8740,6 +8770,36 @@ Please use the <a href="#posting-categories-endpoint">posting-categories endpoin
 <tr>
 <td style="text-align: right">Einnahmen als Kleinunternehmer</td>
 <td style="text-align: left">7a1efa0e-6283-4cbf-9583-8e88d3ba5960</td>
+</tr>
+</tbody></table>
+
+<p><strong>CategoryId&#39;s for distance sales</strong></p>
+
+<p>Sales invoices to B2C customers in EU countries require the usage of the following <code>CategoryId</code>s. Please note that, depending on the provided products or services, posting to the categories above may be technically possible, but still be incorrect and possibly illegal in the accounting.</p>
+
+<p>If the organization&#39;s <code>distanceSalesPrinciple</code> (see <a href="#profile-endpoint">profile endpoint</a>) is set to <code>ORIGIN</code>, the first two categories must be used; if it is set to <code>DESTINATION</code>, the latter pair of categories have to be used. Please note that you also need to reference the <a href="#faq-valid-tax-rates">destination country&#39;s tax rates</a> in that case.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">Booking category</th>
+<th style="text-align: left">categoryId</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">Fernverkauf</td>
+<td style="text-align: left">7c112b66-0565-479c-bc18-5845e080880a</td>
+</tr>
+<tr>
+<td style="text-align: right">Elektronische Dienstleistungen</td>
+<td style="text-align: left">d73b880f-c24a-41ea-a862-18d90e1c3d82</td>
+</tr>
+<tr>
+<td style="text-align: right">Fernverkauf in EU-Land steuerpflichtig</td>
+<td style="text-align: left">4ebd965a-7126-416c-9d8c-a5c9366ee473</td>
+</tr>
+<tr>
+<td style="text-align: right">Elektronische Dienstleistung in EU-Land steuerpflichtig</td>
+<td style="text-align: left">7ecea006-844c-4c98-a02d-aa3142640dd5</td>
 </tr>
 </tbody></table>
 <h1 id='paging-of-resources'>Paging of Resources</h1>
@@ -9311,6 +9371,21 @@ users can generate their private API key at <a href="https://app.lexoffice.de/se
 
 <p><code>https://app.lexoffice.de/master-data/#/contacts/97c5794f-8ab2-43ad-b459-c5980b055e4d</code></p>
 <h2 id='faq-valid-tax-rates'>Valid tax rates</h2>
+<p>The default German tax rates are 7% and 19% (reflected by the numeric values <strong>7</strong> and <strong>19</strong> for various <code>taxRate</code> properties). However, in certain scenarios, other tax rates must be used:</p>
+<h3 id='faq-valid-tax-rates-european-vat-rates-for-distance-sales'>European VAT rates for distance sales</h3>
+<p>Starting July 2021, lexoffice supports the vat rates of all countries in the EU. This enables users to create and book vouchers for distance sales and electronic services provided to consumers in (non-German) EU countries.</p>
+
+<p>These tax rates are only valid when</p>
+
+<ul>
+<li>creating/updating <a href="#vouchers-endpoint">vouchers</a> that represent users&#39; invoices and that are booked with the distance sales or electronic service posting categories</li>
+<li>creating sales vouchers such as <a href="#invoices-endpoint">invoices</a> for users&#39; sales to B2C customers in the EU that are marked as distance sales or electronic services</li>
+</ul>
+
+<p>... and the <a href="#profile-endpoint">organization&#39;s <code>distanceSalesPrinciple</code></a> is set to <code>DESTINATION</code>.</p>
+
+<p>A reference of tax rates for european countries can be found <a href="https://europa.eu/youreurope/business/taxation/vat/vat-rules-rates/index_de.htm">here</a> (<a href="https://europa.eu/youreurope/business/taxation/vat/vat-rules-rates/index_en.htm">English version</a>).</p>
+<h3 id='faq-valid-tax-rates-corona-virus-relief-package-2020'>Corona virus relief package 2020</h3>
 <p>During the 2020 corona virus pandemic, the German administration enacted a temporary reduction of the VAT rates (<em>Umsatzsteuer</em>/<em>USt</em>, <em>Mehrwertsteuer</em>/<em>MwSt</em>). The tax rates that lexoffice accepts for the various voucher types depend on the <code>voucherDate</code> of the respective voucher.</p>
 
 <p><a href="#vouchers-endpoint">Bookkeeping vouchers as managed by the vouchers endpoint</a> may be used with any tax rate valid before, during, and after the tax rate reduction (i.e., with 0%, 5%, 7%, 16%, and 19%).</p>
@@ -9431,6 +9506,7 @@ However, certain European regions require divergent tax handling, despite being 
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>01.07.2021 - lexoffice now supports distance sales and electronic services in the EU. This introduces the new <code>taxSubType</code> attribute in the <code>taxConditions</code> of sales voucher endpoints (e.g., <a href="#invoices-endpoint">invoices endpoint</a>, new posting category IDs for the <a href="#voucher-endpoint">voucher endpoint</a>, new tax rates of the EU destination countries, and various new validations for distance sales bookkeeping and sales vouchers. The new property <code>distanceSalesPrinciple</code> is now available via the <a href="#profile-endpoint">profile</a></li>
 <li>28.04.2021 - Added <code>relatedVouchers</code> attribute to quotations, order-confirmations, down-payment-invoices, invoices, and credit-notes endpoints.</li>
 <li>28.04.2021 - Enabled pursue actions for order-confirmations, invoices, and credit-notes.</li>
 <li>22.03.2021 - Added <strong>new endpoint posting-categories (GET)</strong>.</li>

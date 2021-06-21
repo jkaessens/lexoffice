@@ -3,11 +3,25 @@ use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
+pub enum DistanceSalesPrinciple {
+    #[serde(rename = "DESTINATION")]
+    Destination,
+    #[serde(rename = "ORIGIN")]
+    Origin,
+}
+impl std::str::FromStr for DistanceSalesPrinciple {
+    type Err = serde_plain::Error;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        serde_plain::from_str::<Self>(s)
+    }
+}
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub enum TaxType {
-    #[serde(rename = "net")]
-    Net,
     #[serde(rename = "gross")]
     Gross,
+    #[serde(rename = "net")]
+    Net,
     #[serde(rename = "vatfree")]
     Vatfree,
 }
@@ -41,6 +55,10 @@ pub struct Profile {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
+    #[doc = "The distance sales principle configured by the user, or undefined if not yet set. Possible values are **ORIGIN** and **DESTINATION**. See the in-app documentation (Section \"Umsatzsteuer bei Privatpersonen im EU-Ausland\" in [https://app.lexoffice.de/settings/#/general](https://app.lexoffice.de/settings/#/general)) for information about the implications of this setting."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub distance_sales_principle: Option<DistanceSalesPrinciple>,
     #[doc = "Reflects whether the organization is marked as a \"small business\" (*Kleinunternehmer* according to §19 UStG.)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

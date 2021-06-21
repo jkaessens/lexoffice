@@ -6,10 +6,10 @@ use typed_builder::TypedBuilder;
 pub enum ExecutionStatus {
     #[serde(rename = "ACTIVE")]
     Active,
-    #[serde(rename = "PAUSED")]
-    Paused,
     #[serde(rename = "ENDED")]
     Ended,
+    #[serde(rename = "PAUSED")]
+    Paused,
 }
 impl std::str::FromStr for ExecutionStatus {
     type Err = serde_plain::Error;
@@ -20,18 +20,18 @@ impl std::str::FromStr for ExecutionStatus {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum ExecutionInterval {
-    #[serde(rename = "WEEKLY")]
-    Weekly,
+    #[serde(rename = "ANNUALLY")]
+    Annually,
+    #[serde(rename = "BIANNUALLY")]
+    Biannually,
     #[serde(rename = "BIWEEKLY")]
     Biweekly,
     #[serde(rename = "MONTHLY")]
     Monthly,
     #[serde(rename = "QUARTERLY")]
     Quarterly,
-    #[serde(rename = "BIANNUALLY")]
-    Biannually,
-    #[serde(rename = "ANNUALLY")]
-    Annually,
+    #[serde(rename = "WEEKLY")]
+    Weekly,
 }
 impl std::str::FromStr for ExecutionInterval {
     type Err = serde_plain::Error;
@@ -42,22 +42,22 @@ impl std::str::FromStr for ExecutionInterval {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum TaxType {
-    #[serde(rename = "net")]
-    Net,
-    #[serde(rename = "gross")]
-    Gross,
-    #[serde(rename = "vatfree")]
-    Vatfree,
-    #[serde(rename = "intraCommunitySupply")]
-    IntraCommunitySupply,
     #[serde(rename = "constructionService13b")]
     ConstructionService13b,
     #[serde(rename = "externalService13b")]
     ExternalService13b,
-    #[serde(rename = "thirdPartyCountryService")]
-    ThirdPartyCountryService,
+    #[serde(rename = "gross")]
+    Gross,
+    #[serde(rename = "intraCommunitySupply")]
+    IntraCommunitySupply,
+    #[serde(rename = "net")]
+    Net,
     #[serde(rename = "thirdPartyCountryDelivery")]
     ThirdPartyCountryDelivery,
+    #[serde(rename = "thirdPartyCountryService")]
+    ThirdPartyCountryService,
+    #[serde(rename = "vatfree")]
+    Vatfree,
 }
 impl std::str::FromStr for TaxType {
     type Err = serde_plain::Error;
@@ -68,12 +68,12 @@ impl std::str::FromStr for TaxType {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum Type {
-    #[serde(rename = "service")]
-    Service,
-    #[serde(rename = "material")]
-    Material,
     #[serde(rename = "custom")]
     Custom,
+    #[serde(rename = "material")]
+    Material,
+    #[serde(rename = "service")]
+    Service,
     #[serde(rename = "text")]
     Text,
 }
@@ -86,18 +86,32 @@ impl std::str::FromStr for Type {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum ShippingType {
-    #[serde(rename = "service")]
-    Service,
-    #[serde(rename = "serviceperiod")]
-    Serviceperiod,
     #[serde(rename = "delivery")]
     Delivery,
     #[serde(rename = "deliveryperiod")]
     Deliveryperiod,
     #[serde(rename = "none")]
     None,
+    #[serde(rename = "service")]
+    Service,
+    #[serde(rename = "serviceperiod")]
+    Serviceperiod,
 }
 impl std::str::FromStr for ShippingType {
+    type Err = serde_plain::Error;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        serde_plain::from_str::<Self>(s)
+    }
+}
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub enum TaxSubType {
+    #[serde(rename = "distanceSales")]
+    DistanceSales,
+    #[serde(rename = "electronicServices")]
+    ElectronicServices,
+}
+impl std::str::FromStr for TaxSubType {
     type Err = serde_plain::Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         serde_plain::from_str::<Self>(s)
@@ -268,7 +282,7 @@ pub struct UnitPrice {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub gross_amount: Option<f64>,
-    #[doc = "The tax rate of the unit price. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**. For vat-free sales vouchers the tax rate percentage must be **0**."]
+    #[doc = "The tax rate of the unit price. See [the \"Supported tax rates\" FAQ](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be **0**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_rate_percentage: Option<f64>,
@@ -303,7 +317,7 @@ pub struct TotalPrice {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxAmounts {
-    #[doc = "Tax rate as percentage value. [Supported tax rates](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) are **0**, **5**, **7**, **16**, **19**."]
+    #[doc = "Tax rate as percentage value. See [the \"Supported tax rates\" FAQ](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) for more information and a list of possible values.."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_rate_percentage: Option<f64>,
@@ -325,6 +339,10 @@ pub struct TaxConditions {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
+    #[doc = "A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a `taxType` of `net` or `gross`, the taxSubType may be set to **distanceSales**, or **electronicServices**. Passing a null value results in a standard voucher.  \nIf the organization's `distanceSalesPrinciple` ([profile endpoint](https://developers.lexoffice.io/docs/#profile-endpoint)) is set to `DESTINATION` *and* this attribute is set to **distanceSales** or **electronicServices**, the voucher needs to reference the destination country's tax rates."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub tax_sub_type: Option<TaxSubType>,
     #[doc = "When *taxType* is set to a vat-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization's default."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]

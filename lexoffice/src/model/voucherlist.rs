@@ -4,26 +4,26 @@ use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum VoucherStatus {
+    #[serde(rename = "accepted")]
+    Accepted,
     #[serde(rename = "draft")]
     Draft,
     #[serde(rename = "open")]
     Open,
+    #[serde(rename = "overdue")]
+    Overdue,
     #[serde(rename = "paid")]
     Paid,
     #[serde(rename = "paidoff")]
     Paidoff,
-    #[serde(rename = "voided")]
-    Voided,
-    #[serde(rename = "transferred")]
-    Transferred,
-    #[serde(rename = "sepadebit")]
-    Sepadebit,
-    #[serde(rename = "overdue")]
-    Overdue,
-    #[serde(rename = "accepted")]
-    Accepted,
     #[serde(rename = "rejected")]
     Rejected,
+    #[serde(rename = "sepadebit")]
+    Sepadebit,
+    #[serde(rename = "transferred")]
+    Transferred,
+    #[serde(rename = "voided")]
+    Voided,
 }
 impl std::str::FromStr for VoucherStatus {
     type Err = serde_plain::Error;
@@ -34,24 +34,24 @@ impl std::str::FromStr for VoucherStatus {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum VoucherType {
-    #[serde(rename = "salesinvoice")]
-    Salesinvoice,
-    #[serde(rename = "salescreditnote")]
-    Salescreditnote,
-    #[serde(rename = "purchaseinvoice")]
-    Purchaseinvoice,
-    #[serde(rename = "purchasecreditnote")]
-    Purchasecreditnote,
-    #[serde(rename = "invoice")]
-    Invoice,
-    #[serde(rename = "downpaymentinvoice")]
-    Downpaymentinvoice,
     #[serde(rename = "creditnote")]
     Creditnote,
+    #[serde(rename = "downpaymentinvoice")]
+    Downpaymentinvoice,
+    #[serde(rename = "invoice")]
+    Invoice,
     #[serde(rename = "orderconfirmation")]
     Orderconfirmation,
+    #[serde(rename = "purchasecreditnote")]
+    Purchasecreditnote,
+    #[serde(rename = "purchaseinvoice")]
+    Purchaseinvoice,
     #[serde(rename = "quotation")]
     Quotation,
+    #[serde(rename = "salescreditnote")]
+    Salescreditnote,
+    #[serde(rename = "salesinvoice")]
+    Salesinvoice,
 }
 impl std::str::FromStr for VoucherType {
     type Err = serde_plain::Error;

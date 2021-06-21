@@ -5,102 +5,102 @@ use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub enum EventType {
-    #[doc = "A new contact was created in lexoffice."]
-    #[serde(rename = "contact.created")]
-    ContactCreated,
     #[doc = "A lexoffice contact has changed. You should get the updated contact details."]
     #[serde(rename = "contact.changed")]
     ContactChanged,
+    #[doc = "A new contact was created in lexoffice."]
+    #[serde(rename = "contact.created")]
+    ContactCreated,
     #[doc = "A lexoffice contact was deleted. Depending on your application, you should unlink the lexoffice contact on your site or delete it as well."]
     #[serde(rename = "contact.deleted")]
     ContactDeleted,
-    #[doc = "A new credit note was created in lexoffice. Get the new credit note by calling the [credit notes endpoint](https://developers.lexoffice.io/docs/#credit-notes-endpoint)."]
-    #[serde(rename = "credit-note.created")]
-    CreditNoteCreated,
     #[doc = "A credit note has changed. Get the updated credit note by calling the [credit notes endpoint](https://developers.lexoffice.io/docs/#credit-notes-endpoint). Please note that the status may also have changed."]
     #[serde(rename = "credit-note.changed")]
     CreditNoteChanged,
+    #[doc = "A new credit note was created in lexoffice. Get the new credit note by calling the [credit notes endpoint](https://developers.lexoffice.io/docs/#credit-notes-endpoint)."]
+    #[serde(rename = "credit-note.created")]
+    CreditNoteCreated,
     #[doc = "A credit note was deleted in lexoffice."]
     #[serde(rename = "credit-note.deleted")]
     CreditNoteDeleted,
     #[doc = "The status of a credit note has changed. Update the credit note by calling the [credit notes endpoint](https://developers.lexoffice.io/docs/#credit-notes-endpoint) to retrieve the new status."]
     #[serde(rename = "credit-note.status.changed")]
     CreditNoteStatusChanged,
-    #[doc = "A new invoice was created in lexoffice. Get the new invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint)."]
-    #[serde(rename = "invoice.created")]
-    InvoiceCreated,
-    #[doc = "An invoice has changed. Get the updated invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint). Please note that the status may also have changed."]
-    #[serde(rename = "invoice.changed")]
-    InvoiceChanged,
-    #[doc = "An invoice was deleted in lexoffice."]
-    #[serde(rename = "invoice.deleted")]
-    InvoiceDeleted,
-    #[doc = "The status of an invoice has changed. Update the invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint) to retrieve the new status."]
-    #[serde(rename = "invoice.status.changed")]
-    InvoiceStatusChanged,
-    #[doc = "A new down payment invoice was created in lexoffice. Get the new down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint)."]
-    #[serde(rename = "down-payment-invoice.created")]
-    DownPaymentInvoiceCreated,
     #[doc = "A down payment invoice has changed. Get the updated down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint). Please note that the status may also have changed."]
     #[serde(rename = "down-payment-invoice.changed")]
     DownPaymentInvoiceChanged,
+    #[doc = "A new down payment invoice was created in lexoffice. Get the new down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint)."]
+    #[serde(rename = "down-payment-invoice.created")]
+    DownPaymentInvoiceCreated,
     #[doc = "A down payment invoice was deleted in lexoffice."]
     #[serde(rename = "down-payment-invoice.deleted")]
     DownPaymentInvoiceDeleted,
     #[doc = "The status of a down payment invoice has changed. Update the down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint) to retrieve the new status."]
     #[serde(rename = "down-payment-invoice.status.changed")]
     DownPaymentInvoiceStatusChanged,
-    #[doc = "A new order confirmation was created in lexoffice. Get the new order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint)."]
-    #[serde(rename = "order-confirmation.created")]
-    OrderConfirmationCreated,
+    #[doc = "An invoice has changed. Get the updated invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint). Please note that the status may also have changed."]
+    #[serde(rename = "invoice.changed")]
+    InvoiceChanged,
+    #[doc = "A new invoice was created in lexoffice. Get the new invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint)."]
+    #[serde(rename = "invoice.created")]
+    InvoiceCreated,
+    #[doc = "An invoice was deleted in lexoffice."]
+    #[serde(rename = "invoice.deleted")]
+    InvoiceDeleted,
+    #[doc = "The status of an invoice has changed. Update the invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint) to retrieve the new status."]
+    #[serde(rename = "invoice.status.changed")]
+    InvoiceStatusChanged,
     #[doc = "An order confirmation has changed. Get the updated order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint). Please note that the status may also have changed."]
     #[serde(rename = "order-confirmation.changed")]
     OrderConfirmationChanged,
+    #[doc = "A new order confirmation was created in lexoffice. Get the new order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint)."]
+    #[serde(rename = "order-confirmation.created")]
+    OrderConfirmationCreated,
     #[doc = "An order confirmation was deleted in lexoffice."]
     #[serde(rename = "order-confirmation.deleted")]
     OrderConfirmationDeleted,
     #[doc = "The status of an order confirmation has changed. Update the order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint) to retrieve the new status. **Please note that at this time there are no status transitions triggering the status changed event for order confirmations. This event solely exists to provide symmetric events for all voucher types.**"]
     #[serde(rename = "order-confirmation.status.changed")]
     OrderConfirmationStatusChanged,
-    #[doc = "A new quotation was created in lexoffice. Get the new quotation by calling the [quotations endpoint](https://developers.lexoffice.io/docs/#quotations-endpoint)."]
-    #[serde(rename = "quotation.created")]
-    QuotationCreated,
+    #[doc = "The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the [payments endpoint](https://developers.lexoffice.io/docs/#payments-endpoint) or the respective resource endpoints to retrieve further informaton about the payment status of the resource"]
+    #[serde(rename = "payment.changed")]
+    PaymentChanged,
     #[doc = "A quotation has changed. Get the updated quotation by calling the [quotations endpoint](https://developers.lexoffice.io/docs/#quotations-endpoint). Please note that the status may also have changed."]
     #[serde(rename = "quotation.changed")]
     QuotationChanged,
+    #[doc = "A new quotation was created in lexoffice. Get the new quotation by calling the [quotations endpoint](https://developers.lexoffice.io/docs/#quotations-endpoint)."]
+    #[serde(rename = "quotation.created")]
+    QuotationCreated,
     #[doc = "A quotation was deleted in lexoffice."]
     #[serde(rename = "quotation.deleted")]
     QuotationDeleted,
     #[doc = "The status of a quotation has changed. Update the quotation by calling the [quotations endpoint](https://developers.lexoffice.io/docs/#quotations-endpoint) to retrieve the new status."]
     #[serde(rename = "quotation.status.changed")]
     QuotationStatusChanged,
+    #[doc = "A template for recurring invoices has changed. Get the updated recurring template by calling the [recurring templates endpoint](https://developers.lexoffice.io/docs/#recurring-templates-endpoint)."]
+    #[serde(rename = "recurring-template.changed")]
+    RecurringTemplateChanged,
+    #[doc = "A new template for recurring invoices was created in lexoffice. Get the new recurring template by calling the [recurring templates endpoint](https://developers.lexoffice.io/docs/#recurring-templates-endpoint)."]
+    #[serde(rename = "recurring-template.created")]
+    RecurringTemplateCreated,
+    #[doc = "A template for recurring invoices was deleted in lexoffice."]
+    #[serde(rename = "recurring-template.deleted")]
+    RecurringTemplateDeleted,
     #[doc = "The refresh token was revoked, hence is invalid. The `resourceId` in the webhook callback refers to the `connectionId` you retrieve using the [profile endpoint](https://developers.lexoffice.io/docs/#profile-endpoint). Please store the refresh token to the `connectionId` prior to the registration on this event."]
     #[serde(rename = "token.revoked")]
     TokenRevoked,
-    #[doc = "A new (bookkeeping) voucher was created in lexoffice. Get the new voucher by calling the [vouchers endpoint](https://developers.lexoffice.io/docs/#vouchers-endpoint)."]
-    #[serde(rename = "voucher.created")]
-    VoucherCreated,
     #[doc = "A voucher has changed. Get the updated voucher by calling the [vouchers endpoint](https://developers.lexoffice.io/docs/#vouchers-endpoint)."]
     #[serde(rename = "voucher.changed")]
     VoucherChanged,
+    #[doc = "A new (bookkeeping) voucher was created in lexoffice. Get the new voucher by calling the [vouchers endpoint](https://developers.lexoffice.io/docs/#vouchers-endpoint)."]
+    #[serde(rename = "voucher.created")]
+    VoucherCreated,
     #[doc = "A voucher was deleted in lexoffice."]
     #[serde(rename = "voucher.deleted")]
     VoucherDeleted,
     #[doc = "The status of a voucher has changed. Get the updated voucher by calling the [vouchers endpoint](https://developers.lexoffice.io/docs/#vouchers-endpoint)."]
     #[serde(rename = "voucher.status.changed")]
     VoucherStatusChanged,
-    #[doc = "The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the [payments endpoint](https://developers.lexoffice.io/docs/#payments-endpoint) or the respective resource endpoints to retrieve further informaton about the payment status of the resource"]
-    #[serde(rename = "payment.changed")]
-    PaymentChanged,
-    #[doc = "A new template for recurring invoices was created in lexoffice. Get the new recurring template by calling the [recurring templates endpoint](https://developers.lexoffice.io/docs/#recurring-templates-endpoint)."]
-    #[serde(rename = "recurring-template.created")]
-    RecurringTemplateCreated,
-    #[doc = "A template for recurring invoices has changed. Get the updated recurring template by calling the [recurring templates endpoint](https://developers.lexoffice.io/docs/#recurring-templates-endpoint)."]
-    #[serde(rename = "recurring-template.changed")]
-    RecurringTemplateChanged,
-    #[doc = "A template for recurring invoices was deleted in lexoffice."]
-    #[serde(rename = "recurring-template.deleted")]
-    RecurringTemplateDeleted,
 }
 impl std::str::FromStr for EventType {
     type Err = serde_plain::Error;
