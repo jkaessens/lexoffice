@@ -23,7 +23,7 @@ pub struct ModelStruct {
 
 impl ModelStruct {
     pub fn create(name: String, module: &ModelModule) -> Self {
-        println!(" => {}", name);
+        //println!(" => {}", name);
         Self {
             name,
             module_id: module.id.clone(),
@@ -156,11 +156,11 @@ impl ModelStruct {
                         .remove_suffix(" Required Properties")
                         .remove_prefix("Object "),
                 );
-                println!(
-                    ":: {} -> {:?}",
-                    current_info,
-                    text.remove_suffix("Details")
-                );
+                //println!(
+                //    ":: {} -> {:?}",
+                //    current_info,
+                //    text.remove_suffix("Details")
+                //);
             }
 
             if current_info == self.type_name() {
@@ -188,13 +188,12 @@ impl ModelStruct {
                 iter.next().unwrap().text().collect::<String>().trim() == "Yes";
 
             if required {
-                let mut field = self
-                    .fields
-                    .iter_mut()
-                    .find(|x| x.name == property)
-                    .unwrap();
-                if field.access_type == AccessType::Unsure {
-                    field.access_type = AccessType::Mandatory
+                println!("===! {:?}\n{:?}", property, self.fields);
+                let field = self.fields.iter_mut().find(|x| x.name == property);
+                if let Some(field) = field {
+                    if field.access_type == AccessType::Unsure {
+                        field.access_type = AccessType::Mandatory
+                    }
                 }
             }
         }

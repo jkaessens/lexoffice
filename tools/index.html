@@ -389,6 +389,58 @@
               </ul>
           </li>
           <li>
+            <a href="#delivery-notes-endpoint" class="toc-h1 toc-link" data-title="Delivery Notes Endpoint">Delivery Notes Endpoint</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#delivery-notes-endpoint-purpose" class="toc-h2 toc-link" data-title="Purpose">Purpose</a>
+                  </li>
+                  <li>
+                    <a href="#delivery-notes-endpoint-delivery-notes-properties" class="toc-h2 toc-link" data-title="Delivery Notes Properties">Delivery Notes Properties</a>
+                  </li>
+                  <li>
+                    <a href="#delivery-notes-endpoint-create-a-delivery-note" class="toc-h2 toc-link" data-title="Create a Delivery Note">Create a Delivery Note</a>
+                  </li>
+                  <li>
+                    <a href="#delivery-notes-endpoint-pursue-to-a-delivery-note" class="toc-h2 toc-link" data-title="Pursue to a Delivery Note">Pursue to a Delivery Note</a>
+                  </li>
+                  <li>
+                    <a href="#delivery-notes-endpoint-retrieve-a-delivery-note" class="toc-h2 toc-link" data-title="Retrieve a Delivery Note">Retrieve a Delivery Note</a>
+                  </li>
+                  <li>
+                    <a href="#delivery-notes-endpoint-render-a-delivery-note-document-pdf" class="toc-h2 toc-link" data-title="Render a Delivery Note Document (PDF)">Render a Delivery Note Document (PDF)</a>
+                  </li>
+                  <li>
+                    <a href="#delivery-notes-endpoint-deeplink-to-a-delivery-note" class="toc-h2 toc-link" data-title="Deeplink to a Delivery Note">Deeplink to a Delivery Note</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dunnings-endpoint" class="toc-h1 toc-link" data-title="Dunnings Endpoint">Dunnings Endpoint</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#dunnings-endpoint-purpose" class="toc-h2 toc-link" data-title="Purpose">Purpose</a>
+                  </li>
+                  <li>
+                    <a href="#dunnings-endpoint-dunnings-properties" class="toc-h2 toc-link" data-title="Dunnings Properties">Dunnings Properties</a>
+                  </li>
+                  <li>
+                    <a href="#dunnings-endpoint-create-a-dunning" class="toc-h2 toc-link" data-title="Create a dunning">Create a dunning</a>
+                  </li>
+                  <li>
+                    <a href="#dunnings-endpoint-pursue-to-a-dunning" class="toc-h2 toc-link" data-title="Pursue to a dunning">Pursue to a dunning</a>
+                  </li>
+                  <li>
+                    <a href="#dunnings-endpoint-retrieve-a-dunning" class="toc-h2 toc-link" data-title="Retrieve a dunning">Retrieve a dunning</a>
+                  </li>
+                  <li>
+                    <a href="#dunnings-endpoint-render-a-dunning-document-pdf" class="toc-h2 toc-link" data-title="Render a dunning Document (PDF)">Render a dunning Document (PDF)</a>
+                  </li>
+                  <li>
+                    <a href="#dunnings-endpoint-deeplink-to-a-dunning" class="toc-h2 toc-link" data-title="Deeplink to a dunning">Deeplink to a dunning</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#down-payment-invoices-endpoint" class="toc-h1 toc-link" data-title="Down Payment Invoices Endpoint">Down Payment Invoices Endpoint</a>
               <ul class="toc-list-h2">
                   <li>
@@ -618,7 +670,7 @@
                     <a href="#voucherlist-endpoint-voucherlist-properties" class="toc-h2 toc-link" data-title="Voucherlist Properties">Voucherlist Properties</a>
                   </li>
                   <li>
-                    <a href="#voucherlist-endpoint-retrieve-and-filter-voucherlist" class="toc-h2 toc-link" data-title="Retrieve and filter voucherlist">Retrieve and filter voucherlist</a>
+                    <a href="#voucherlist-endpoint-retrieve-and-filter-voucherlist" class="toc-h2 toc-link" data-title="Retrieve and Filter Voucherlist">Retrieve and Filter Voucherlist</a>
                   </li>
               </ul>
           </li>
@@ -1627,12 +1679,9 @@ Credit notes can be created as a draft or finalized in open mode.</p>
 
 <p>With a credit note the partial or full amount of an invoice can be refunded to a customer.</p>
 
-<p>At the moment, credit notes can only be created without any reference to an invoice. To refer a credit note to an invoice on the printed document, the invoice number can be included in the header text (<em>introduction</em>).</p>
-
-<!-- uncomment when relations between voucher documents are implemented
-A credit note may be related to an invoice but can also be standalone without any reference to an invoice. If related to an invoice, the credit note's status will immediately switch to paidoff on finalization and the open payment amount of the related invoice is either reduced or completely paid. There can only be one credit note related to an invoice.
-An unrelated and finalized credit note will remain in status open until the lexoffice user assign the payment in lexoffice.
--->
+<p>A credit note may be related to an invoice but can also be standalone without any reference to an invoice. If related to an invoice, the credit note&#39;s status will immediately switch to paidoff on finalization and the open payment amount of the related invoice is either reduced or completely paid. There can only be one credit note related to an invoice.
+An unrelated and finalized credit note will remain in status open until the lexoffice user assigns the payment in lexoffice.
+Please note, that the printed document does not show the related invoice resp. the invoice number. However, to show the invoice number, it can simply be included in the header text (<em>introduction</em>).</p>
 
 <p>It is possible to create credit notes with value-added tax such as of type net (<em>Netto</em>), gross (<em>Brutto</em>) or different types of vat-free. For tax-exempt organizations vat-free (<em>Steuerfrei</em>) credit notes can be created exclusively. All other vat-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra-community supply (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), constructional services (<em>Bauleistungen gem. §13b UStG</em>) and external services (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>). For credit notes to third countries, the tax types third party country service (<em>Dienstleistungen an Drittländer</em>) and third party country delivery (<em>Ausfuhrlieferungen an Drittländer</em>) are possible.</p>
 <h2 id='credit-notes-endpoint-credit-notes-properties'>Credit Notes Properties</h2>
@@ -1811,11 +1860,11 @@ An unrelated and finalized credit note will remain in status open until the lexo
 
 <p><strong>Address Details</strong></p>
 
-<p>There are two main options to address the recipient of a credit note. First, using an existing lexoffice contact or second creating a new address.</p>
+<p>There are two main options to address the recipient of a credit note. First, using an existing lexoffice contact or second, creating a new address.</p>
 
-<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific credit note. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.</p>
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific credit note. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.</p>
 
-<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.</aside>
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the <a href="#contacts-endpoint">contacts endpoint</a>.</aside>
 
 <p>Otherwise, a <strong>new address</strong> for the credit note recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new credit note.</p>
 
@@ -2148,9 +2197,6 @@ An unrelated and finalized credit note will remain in status open until the lexo
 
 <p>Credit notes transmitted via the API are created in draft mode per default. To create a finalized credit note with status <em>open</em> the optional query parameter <code>finalize</code> has to be set. The status of a credit note cannot be changed via the api.</p>
 
-<!-- When referenced to an invoice a finalized credit note is immediately paidoff and the open amount of the invoice is reduced by the amount of the credit note.
--->
-
 <p>The created credit note will be shown in the main voucher list in lexoffice: <a href="https://app.lexoffice.de/vouchers" target="_blank">https://app.lexoffice.de/vouchers</a>. To provide your customers access to the created credit note please use our <a href="#credit-notes-endpoint-deeplink-to-a-credit-note">deeplink</a> function.</p>
 
 <p>The contents of the credit note are expected in the request&#39;s body as an application/json and must not contain read-only fields.</p>
@@ -2244,23 +2290,19 @@ At this point only line items of type &quot;custom&quot; and &quot;text&quot; ar
 <tr>
 <td style="text-align: right">quantity</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitName</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitPrice</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left">Nested object. Required fields for unitPrice see below.</td>
+<td style="text-align: left">Required for type <strong>custom</strong>. Nested object. Required fields for unitPrice see below.</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">Quantity, unitName, and unitPrice fields are mandatory
-for type <strong>custom</strong>, but will be ignored for type
-<strong>text</strong> items.</aside>
 
 <p><strong>Unit Price Required Properties</strong></p>
 
@@ -2331,7 +2373,7 @@ for type <strong>custom</strong>, but will be ignored for type
 </tr>
 </tbody></table>
 <h2 id='credit-notes-endpoint-pursue-to-a-credit-note'>Pursue to a Credit Note</h2>
-<p><code>POST {resourceurl}/v1/credit-notes?precedingSalesVoucherId={id}</code></p>
+<p><code>POST {resourceurl}/v1/credit-notes?precedingSalesVoucherId={id}[&amp;finalize=true]</code></p>
 
 <p>To be able to pursue a sales voucher to a credit note, the optional query parameter
 <code>precedingSalesVoucherId</code> needs to be set. The id value <code>{id}</code> refers to the preceding sales voucher which is going to be pursued.</p>
@@ -2339,7 +2381,7 @@ for type <strong>custom</strong>, but will be ignored for type
 <p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
 The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
 
-<aside class="notice">Please note that not all pursue actions in lexoffice are supported via the API. Duns and delivery-notes cannot be pursued currently. Nonetheless, the <strong>id</strong> of an existing delivery-note can be used as <strong>precedingSalesVoucherId</strong>. </aside>
+<p>When referenced to an invoice, a finalized credit note is immediately paidoff and the open amount of the invoice is reduced by the amount of the credit note.</p>
 
 <aside class="notice"> Please note that a closing invoice cannot be pursued to a credit note.</aside>
 <h2 id='credit-notes-endpoint-retrieve-a-credit-note'>Retrieve a Credit Note</h2>
@@ -2462,6 +2504,1466 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <p><strong>View URL</strong> <code>{appbaseurl}/permalink/credit-notes/view/{id}</code></p>
 
 <p><strong>Edit URL</strong> <code>{appbaseurl}/permalink/credit-notes/edit/{id}</code></p>
+<h1 id='delivery-notes-endpoint'>Delivery Notes Endpoint</h1><h2 id='delivery-notes-endpoint-purpose'>Purpose</h2>
+<p>This endpoint provides read and write access to delivery notes and also the possibility to render the document as a PDF in order to download it.
+Delivery notes are always created in draft mode and do not need to be finalized.</p>
+
+<p>When creating delivery notes to existing invoices, it is recommended to use the pursue action to create a reference between the documents.
+Please note, that the printed document does not show the related invoice resp. the invoice number. However, to show the invoice number, it can simply be included in the header text (<em>introduction</em>).</p>
+
+<p>Delivery notes contain neither payment conditions nor prices, reductions and tax amounts.</p>
+<h2 id='delivery-notes-endpoint-delivery-notes-properties'>Delivery Notes Properties</h2>
+<blockquote>
+<p>Sample of a delivery note with multiple line items. Fields with no content are displayed with &quot;null&quot; just for demonstration purposes.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="s2">"2019-06-17T18:32:07.480+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="s2">"2019-06-17T18:32:07.551+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"version"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"language"</span><span class="p">:</span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"archived"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="s2">"LS0007"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="s2">"2017-02-22T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"address"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"supplement"</span><span class="p">:</span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"street"</span><span class="p">:</span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"zip"</span><span class="p">:</span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="s2">"DE"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"lineItems"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Abus Kabelschloss Primo 590 "</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mf">13.4</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="mf">15.946</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">19</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="mi">0</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"taxConditions"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"taxType"</span><span class="p">:</span><span class="s2">"net"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"relatedVouchers"</span><span class="p">:[],</span><span class="w">
+   </span><span class="nl">"title"</span><span class="p">:</span><span class="s2">"Lieferschein"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"introduction"</span><span class="p">:</span><span class="s2">"Lieferschein zur Rechnung RE-00020"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"remark"</span><span class="p">:</span><span class="s2">"Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"files"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="s2">"a79fea19-a892-4ea9-89ad-e879946329a3"</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id  <br><code>uuid</code></td>
+<td style="text-align: left">Unique id generated on creation by lexoffice. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">organizationId <br><code>uuid</code></td>
+<td style="text-align: left">Unique id of the organization the delivery note belongs to. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">createdDate <br><code>dateTime</code></td>
+<td style="text-align: left">The instant of time when the delivery note was created by lexoffice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">updatedDate <br><code>dateTime</code></td>
+<td style="text-align: left">The instant of time when the delivery note was updated by lexoffice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">version <br><code>integer</code></td>
+<td style="text-align: left">Version <em>(revision)</em> number which will be increased on each change to handle <a href="#optimistic-locking">optimistic locking</a>.<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">language <br><code>string</code></td>
+<td style="text-align: left">Specifies the language of the delivery note which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German <strong>de</strong> (default) and English <strong>en</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">archived <br><code>boolean</code></td>
+<td style="text-align: left">Specifies if the delivery note is only available in the archive in lexoffice. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherStatus <br><code>enum</code></td>
+<td style="text-align: left">Specifies the status of the order confirmation. The only possible status is <strong>draft</strong> (is editable). <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number a delivery note is aware of. This consecutive number is set by lexoffice on creation. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherDate <br><code>dateTime</code></td>
+<td style="text-align: left">The date of delivery note in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#delivery-notes-address-details">address</a> <br><code>object</code></td>
+<td style="text-align: left">The address of the delivery note recipient. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#delivery-notes-lineItems-details">lineItems</a> <br><code>list</code></td>
+<td style="text-align: left">The items of the delivery note. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#delivery-notes-taxConditions-details">taxConditions</a> <br><code>object</code></td>
+<td style="text-align: left">The tax conditions of the delivery note. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-relatedVouchers-details">relatedVouchers</a> <br><code>list</code></td>
+<td style="text-align: left">The related vouchers of the invoice. <em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">title <br><code>string</code></td>
+<td style="text-align: left">(Optional) A title text. The organization&#39;s default is used if no value was sent.</td>
+</tr>
+<tr>
+<td style="text-align: right">introduction <br><code>string</code></td>
+<td style="text-align: left">(Optional) An introductory text / header. The organization&#39;s default is used if no value was send. <strong>We recommend to include the invoice number in the header when the delivery note is related to an invoice.</strong></td>
+</tr>
+<tr>
+<td style="text-align: right">remark <br><code>string</code></td>
+<td style="text-align: left">(Optional) A closing text note. The organization&#39;s default is used if no value was send.</td>
+</tr>
+<tr>
+<td style="text-align: right">deliveryTerms <br><code>string</code></td>
+<td style="text-align: left">(Optional) Describes the terms for delivery. The organization&#39;s (or contact-specific) default is used if no value was send.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#delivery-notes-files-details">files</a> <br><code>object</code></td>
+<td style="text-align: left">The document id for the PDF version of the delivery note. For details see below. <br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">Compared to invoices, delivery notes do not have a due date, payment conditions, total price, tax amounts, and any line item amounts and discounts. The unit prices of line items are optional.</aside>
+
+<div id="delivery-notes-address-details"></div>
+
+<p><strong>Address Details</strong></p>
+
+<p>There are two main options to address the recipient of a delivery note. First, using an existing lexoffice contact or second, creating a new address.</p>
+
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific delivery note. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.</p>
+
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the <a href="#contacts-endpoint">contacts endpoint</a>.</aside>
+
+<p>Otherwise, a <strong>new address</strong> for the delivery note recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new delivery note.</p>
+
+<p>Please get in touch with us if you are not sure which option fits your use case best.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">contactId <br><code>uuid</code></td>
+<td style="text-align: left">If the delivery note recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact.</td>
+</tr>
+<tr>
+<td style="text-align: right">name <br><code>string</code></td>
+<td style="text-align: left">The name of the delivery note recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}.</td>
+</tr>
+<tr>
+<td style="text-align: right">supplement <br><code>string</code></td>
+<td style="text-align: left">(Optional) An address supplement.</td>
+</tr>
+<tr>
+<td style="text-align: right">street <br><code>string</code></td>
+<td style="text-align: left">The street (street and street number) of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">city <br><code>string</code></td>
+<td style="text-align: left">The city of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">zip <br><code>string</code></td>
+<td style="text-align: left">The zip code of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">countryCode <br><code>enum</code></td>
+<td style="text-align: left">The <a href="#faq-country-codes">ISO 3166 alpha2 country code</a> of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">contactPerson <br><code>string</code></td>
+<td style="text-align: left">The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced <code>contactId</code>.<br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<div id="delivery-notes-lineItems-details"></div>
+
+<p><strong>Line Items Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The field specifies the related id of the product/service. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">type <br><code>enum</code></td>
+<td style="text-align: left">The type of the item. Possible values are <strong>service</strong> (the line item is related to a supply of services), <strong>material</strong> (the line item is related to a physical product), <strong>custom</strong> (an item without reference in lexoffice and has no id) or <strong>text</strong> (contains only a name and/or a description for informative purposes).</td>
+</tr>
+<tr>
+<td style="text-align: right">name <br><code>string</code></td>
+<td style="text-align: left">The name of the item.</td>
+</tr>
+<tr>
+<td style="text-align: right">description <br><code>string</code></td>
+<td style="text-align: left">The description of the item.</td>
+</tr>
+<tr>
+<td style="text-align: right">quantity <br><code>number</code></td>
+<td style="text-align: left">The amount of the purchased item. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">unitName <br><code>string</code></td>
+<td style="text-align: left">The unit name of the purchased item. If the provided unit name is not known in lexoffice it will be created on the fly.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#delivery-notes-unitPrice-details">unitPrice</a> <br><code>object</code></td>
+<td style="text-align: left">The unit price of the purchased item. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">lineItemAmount <br><code>number</code></td>
+<td style="text-align: left">The total price of this line item. Depending by the selected <em>taxType</em> in <em>taxConditions</em>, the amount must be given either as net or gross. The value can contain up to 2 decimals. <br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<div id="delivery-notes-unitPrice-details"></div>
+
+<p><strong>Unit Price Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">currency <br><code>enum</code></td>
+<td style="text-align: left">The currency of the price. Currently only <strong>EUR</strong> is supported.</td>
+</tr>
+<tr>
+<td style="text-align: right">netAmount <br><code>number</code></td>
+<td style="text-align: left">The net price of the unit price. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">grossAmount <br><code>number</code></td>
+<td style="text-align: left">The gross price of the unit price. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxRatePercentage <br><code>number</code></td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+</tr>
+</tbody></table>
+
+<div id="delivery-notes-taxConditions-details"></div>
+
+<p><strong>Tax Conditions Details</strong></p>
+
+<blockquote>
+<p>Sample for vat-free tax conditions</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constructionService13b"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"taxTypeNote"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge)"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">taxType <br><code>enum</code></td>
+<td style="text-align: left">The tax type for the delivery note. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxTypeNote <br><code>string</code></td>
+<td style="text-align: left">When <em>taxType</em> is set to a vat-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization&#39;s default.</td>
+</tr>
+</tbody></table>
+
+<div id="invoices-relatedVouchers-details"></div>
+
+<p><strong>Related Vouchers Details</strong></p>
+
+<p>The <em>relatedVouchers</em> property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The related sales voucher&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number of the related sales voucher. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the related sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p>All attributes listed above are read-only.</p>
+
+<div id="delivery-notes-files-details"></div>
+
+<p><strong>Files Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">documentFileId <br><code>uuid</code></td>
+<td style="text-align: left">The id of the order confirmation PDF. To download the order confirmation PDF file please use the files endpoint.</td>
+</tr>
+</tbody></table>
+<h2 id='delivery-notes-endpoint-create-a-delivery-note'>Create a Delivery Note</h2>
+<blockquote>
+<p>Sample Request to create a delivery note</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/delivery-notes
+<span class="nt">-X</span> POST
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+<span class="nt">-d</span> <span class="s1">'
+{
+  "archived": false,
+  "voucherDate": "2017-02-22T00:00:00.000+01:00",
+  "address": {
+    "name": "Bike &amp; Ride GmbH &amp; Co. KG",
+    "supplement": "Gebäude 10",
+    "street": "Musterstraße 42",
+    "city": "Freiburg",
+    "zip": "79112",
+    "countryCode": "DE"
+  },
+  "lineItems": [
+    {
+      "type": "custom",
+      "name": "Abus Kabelschloss Primo 590 ",
+      "description": "· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm",
+      "quantity": 2,
+      "unitName": "Stück",
+      "unitPrice": null
+    },
+    {
+      "type": "custom",
+      "name": "Energieriegel Testpaket",
+      "quantity": 1,
+      "unitName": "Stück",
+      "unitPrice": null
+    },
+    {
+      "type": "text",
+      "name": "Strukturieren Sie Ihre Belege durch Text-Elemente.",
+      "description": "Das hilft beim Verständnis"
+    }
+  ],
+  "taxConditions": {
+    "taxType": "net"
+  },
+  "title": "Lieferschein",
+  "introduction": "Lieferschein zur Rechnung RE-00020",
+  "deliveryTerms": "Lieferung frei Haus.",
+  "remark": "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."
+}
+'</span>
+</code></pre></div>
+<blockquote>
+<p>Sample response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"resourceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.lexoffice.io/v1/delivery-notes/e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-17T18:32:07.480+02:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-17T18:32:07.551+02:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>POST {resourceurl}/v1/delivery-notes</code></p>
+
+<p>Delivery notes transmitted via the API are created in draft mode only.</p>
+
+<p>The created delivery note will be shown in the main voucher list in lexoffice: <a href="https://app.lexoffice.de/vouchers" target="_blank">https://app.lexoffice.de/vouchers</a>. To provide your customers access to the created delivery note please use our <a href="#delivery-notes-endpoint-deeplink-to-a-delivery-note">deeplink</a> function.</p>
+
+<p>The contents of the delivery note are expected in the request&#39;s body as an application/json and must not contain read-only fields.</p>
+
+<p>Description of required properties when creating a delivery note.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">voucherDate</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">address</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Nested object. Required fields for address please see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">lineItems</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">List of nested objects. Required fields for lineItems please see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxConditions</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Nested object. Required fields for taxConditions see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">shippingConditions</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Nested object. Required fields for shippingConditions see below.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Address Required Properties</strong></p>
+
+<p>Description of required address properties when creating a delivery note.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">contactId</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only when referencing an existing lexoffice contact.</td>
+</tr>
+<tr>
+<td style="text-align: right">name</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only required when <strong>no</strong> existing contact is referenced.</td>
+</tr>
+<tr>
+<td style="text-align: right">countryCode</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only required when <strong>no</strong> existing contact is referenced.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Line Items Required Properties</strong></p>
+
+<p>Description of required lineItem properties when creating a delivery note.
+At this point only line items of type &quot;custom&quot; and &quot;text&quot; are supported.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">type</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Supported values are <strong>custom</strong> and <strong>text</strong>. Other types of line items may be returned by a GET operation.</td>
+</tr>
+<tr>
+<td style="text-align: right">name</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">quantity</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">unitName</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">unitPrice</td>
+<td style="text-align: left">No</td>
+<td style="text-align: left">Nested object. Required fields for unitPrice see below. Optional for delivery notes.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Unit Price Required Properties</strong></p>
+
+<p>Description of required unitPrice properties when creating a delivery note.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">currency</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">netAmount</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only relevant if taxConditions.taxType != gross is delivered.</td>
+</tr>
+<tr>
+<td style="text-align: right">grossAmount</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only relevant if taxConditions.taxType == gross is delivered.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxRatePercentage</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Must be 0 for vat-free sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Tax Condition Required Properties</strong></p>
+
+<p>Description of required tax condition properties when creating a delivery note.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">taxType</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Supported values are: <em>gross</em>, <em>net</em>, <em>vatfree</em>, <em>intraCommunitySupply</em>, <em>constructionService13b</em>, <em>externalService13b</em>, <em>thirdPartyCountryService</em>, <em>thirdPartyCountryDelivery</em>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Shipping Condition Required Properties</strong></p>
+
+<p>Description of required shipping condition properties when creating a delivery note.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">shippingType</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">shippingDate</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for shipping types <strong>service</strong>, <strong>serviceperiod</strong>, <strong>delivery</strong> and <strong>deliveryperiod</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">shippingEndDate</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for shipping types <strong>serviceperiod</strong> and <strong>deliveryperiod</strong>.</td>
+</tr>
+</tbody></table>
+<h2 id='delivery-notes-endpoint-pursue-to-a-delivery-note'>Pursue to a Delivery Note</h2>
+<p><code>POST {resourceurl}/v1/delivery-notes?precedingSalesVoucherId={id}</code></p>
+
+<p>To be able to pursue a sales voucher to a delivery note, the optional query parameter
+<code>precedingSalesVoucherId</code> needs to be set. The id value <code>{id}</code> refers to the preceding sales voucher which is going to be pursued.</p>
+
+<p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
+The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
+<h2 id='delivery-notes-endpoint-retrieve-a-delivery-note'>Retrieve a Delivery Note</h2>
+<blockquote>
+<p>Sample request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/delivery-notes/e9066f04-8cc7-4616-93f8-ac9ecc8479c8
+<span class="nt">-X</span> GET
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+</code></pre></div>
+<blockquote>
+<p>Sample response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-17T18:32:07.480+02:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-17T18:32:07.551+02:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LS0007"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-02-22T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"supplement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"lineItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abus Kabelschloss Primo 590 "</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.4</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">15.946</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"net"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lieferschein"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lieferschein zur Rechnung RE-00020"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"deliveryTerms"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lieferung frei Haus."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET {resourceurl}/v1/delivery-notes/{id}</code></p>
+
+<p>Returns the delivery note with id value <code>{id}</code>.</p>
+<h2 id='delivery-notes-endpoint-render-a-delivery-note-document-pdf'>Render a Delivery Note Document (PDF)</h2>
+<blockquote>
+<p>Sample request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/delivery-notes/e9066f04-8cc7-4616-93f8-ac9ecc8479c8/document
+<span class="nt">-X</span> GET
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+</code></pre></div>
+<blockquote>
+<p>Sample response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b26e1d73-19ff-46b1-8929-09d8d73d4167"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET {resourceurl}/v1/delivery-notes/{id}/document</code></p>
+
+<p>To download the pdf file of a delivery note document, you need its <strong>documentFileId</strong>. This id is usually returned by the delivery note resource. However, newly created delivery notes via the API have to trigger the pdf document file rendering separately. This can be done with this endpoint.</p>
+
+<p>The returned <em>documentFileId</em> can be used to download the delivery note pdf document via the (<a href="#files-endpoint">Files Endpoint</a>).</p>
+
+<aside class="warning">For delivery notes in draft mode there does not exist a document file in lexoffice. Any request attempts are rejected with 406 responses.</aside>
+<h2 id='delivery-notes-endpoint-deeplink-to-a-delivery-note'>Deeplink to a Delivery Note</h2>
+<p>Delivery notes can be directly accessed by permanent HTTPS links to either be viewed or to be edited. If a delivery note is not allowed to be edited, a redirection to the view page takes place.
+In case the given <code>id</code> does not exist, a redirection to the main voucher list takes place.</p>
+
+<p><strong>View URL</strong> <code>{appbaseurl}/permalink/delivery-notes/view/{id}</code></p>
+
+<p><strong>Edit URL</strong> <code>{appbaseurl}/permalink/delivery-notes/edit/{id}</code></p>
+<h1 id='dunnings-endpoint'>Dunnings Endpoint</h1><h2 id='dunnings-endpoint-purpose'>Purpose</h2>
+<p>This endpoint provides read and write access to dunnings and also the possibility to render the document as a PDF in order to download it.
+Dunnings are always created in draft mode and do not need to be finalized.</p>
+
+<p>A dunning requires an invoice as a reference, making the <code>precedingSalesVoucherId</code> a mandatory query parameter. When creating a dunning, the contact ids of the invoice and the dunning must be equal (or both be absent, resulting in a reference to the collective customer). The name attribute in the address field is copied from the referenced invoice and will be ignored in the dunning structure. The tax conditions must match the tax conditions in the referenced invoice.</p>
+
+<p>Dunning a down payment invoice is possible as well.</p>
+<h2 id='dunnings-endpoint-dunnings-properties'>Dunnings Properties</h2>
+<blockquote>
+<p>Sample of a dunning with multiple line items. Fields with no content are displayed with &quot;null&quot; just for demonstration purposes.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"e9066f04-8cc7-4616-93f8-ac9ecc8479c8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="s2">"2021-07-17T18:32:07.480+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="s2">"2021-07-17T18:32:07.551+02:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"version"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"language"</span><span class="p">:</span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"archived"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="s2">"2021-07-17T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"address"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"supplement"</span><span class="p">:</span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"street"</span><span class="p">:</span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"zip"</span><span class="p">:</span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="s2">"DE"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"lineItems"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Strukturieren Sie Ihre Belege durch Text-Elemente."</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Das hilft beim Verst</span><span class="se">\u</span><span class="s2">00e4ndnis"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"totalPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"totalNetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"totalGrossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"totalTaxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"taxAmounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+       </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+           </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+           </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
+       </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"net"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"shippingConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"shippingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-07-21T15:16:44.051+02:00"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delivery"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"relatedVouchers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+       </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52cd26a2-ea26-11eb-a4f0-2bb179f80c5a"</span><span class="p">,</span><span class="w">
+           </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE0357"</span><span class="p">,</span><span class="w">
+           </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="w">
+       </span><span class="p">}</span><span class="w">
+   </span><span class="p">],</span><span class="w">
+   </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wir bitten Sie, die nachfolgend aufgelisteten Lieferungen/Leistungen unverzüglich zu begleichen."</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sollten Sie den offenen Betrag bereits beglichen haben, betrachten Sie dieses Schreiben als gegenstandslos."</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4e19354c-ea26-11eb-a31f-af2d58e85357"</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mahnung"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id  <br><code>uuid</code></td>
+<td style="text-align: left">Unique id generated on creation by lexoffice. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">organizationId <br><code>uuid</code></td>
+<td style="text-align: left">Unique id of the organization the dunning belongs to. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">createdDate <br><code>dateTime</code></td>
+<td style="text-align: left">The instant of time when the dunning was created by lexoffice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">updatedDate <br><code>dateTime</code></td>
+<td style="text-align: left">The instant of time when the dunning was updated by lexoffice in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">version <br><code>integer</code></td>
+<td style="text-align: left">Version <em>(revision)</em> number which will be increased on each change to handle <a href="#optimistic-locking">optimistic locking</a>.<br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">language <br><code>string</code></td>
+<td style="text-align: left">Specifies the language of the dunning which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German <strong>de</strong> (default) and English <strong>en</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">archived <br><code>boolean</code></td>
+<td style="text-align: left">Specifies if the dunning is only available in the archive in lexoffice. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherStatus <br><code>enum</code></td>
+<td style="text-align: left">Specifies the status of the order confirmation. The only possible status is <strong>draft</strong> (is editable). <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherDate <br><code>dateTime</code></td>
+<td style="text-align: left">The date of dunning in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#dunnings-address-details">address</a> <br><code>object</code></td>
+<td style="text-align: left">The address of the dunning recipient. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#dunnings-lineItems-details">lineItems</a> <br><code>list</code></td>
+<td style="text-align: left">The items of the dunning. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#invoices-relatedVouchers-details">relatedVouchers</a> <br><code>list</code></td>
+<td style="text-align: left">The related vouchers of the invoice. <em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">title <br><code>string</code></td>
+<td style="text-align: left">(Optional) A title text. The organization&#39;s default is used if no value was sent.</td>
+</tr>
+<tr>
+<td style="text-align: right">introduction <br><code>string</code></td>
+<td style="text-align: left">(Optional) An introductory text / header. The organization&#39;s default is used if no value was send. <strong>We recommended to include the invoice number in the header when the dunning is related to an invoice.</strong></td>
+</tr>
+<tr>
+<td style="text-align: right">remark <br><code>string</code></td>
+<td style="text-align: left">(Optional) A closing text note. The organization&#39;s default is used if no value was send.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#dunnings-files-details">files</a> <br><code>object</code></td>
+<td style="text-align: left">The document id for the PDF version of the dunning. For details see below. <br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">Compared to invoices, dunnings do not have payment conditions, a due date, or a voucher number. The latter is derived from the related invoice.</aside>
+
+<div id="dunnings-address-details"></div>
+
+<p><strong>Address Details</strong></p>
+
+<p>There are two main options to address the recipient of a dunning. First, using an existing lexoffice contact or second, creating a new address.</p>
+
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific dunning. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.</p>
+
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the <a href="#contacts-endpoint">contacts endpoint</a>.</aside>
+
+<p>Otherwise, a <strong>new address</strong> for the dunning recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new dunning.</p>
+
+<p>Please get in touch with us if you are not sure which option fits your use case best.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">contactId <br><code>uuid</code></td>
+<td style="text-align: left">If the dunning recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact.</td>
+</tr>
+<tr>
+<td style="text-align: right">name <br><code>string</code></td>
+<td style="text-align: left">The name of the dunning recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}.</td>
+</tr>
+<tr>
+<td style="text-align: right">supplement <br><code>string</code></td>
+<td style="text-align: left">(Optional) An address supplement.</td>
+</tr>
+<tr>
+<td style="text-align: right">street <br><code>string</code></td>
+<td style="text-align: left">The street (street and street number) of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">city <br><code>string</code></td>
+<td style="text-align: left">The city of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">zip <br><code>string</code></td>
+<td style="text-align: left">The zip code of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">countryCode <br><code>enum</code></td>
+<td style="text-align: left">The <a href="#faq-country-codes">ISO 3166 alpha2 country code</a> of the address.</td>
+</tr>
+<tr>
+<td style="text-align: right">contactPerson <br><code>string</code></td>
+<td style="text-align: left">The contact person selected while editing the voucher. The primary contact person will be used when creating vouchers via the API with a referenced <code>contactId</code>.<br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">If the invoice referenced by the dunning contained a contactId, the same contactId needs to be included in the dunning. If the invoice was created using a one-time contact, the dunning needs to do so as well. In any case, the name attribute of the invoice address record will be used in the dunning, independently of the attribute in the dunning.</aside>
+
+<div id="dunnings-lineItems-details"></div>
+
+<p><strong>Line Items Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The field specifies the related id of the product/service. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">type <br><code>enum</code></td>
+<td style="text-align: left">The type of the item. Possible values are <strong>service</strong> (the line item is related to a supply of services), <strong>material</strong> (the line item is related to a physical product), <strong>custom</strong> (an item without reference in lexoffice and has no id) or <strong>text</strong> (contains only a name and/or a description for informative purposes).</td>
+</tr>
+<tr>
+<td style="text-align: right">name <br><code>string</code></td>
+<td style="text-align: left">The name of the item.</td>
+</tr>
+<tr>
+<td style="text-align: right">description <br><code>string</code></td>
+<td style="text-align: left">The description of the item.</td>
+</tr>
+<tr>
+<td style="text-align: right">quantity <br><code>number</code></td>
+<td style="text-align: left">The amount of the purchased item. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">unitName <br><code>string</code></td>
+<td style="text-align: left">The unit name of the purchased item. If the provided unit name is not known in lexoffice it will be created on the fly.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#dunnings-unitPrice-details">unitPrice</a> <br><code>object</code></td>
+<td style="text-align: left">The unit price of the purchased item. For details see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">lineItemAmount <br><code>number</code></td>
+<td style="text-align: left">The total price of this line item. Depending by the selected <em>taxType</em> in <em>taxConditions</em>, the amount must be given either as net or gross. The value can contain up to 2 decimals. <br><em>Read-only.</em></td>
+</tr>
+</tbody></table>
+
+<div id="dunnings-unitPrice-details"></div>
+
+<p><strong>Unit Price Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">currency <br><code>enum</code></td>
+<td style="text-align: left">The currency of the price. Currently only <strong>EUR</strong> is supported.</td>
+</tr>
+<tr>
+<td style="text-align: right">netAmount <br><code>number</code></td>
+<td style="text-align: left">The net price of the unit price. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">grossAmount <br><code>number</code></td>
+<td style="text-align: left">The gross price of the unit price. The value can contain up to 4 decimals.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxRatePercentage <br><code>number</code></td>
+<td style="text-align: left">The tax rate of the unit price. See <a href="#faq-valid-tax-rates">the &quot;Supported tax rates&quot; FAQ</a> for more information and a list of possible values.. For vat-free sales vouchers the tax rate percentage must be <strong>0</strong>.</td>
+</tr>
+</tbody></table>
+
+<div id="dunnings-taxConditions-details"></div>
+
+<p><strong>Tax Conditions Details</strong></p>
+
+<blockquote>
+<p>Sample for vat-free tax conditions</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"constructionService13b"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"taxTypeNote"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge)"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">taxType <br><code>enum</code></td>
+<td style="text-align: left">The tax type for the dunning. Possible values are <strong>net</strong>, <strong>gross</strong>, <strong>vatfree</strong> (<em>Steuerfrei</em>), <strong>intraCommunitySupply</strong> (<em>Innergemeinschaftliche Lieferung gem. §13b UStG</em>), <strong>constructionService13b</strong> (<em>Bauleistungen gem. §13b UStG</em>), <strong>externalService13b</strong> (<em>Fremdleistungen innerhalb der EU gem. §13b UStG</em>), <strong>thirdPartyCountryService</strong> (<em>Dienstleistungen an Drittländer</em>), and <strong>thirdPartyCountryDelivery</strong> (<em>Ausfuhrlieferungen an Drittländer</em>)</td>
+</tr>
+<tr>
+<td style="text-align: right">taxSubType <br><code>enum</code></td>
+<td style="text-align: left">A tax subtype. Only required for dedicated cases. For vouchers referencing a B2C customer in the EU, and with a <code>taxType</code> of <code>net</code> or <code>gross</code>, the taxSubType may be set to <strong>distanceSales</strong>, or <strong>electronicServices</strong>. Passing a null value results in a standard voucher.<br />If the organization&#39;s <code>distanceSalesPrinciple</code> (<a href="#profile-endpoint">profile endpoint</a>) is set to <code>DESTINATION</code> <em>and</em> this attribute is set to <strong>distanceSales</strong> or <strong>electronicServices</strong>, the voucher needs to reference the destination country&#39;s tax rates.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxTypeNote <br><code>string</code></td>
+<td style="text-align: left">When <em>taxType</em> is set to a vat-free tax type then a note regarding the conditions can be set. When omitted lexoffice sets the organization&#39;s default.</td>
+</tr>
+</tbody></table>
+
+<div id="invoices-relatedVouchers-details"></div>
+
+<p><strong>Related Vouchers Details</strong></p>
+
+<p>The <em>relatedVouchers</em> property documents all existing voucher relations for the current sales voucher. If no related vouchers exist, an empty list will be returned.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">id <br><code>uuid</code></td>
+<td style="text-align: left">The related sales voucher&#39;s unique id.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber <br><code>string</code></td>
+<td style="text-align: left">The specific number of the related sales voucher. <br><em>Read-only.</em></td>
+</tr>
+<tr>
+<td style="text-align: right">voucherType <br><code>string</code></td>
+<td style="text-align: left">Voucher type of the related sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p>All attributes listed above are read-only.</p>
+
+<div id="dunnings-files-details"></div>
+
+<p><strong>Files Details</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">documentFileId <br><code>uuid</code></td>
+<td style="text-align: left">The id of the order confirmation PDF. To download the order confirmation PDF file please use the files endpoint.</td>
+</tr>
+</tbody></table>
+<h2 id='dunnings-endpoint-create-a-dunning'>Create a dunning</h2>
+<blockquote>
+<p>Sample Request to create a dunning</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/dunnings?precedingSalesVoucherId<span class="o">=</span>58e512ce-ea13-11eb-bac8-2f511e28942a
+<span class="nt">-X</span> POST
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+<span class="nt">-d</span> <span class="s1">'
+{
+  "archived": false,
+  "voucherDate": "2021-07-22T00:00:00.000+01:00",
+  "address": {
+    "name": "Bike &amp; Ride GmbH &amp; Co. KG",
+    "supplement": "Gebäude 10",
+    "street": "Musterstraße 42",
+    "city": "Freiburg",
+    "zip": "79112",
+    "countryCode": "DE"
+  },
+  "lineItems": [
+    {
+      "type": "custom",
+      "name": "Energieriegel Testpaket",
+      "quantity": 1,
+      "unitName": "Stück",
+      "unitPrice": {
+        "currency": "EUR",
+        "netAmount": 5,
+        "taxRatePercentage": 0
+      },
+      "discountPercentage": 0
+    },
+    {
+      "type": "text",
+      "name": "Strukturieren Sie Ihre Belege durch Text-Elemente.",
+      "description": "Das hilft beim Verständnis"
+    }
+  ],
+  "totalPrice": {
+    "currency": "EUR",
+    "totalNetAmount": 15.0,
+    "totalGrossAmount": 17.85,
+    "totalTaxAmount": 2.85
+  },
+  "taxConditions": {
+    "taxType": "net"
+  },
+  "title": "Mahnung",
+  "introduction": "Wir bitten Sie, die nachfolgend aufgelisteten Lieferungen/Leistungen unverzüglich zu begleichen.",
+  "remark": "Sollten Sie den offenen Betrag bereits beglichen haben, betrachten Sie dieses Schreiben als gegenstandslos."
+}
+'</span>
+</code></pre></div>
+<blockquote>
+<p>Sample response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d9066f04-8cc7-4616-93f8-ac9ecc8479c9"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"resourceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.lexoffice.io/v1/dunnings/d9066f04-8cc7-4616-93f8-ac9ecc8479c9"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-07-17T18:32:07.480+02:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-07-17T18:32:07.551+02:00"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>POST {resourceurl}/v1/dunnings?precedingSalesVoucherId={id}</code></p>
+
+<p>The created dunning will <em>not</em> be shown in the main voucher list in lexoffice, but will be attached to an invoice and will be visible there. To provide your customers access to the created dunning please use our <a href="#dunnings-endpoint-deeplink-to-a-dunning">deeplink</a> function.</p>
+
+<p>The contents of the dunning are expected in the request&#39;s body as an application/json and must not contain read-only fields.</p>
+
+<p>Description of required properties when creating a dunning.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">voucherDate</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">address</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Nested object. Required fields for address please see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">lineItems</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">List of nested objects. Required fields for lineItems please see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxConditions</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Nested object. Required fields for taxConditions see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">shippingConditions</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Nested object. Required fields for shippingConditions see below.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Address Required Properties</strong></p>
+
+<p>Description of required address properties when creating a dunning.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">contactId</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only when referencing an existing lexoffice contact.</td>
+</tr>
+<tr>
+<td style="text-align: right">name</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only required when <strong>no</strong> existing contact is referenced.</td>
+</tr>
+<tr>
+<td style="text-align: right">countryCode</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only required when <strong>no</strong> existing contact is referenced.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Line Items Required Properties</strong></p>
+
+<p>Description of required lineItem properties when creating a dunning.
+At this point only line items of type &quot;custom&quot; and &quot;text&quot; are supported.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">type</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Supported values are <strong>custom</strong> and <strong>text</strong>. Other types of line items may be returned by a GET operation.</td>
+</tr>
+<tr>
+<td style="text-align: right">name</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">quantity</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">unitName</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">unitPrice</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for type <strong>custom</strong>. Nested object. Required fields for unitPrice see below.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Unit Price Required Properties</strong></p>
+
+<p>Description of required unitPrice properties when creating a dunning.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">currency</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">netAmount</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only relevant if taxConditions.taxType != gross is delivered.</td>
+</tr>
+<tr>
+<td style="text-align: right">grossAmount</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Only relevant if taxConditions.taxType == gross is delivered.</td>
+</tr>
+<tr>
+<td style="text-align: right">taxRatePercentage</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Must be 0 for vat-free sales voucher.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Tax Condition Required Properties</strong></p>
+
+<p>Description of required tax condition properties when creating a dunning.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">taxType</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left">Supported values are: <em>gross</em>, <em>net</em>, <em>vatfree</em>, <em>intraCommunitySupply</em>, <em>constructionService13b</em>, <em>externalService13b</em>, <em>thirdPartyCountryService</em>, <em>thirdPartyCountryDelivery</em>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Shipping Condition Required Properties</strong></p>
+
+<p>Description of required shipping condition properties when creating a dunning.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Property</th>
+<th style="text-align: left">Required</th>
+<th style="text-align: left">Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">shippingType</td>
+<td style="text-align: left">Yes</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td style="text-align: right">shippingDate</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for shipping types <strong>service</strong>, <strong>serviceperiod</strong>, <strong>delivery</strong> and <strong>deliveryperiod</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right">shippingEndDate</td>
+<td style="text-align: left">*</td>
+<td style="text-align: left">Required for shipping types <strong>serviceperiod</strong> and <strong>deliveryperiod</strong>.</td>
+</tr>
+</tbody></table>
+<h2 id='dunnings-endpoint-pursue-to-a-dunning'>Pursue to a dunning</h2>
+<p><code>POST {resourceurl}/v1/dunnings?precedingSalesVoucherId={id}</code></p>
+
+<p>To be able to pursue a sales voucher to a dunning, the optional query parameter
+<code>precedingSalesVoucherId</code> needs to be set. The id value <code>{id}</code> refers to the preceding sales voucher which is going to be pursued.</p>
+
+<p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
+The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
+<h2 id='dunnings-endpoint-retrieve-a-dunning'>Retrieve a dunning</h2>
+<blockquote>
+<p>Sample request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/dunnings/a54820ca-ea27-11eb-8703-dffc93413c04
+<span class="nt">-X</span> GET
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+</code></pre></div>
+<blockquote>
+<p>Sample response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e7f66576-d5c8-4dbd-9a01-c2c4d6695da6"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aa93e8a8-2aa3-470b-b914-caad8a255dd8"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-07-21T15:26:51.469+02:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-07-21T15:26:51.548+02:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"language"</span><span class="p">:</span><span class="w"> </span><span class="s2">"de"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-07-22T01:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bike &amp; Ride GmbH &amp; Co. KG"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"supplement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gebäude 10"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterstraße 42"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Freiburg"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"79112"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DE"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"lineItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Energieriegel Testpaket"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"unitName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Stück"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"unitPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"grossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"discountPercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"lineItemAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Strukturieren Sie Ihre Belege durch Text-Elemente."</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Das hilft beim Verst</span><span class="se">\u</span><span class="s2">00e4ndnis"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"totalPrice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"totalNetAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"totalGrossAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"totalTaxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"taxAmounts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"taxRatePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"taxAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"netAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"taxConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"taxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"net"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"shippingConditions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"shippingDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-05-22T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"shippingType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delivery"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"relatedVouchers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ddc4c966-aae0-4e0e-a229-3ec9085ee9a3"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE0357"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"introduction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wir bitten Sie, die nachfolgend aufgelisteten Lieferungen/Leistungen unverzüglich zu begleichen."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"remark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sollten Sie den offenen Betrag bereits beglichen haben, betrachten Sie dieses Schreiben als gegenstandslos."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mahnung"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET {resourceurl}/v1/dunnings/{id}</code></p>
+
+<p>Returns the dunning with id value <code>{id}</code>.</p>
+<h2 id='dunnings-endpoint-render-a-dunning-document-pdf'>Render a dunning Document (PDF)</h2>
+<blockquote>
+<p>Sample request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/dunnings/e9066f04-8cc7-4616-93f8-ac9ecc8479c8/document
+<span class="nt">-X</span> GET
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+</code></pre></div>
+<blockquote>
+<p>Sample response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"documentFileId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b26e1d73-19ff-46b1-8929-09d8d73d4167"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET {resourceurl}/v1/dunnings/{id}/document</code></p>
+
+<p>To download the pdf file of a dunning document, you need its <strong>documentFileId</strong>. This id is usually returned by the dunning resource. However, newly created dunnings via the API have to trigger the pdf document file rendering separately. This can be done with this endpoint.</p>
+
+<p>The returned <em>documentFileId</em> can be used to download the dunning pdf document via the (<a href="#files-endpoint">Files Endpoint</a>).</p>
+<h2 id='dunnings-endpoint-deeplink-to-a-dunning'>Deeplink to a dunning</h2>
+<p>Dunnings can be directly accessed by permanent HTTPS links to either be viewed or to be edited. If a dunning is not allowed to be edited, a redirection to the view page takes place.
+In case the given <code>id</code> does not exist, a redirection to the main voucher list takes place.</p>
+
+<p><strong>View URL</strong> <code>{appbaseurl}/permalink/dunnings/view/{id}</code></p>
+
+<p><strong>Edit URL</strong> <code>{appbaseurl}/permalink/dunnings/edit/{id}</code></p>
 <h1 id='down-payment-invoices-endpoint'>Down Payment Invoices Endpoint</h1><h2 id='down-payment-invoices-endpoint-purpose'>Purpose</h2>
 <p>This endpoint provides read-only access to down payment invoices.</p>
 <h2 id='down-payment-invoices-endpoint-down-payment-invoices-properties'>Down Payment Invoices Properties</h2>
@@ -2652,11 +4154,11 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 
 <p><strong>Address Details</strong></p>
 
-<p>There are two main options to address the recipient of a down payment invoice. First, using an existing lexoffice contact or second creating a new address.</p>
+<p>There are two main options to address the recipient of a down payment invoice. First, using an existing lexoffice contact or second, creating a new address.</p>
 
-<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific down payment invoice. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.</p>
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific down payment invoice. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.</p>
 
-<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.</aside>
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the <a href="#contacts-endpoint">contacts endpoint</a>.</aside>
 
 <p>Otherwise, a <strong>new address</strong> for the down payment invoice recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new down payment invoice.</p>
 
@@ -3144,24 +4646,19 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <td style="text-align: left">The status of a credit note has changed. Update the credit note by calling the <a href="#credit-notes-endpoint">credit notes endpoint</a> to retrieve the new status.</td>
 </tr>
 <tr>
-<td>invoices</td>
-<td style="text-align: left">invoice.created</td>
-<td style="text-align: left">A new invoice was created in lexoffice. Get the new invoice by calling the <a href="#invoices-endpoint">invoices endpoint</a>.</td>
+<td>delivery notes</td>
+<td style="text-align: left">delivery-note.created</td>
+<td style="text-align: left">A new delivery note was created in lexoffice. Get the new delivery note by calling the <a href="#delivery-notes-endpoint">delivery note endpoint</a>.</td>
 </tr>
 <tr>
-<td>invoices</td>
-<td style="text-align: left">invoice.changed</td>
-<td style="text-align: left">An invoice has changed. Get the updated invoice by calling the <a href="#invoices-endpoint">invoices endpoint</a>. Please note that the status may also have changed.</td>
+<td>delivery notes</td>
+<td style="text-align: left">delivery-note.changed</td>
+<td style="text-align: left">A delivery note has changed. Get the updated delivery note by calling the <a href="#delivery-notes-endpoint">delivery note endpoint</a>.</td>
 </tr>
 <tr>
-<td>invoices</td>
-<td style="text-align: left">invoice.deleted</td>
-<td style="text-align: left">An invoice was deleted in lexoffice.</td>
-</tr>
-<tr>
-<td>invoices</td>
-<td style="text-align: left">invoice.status.changed</td>
-<td style="text-align: left">The status of an invoice has changed. Update the invoice by calling the <a href="#invoices-endpoint">invoices endpoint</a> to retrieve the new status.</td>
+<td>delivery notes</td>
+<td style="text-align: left">delivery-note.deleted</td>
+<td style="text-align: left">A delivery note was deleted in lexoffice.</td>
 </tr>
 <tr>
 <td>down-payment-invoices</td>
@@ -3184,6 +4681,41 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <td style="text-align: left">The status of a down payment invoice has changed. Update the down payment invoice by calling the <a href="#down-payment-invoices-endpoint">down payment invoices endpoint</a> to retrieve the new status.</td>
 </tr>
 <tr>
+<td>dunnings</td>
+<td style="text-align: left">dunning.created</td>
+<td style="text-align: left">A new dunning was created in lexoffice. Get the new dunning by calling the <a href="#dunnings-endpoint">dunning endpoint</a>.</td>
+</tr>
+<tr>
+<td>dunnings</td>
+<td style="text-align: left">dunning.changed</td>
+<td style="text-align: left">A dunning has changed. Get the updated dunning by calling the <a href="#dunnings-endpoint">dunning endpoint</a>.</td>
+</tr>
+<tr>
+<td>dunnings</td>
+<td style="text-align: left">dunning.deleted</td>
+<td style="text-align: left">A dunning was deleted in lexoffice.</td>
+</tr>
+<tr>
+<td>invoices</td>
+<td style="text-align: left">invoice.created</td>
+<td style="text-align: left">A new invoice was created in lexoffice. Get the new invoice by calling the <a href="#invoices-endpoint">invoices endpoint</a>.</td>
+</tr>
+<tr>
+<td>invoices</td>
+<td style="text-align: left">invoice.changed</td>
+<td style="text-align: left">An invoice has changed. Get the updated invoice by calling the <a href="#invoices-endpoint">invoices endpoint</a>. Please note that the status may also have changed.</td>
+</tr>
+<tr>
+<td>invoices</td>
+<td style="text-align: left">invoice.deleted</td>
+<td style="text-align: left">An invoice was deleted in lexoffice.</td>
+</tr>
+<tr>
+<td>invoices</td>
+<td style="text-align: left">invoice.status.changed</td>
+<td style="text-align: left">The status of an invoice has changed. Update the invoice by calling the <a href="#invoices-endpoint">invoices endpoint</a> to retrieve the new status.</td>
+</tr>
+<tr>
 <td>order-confirmations</td>
 <td style="text-align: left">order-confirmation.created</td>
 <td style="text-align: left">A new order confirmation was created in lexoffice. Get the new order confirmation by calling the <a href="#order-confirmations-endpoint">order confirmations endpoint</a>.</td>
@@ -3204,6 +4736,11 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <td style="text-align: left">The status of an order confirmation has changed. Update the order confirmation by calling the <a href="#order-confirmations-endpoint">order confirmations endpoint</a> to retrieve the new status. <strong>Please note that at this time there are no status transitions triggering the status changed event for order confirmations. This event solely exists to provide symmetric events for all voucher types.</strong></td>
 </tr>
 <tr>
+<td>credit-notes, invoices, vouchers</td>
+<td style="text-align: left">payment.changed</td>
+<td style="text-align: left">The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the <a href="#payments-endpoint">payments endpoint</a> or the respective resource endpoints to retrieve further information about the payment status of the resource.  <strong>Please note that this event will also be triggered when changing the status of invoices and credit notes from open to draft. Requesting payments of draft vouchers using the <a href="#payments-endpoint">payments endpoint</a> will result in 406 HTTP status codes. This is not an error condition.</strong></td>
+</tr>
+<tr>
 <td>quotations</td>
 <td style="text-align: left">quotation.created</td>
 <td style="text-align: left">A new quotation was created in lexoffice. Get the new quotation by calling the <a href="#quotations-endpoint">quotations endpoint</a>.</td>
@@ -3222,6 +4759,21 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <td>quotations</td>
 <td style="text-align: left">quotation.status.changed</td>
 <td style="text-align: left">The status of a quotation has changed. Update the quotation by calling the <a href="#quotations-endpoint">quotations endpoint</a> to retrieve the new status.</td>
+</tr>
+<tr>
+<td>recurring-templates</td>
+<td style="text-align: left">recurring-template.created</td>
+<td style="text-align: left">A new template for recurring invoices was created in lexoffice. Get the new recurring template by calling the <a href="#recurring-templates-endpoint">recurring templates endpoint</a>.</td>
+</tr>
+<tr>
+<td>recurring-templates</td>
+<td style="text-align: left">recurring-template.changed</td>
+<td style="text-align: left">A template for recurring invoices has changed. Get the updated recurring template by calling the <a href="#recurring-templates-endpoint">recurring templates endpoint</a>.</td>
+</tr>
+<tr>
+<td>recurring-templates</td>
+<td style="text-align: left">recurring-template.deleted</td>
+<td style="text-align: left">A template for recurring invoices was deleted in lexoffice.</td>
 </tr>
 <tr>
 <td>revoke</td>
@@ -3247,26 +4799,6 @@ Our configured <strong>HTTP read timeout is set to 5000 ms</strong>, so we do no
 <td>vouchers</td>
 <td style="text-align: left">voucher.status.changed</td>
 <td style="text-align: left">The status of a voucher has changed. Get the updated voucher by calling the <a href="#vouchers-endpoint">vouchers endpoint</a>.</td>
-</tr>
-<tr>
-<td>credit-notes, invoices, vouchers</td>
-<td style="text-align: left">payment.changed</td>
-<td style="text-align: left">The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the <a href="#payments-endpoint">payments endpoint</a> or the respective resource endpoints to retrieve further informaton about the payment status of the resource</td>
-</tr>
-<tr>
-<td>recurring-templates</td>
-<td style="text-align: left">recurring-template.created</td>
-<td style="text-align: left">A new template for recurring invoices was created in lexoffice. Get the new recurring template by calling the <a href="#recurring-templates-endpoint">recurring templates endpoint</a>.</td>
-</tr>
-<tr>
-<td>recurring-templates</td>
-<td style="text-align: left">recurring-template.changed</td>
-<td style="text-align: left">A template for recurring invoices has changed. Get the updated recurring template by calling the <a href="#recurring-templates-endpoint">recurring templates endpoint</a>.</td>
-</tr>
-<tr>
-<td>recurring-templates</td>
-<td style="text-align: left">recurring-template.deleted</td>
-<td style="text-align: left">A template for recurring invoices was deleted in lexoffice.</td>
 </tr>
 </tbody></table>
 <h2 id='event-subscriptions-endpoint-webhook-callback-properties'>Webhook Callback Properties</h2>
@@ -3825,11 +5357,11 @@ Invoices can be created in draft or open (finalized) states.</p>
 
 <p><strong>Address Details</strong></p>
 
-<p>There are two main options to address the recipient of an invoice. First, using an existing lexoffice contact or second creating a new address.</p>
+<p>There are two main options to address the recipient of an invoice. First, using an existing lexoffice contact or second, creating a new address.</p>
 
-<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific invoice. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.</p>
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific invoice. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.</p>
 
-<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.</aside>
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the <a href="#contacts-endpoint">contacts endpoint</a>.</aside>
 
 <p>Otherwise, a <strong>new address</strong> for the invoice recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new invoice.</p>
 
@@ -4463,23 +5995,19 @@ At this point only line items of type &quot;custom&quot; and &quot;text&quot; ar
 <tr>
 <td style="text-align: right">quantity</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitName</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitPrice</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left">Nested object. Required fields for unitPrice see below.</td>
+<td style="text-align: left">Required for type <strong>custom</strong>. Nested object. Required fields for unitPrice see below.</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">Quantity, unitName, and unitPrice fields are mandatory
-for type <strong>custom</strong>, but will be ignored for type
-<strong>text</strong> items.</aside>
 
 <p><strong>Unit Price Required Properties</strong></p>
 
@@ -4578,15 +6106,13 @@ for type <strong>custom</strong>, but will be ignored for type
 </tr>
 </tbody></table>
 <h2 id='invoices-endpoint-pursue-to-an-invoice'>Pursue to an Invoice</h2>
-<p><code>POST {resourceurl}/v1/invoices?precedingSalesVoucherId={id}</code></p>
+<p><code>POST {resourceurl}/v1/invoices?precedingSalesVoucherId={id}[&amp;finalize=true]</code></p>
 
 <p>To be able to pursue a sales voucher to an invoice, the optional query parameter
 <code>precedingSalesVoucherId</code> needs to be set. The id value <code>{id}</code> refers to the preceding sales voucher which is going to be pursued.</p>
 
 <p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
 The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
-
-<aside class="notice">Please note that not all pursue actions in lexoffice are supported via the API. Duns and delivery-notes cannot be pursued currently. Nonetheless, the <strong>id</strong> of an existing delivery-note can be used as <strong>precedingSalesVoucherId</strong>. </aside>
 
 <aside class="warning">If a quotation is referenced by the <strong>precedingSalesVoucherId</strong> which contains any alternative or optional line items, the request will be rejected with 406 response.</aside>
 
@@ -4987,11 +6513,11 @@ Order confirmations are always created in draft mode and do not need to be final
 
 <p><strong>Address Details</strong></p>
 
-<p>There are two main options to address the recipient of an order confirmation. First, using an existing lexoffice contact or second creating a new address.</p>
+<p>There are two main options to address the recipient of an order confirmation. First, using an existing lexoffice contact or second, creating a new address.</p>
 
-<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific order confirmation. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.</p>
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific order confirmation. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.</p>
 
-<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.</aside>
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the <a href="#contacts-endpoint">contacts endpoint</a>.</aside>
 
 <p>Otherwise, a <strong>new address</strong> for the order confirmation recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new order confirmation.</p>
 
@@ -5528,23 +7054,19 @@ At this point only line items of type &quot;custom&quot; and &quot;text&quot; ar
 <tr>
 <td style="text-align: right">quantity</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitName</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitPrice</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left">Nested object. Required fields for unitPrice see below.</td>
+<td style="text-align: left">Required for type <strong>custom</strong>. Nested object. Required fields for unitPrice see below.</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">Quantity, unitName, and unitPrice fields are mandatory
-for type <strong>custom</strong>, but will be ignored for type
-<strong>text</strong> items.</aside>
 
 <p><strong>Unit Price Required Properties</strong></p>
 
@@ -5650,8 +7172,6 @@ for type <strong>custom</strong>, but will be ignored for type
 
 <p>To get an overview of the valid and possible pursue actions in lexoffice, please see the linked <a href="../assets/charts/lexoffice_Salesvoucher_Document_Chain-39e89aa3.png">sales voucher document chain</a>.
 The recommended process is highlighted in blue. If the pursue action is not valid, the request will be rejected with 406 response.</p>
-
-<aside class="notice">Please note that not all pursue actions in lexoffice are supported via the API. Duns and delivery-notes cannot be pursued currently. Nonetheless, the <strong>id</strong> of an existing delivery-note can be used as <strong>precedingSalesVoucherId</strong>. </aside>
 
 <aside class="warning">If a quotation is referenced by the <strong>precedingSalesVoucherId</strong> which contains any alternative or optional line items, the request will be rejected with 406 response.</aside>
 <h2 id='order-confirmations-endpoint-retrieve-an-order-confirmation'>Retrieve an Order Confirmation</h2>
@@ -6396,11 +7916,11 @@ Quotations can be created as a draft or finalized in open mode.</p>
 
 <p><strong>Address Details</strong></p>
 
-<p>There are two main options to address the recipient of a quotation. First, using an existing lexoffice contact or second creating a new address.</p>
+<p>There are two main options to address the recipient of a quotation. First, using an existing lexoffice contact or second, creating a new address.</p>
 
-<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Additionally, the referenced address can also be modified for this specific quotation. Therefore all required address fields must be set and the deviated address will not be stored back to the lexoffice contacts.</p>
+<p>For <strong>referencing an existing contact</strong> it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific quotation. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.</p>
 
-<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the Contacts Endpoint.</aside>
+<aside class="warning">The referenced contact needs to have the role customer. For more information please refer to the <a href="#contacts-endpoint">contacts endpoint</a>.</aside>
 
 <p>Otherwise, a <strong>new address</strong> for the quotation recipient can be created. That type of address is called a &quot;one-time address&quot;. A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new quotation.</p>
 
@@ -6943,23 +8463,19 @@ At this point only line items of type &quot;custom&quot; and &quot;text&quot; ar
 <tr>
 <td style="text-align: right">quantity</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitName</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left"></td>
+<td style="text-align: left">Required for type <strong>custom</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">unitPrice</td>
 <td style="text-align: left">*</td>
-<td style="text-align: left">Nested object. Required fields for unitPrice see below.</td>
+<td style="text-align: left">Required for type <strong>custom</strong>. Nested object. Required fields for unitPrice see below.</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">Quantity, unitName, and unitPrice fields are mandatory
-for type <strong>custom</strong>, but will be ignored for type
-<strong>text</strong> items.</aside>
 
 <p><strong>Unit Price Required Properties</strong></p>
 
@@ -7952,8 +9468,9 @@ In case the given <code>id</code> does not exist, a redirection to the main vouc
 <strong>Edit URL</strong> <code>{appbaseurl}/permalink/recurring-templates/edit/{id}</code></p>
 <h1 id='voucherlist-endpoint'>Voucherlist Endpoint</h1><h2 id='voucherlist-endpoint-purpose'>Purpose</h2>
 <p>The voucherlist endpoint provides read access to meta data of
-(bookkeeping) <a href="#vouchers-endpoint">vouchers</a> (e.g. salesinvoices, salescreditnotes), <a href="#invoices-endpoint">invoices</a> (including <a href="#down-payment-invoices-endpoint">down payment invoices</a>), <a href="#credit-notes-endpoint">credit notes</a>, <a href="#order-confirmations-endpoint">order confirmations</a>, and <a href="#quotations-endpoint">quotations</a>.
-For filters that can be applied to the list see below. Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints.</p>
+(bookkeeping) <a href="#vouchers-endpoint">vouchers</a> (e.g. salesinvoices, salescreditnotes), <a href="#invoices-endpoint">invoices</a> (including <a href="#down-payment-invoices-endpoint">down payment invoices</a>), <a href="#credit-notes-endpoint">credit notes</a>, <a href="#order-confirmations-endpoint">order confirmations</a>, <a href="#quotations-endpoint">quotations</a>, and <a href="#delivery-notes-endpoint">delivery notes</a>.
+Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints.
+The voucherlist can be searched using various filters to get only the data you need.</p>
 <h2 id='voucherlist-endpoint-voucherlist-properties'>Voucherlist Properties</h2>
 <p>This section describes the properties of the meta data object for vouchers returned by this endpoint.</p>
 
@@ -7969,7 +9486,7 @@ For filters that can be applied to the list see below. Details concerning items 
 </tr>
 <tr>
 <td style="text-align: right">voucherType <br><code>enum</code></td>
-<td>Type of the voucher. Possible values are <strong>salesinvoice</strong>, <strong>salescreditnote</strong>, <strong>purchaseinvoice</strong>, <strong>purchasecreditnote</strong>, <strong>invoice</strong>, <strong>downpaymentinvoice</strong>, <strong>creditnote</strong>, <strong>orderconfirmation</strong>, and <strong>quotation</strong>.</td>
+<td>Type of the voucher. Possible values are <strong>salesinvoice</strong>, <strong>salescreditnote</strong>, <strong>purchaseinvoice</strong>, <strong>purchasecreditnote</strong>, <strong>invoice</strong>, <strong>downpaymentinvoice</strong>, <strong>creditnote</strong>, <strong>orderconfirmation</strong>, <strong>quotation</strong>, and <strong>deliverynote</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: right">voucherStatus <br><code>enum</code></td>
@@ -7984,6 +9501,10 @@ For filters that can be applied to the list see below. Details concerning items 
 <td>Date when the voucher was issued. Value in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
 </tr>
 <tr>
+<td style="text-align: right">createdDate <br><code>dateTime</code></td>
+<td>Date when the voucher was created in lexoffice. Value in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
+</tr>
+<tr>
 <td style="text-align: right">updatedDate <br><code>dateTime</code></td>
 <td>Date when the voucher was last changed (or status changed) in lexoffice. Value in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
 </tr>
@@ -7992,8 +9513,12 @@ For filters that can be applied to the list see below. Details concerning items 
 <td>Date when the voucher&#39;s payment has to be settled. Value in format <code>yyyy-MM-ddTHH:mm:ss.SSSXXX</code> as described in RFC 3339/ISO 8601 (e.g. <em>2020-02-21T00:00:00.000+01:00</em>).</td>
 </tr>
 <tr>
+<td style="text-align: right">contactId <br><code>uuid</code></td>
+<td>The id of an existing contact in lexoffice which is the recipient or invoicing party. Will be null for the <a href="#faq">Collective Contact</a>.</td>
+</tr>
+<tr>
 <td style="text-align: right">contactName <br><code>string</code></td>
-<td>Name of the recipient or invoicing party. Further information on the contact can be retrieved by using the corresponding voucher endpoint (see below).</td>
+<td>Name of the recipient or invoicing party.</td>
 </tr>
 <tr>
 <td style="text-align: right">totalAmount <br><code>number</code></td>
@@ -8012,10 +9537,197 @@ For filters that can be applied to the list see below. Details concerning items 
 <td>Indicates if the voucher is marked as archived in lexoffice.</td>
 </tr>
 </tbody></table>
+<h2 id='voucherlist-endpoint-retrieve-and-filter-voucherlist'>Retrieve and Filter Voucherlist</h2>
+<p>It is possible to filter vouchers by voucherType, voucherStatus and the archived flag.</p>
 
-<aside class="notice">Since status <strong>overdue</strong> is a transient status, it can also be returned when filtered for vouchers with status <strong>open</strong> and the voucher's duedate is in the past.</aside>
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/voucherlist?voucherType<span class="o">=</span>purchaseinvoice,invoice&amp;voucherStatus<span class="o">=</span>open&amp;voucherDateFrom<span class="o">=</span>2020-06-01
+<span class="nt">-X</span> GET
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
+<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
+</code></pre></div>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57b8d457-1fb6-4ae9-944a-9fe763da2aff"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchaseinvoice"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2010096"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-14T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-03-22T12:36:22.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-03-22T12:36:22.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-21T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contactId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sammellieferant"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">80.04</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">80.04</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f3d3ae48-30d9-4b56-973a-b3159cbe743c"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE1012"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-02-14T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-03-03T16:52:21.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-03-03T16:52:21.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-13T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contactId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"777c7793-9fbb-4ec7-9254-0619c199761e"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterfrau, Erika"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.8</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">74.8</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55aa6de8-d32d-47bd-9c3c-d541ab65a8e8"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overdue"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE1011"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-10-07T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-03T16:52:21.000+02:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-03T16:52:21.000+02:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-06T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contactId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b08a1ac7-10fc-4214-b875-8491f91479dd"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test GmbH"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">498.8</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">498.8</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"numberOfElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"sort"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"voucherdate"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DESC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"ignoreCase"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"nullHandling"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NATIVE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"ascending"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET {resourceurl}/v1/voucherlist?{voucherType}&amp;{voucherStatus}[&amp;filter_1=value_1...&amp;filter_n=value_n]</code></p>
 
-<p><strong>Filter parameter voucherType</strong></p>
+<p>Returns a <a href="#paging-of-resources">page</a> with meta data on all vouchers of type <code>voucherType</code>, status <code>voucherStatus</code> and marked as archived <code>archived</code>.</p>
+
+<p><strong>Filter Parameters</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">Parameter Name</th>
+<th>required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right"><a href="#filter-parameter-vouchertype">voucherType</a><br><code>string</code></td>
+<td>yes</td>
+<td>A comma-separated list of voucher types to be returned. For more details on this parameter, see below.</td>
+</tr>
+<tr>
+<td style="text-align: right"><a href="#filter-parameter-voucherstatus">voucherStatus</a><br><code>string</code></td>
+<td>yes</td>
+<td>A comma-separated list of voucher status. Some status only apply to specific voucher types. For more details on this parameter, see below.</td>
+</tr>
+<tr>
+<td style="text-align: right">archived<br><code>boolean</code></td>
+<td>no</td>
+<td>If the voucher is marked as archived or not.</td>
+</tr>
+<tr>
+<td style="text-align: right">contactId<br><code>uuid</code></td>
+<td>no</td>
+<td>The id of an existing lexoffice contact.</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherDateFrom<br><code>date</code></td>
+<td>no</td>
+<td>The date of the voucher in format <code>yyyy-MM-dd</code>(e.g. <em>2020-02-21</em>). References a full day in CET/CEST 0:00-23:59:59</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherDateTo<br><code>date</code></td>
+<td>no</td>
+<td>The date of the voucher in format <code>yyyy-MM-dd</code>(e.g. <em>2020-02-21</em>). References a full day in CET/CEST 0:00-23:59:59</td>
+</tr>
+<tr>
+<td style="text-align: right">createdDateFrom<br><code>date</code></td>
+<td>no</td>
+<td>The date the voucher was created in format <code>yyyy-MM-dd</code>(e.g. <em>2020-02-21</em>). References a full day in CET/CEST 0:00-23:59:59</td>
+</tr>
+<tr>
+<td style="text-align: right">createdDateTo<br><code>date</code></td>
+<td>no</td>
+<td>The date the voucher was created in format <code>yyyy-MM-dd</code>(e.g. <em>2020-02-21</em>). References a full day in CET/CEST 0:00-23:59:59</td>
+</tr>
+<tr>
+<td style="text-align: right">updatedDateFrom<br><code>date</code></td>
+<td>no</td>
+<td>The date the voucher was lastly modified in format <code>yyyy-MM-dd</code>(e.g. <em>2020-02-21</em>). References a full day in CET/CEST 0:00-23:59:59</td>
+</tr>
+<tr>
+<td style="text-align: right">updatedDateTo<br><code>date</code></td>
+<td>no</td>
+<td>The date the voucher was lastly modified in format <code>yyyy-MM-dd</code>(e.g. <em>2020-02-21</em>). References a full day in CET/CEST 0:00-23:59:59</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">The values of all mentioned properties have to be URL encoded when used to send data to lexoffice.</aside>
+
+<p><strong>Paging Parameters</strong></p>
+
+<p>The voucherlist is a paged list. This parameter changes the used page size:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">size<br><code>integer</code></td>
+<td>Default page size is 25. Can be set up to a maximum of 250.</td>
+</tr>
+<tr>
+<td style="text-align: right">page<br><code>integer</code></td>
+<td>Page to retrieve. 0-based value. If not given, the first page (index 0) is returned.</td>
+</tr>
+</tbody></table>
+
+<p>For further information see <a href="#paging-of-resources">Paging of Resources</a></p>
+
+<p><strong>Sorting Parameters</strong></p>
+
+<p>The voucherlist can be sorted using the following parameter:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameter&nbsp;Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: right">sort<br><code>string</code></td>
+<td>Property significant to order of the contents. Possible values are <strong>voucherDate</strong>, <strong>voucherNumber</strong>, <strong>createdDate</strong> and <strong>updatedDate</strong>. The sort direction can be added separated by a comma. Possible values for the direction are <strong>ASC</strong> or <strong>DESC</strong>.</td>
+</tr>
+</tbody></table>
+
+<div id="filter-parameter-vouchertype"></div>
+
+<p><strong>Filter Parameter voucherType</strong></p>
 
 <p>This filter parameter is required. It can contain a comma separated list of voucher types.</p>
 
@@ -8023,7 +9735,7 @@ For filters that can be applied to the list see below. Details concerning items 
 
 <table><thead>
 <tr>
-<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voucher Type</th>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voucher&nbsp;Type</th>
 <th>Endpoint</th>
 </tr>
 </thead><tbody>
@@ -8063,15 +9775,25 @@ For filters that can be applied to the list see below. Details concerning items 
 <td style="text-align: right">downpaymentinvoice</td>
 <td><a href="#down-payment-invoices-endpoint-retrieve-a-down-payment-invoice">Down Payment Invoice Endpoint</a></td>
 </tr>
+<tr>
+<td style="text-align: right">deliverynote</td>
+<td><a href="#delivery-notes-endpoint-retrieve-a-delivery-note">Delivery Notes Endpoint</a></td>
+</tr>
 </tbody></table>
 
-<p><strong>Filter parameter voucherStatus</strong></p>
+<div id="filter-parameter-voucherstatus"></div>
+
+<p><strong>Filter Parameter voucherStatus</strong></p>
 
 <p>This filter parameter is required. It can contain a comma separated list of voucher status.</p>
 
+<aside class="notice">The status <strong>overdue</strong> can not be filtered in combination with other status filters.</aside>
+
+<aside class="notice">Since status <strong>overdue</strong> is a transient status, it can also be returned when filtered for vouchers with status <strong>open</strong> and the voucher's duedate is in the past.</aside>
+
 <table><thead>
 <tr>
-<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voucher Status</th>
+<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voucher&nbsp;Status</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -8093,7 +9815,7 @@ For filters that can be applied to the list see below. Details concerning items 
 </tr>
 <tr>
 <td style="text-align: right">paidoff</td>
-<td><em>Only used for credit notes</em>. Credit note is marked as paidoff in lexoffice.</td>
+<td>Voucher is a credit note and paid in full.</td>
 </tr>
 <tr>
 <td style="text-align: right">voided</td>
@@ -8116,140 +9838,6 @@ For filters that can be applied to the list see below. Details concerning items 
 <td><em>Only used for quotations</em>. This status is set when a quotation was marked as rejected in lexoffice.</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">The status <strong>overdue</strong> can not be filtered in combination with other status filters.</aside>
-
-<p><strong>Filter parameter archived</strong></p>
-
-<p>This filter parameter is optional. If absent the result contains archived and non-archived vouchers.</p>
-
-<table><thead>
-<tr>
-<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameter Name</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right">archived (optional)</td>
-<td>Filter vouchers by archived flag. Possible values are <strong>true</strong> or <strong>false</strong>.</td>
-</tr>
-</tbody></table>
-
-<p><strong>Paging parameters</strong></p>
-
-<p>The voucherlist is a paged list. This parameter changes the used page size:</p>
-
-<table><thead>
-<tr>
-<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameter Name</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right">size (optional)</td>
-<td>Default page size is 25. Can be set up to a maximum of 250.</td>
-</tr>
-</tbody></table>
-
-<p>For further information see <a href="#paging-of-resources">Paging of Resources</a></p>
-
-<p><strong>Sorting parameters</strong></p>
-
-<p>The voucherlist can be sorted using the following parameter:</p>
-
-<table><thead>
-<tr>
-<th style="text-align: right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameter Name</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right">sort (optional)</td>
-<td>Property significant to order of the contents. Possible values are <strong>voucherDate</strong>, <strong>voucherNumber</strong>, and <strong>updatedDate</strong>. The sort direction can be added separated by a comma. Possible values for the direction are <strong>ASC</strong> or <strong>DESC</strong>.</td>
-</tr>
-</tbody></table>
-<h2 id='voucherlist-endpoint-retrieve-and-filter-voucherlist'>Retrieve and filter voucherlist</h2>
-<p>It is possible to filter vouchers by voucherType, voucherStatus and the archived flag.</p>
-
-<blockquote>
-<p>Sample Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl https://api.lexoffice.io/v1/voucherlist?voucherType<span class="o">=</span>purchaseinvoice,invoice&amp;voucherStatus<span class="o">=</span>open
-<span class="nt">-X</span> GET
-<span class="nt">-H</span> <span class="s2">"Authorization: Bearer {accessToken}"</span>
-<span class="nt">-H</span> <span class="s2">"Accept: application/json"</span>
-</code></pre></div>
-<blockquote>
-<p>Sample Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57b8d457-1fb6-4ae9-944a-9fe763da2aff"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purchaseinvoice"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2010096"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-14T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-22T12:36:22.000+01:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-14T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sammellieferant"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">80.04</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">80.04</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f3d3ae48-30d9-4b56-973a-b3159cbe743c"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"open"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE1012"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-02-14T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-03T16:52:21.000+01:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-11-13T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Musterfrau, Erika"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">99.8</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">74.8</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55aa6de8-d32d-47bd-9c3c-d541ab65a8e8"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overdue"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RE1011"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"voucherDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-10-07T00:00:00.000+02:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"updatedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-05-03T16:52:21.000+02:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-11-06T00:00:00.000+01:00"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"contactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test GmbH"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"totalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">498.8</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"openAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">498.8</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"numberOfElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"sort"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"voucherdate"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DESC"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"ignoreCase"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"nullHandling"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NATIVE"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"ascending"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p><code>GET {resourceurl}/v1/voucherlist?{voucherType}&amp;{voucherStatus}&amp;{archived}</code></p>
-
-<p>Returns a <a href="#paging-of-resources">page</a> with meta data on all vouchers of type <code>voucherType</code>, status <code>voucherStatus</code> and marked as archived <code>archived</code>.</p>
-
-<aside class="notice">The values of all mentioned properties have to be URL encoded when used to send data to lexoffice.</aside>
 <h1 id='vouchers-endpoint'>Vouchers Endpoint</h1><h2 id='vouchers-endpoint-purpose'>Purpose</h2>
 <p>The voucher endpoint provides read/write access to (bookkeeping) sales vouchers (e.g. invoices, creditnotes). For the lexoffice API, write access is currently restricted to sales vouchers, while purchase vouchers can be read.</p>
 
@@ -9506,6 +11094,8 @@ However, certain European regions require divergent tax handling, despite being 
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>10.08.2021 - Added new filter to search the <a href="#voucherlist-endpoint">voucherlist</a> by contact id and various date ranges, and extended the result set by attributes <code>createdDate</code>, <code>updatedDate</code> and <code>contactId</code>.</li>
+<li>20.07.2021 - Added <strong>new endpoints <a href="#delivery-notes-endpoint">delivery notes</a> and <a href="#dunnings-endpoint">dunnings</a> (GET/POST for each)</strong>. Delivery notes are accessible in the <a href="#voucherlist-endpoint">voucherlist endpoint</a>.</li>
 <li>01.07.2021 - lexoffice now supports distance sales and electronic services in the EU. This introduces the new <code>taxSubType</code> attribute in the <code>taxConditions</code> of sales voucher endpoints (e.g., <a href="#invoices-endpoint">invoices endpoint</a>, new posting category IDs for the <a href="#vouchers-endpoint">vouchers endpoint</a>, new tax rates of the EU destination countries, and various new validations for distance sales bookkeeping and sales vouchers. The new property <code>distanceSalesPrinciple</code> is now available via the <a href="#profile-endpoint">profile</a></li>
 <li>28.04.2021 - Added <code>relatedVouchers</code> attribute to quotations, order-confirmations, down-payment-invoices, invoices, and credit-notes endpoints.</li>
 <li>28.04.2021 - Enabled pursue actions for order-confirmations, invoices, and credit-notes.</li>

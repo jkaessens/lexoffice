@@ -1,4 +1,4 @@
-#![doc = "The voucherlist endpoint provides read access to meta data of (bookkeeping) [vouchers](#vouchers-endpoint) (e.g. salesinvoices, salescreditnotes), [invoices](#invoices-endpoint) (including [down payment invoices](#down-payment-invoices-endpoint)), [credit notes](#credit-notes-endpoint), [order confirmations](#order-confirmations-endpoint), and [quotations](#quotations-endpoint). For filters that can be applied to the list see below. Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints."]
+#![doc = "The voucherlist endpoint provides read access to meta data of (bookkeeping) [vouchers](#vouchers-endpoint) (e.g. salesinvoices, salescreditnotes), [invoices](#invoices-endpoint) (including [down payment invoices](#down-payment-invoices-endpoint)), [credit notes](#credit-notes-endpoint), [order confirmations](#order-confirmations-endpoint), [quotations](#quotations-endpoint), and [delivery notes](#delivery-notes-endpoint). Details concerning items from the list are accessible by id using the respective endpoint. For more information on the different voucher types refer to the documentation on the respective endpoints. The voucherlist can be searched using various filters to get only the data you need."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -36,6 +36,8 @@ impl std::str::FromStr for VoucherStatus {
 pub enum VoucherType {
     #[serde(rename = "creditnote")]
     Creditnote,
+    #[serde(rename = "deliverynote")]
+    Deliverynote,
     #[serde(rename = "downpaymentinvoice")]
     Downpaymentinvoice,
     #[serde(rename = "invoice")]
@@ -67,7 +69,7 @@ pub struct Voucherlist {
     #[doc = "Unique id of the voucher in lexoffice."]
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "Type of the voucher. Possible values are **salesinvoice**, **salescreditnote**, **purchaseinvoice**, **purchasecreditnote**, **invoice**, **downpaymentinvoice**, **creditnote**, **orderconfirmation**, and **quotation**."]
+    #[doc = "Type of the voucher. Possible values are **salesinvoice**, **salescreditnote**, **purchaseinvoice**, **purchasecreditnote**, **invoice**, **downpaymentinvoice**, **creditnote**, **orderconfirmation**, **quotation**, and **deliverynote**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub voucher_type: Option<VoucherType>,
@@ -83,6 +85,10 @@ pub struct Voucherlist {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub voucher_date: Option<crate::types::DateTime>,
+    #[doc = "Date when the voucher was created in lexoffice. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub created_date: Option<crate::types::DateTime>,
     #[doc = "Date when the voucher was last changed (or status changed) in lexoffice. Value in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
@@ -91,7 +97,11 @@ pub struct Voucherlist {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub due_date: Option<crate::types::DateTime>,
-    #[doc = "Name of the recipient or invoicing party. Further information on the contact can be retrieved by using the corresponding voucher endpoint (see below)."]
+    #[doc = "The id of an existing contact in lexoffice which is the recipient or invoicing party. Will be null for the [Collective Contact](https://developers.lexoffice.io/docs/#faq)."]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[builder(default, setter(strip_option))]
+    pub contact_id: Option<uuid::Uuid>,
+    #[doc = "Name of the recipient or invoicing party."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub contact_name: Option<String>,

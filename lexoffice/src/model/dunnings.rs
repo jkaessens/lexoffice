@@ -1,4 +1,4 @@
-#![doc = "This endpoint provides read and write access to credit notes and also the possibility to render the document as a PDF in order to download it. Credit notes can be created as a draft or finalized in open mode.\n\nWith a credit note the partial or full amount of an invoice can be refunded to a customer.\n\nA credit note may be related to an invoice but can also be standalone without any reference to an invoice. If related to an invoice, the credit note's status will immediately switch to paidoff on finalization and the open payment amount of the related invoice is either reduced or completely paid. There can only be one credit note related to an invoice. An unrelated and finalized credit note will remain in status open until the lexoffice user assigns the payment in lexoffice. Please note, that the printed document does not show the related invoice resp. the invoice number. However, to show the invoice number, it can simply be included in the header text (*introduction*).\n\nIt is possible to create credit notes with value-added tax such as of type net (*Netto*), gross (*Brutto*) or different types of vat-free. For tax-exempt organizations vat-free (*Steuerfrei*) credit notes can be created exclusively. All other vat-free tax types are only usable in combination with a referenced contact in lexoffice. For recipients within the EU these are intra-community supply (*Innergemeinschaftliche Lieferung gem. §13b UStG*), constructional services (*Bauleistungen gem. §13b UStG*) and external services (*Fremdleistungen innerhalb der EU gem. §13b UStG*). For credit notes to third countries, the tax types third party country service (*Dienstleistungen an Drittländer*) and third party country delivery (*Ausfuhrlieferungen an Drittländer*) are possible."]
+#![doc = "This endpoint provides read and write access to dunnings and also the possibility to render the document as a PDF in order to download it. Dunnings are always created in draft mode and do not need to be finalized.\n\nA dunning requires an invoice as a reference, making the `precedingSalesVoucherId` a mandatory query parameter. When creating a dunning, the contact ids of the invoice and the dunning must be equal (or both be absent, resulting in a reference to the collective customer). The name attribute in the address field is copied from the referenced invoice and will be ignored in the dunning structure. The tax conditions must match the tax conditions in the referenced invoice.\n\nDunning a down payment invoice is possible as well."]
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -64,12 +64,6 @@ impl std::str::FromStr for TaxSubType {
 pub enum VoucherStatus {
     #[serde(rename = "draft")]
     Draft,
-    #[serde(rename = "open")]
-    Open,
-    #[serde(rename = "paidoff")]
-    Paidoff,
-    #[serde(rename = "voided")]
-    Voided,
 }
 impl std::str::FromStr for VoucherStatus {
     type Err = serde_plain::Error;
@@ -77,57 +71,45 @@ impl std::str::FromStr for VoucherStatus {
         serde_plain::from_str::<Self>(s)
     }
 }
-#[doc = "```json\n{\n   \"id\":\"e9066f04-8cc7-4616-93f8-ac9ecc8479c8\",\n   \"organizationId\":\"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n   \"createdDate\":\"2019-06-17T18:32:07.480+02:00\",\n   \"updatedDate\":\"2019-06-17T18:32:07.551+02:00\",\n   \"version\":1,\n   \"language\":\"de\",\n   \"archived\":false,\n   \"voucherStatus\":\"draft\",\n   \"voucherNumber\":\"GS0007\",\n   \"voucherDate\":\"2017-02-22T00:00:00.000+01:00\",\n   \"address\":{\n      \"name\":\"Bike & Ride GmbH & Co. KG\",\n      \"supplement\":\"Gebäude 10\",\n      \"street\":\"Musterstraße 42\",\n      \"city\":\"Freiburg\",\n      \"zip\":\"79112\",\n      \"countryCode\":\"DE\"\n   },\n   \"lineItems\":[\n      {\n         \"type\":\"custom\",\n         \"name\":\"Abus Kabelschloss Primo 590 \",\n         \"description\":\"· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm\",\n         \"quantity\":2,\n         \"unitName\":\"Stück\",\n         \"unitPrice\":{\n            \"currency\":\"EUR\",\n            \"netAmount\":13.4,\n            \"grossAmount\":15.946,\n            \"taxRatePercentage\":19\n         },\n         \"lineItemAmount\":26.8\n      },\n      {\n         \"type\":\"custom\",\n         \"name\":\"Energieriegel Testpaket\",\n         \"quantity\":1,\n         \"unitName\":\"Stück\",\n         \"unitPrice\":{\n            \"currency\":\"EUR\",\n            \"netAmount\":5,\n            \"grossAmount\":5,\n            \"taxRatePercentage\":0\n         },\n         \"lineItemAmount\":5\n      }\n   ],\n   \"totalPrice\":{\n      \"currency\":\"EUR\",\n      \"totalNetAmount\":31.8,\n      \"totalGrossAmount\":36.89,\n      \"totalTaxAmount\":5.09\n   },\n   \"taxAmounts\":[\n      {\n         \"taxRatePercentage\":0,\n         \"taxAmount\":0,\n         \"netAmount\":5\n      },\n      {\n         \"taxRatePercentage\":19,\n         \"taxAmount\":5.09,\n         \"netAmount\":26.8\n      }\n   ],\n   \"taxConditions\":{\n      \"taxType\":\"net\"\n   },\n   \"relatedVouchers\":[],\n   \"title\":\"Rechnungskorrektur\",\n   \"introduction\":\"Rechnungskorrektur zur Rechnung RE-00020\",\n   \"remark\":\"Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.\",\n   \"files\":{\n      \"documentFileId\":\"a79fea19-a892-4ea9-89ad-e879946329a3\"\n   }\n}\n\n```"]
+#[doc = "```json\n{\n   \"id\":\"e9066f04-8cc7-4616-93f8-ac9ecc8479c8\",\n   \"organizationId\":\"aa93e8a8-2aa3-470b-b914-caad8a255dd8\",\n   \"createdDate\":\"2021-07-17T18:32:07.480+02:00\",\n   \"updatedDate\":\"2021-07-17T18:32:07.551+02:00\",\n   \"version\":1,\n   \"language\":\"de\",\n   \"archived\":false,\n   \"voucherStatus\":\"draft\",\n   \"voucherDate\":\"2021-07-17T00:00:00.000+01:00\",\n   \"address\":{\n      \"supplement\":\"Gebäude 10\",\n      \"street\":\"Musterstraße 42\",\n      \"city\":\"Freiburg\",\n      \"zip\":\"79112\",\n      \"countryCode\":\"DE\"\n   },\n   \"lineItems\":[\n      {\n         \"type\": \"custom\",\n         \"name\": \"Energieriegel Testpaket\",\n         \"quantity\": 1,\n         \"unitName\": \"Stück\",\n         \"unitPrice\": {\n            \"currency\": \"EUR\",\n            \"netAmount\": 5,\n            \"grossAmount\": 5.0,\n            \"taxRatePercentage\": 0.0\n         },\n         \"discountPercentage\": 0,\n         \"lineItemAmount\": 5.0\n      },\n      {\n         \"type\": \"text\",\n         \"name\": \"Strukturieren Sie Ihre Belege durch Text-Elemente.\",\n         \"description\": \"Das hilft beim Verst\\u00e4ndnis\"\n      }\n   ],\n   \"totalPrice\": {\n       \"currency\": \"EUR\",\n       \"totalNetAmount\": 5.0,\n       \"totalGrossAmount\": 5.0,\n       \"totalTaxAmount\": 0.0\n   },\n   \"taxAmounts\": [\n       {\n           \"taxRatePercentage\": 0.0,\n           \"taxAmount\": 0.0,\n           \"netAmount\": 5.0\n       }\n   ],\n   \"taxConditions\": {\n       \"taxType\": \"net\"\n   },\n   \"shippingConditions\": {\n       \"shippingDate\": \"2021-07-21T15:16:44.051+02:00\",\n       \"shippingType\": \"delivery\"\n   },\n   \"relatedVouchers\": [\n       {\n           \"id\": \"52cd26a2-ea26-11eb-a4f0-2bb179f80c5a\",\n           \"voucherNumber\": \"RE0357\",\n           \"voucherType\": \"invoice\"\n       }\n   ],\n   \"introduction\": \"Wir bitten Sie, die nachfolgend aufgelisteten Lieferungen/Leistungen unverzüglich zu begleichen.\",\n   \"remark\": \"Sollten Sie den offenen Betrag bereits beglichen haben, betrachten Sie dieses Schreiben als gegenstandslos.\",\n   \"files\": {\n       \"documentFileId\": \"4e19354c-ea26-11eb-a31f-af2d58e85357\"\n   },\n   \"title\": \"Mahnung\"\n}\n\n```"]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct CreditNote {
+pub struct Dunning {
     #[doc = "Unique id generated on creation by lexoffice.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "Unique id of the organization the credit note belongs to.   \n*Read-only.*"]
+    #[doc = "Unique id of the organization the dunning belongs to.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub organization_id: crate::marker::ReadOnly<uuid::Uuid>,
-    #[doc = "The instant of time when the credit note was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
+    #[doc = "The instant of time when the dunning was created by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub created_date: crate::marker::ReadOnly<crate::types::DateTime>,
-    #[doc = "The instant of time when the credit note was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
+    #[doc = "The instant of time when the dunning was updated by lexoffice in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub updated_date: crate::marker::ReadOnly<crate::types::DateTime>,
     #[doc = "Version *(revision)* number which will be increased on each change to handle [optimistic locking](https://developers.lexoffice.io/docs/#optimistic-locking).  \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub version: i64,
-    #[doc = "Specifies the language of the credit note which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German **de** (default) and English **en**."]
+    #[doc = "Specifies the language of the dunning which affects the print document but also set translated default text modules when no values are send (e.g. for introduction). Values accepted in ISO 639-1 code. Possible values are German **de** (default) and English **en**."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub language: Option<String>,
-    #[doc = "Specifies if the credit note is only available in the archive in lexoffice.   \n*Read-only.*"]
+    #[doc = "Specifies if the dunning is only available in the archive in lexoffice.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub archived: crate::marker::ReadOnly<bool>,
-    #[doc = "Specifies the status of the credit note. Possible values are **draft** (is editable), **open** (finalized and no longer editable but not yet paid off), **paidoff** (has been fully paid back to the customer), **voided** (cancelled)  \n*Read-only.*"]
+    #[doc = "Specifies the status of the order confirmation. The only possible status is **draft** (is editable).   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub voucher_status: crate::marker::ReadOnly<VoucherStatus>,
-    #[doc = "The specific number a credit note is aware of. This consecutive number is set by lexoffice on creation.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub voucher_number: crate::marker::ReadOnly<String>,
-    #[doc = "The date of credit note in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
+    #[doc = "The date of dunning in format `yyyy-MM-ddTHH:mm:ss.SSSXXX` as described in RFC 3339/ISO 8601 (e.g. *2020-02-21T00:00:00.000+01:00*)."]
     #[builder(setter(into))]
     pub voucher_date: crate::types::DateTime,
-    #[doc = "The address of the credit note recipient. For details see below."]
+    #[doc = "The address of the dunning recipient. For details see below."]
     #[builder(setter(into))]
     pub address: Address,
-    #[doc = "The items of the credit note. For details see below."]
+    #[doc = "The items of the dunning. For details see below."]
     #[builder(setter(into))]
     pub line_items: Vec<LineItems>,
-    #[doc = "The total price of the credit note. For details see below."]
-    #[builder(setter(into))]
-    pub total_price: TotalPrice,
-    #[doc = "The tax amounts for each tax rate. Please note: As done with every read-only element or object all submitted content (POST) will be ignored. For details see below.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub tax_amounts: crate::marker::ReadOnly<Vec<TaxAmounts>>,
-    #[doc = "The tax conditions of the credit note. For details see below."]
-    #[builder(setter(into))]
-    pub tax_conditions: TaxConditions,
     #[doc = "The related vouchers of the invoice. *Read-only.*"]
     #[builder(default, setter(skip))]
     pub related_vouchers: crate::marker::ReadOnly<Vec<RelatedVouchers>>,
@@ -135,7 +117,7 @@ pub struct CreditNote {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub title: Option<String>,
-    #[doc = "(Optional) An introductory text / header. The organization's default is used if no value was send. **We recommended to include the invoice number in the header when the credit note is related to an invoice.**"]
+    #[doc = "(Optional) An introductory text / header. The organization's default is used if no value was send. **We recommended to include the invoice number in the header when the dunning is related to an invoice.**"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub introduction: Option<String>,
@@ -143,25 +125,25 @@ pub struct CreditNote {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub remark: Option<String>,
-    #[doc = "The document id for the PDF version of the credit note. For details see below.   \n*Read-only.*"]
+    #[doc = "The document id for the PDF version of the dunning. For details see below.   \n*Read-only.*"]
     #[builder(default, setter(skip))]
     pub files: crate::marker::ReadOnly<Files>,
 }
-impl crate::request::HasId for CreditNote {
+impl crate::request::HasId for Dunning {
     fn id(&self) -> &crate::marker::ReadOnly<uuid::Uuid> {
         &self.id
     }
 }
-#[doc = "There are two main options to address the recipient of a credit note. First, using an existing lexoffice contact or second, creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific credit note. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the [contacts endpoint](https://developers.lexoffice.io/docs/#contacts-endpoint).\n\nOtherwise, a **new address** for the credit note recipient can be created. That type of address is called a \"one-time address\". A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new credit note.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
+#[doc = "There are two main options to address the recipient of a dunning. First, using an existing lexoffice contact or second, creating a new address.\n\nFor **referencing an existing contact** it is only necessary to provide the UUID of that contact. Usually the billing address is used (for delivery notes, the shipping address will be preferred). Additionally, the referenced address can also be modified for this specific dunning. This can be done by setting all required address fields and this deviated address will not be stored back to the lexoffice contacts.\n\nThe referenced contact needs to have the role customer. For more information please refer to the [contacts endpoint](https://developers.lexoffice.io/docs/#contacts-endpoint).\n\nOtherwise, a **new address** for the dunning recipient can be created. That type of address is called a \"one-time address\". A one-time address will not create a new contact in lexoffice. For instance, this could be useful when it is not needed to create a contact in lexoffice for each new dunning.\n\nPlease get in touch with us if you are not sure which option fits your use case best."]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Address {
-    #[doc = "If the credit note recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact."]
+    #[doc = "If the dunning recipient is (optionally) registered as a contact in lexoffice, this field specifies the related id of the contact."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub contact_id: Option<uuid::Uuid>,
-    #[doc = "The name of the credit note recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}."]
+    #[doc = "The name of the dunning recipient. To use an existing contact of an individual person, provide the name in the format {firstname} {lastname}."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub name: Option<String>,
@@ -246,54 +228,12 @@ pub struct UnitPrice {
     #[builder(setter(into))]
     pub tax_rate_percentage: f64,
 }
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
-#[builder(doc)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct TotalPrice {
-    #[doc = "The currency of the total price. Currently only **EUR** is supported."]
-    #[builder(setter(into))]
-    pub currency: crate::types::Currency,
-    #[doc = "The total net price over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub total_net_amount: crate::marker::ReadOnly<f64>,
-    #[doc = "The total gross price over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub total_gross_amount: crate::marker::ReadOnly<f64>,
-    #[doc = "The total tax amount over all line items. The value can contain up to 2 decimals.   \n*Read-only.*"]
-    #[builder(default, setter(skip))]
-    pub total_tax_amount: crate::marker::ReadOnly<f64>,
-    #[doc = "(Optional) A total discount as absolute value. The value can contain up to 2 decimals."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub total_discount_absolute: Option<f64>,
-    #[doc = "(Optional) A total discount relative to the gross amount or net amount dependent on the given tax conditions. A contact-specific default will be set if available and no total discount was send. The value can contain up to 2 decimals."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub total_discount_percentage: Option<f64>,
-}
-#[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
-#[builder(doc)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct TaxAmounts {
-    #[doc = "Tax rate as percentage value. See [the \"Supported tax rates\" FAQ](https://developers.lexoffice.io/docs/#faq-valid-tax-rates) for more information and a list of possible values.."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub tax_rate_percentage: Option<f64>,
-    #[doc = "The total tax amount for this tax rate. The value can contain up to 2 decimals."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub tax_amount: Option<f64>,
-    #[doc = "The total net amount for this tax rate. The value can contain up to 2 decimals."]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[builder(default, setter(strip_option))]
-    pub net_amount: Option<f64>,
-}
 #[doc = "```json\n\"taxConditions\": {\n    \"taxType\": \"constructionService13b\",\n    \"taxTypeNote\": \"Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge)\"\n}\n\n```"]
 #[derive(Debug, Clone, PartialEq, TypedBuilder, Serialize, Deserialize)]
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TaxConditions {
-    #[doc = "The tax type for the credit note. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
+    #[doc = "The tax type for the dunning. Possible values are **net**, **gross**, **vatfree** (*Steuerfrei*), **intraCommunitySupply** (*Innergemeinschaftliche Lieferung gem. §13b UStG*), **constructionService13b** (*Bauleistungen gem. §13b UStG*), **externalService13b** (*Fremdleistungen innerhalb der EU gem. §13b UStG*), **thirdPartyCountryService** (*Dienstleistungen an Drittländer*), and **thirdPartyCountryDelivery** (*Ausfuhrlieferungen an Drittländer*)"]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub tax_type: Option<TaxType>,
@@ -331,7 +271,7 @@ impl crate::request::HasId for RelatedVouchers {
 #[builder(doc)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Files {
-    #[doc = "The id of the credit note PDF. The PDF will be created when the credit note turns from **draft** into status **open** or **paidoff**. To download the credit note PDF file please use the files endpoint."]
+    #[doc = "The id of the order confirmation PDF. To download the order confirmation PDF file please use the files endpoint."]
     #[serde(skip_serializing_if = "Option::is_none")]
     #[builder(default, setter(strip_option))]
     pub document_file_id: Option<uuid::Uuid>,

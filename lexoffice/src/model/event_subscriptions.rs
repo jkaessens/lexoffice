@@ -26,6 +26,15 @@ pub enum EventType {
     #[doc = "The status of a credit note has changed. Update the credit note by calling the [credit notes endpoint](https://developers.lexoffice.io/docs/#credit-notes-endpoint) to retrieve the new status."]
     #[serde(rename = "credit-note.status.changed")]
     CreditNoteStatusChanged,
+    #[doc = "A delivery note has changed. Get the updated delivery note by calling the [delivery note endpoint](https://developers.lexoffice.io/docs/#delivery-notes-endpoint)."]
+    #[serde(rename = "delivery-note.changed")]
+    DeliveryNoteChanged,
+    #[doc = "A new delivery note was created in lexoffice. Get the new delivery note by calling the [delivery note endpoint](https://developers.lexoffice.io/docs/#delivery-notes-endpoint)."]
+    #[serde(rename = "delivery-note.created")]
+    DeliveryNoteCreated,
+    #[doc = "A delivery note was deleted in lexoffice."]
+    #[serde(rename = "delivery-note.deleted")]
+    DeliveryNoteDeleted,
     #[doc = "A down payment invoice has changed. Get the updated down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint). Please note that the status may also have changed."]
     #[serde(rename = "down-payment-invoice.changed")]
     DownPaymentInvoiceChanged,
@@ -38,6 +47,15 @@ pub enum EventType {
     #[doc = "The status of a down payment invoice has changed. Update the down payment invoice by calling the [down payment invoices endpoint](https://developers.lexoffice.io/docs/#down-payment-invoices-endpoint) to retrieve the new status."]
     #[serde(rename = "down-payment-invoice.status.changed")]
     DownPaymentInvoiceStatusChanged,
+    #[doc = "A dunning has changed. Get the updated dunning by calling the [dunning endpoint](https://developers.lexoffice.io/docs/#dunnings-endpoint)."]
+    #[serde(rename = "dunning.changed")]
+    DunningChanged,
+    #[doc = "A new dunning was created in lexoffice. Get the new dunning by calling the [dunning endpoint](https://developers.lexoffice.io/docs/#dunnings-endpoint)."]
+    #[serde(rename = "dunning.created")]
+    DunningCreated,
+    #[doc = "A dunning was deleted in lexoffice."]
+    #[serde(rename = "dunning.deleted")]
+    DunningDeleted,
     #[doc = "An invoice has changed. Get the updated invoice by calling the [invoices endpoint](https://developers.lexoffice.io/docs/#invoices-endpoint). Please note that the status may also have changed."]
     #[serde(rename = "invoice.changed")]
     InvoiceChanged,
@@ -62,7 +80,7 @@ pub enum EventType {
     #[doc = "The status of an order confirmation has changed. Update the order confirmation by calling the [order confirmations endpoint](https://developers.lexoffice.io/docs/#order-confirmations-endpoint) to retrieve the new status. **Please note that at this time there are no status transitions triggering the status changed event for order confirmations. This event solely exists to provide symmetric events for all voucher types.**"]
     #[serde(rename = "order-confirmation.status.changed")]
     OrderConfirmationStatusChanged,
-    #[doc = "The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the [payments endpoint](https://developers.lexoffice.io/docs/#payments-endpoint) or the respective resource endpoints to retrieve further informaton about the payment status of the resource"]
+    #[doc = "The payment of a bookkeeping or sales voucher has changed due to a manual payment or a transaction assignment. Please use the [payments endpoint](https://developers.lexoffice.io/docs/#payments-endpoint) or the respective resource endpoints to retrieve further information about the payment status of the resource. **Please note that this event will also be triggered when changing the status of invoices and credit notes from open to draft. Requesting payments of draft vouchers using the [payments endpoint](https://developers.lexoffice.io/docs/#payments-endpoint) will result in 406 HTTP status codes. This is not an error condition.**"]
     #[serde(rename = "payment.changed")]
     PaymentChanged,
     #[doc = "A quotation has changed. Get the updated quotation by calling the [quotations endpoint](https://developers.lexoffice.io/docs/#quotations-endpoint). Please note that the status may also have changed."]
