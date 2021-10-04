@@ -9789,7 +9789,7 @@ The voucherlist can be searched using various filters to get only the data you n
 
 <aside class="notice">The status <strong>overdue</strong> can not be filtered in combination with other status filters.</aside>
 
-<aside class="notice">Since status <strong>overdue</strong> is a transient status, it can also be returned when filtered for vouchers with status <strong>open</strong> and the voucher's duedate is in the past.</aside>
+<aside class="notice">Since status <strong>overdue</strong> is a transient status, it can also be returned when filtered for vouchers with status <strong>open</strong> or <strong>sepadebit</strong> where the voucher's duedate is in the past.</aside>
 
 <table><thead>
 <tr>
@@ -9807,7 +9807,7 @@ The voucherlist can be searched using various filters to get only the data you n
 </tr>
 <tr>
 <td style="text-align: right">overdue</td>
-<td>Voucher is <strong>open</strong> and <strong>dueDate</strong> is in the past.</td>
+<td>Voucher is <strong>open</strong>/<strong>sepadebit</strong> and <strong>dueDate</strong> is in the past.</td>
 </tr>
 <tr>
 <td style="text-align: right">paid</td>
