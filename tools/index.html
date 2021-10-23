@@ -285,7 +285,7 @@
     <link rel="Shortcut Icon" href="../images/lexoffice-17833bf0.ico">
     <link href="../stylesheets/screen-5b698eec.css" rel="stylesheet" media="screen" />
     <link href="../stylesheets/print-3ecb0766.css" rel="stylesheet" media="print" />
-      <script src="../javascripts/all-e033bdd3.js"></script>
+      <script src="../javascripts/all-b12a2749.js"></script>
 
 
     <!-- Google Tag Manager -->
@@ -800,7 +800,7 @@
 
 <p>The lexoffice API endpoints are exposed by a gateway located at <a href="https://api.lexoffice.io" target="_blank" style="font-weight:bold">https://api.lexoffice.io</a>. In the request examples throughout this documentation, we use placeholder variables {appbaseurl} to refer to the lexoffice application url, {resourceurl} to refer to the resource urls of the lexoffice API endpoints and {accessToken} to refer to the API key. We also use access token and API key interchangeably.</p>
 
-<p>Users of the lexoffice API can generate their private API key at <a href="https://app.lexoffice.de/settings/#/public-api" target="_blank">https://app.lexoffice.de/settings/#/public-api</a>.</p>
+<p>Users of the lexoffice API can generate their private API key at <a href="https://app.lexoffice.de/addons/public-api" target="_blank">https://app.lexoffice.de/addons/public-api</a>.</p>
 
 <p>Additionally to this reference documentation, various <a href="../cookbooks/">cookbooks – lexoffice API Kochbücher</a> – are available in German. They describe the concepts of aspects of the API from a high level perspective and are helpful as recipes for the implementation of lexoffice integrations.</p>
 <h1 id='contacts-endpoint'>Contacts Endpoint</h1><h2 id='contacts-endpoint-purpose'>Purpose</h2>
@@ -3216,8 +3216,6 @@ The recommended process is highlighted in blue. If the pursue action is not vali
 <p>To download the pdf file of a delivery note document, you need its <strong>documentFileId</strong>. This id is usually returned by the delivery note resource. However, newly created delivery notes via the API have to trigger the pdf document file rendering separately. This can be done with this endpoint.</p>
 
 <p>The returned <em>documentFileId</em> can be used to download the delivery note pdf document via the (<a href="#files-endpoint">Files Endpoint</a>).</p>
-
-<aside class="warning">For delivery notes in draft mode there does not exist a document file in lexoffice. Any request attempts are rejected with 406 responses.</aside>
 <h2 id='delivery-notes-endpoint-deeplink-to-a-delivery-note'>Deeplink to a Delivery Note</h2>
 <p>Delivery notes can be directly accessed by permanent HTTPS links to either be viewed or to be edited. If a delivery note is not allowed to be edited, a redirection to the view page takes place.
 In case the given <code>id</code> does not exist, a redirection to the main voucher list takes place.</p>
@@ -10949,7 +10947,7 @@ and click on &quot;Kostenlos registrieren&quot;. The signup only requires email 
 <aside class="notice">The created account can be used free within 30 days and has all available features. You can create as many accounts as you need.</aside>
 <h2 id='faq-get-an-api-key'>Get an API key</h2>
 <p>After signing up for lexoffice,
-users can generate their private API key at <a href="https://app.lexoffice.de/settings/#/public-api" target="_blank">https://app.lexoffice.de/settings/#/public-api</a>.</p>
+users can generate their private API key at <a href="https://app.lexoffice.de/addons/public-api" target="_blank">https://app.lexoffice.de/addons/public-api</a>.</p>
 <h2 id='faq-gathering-organization-id'>Gathering organization id</h2>
 <p>You can get the organization id of your lexoffice account via browser console <em>(open via F12)</em> using the following command:</p>
 
@@ -11094,6 +11092,7 @@ However, certain European regions require divergent tax handling, despite being 
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>13.10.2021 - The URL for creation of public API keys <a href="#faq-get-an-api-key">has changed</a></li>
 <li>10.08.2021 - Added new filter to search the <a href="#voucherlist-endpoint">voucherlist</a> by contact id and various date ranges, and extended the result set by attributes <code>createdDate</code>, <code>updatedDate</code> and <code>contactId</code>.</li>
 <li>20.07.2021 - Added <strong>new endpoints <a href="#delivery-notes-endpoint">delivery notes</a> and <a href="#dunnings-endpoint">dunnings</a> (GET/POST for each)</strong>. Delivery notes are accessible in the <a href="#voucherlist-endpoint">voucherlist endpoint</a>.</li>
 <li>01.07.2021 - lexoffice now supports distance sales and electronic services in the EU. This introduces the new <code>taxSubType</code> attribute in the <code>taxConditions</code> of sales voucher endpoints (e.g., <a href="#invoices-endpoint">invoices endpoint</a>, new posting category IDs for the <a href="#vouchers-endpoint">vouchers endpoint</a>, new tax rates of the EU destination countries, and various new validations for distance sales bookkeeping and sales vouchers. The new property <code>distanceSalesPrinciple</code> is now available via the <a href="#profile-endpoint">profile</a></li>
