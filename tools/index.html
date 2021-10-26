@@ -9536,7 +9536,7 @@ The voucherlist can be searched using various filters to get only the data you n
 </tr>
 </tbody></table>
 <h2 id='voucherlist-endpoint-retrieve-and-filter-voucherlist'>Retrieve and Filter Voucherlist</h2>
-<p>It is possible to filter vouchers by voucherType, voucherStatus and the archived flag.</p>
+<p>Vouchers can be filtered by various attributes, such as voucherType, voucherStatus, the archived flag, various relevant dates, and the voucher number.</p>
 
 <blockquote>
 <p>Sample Request</p>
@@ -9620,7 +9620,8 @@ The voucherlist can be searched using various filters to get only the data you n
 </span></code></pre></div>
 <p><code>GET {resourceurl}/v1/voucherlist?{voucherType}&amp;{voucherStatus}[&amp;filter_1=value_1...&amp;filter_n=value_n]</code></p>
 
-<p>Returns a <a href="#paging-of-resources">page</a> with meta data on all vouchers of type <code>voucherType</code>, status <code>voucherStatus</code> and marked as archived <code>archived</code>.</p>
+<p>Returns a <a href="#paging-of-resources">page</a> of meta data for all vouchers matching the given filter parameters. Filters <code>voucherType</code> and status <code>voucherStatus</code> are mandatory,
+all other parameters are optional.</p>
 
 <p><strong>Filter Parameters</strong></p>
 
@@ -9680,6 +9681,11 @@ The voucherlist can be searched using various filters to get only the data you n
 <td style="text-align: right">updatedDateTo<br><code>date</code></td>
 <td>no</td>
 <td>The date the voucher was lastly modified in format <code>yyyy-MM-dd</code>(e.g. <em>2020-02-21</em>). References a full day in CET/CEST 0:00-23:59:59</td>
+</tr>
+<tr>
+<td style="text-align: right">voucherNumber<br><code>string</code></td>
+<td>no</td>
+<td>The voucher&#39;s voucher number</td>
 </tr>
 </tbody></table>
 
@@ -10200,6 +10206,8 @@ by an external system.</p>
 <p>Required properties are the same as described in the <a href="#vouchers-endpoint-create-a-voucher">Create a Voucher</a> section.</p>
 <h2 id='vouchers-endpoint-filtering-vouchers'>Filtering Vouchers</h2>
 <p>It&#39;s possible to filter vouchers by voucherNumber.</p>
+
+<aside class="warning">This filter endpoint is deprecated and should not be used. Please filter vouchers by accessing the <a href="#voucherlist-endpoint">voucherlist endpoint</a> instead.</aside>
 
 <blockquote>
 <p>Sample Request</p>
@@ -11092,6 +11100,7 @@ However, certain European regions require divergent tax handling, despite being 
 <p><strong>API Changes</strong></p>
 
 <ul>
+<li>25.10.2021 - The <a href="#voucherlist-endpoint">voucherlist endpoint</a> can now filter by voucher number; filtering in the <a href="#vouchers-endpoint-filtering-vouchers">voucher endpoint</a> is deprecated</li>
 <li>13.10.2021 - The URL for creation of public API keys <a href="#faq-get-an-api-key">has changed</a></li>
 <li>10.08.2021 - Added new filter to search the <a href="#voucherlist-endpoint">voucherlist</a> by contact id and various date ranges, and extended the result set by attributes <code>createdDate</code>, <code>updatedDate</code> and <code>contactId</code>.</li>
 <li>20.07.2021 - Added <strong>new endpoints <a href="#delivery-notes-endpoint">delivery notes</a> and <a href="#dunnings-endpoint">dunnings</a> (GET/POST for each)</strong>. Delivery notes are accessible in the <a href="#voucherlist-endpoint">voucherlist endpoint</a>.</li>

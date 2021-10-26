@@ -5,6 +5,7 @@ use crate::request::impls::Paginated;
 use crate::request::Endpoint;
 use crate::request::Request;
 use crate::request::RequestWithState;
+use crate::types::Date;
 use std::marker::PhantomData;
 
 // Not implementing the into trait here as this mustn't be public.
@@ -50,6 +51,108 @@ impl RequestWithState<Voucherlist, VoucherlistStateUnstarted> {
     ) -> RequestWithState<Voucherlist, VoucherlistState<(), VoucherStatus>>
     {
         into::<_, (), ()>(self).status(voucher_status)
+    }
+}
+
+impl<T: Clone, S: Clone> RequestWithState<Voucherlist, VoucherlistState<T, S>> {
+    /// Filter out all voucher dates before `voucher_date_from`
+    pub fn voucher_date_from(
+        mut self,
+        voucher_date_from: &Date,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "voucherDateFrom",
+            &serde_plain::to_string(voucher_date_from).unwrap(),
+        );
+        into(self)
+    }
+    /// Filter out all voucher dates after `voucher_date_to`
+    pub fn voucher_date_to(
+        mut self,
+        voucher_date_to: &Date,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "voucherDateTo",
+            &serde_plain::to_string(voucher_date_to).unwrap(),
+        );
+        into(self)
+    }
+    /// Filter out all created dates before `created_date_from`
+    pub fn created_date_from(
+        mut self,
+        created_date_from: &Date,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "createdDateFrom",
+            &serde_plain::to_string(created_date_from).unwrap(),
+        );
+        into(self)
+    }
+    /// Filter out all created dates after `created_date_to`
+    pub fn created_date_to(
+        mut self,
+        created_date_to: &Date,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "createdDateTo",
+            &serde_plain::to_string(created_date_to).unwrap(),
+        );
+        into(self)
+    }
+    /// Filter out all updated dates before `updated_date_from`
+    pub fn updated_date_from(
+        mut self,
+        updated_date_from: &Date,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "updatedDateFrom",
+            &serde_plain::to_string(updated_date_from).unwrap(),
+        );
+        into(self)
+    }
+    /// Filter out all updated dates after `updated_date_to`
+    pub fn updated_date_to(
+        mut self,
+        updated_date_to: &Date,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "updatedDateTo",
+            &serde_plain::to_string(updated_date_to).unwrap(),
+        );
+        into(self)
+    }
+    /// Filter by the voucher number
+    pub fn voucher_number(
+        mut self,
+        voucher_number: &str,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url
+            .query_pairs_mut()
+            .append_pair("voucherNumber", voucher_number);
+        into(self)
+    }
+
+    /// Filter by the contact ID
+    pub fn contact_id(
+        mut self,
+        contact_id: &uuid::Uuid,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "contactId",
+            &serde_plain::to_string(contact_id).unwrap(),
+        );
+        into(self)
+    }
+    /// Filter by the archived flag
+    pub fn archived(
+        mut self,
+        archived: bool,
+    ) -> RequestWithState<Voucherlist, VoucherlistState<T, VoucherStatus>> {
+        self.url.query_pairs_mut().append_pair(
+            "archived",
+            &serde_plain::to_string(&archived).unwrap(),
+        );
+        into(self)
     }
 }
 
